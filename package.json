@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@types/redux-logger": "^3.0.9",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "eslint": "^7.32.0"
   }
 }

@@ -1,37 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
-import {
-  getPendingSelector,
-  getTodosSelector,
-  getErrorSelector,
-} from "./store/user/selectors";
-import { fetchTodoRequest } from "./store/user/actions";
+import { CustomRouter } from "./components/CustomRouter";
+import { Header } from "./components/Header";
+import { AppContainer } from "./components/Containers/AppContainer";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const pending = useSelector(getPendingSelector);
-  const todos = useSelector(getTodosSelector);
-  const error = useSelector(getErrorSelector);
-
-  useEffect(() => {
-    dispatch(fetchTodoRequest());
-  }, []);
-
   return (
-    <div style={{ padding: "15px" }}>
-      {pending ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div>Error</div>
-      ) : (
-        todos.map((todo, index) => (
-          <div style={{ marginBottom: "10px" }} key={todo.id}>
-            {++index}. {todo.title}
-          </div>
-        ))
-      )}
-    </div>
+    <AppContainer>
+      <Header/>
+      <CustomRouter/>
+    </AppContainer>
   );
 };
 
