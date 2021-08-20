@@ -12,7 +12,6 @@ const initialState: TodoState = {
   error: null,
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action: TodoActions) => {
   switch (action.type) {
     case FETCH_TODO_REQUEST:
