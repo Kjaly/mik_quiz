@@ -5,10 +5,16 @@ export const StyledHeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  `
+`
 
-export const StyledNavList = styled.div``
+export const StyledNavWrapper = styled.div`
+  flex: .5;
+`
 export const StyledAuthList = styled.div`
   display: flex;
-  
+  flex: .5;
+  justify-content: flex-end;
+  > div {
+    margin-right: 20px;
+  }
 `

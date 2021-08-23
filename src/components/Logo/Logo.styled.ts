@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
 export const StyledLogo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 export const StyledTitle = styled.p`
   font-weight: 700;
@@ -10,6 +14,6 @@ export const StyledTitle = styled.p`
   font-family: 'Montserrat', sans-serif;`
 
 export const StyledSubtitle = styled(StyledTitle)`
-  font-size: 10px;
+  font-size: 11px;
   text-transform: lowercase;
 `
