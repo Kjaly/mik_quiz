@@ -4,14 +4,13 @@ import {
   StyledAuthList
 } from './Header.styled'
 import { Button } from "../Button";
+import { Nav } from "../Nav";
 
 export const Header: React.FC = (props) => {
   const {} = props
   return (
     <StyledHeaderWrapper>
-      <StyledNavList>
-
-      </StyledNavList>
+      <Nav/>
       <StyledAuthList>
         <Button title={'Войти'} onClick={() => {
           console.log('Логин')

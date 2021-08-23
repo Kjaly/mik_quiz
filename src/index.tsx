@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
+import './assets/fonts/Montserrat/Montserrat-Bold.ttf';
 
 import "./index.css";
 import store from "./store";
