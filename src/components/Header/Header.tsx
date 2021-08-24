@@ -1,22 +1,28 @@
 import React from 'react';
 import {
-  StyledHeaderWrapper, StyledNavList,
+  StyledHeaderWrapper, StyledNavWrapper,
   StyledAuthList
 } from './Header.styled'
 import { Button } from "../Button";
+import { Nav } from "../Nav";
+import { IconLock } from "../../Icons/IconLock";
 
 export const Header: React.FC = (props) => {
   const {} = props
   return (
     <StyledHeaderWrapper>
-      <StyledNavList>
-
-      </StyledNavList>
+      <StyledNavWrapper>
+        <Nav/>
+      </StyledNavWrapper>
       <StyledAuthList>
-        <Button title={'Войти'} onClick={() => {
+        <Button
+          // icon={IconLock}
+          background={'#3D4F87'}
+          title={'Войти'}
+          onClick={() => {
           console.log('Логин')
         }}/>
-        <Button title={'Регистрация'} onClick={() => {
+        <Button background={'#FFB801'} title={'Регистрация'} onClick={() => {
           console.log('Регистрация')
         }}/>
       </StyledAuthList>

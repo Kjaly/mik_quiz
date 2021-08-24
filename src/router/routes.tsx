@@ -1,7 +1,7 @@
 import { RenderRoutes } from "./RenderRoutes";
 
 export const ROUTES = [
-  { path: "/", key: "ROOT", exact: true, component: () => <h1>Log in</h1> },
+  { path: "/", key: "ROOT", exact: true, component: () => <h1>Home Page</h1> },
   {
     path: "/app",
     key: "APP",
