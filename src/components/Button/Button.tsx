@@ -8,15 +8,18 @@ interface IButtonProps {
   title: string,
   onClick: () => void,
   background?: string,
-  icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  icon?: React.ElementType;
 }
 
 export const Button: React.FC<IButtonProps> = (props) => {
   const {title, onClick, background, icon} = props
-  const Icon: ((props: React.SVGProps<SVGSVGElement>) => JSX.Element) | undefined = icon;
+  const Icon = icon;
   return (
     <StyledButton onClick={onClick} background={background}>
-      {Icon && <StyledIcon><Icon/></StyledIcon>}
+      {Icon &&
+      <StyledIcon>
+        <Icon/>
+      </StyledIcon>}
       <StyledTitle>{title}</StyledTitle>
     </StyledButton>
   );

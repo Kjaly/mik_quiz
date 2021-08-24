@@ -2,13 +2,13 @@ import { createSelector } from "reselect";
 
 import { AppState } from "../rootReducer";
 
-const getPending = (state: AppState) => state.todo.pending;
+const getPending = (state: AppState) => state.user.pending;
 
-const getTodos = (state: AppState) => state.todo.todos;
+const getUsers = (state: AppState) => state.user.users;
 
-const getError = (state: AppState) => state.todo.error;
+const getError = (state: AppState) => state.user.error;
 
-export const getTodosSelector = createSelector(getTodos, (todos) => todos);
+export const getUsersSelector = createSelector(getUsers, (users) => users);
 
 export const getPendingSelector = createSelector(
   getPending,

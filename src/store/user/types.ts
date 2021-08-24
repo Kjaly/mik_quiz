@@ -1,45 +1,45 @@
 import {
-  FETCH_TODO_REQUEST,
-  FETCH_TODO_SUCCESS,
-  FETCH_TODO_FAILURE,
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
 } from "./actionTypes";
 
-export interface ITodo {
+export interface IUser {
   userId: number;
   id: number;
   title: string;
   completed: boolean;
 }
 
-export interface TodoState {
+export interface UserState {
   pending: boolean;
-  todos: ITodo[];
+  users: IUser[];
   error: string | null;
 }
 
-export interface FetchTodoSuccessPayload {
-  todos: ITodo[];
+export interface FetchUserSuccessPayload {
+  users: IUser[];
 }
 
-export interface FetchTodoFailurePayload {
+export interface FetchUserFailurePayload {
   error: string;
 }
 
-export interface FetchTodoRequest {
-  type: typeof FETCH_TODO_REQUEST;
+export interface FetchUserRequest {
+  type: typeof FETCH_USER_REQUEST;
 }
 
-export type FetchTodoSuccess = {
-  type: typeof FETCH_TODO_SUCCESS;
-  payload: FetchTodoSuccessPayload;
+export type FetchUserSuccess = {
+  type: typeof FETCH_USER_SUCCESS;
+  payload: FetchUserSuccessPayload;
 };
 
-export type FetchTodoFailure = {
-  type: typeof FETCH_TODO_FAILURE;
-  payload: FetchTodoFailurePayload;
+export type FetchUserFailure = {
+  type: typeof FETCH_USER_FAILURE;
+  payload: FetchUserFailurePayload;
 };
 
-export type TodoActions =
-  | FetchTodoRequest
-  | FetchTodoSuccess
-  | FetchTodoFailure;
+export type UserActions =
+  | FetchUserRequest
+  | FetchUserSuccess
+  | FetchUserFailure;

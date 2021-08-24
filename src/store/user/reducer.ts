@@ -1,36 +1,36 @@
 import {
-  FETCH_TODO_REQUEST,
-  FETCH_TODO_SUCCESS,
-  FETCH_TODO_FAILURE,
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
 } from "./actionTypes";
 
-import { TodoActions, TodoState } from "./types";
+import { UserActions, UserState } from "./types";
 
-const initialState: TodoState = {
+const initialState: UserState = {
   pending: false,
-  todos: [],
+  users: [],
   error: null,
 };
 
-export default (state = initialState, action: TodoActions) => {
+export default (state = initialState, action: UserActions) => {
   switch (action.type) {
-    case FETCH_TODO_REQUEST:
+    case FETCH_USER_REQUEST:
       return {
         ...state,
         pending: true,
       };
-    case FETCH_TODO_SUCCESS:
+    case FETCH_USER_SUCCESS:
       return {
         ...state,
         pending: false,
-        todos: action.payload.todos,
+        users: action.payload.users,
         error: null,
       };
-    case FETCH_TODO_FAILURE:
+    case FETCH_USER_FAILURE:
       return {
         ...state,
         pending: false,
-        todos: [],
+        users: [],
         error: action.payload.error,
       };
     default:

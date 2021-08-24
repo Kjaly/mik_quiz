@@ -8,7 +8,6 @@ import { rootSaga } from "./rootSaga";
 // Create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-console.log(1);
 // Mount it on the Store
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
 
