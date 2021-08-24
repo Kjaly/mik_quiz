@@ -1,4 +1,5 @@
 import React from "react";
+import 'swiper/swiper-bundle.css';
 
 import { RenderRoutes } from "./router/RenderRoutes";
 import { Header } from "./components/Header";

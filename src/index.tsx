@@ -10,7 +10,7 @@ import './assets/fonts/Montserrat/Montserrat-Bold.ttf';
 import "./index.css";
 import store from "./store";
 import App from "./App";
-import { theme } from "./theme/theme";
+import { theme } from "./theme";
 import { GlobalStyles } from "./theme/globalTheme";
 import { history } from "./store/rootReducer";
 

@@ -1,18 +1,10 @@
 import styled from "styled-components";
 
-export const StyledFooterContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  max-width: 1520px;
+export const StyledFooterBackground = styled.div`
   width: 100%;
-  height: 328px;
   background: ${({theme}) => theme.color.blue};
-  z-index: 0;
 `
 export const StyledFooterWrapper = styled.div`
-  position: relative;
-  z-index: 1;
   width: 100%;
   padding: 95px 0;
 `
