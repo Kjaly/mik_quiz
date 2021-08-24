@@ -8,7 +8,10 @@ export const StyledHeaderWrapper = styled.div`
 `
 
 export const StyledNavWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   flex: .5;
+  
 `
 export const StyledAuthList = styled.div`
   display: flex;

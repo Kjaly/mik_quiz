@@ -1,28 +1,28 @@
 import axios from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import { fetchTodoFailure, fetchTodoSuccess } from "./actions";
-import { FETCH_TODO_REQUEST } from "./actionTypes";
-import { ITodo } from "./types";
+import { fetchUserFailure, fetchUserSuccess } from "./actions";
+import { FETCH_USER_REQUEST } from "./actionTypes";
+import { IUser } from "./types";
 
-const getTodos = () =>
-  axios.get<ITodo[]>("https://jsonplaceholder.typicode.com/todos");
+const getUsers = () =>
+  axios.get<IUser[]>("https://jsonplaceholder.typicode.com/users");
 
 /*
-  Worker Saga: Fired on FETCH_TODO_REQUEST action
+  Worker Saga: Fired on FETCH_USER_REQUEST action
 */
-function* fetchTodoSaga() {
+function* fetchUserSaga() {
   try {
     // @ts-ignore
-    const response = yield call(getTodos);
+    const response = yield call(getUsers);
     yield put(
-      fetchTodoSuccess({
-        todos: response.data,
+      fetchUserSuccess({
+        users: response.data,
       })
     );
   } catch (e) {
     yield put(
-      fetchTodoFailure({
+      fetchUserFailure({
         error: e.message,
       })
     );
@@ -30,11 +30,11 @@ function* fetchTodoSaga() {
 }
 
 /*
-  Starts worker saga on latest dispatched `FETCH_TODO_REQUEST` action.
+  Starts worker saga on latest dispatched `FETCH_USER_REQUEST` action.
   Allows concurrent increments.
 */
-function* todoSaga() {
-  yield all([takeLatest(FETCH_TODO_REQUEST, fetchTodoSaga)]);
+function* userSaga() {
+  yield all([takeLatest(FETCH_USER_REQUEST, fetchUserSaga)]);
 }
 
-export default todoSaga;
+export default userSaga;

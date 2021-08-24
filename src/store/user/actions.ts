@@ -1,30 +1,30 @@
 import {
-  FETCH_TODO_REQUEST,
-  FETCH_TODO_FAILURE,
-  FETCH_TODO_SUCCESS,
+  FETCH_USER_REQUEST,
+  FETCH_USER_FAILURE,
+  FETCH_USER_SUCCESS,
 } from "./actionTypes";
 import {
-  FetchTodoRequest,
-  FetchTodoSuccess,
-  FetchTodoSuccessPayload,
-  FetchTodoFailure,
-  FetchTodoFailurePayload,
+  FetchUserRequest,
+  FetchUserSuccess,
+  FetchUserSuccessPayload,
+  FetchUserFailure,
+  FetchUserFailurePayload,
 } from "./types";
 
-export const fetchTodoRequest = (): FetchTodoRequest => ({
-  type: FETCH_TODO_REQUEST,
+export const fetchUserRequest = (): FetchUserRequest => ({
+  type: FETCH_USER_REQUEST,
 });
 
-export const fetchTodoSuccess = (
-  payload: FetchTodoSuccessPayload
-): FetchTodoSuccess => ({
-  type: FETCH_TODO_SUCCESS,
+export const fetchUserSuccess = (
+  payload: FetchUserSuccessPayload
+): FetchUserSuccess => ({
+  type: FETCH_USER_SUCCESS,
   payload,
 });
 
-export const fetchTodoFailure = (
-  payload: FetchTodoFailurePayload
-): FetchTodoFailure => ({
-  type: FETCH_TODO_FAILURE,
+export const fetchUserFailure = (
+  payload: FetchUserFailurePayload
+): FetchUserFailure => ({
+  type: FETCH_USER_FAILURE,
   payload,
 });
