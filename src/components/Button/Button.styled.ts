@@ -7,8 +7,9 @@ interface test {
 export const StyledButton = styled.div<test>`
   display: flex;
   align-items: center;
-  padding: 20px 30px;
+  padding: 15px 30px;
   color: #fff;
+  height: 55px;
   background: ${({background}) => background};
 `
 

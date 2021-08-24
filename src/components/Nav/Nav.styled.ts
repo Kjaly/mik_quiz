@@ -5,5 +5,5 @@ export const StyledNav = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  max-width: 320px;
+  max-width: 300px;
   `
