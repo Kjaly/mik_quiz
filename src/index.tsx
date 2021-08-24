@@ -12,7 +12,7 @@ import store from "./store";
 import App from "./App";
 import { theme } from "./theme/theme";
 import { GlobalStyles } from "./theme/globalTheme";
-import {history} from "./store/rootReducer";
+import { history } from "./store/rootReducer";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +21,7 @@ ReactDOM.render(
         <ConnectedRouter history={history}>
           <BrowserRouter>
             <App/>
-          </BrowserRouter>,
+          </BrowserRouter>
         </ConnectedRouter>
         <GlobalStyles/>
       </ThemeProvider>

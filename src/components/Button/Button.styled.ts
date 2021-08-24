@@ -10,7 +10,13 @@ export const StyledButton = styled.div<test>`
   padding: 15px 30px;
   color: #fff;
   height: 55px;
+  cursor: pointer;
+  transition: all .2s ease-in;
   background: ${({background}) => background};
+  
+  :hover {
+    filter: brightness(0.9);
+  }
 `
 
 export const StyledIcon = styled.div`
