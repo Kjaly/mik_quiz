@@ -4,7 +4,7 @@ export const StyledMainSlider = styled.div`
   height: 500px;
   margin-bottom: 20px;
   width: 100%;
-  background: ${({ theme }) => theme.color.blue};
+  background: ${({theme}) => theme.color.blue};
 
 
   .swiper-container {
@@ -38,19 +38,21 @@ export const StyledMainSlider = styled.div`
 
 
   .swiper-pagination-bullet {
-    width: 20px;
-    height: 20px;
+    width: 7px;
+    height: 7px;
     text-align: center;
     line-height: 20px;
     font-size: 12px;
-    color: #000;
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border-radius: 0;
+    transition: all 0.2s ease-in;
   }
 
   .swiper-pagination-bullet-active {
+    transform: scale(1.4);
+    margin: 0 10px;
     color: #fff;
-    background: #007aff;
+    background: ${({theme}) => theme.color.yellow};
   }
 
 `

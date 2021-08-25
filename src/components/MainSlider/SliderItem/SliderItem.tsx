@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  StyledSliderItem,
-  StyledSliderItemTitle,
-  StyledSliderItemDescription,
   StyledButton,
+  StyledSliderItem,
+  StyledSliderItemDescription,
+  StyledSliderItemTitle,
   StyledSliderText
 } from './SliderItem.styled';
 import { Button } from "../../Button";
-import { IconLock } from "../../../Icons/IconLock";
 import { theme } from "../../../theme";
+import { IconArrowRight } from "../../../Icons/IconArrowRight";
 
 
 interface ISliderItemProps {
@@ -30,7 +30,7 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
         <StyledButton>
           <Button
             reversed
-            icon={IconLock}
+            icon={IconArrowRight}
             background={theme.color.yellow}
             title={'Подробнее'}
             onClick={() => {
