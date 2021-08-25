@@ -11,8 +11,6 @@ export const StyledSliderItem = styled.div`
 
 `
 export const StyledSliderItemTitle = styled.div`
-  font-size: 45px;
-  font-weight: 700;
   margin-bottom: 20px;
   position: relative;
   

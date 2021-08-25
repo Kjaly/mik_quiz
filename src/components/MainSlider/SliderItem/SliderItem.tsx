@@ -9,6 +9,7 @@ import {
 import { Button } from "../../Button";
 import { theme } from "../../../theme";
 import { IconArrowRight } from "../../../Icons/IconArrowRight";
+import { Title } from "../../Typography/Title";
 
 
 interface ISliderItemProps {
@@ -22,7 +23,9 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
     <StyledSliderItem>
       <StyledSliderText>
         <StyledSliderItemTitle>
-          {title}
+          <Title customMargin={'0 0 20px 0'}>
+            {title}
+          </Title>
         </StyledSliderItemTitle>
         <StyledSliderItemDescription>
           {description}

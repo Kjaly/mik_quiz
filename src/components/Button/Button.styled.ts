@@ -7,7 +7,7 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   flex-direction: ${({reversed}) => reversed ? 'row-reverse' : 'row'};
   align-items: center;
   padding: 15px 30px;
-  color: #fff;
+  color: ${({color}) => color ? color : '#fff'};
   height: 55px;
   cursor: pointer;
   transition: all .2s ease-in;
