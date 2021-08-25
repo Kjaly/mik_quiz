@@ -9,6 +9,7 @@ import { IconLock } from "../../Icons/IconLock";
 import { IconKey } from "../../Icons/IconKey";
 import { Logo } from "../Logo";
 import { ContentWrapper } from "../ContentWrapper";
+import { theme } from "../../theme";
 
 export const Header: React.FC = (props) => {
   const {} = props
@@ -22,14 +23,14 @@ export const Header: React.FC = (props) => {
         <StyledAuthList>
           <Button
             icon={IconLock}
-            background={'#3D4F87'}
+            background={theme.color.blue}
             title={'Войти'}
             onClick={() => {
               console.log('Логин')
             }}/>
           <Button
             icon={IconKey}
-            background={'#FFB801'}
+            background={theme.color.yellow}
             title={'Регистрация'}
             onClick={() => {
               console.log('Регистрация')

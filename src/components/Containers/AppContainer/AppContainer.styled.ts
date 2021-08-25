@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledWrapper = styled.div`
   height: 100vh;
   width: 100vw;
-  max-width: 1520px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -12,7 +11,7 @@ export const StyledWrapper = styled.div`
 
   > div {
     &:first-child {
-      flex: 0 0 auto;
+      flex: 0 0 110px;
     }
 
     &:nth-child(2) {

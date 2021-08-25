@@ -4,20 +4,21 @@ import {
   StyledTitle
 } from './Button.styled'
 
-interface IButtonProps {
+export interface IButtonProps {
   title: string,
   onClick: () => void,
   background?: string,
+  reversed?: boolean,
   icon?: React.ElementType;
 }
 
 export const Button: React.FC<IButtonProps> = (props) => {
-  const {title, onClick, background, icon} = props
+  const {title, onClick, background, icon, reversed} = props
   const Icon = icon;
   return (
-    <StyledButton onClick={onClick} background={background}>
+    <StyledButton reversed={reversed} onClick={onClick} background={background}>
       {Icon &&
-      <StyledIcon>
+      <StyledIcon reversed={reversed}>
         <Icon/>
       </StyledIcon>}
       <StyledTitle>{title}</StyledTitle>
