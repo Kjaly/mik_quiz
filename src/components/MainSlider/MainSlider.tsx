@@ -41,6 +41,7 @@ const sliders: Array<ISliderItem> = [
 
 export const MainSlider: React.FC<IMainSliderProps> = (props) => {
   const {inversed} = props
+
   return (
     <BorderStuckContainer inversed={inversed}>
       <StyledMainSlider>

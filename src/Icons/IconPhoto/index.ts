@@ -1,0 +1,1 @@
+export { IconPhoto } from './IconPhoto'

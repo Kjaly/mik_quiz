@@ -8,7 +8,8 @@ import {
 } from './SliderItem.styled';
 import { Button } from "../../Button";
 import { theme } from "../../../theme";
-import { IconArrowRight } from "../../../Icons/IconArrowRight";
+import { IconArrowRight } from "../../../Icons";
+import { Title } from "../../Typography/Title";
 
 
 interface ISliderItemProps {
@@ -22,7 +23,9 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
     <StyledSliderItem>
       <StyledSliderText>
         <StyledSliderItemTitle>
-          {title}
+          <Title customMargin={'0 0 20px 0'}>
+            {title}
+          </Title>
         </StyledSliderItemTitle>
         <StyledSliderItemDescription>
           {description}
@@ -33,6 +36,7 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
             icon={IconArrowRight}
             background={theme.color.yellow}
             title={'Подробнее'}
+            color={'#fff'}
             onClick={() => {
               console.log('Логин')
             }}/>

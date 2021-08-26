@@ -1,0 +1,1 @@
+export { IconVideo } from './IconVideo'

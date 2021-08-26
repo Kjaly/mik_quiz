@@ -5,6 +5,8 @@ export const StyledMainSlider = styled.div`
   margin-bottom: 20px;
   width: 100%;
   background: ${({theme}) => theme.color.blue};
+  position: relative;
+  z-index: 1;
 
 
   .swiper-container {
