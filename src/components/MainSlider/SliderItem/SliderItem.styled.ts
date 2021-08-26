@@ -14,15 +14,7 @@ export const StyledSliderItemTitle = styled.div`
   margin-bottom: 20px;
   position: relative;
   
-  &:after {
-    position: absolute;
-    content: '';
-    height:2px ;
-    width: 46px;
-    bottom: 0;
-    left:-30px ;
-    background: ${({theme}) => theme.color.yellow};
-  }
+
 
 `
 export const StyledSliderItemDescription = styled.div`

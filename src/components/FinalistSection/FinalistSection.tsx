@@ -5,6 +5,7 @@ import { ContentWrapper } from "../ContentWrapper";
 import { BorderStuckContainer } from "../BorderStuckContainer";
 import { theme } from "../../theme";
 import { Filter } from "../../Filter";
+import { Gallery } from "../Gallery";
 
 export const FinalistSection: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const FinalistSection: React.FC = () => {
             </Title>
             <Filter/>
           </StyledTitleBlock>
+          <Gallery/>
         </ContentWrapper>
       </StyledFinalistSection>
     </BorderStuckContainer>

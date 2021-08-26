@@ -1,32 +1,43 @@
-import React from 'react';
-import { Button } from "../components/Button";
+import React, { useState } from 'react';
 import { theme } from "../theme";
-import { StyledFilter } from './Filter.styled';
+import { StyledFilter, StyledFilterItem } from './Filter.styled';
+
+interface IFilterValues {
+  value: string;
+  title: string;
+  background?: string;
+  color?: string;
+}
 
 export const Filter: React.FC = () => {
 
+  const [filter, setFilter] = useState('Все');
+
+  const filterValues: Array<IFilterValues> = [
+    {
+      value: 'Все',
+      title: 'Все',
+      background: theme.color.blue
+    },
+    {
+      value: 'Региональные слеты',
+      title: 'Региональные слеты',
+    },
+    {
+      value: 'Межрегиональные слеты',
+      title: 'Межрегиональные слеты',
+    },
+  ]
   return (
     <StyledFilter>
-      <Button
-        background={theme.color.blue}
-        title={'Все'}
-        onClick={() => {
-          console.log('Логин')
-        }}/>
-      <Button
-        background={'#fff'}
-        color={"#000"}
-        title={'Региональные слеты'}
-        onClick={() => {
-          console.log('Логин')
-        }}/>
-      <Button
-        background={'#fff'}
-        color={"#000"}
-        title={'Межрегиональные слеты'}
-        onClick={() => {
-          console.log('Логин')
-        }}/>
+      {filterValues.map(item=>(
+        <StyledFilterItem
+          isActive={filter===item.value}
+          onClick={() => {
+            setFilter(item.value);
+          }}>{item.title}</StyledFilterItem>
+      ))}
+
     </StyledFilter>
   );
 };

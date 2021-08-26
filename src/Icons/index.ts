@@ -1,0 +1,5 @@
+export {IconKey} from './IconKey'
+export {IconVideo} from './IconVideo'
+export {IconPhoto} from './IconPhoto'
+export {IconLock} from './IconLock'
+export {IconArrowRight} from './IconArrowRight'

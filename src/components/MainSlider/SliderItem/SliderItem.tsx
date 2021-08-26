@@ -8,7 +8,7 @@ import {
 } from './SliderItem.styled';
 import { Button } from "../../Button";
 import { theme } from "../../../theme";
-import { IconArrowRight } from "../../../Icons/IconArrowRight";
+import { IconArrowRight } from "../../../Icons";
 import { Title } from "../../Typography/Title";
 
 
@@ -36,6 +36,7 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
             icon={IconArrowRight}
             background={theme.color.yellow}
             title={'Подробнее'}
+            color={'#fff'}
             onClick={() => {
               console.log('Логин')
             }}/>
