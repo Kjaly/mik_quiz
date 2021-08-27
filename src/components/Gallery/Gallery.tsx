@@ -10,12 +10,13 @@ export const Gallery: React.FC = () => {
   return (
     <StyledGalleryWrapper>
       <StyledGallery>
-        {test.slice(0, 12).map(item => (
-          <GalleryItem type={item}/>
+        {test.slice(0, 12).map((item, key) => (
+          <GalleryItem key={key} type={item}/>
         ))}
       </StyledGallery>
       <StyledButton>
-        <Button title={'Показать еще'} color={theme.color.blue} view={'bordered'} icon={IconArrowRight} borderColor={'rgba(61, 79, 135, 0.2)'} reversed onClick={() => {
+        <Button title={'Показать еще'} color={theme.color.blue} view={'bordered'} icon={IconArrowRight}
+                borderColor={'rgba(61, 79, 135, 0.2)'} reversed onClick={() => {
           console.log(1)
         }}/>
       </StyledButton>

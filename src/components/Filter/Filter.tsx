@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { theme } from "../theme";
 import { StyledFilter, StyledFilterItem } from './Filter.styled';
+import { theme } from "../../theme";
 
 interface IFilterValues {
   value: string;
@@ -30,8 +30,9 @@ export const Filter: React.FC = () => {
   ]
   return (
     <StyledFilter>
-      {filterValues.map(item=>(
+      {filterValues.map((item, key)=>(
         <StyledFilterItem
+          key={key}
           isActive={filter===item.value}
           onClick={() => {
             setFilter(item.value);

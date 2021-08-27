@@ -7,5 +7,9 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.15;
     font-size: 16px;
   }
+  
+  .no-scroll {
+    overflow: hidden;
+  }
 `
 
