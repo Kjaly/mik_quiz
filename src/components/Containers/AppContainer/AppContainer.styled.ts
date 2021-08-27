@@ -6,6 +6,7 @@ export const StyledWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   align-items: center;
   flex: 1;
 

@@ -49,9 +49,9 @@ export const MainSlider: React.FC<IMainSliderProps> = (props) => {
           <Swiper
             pagination={{clickable: true}}
             slidesPerView={1}>
-            {sliders?.map(item => {
+            {sliders?.map((item, key) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={key}>
                   <SliderItem
                     title={item.title}
                     description={item.description}/>

@@ -4,7 +4,7 @@ import { StyledFinalistSection, StyledTitleBlock } from './FinalistSection.style
 import { ContentWrapper } from "../ContentWrapper";
 import { BorderStuckContainer } from "../BorderStuckContainer";
 import { theme } from "../../theme";
-import { Filter } from "../../Filter";
+import { Filter } from "../Filter";
 import { Gallery } from "../Gallery";
 
 export const FinalistSection: React.FC = () => {
