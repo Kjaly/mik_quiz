@@ -1,1 +1,5 @@
-export { Home } from './Home'
+import styled from "styled-components";
+
+export const StyledHome = styled.div`
+  width: 100%;
+`

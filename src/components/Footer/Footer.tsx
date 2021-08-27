@@ -1,25 +1,22 @@
 import React from 'react';
 import {
-  StyledFooterWrapper,
-  StyledNavWrapper,
-  StyledFooterBackground,
   StyledAuthList,
+  StyledFooterBackground,
   StyledFooterDescription,
-  StyledFooterNav
+  StyledFooterNav,
+  StyledFooterWrapper,
+  StyledNavWrapper
 } from './Footer.styled'
 import { Button } from "../Button";
 import { Nav } from "../Nav";
-import { IconLock } from "../../Icons";
-import { IconKey } from "../../Icons";
+import { IconKey, IconLock } from "../../Icons";
 import { Logo } from "../Logo";
 import { ContentWrapper } from "../ContentWrapper";
-import { StyledBorderStuck } from "../BorderStuckContainer/BorderStuckContainer.styled";
 import { theme } from "../../theme";
 
 export const Footer: React.FC = (props) => {
   const {} = props
   return (
-    <StyledBorderStuck inversed>
       <StyledFooterBackground>
         <ContentWrapper customMargin={'right'}>
           <StyledFooterWrapper>
@@ -58,7 +55,6 @@ export const Footer: React.FC = (props) => {
           </StyledFooterWrapper>
         </ContentWrapper>
       </StyledFooterBackground>
-    </StyledBorderStuck>
   );
 };
 

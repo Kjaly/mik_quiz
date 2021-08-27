@@ -1,18 +1,14 @@
 import React from 'react';
 import { StyledMainSlider } from "./MainSlider.styled";
-import { BorderStuckContainer } from "../BorderStuckContainer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SliderItem } from "./SliderItem";
 
-import SwiperCore, {
-  Pagination
-} from 'swiper/core';
+import SwiperCore, { Pagination } from 'swiper/core';
 import { ContentWrapper } from "../ContentWrapper";
 
 SwiperCore.use([Pagination]);
 
 interface IMainSliderProps {
-  inversed?: boolean;
 }
 
 interface ISliderItem {
@@ -40,10 +36,9 @@ const sliders: Array<ISliderItem> = [
 ]
 
 export const MainSlider: React.FC<IMainSliderProps> = (props) => {
-  const {inversed} = props
+  const {} = props
 
   return (
-    <BorderStuckContainer inversed={inversed}>
       <StyledMainSlider>
         <ContentWrapper customMargin={'left'}>
           <Swiper
@@ -61,7 +56,5 @@ export const MainSlider: React.FC<IMainSliderProps> = (props) => {
           </Swiper>
         </ContentWrapper>
       </StyledMainSlider>
-    </BorderStuckContainer>
-
   );
 };
