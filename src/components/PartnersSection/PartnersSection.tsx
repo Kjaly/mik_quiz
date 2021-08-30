@@ -1,14 +1,14 @@
 import React from 'react';
 import {
   PartnerGrid,
-  StyledPartnersSection,
-  StyledPartnersWrapper,
+  StyledLeftBlock,
   StyledPartnersNavigation,
-  StyledLeftBlock
+  StyledPartnersSection,
+  StyledPartnersWrapper
 } from './PartnersSection.styled';
 import { ContentWrapper } from "../ContentWrapper";
 import { Title } from "../Typography/Title";
-import { PartnerCard } from "../PartnerCard";
+import { PartnerCard } from "./PartnerCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SwiperNavigationButton } from "../SwiperNavigationButton";
 

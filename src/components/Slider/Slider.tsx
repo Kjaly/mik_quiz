@@ -15,9 +15,9 @@ export const Slider: React.FC = (props) => {
           prevEl: '.prev',
           nextEl: '.next',
         }}
-        slidesPerView={3}
+        slidesPerView={4}
         spaceBetween={30}
-        slidesPerGroup={3}
+        slidesPerGroup={4}
       >
         {children}
       </Swiper>

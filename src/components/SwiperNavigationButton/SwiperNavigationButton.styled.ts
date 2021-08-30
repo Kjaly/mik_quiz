@@ -16,6 +16,7 @@ export const StyledSwiperNavigation = styled.div<Partial<ISwiperNavigationButton
   right: ${({reversed}) => !reversed && '-60px'};
   left: ${({reversed}) => reversed && '-60px'};
   transition: all .2s ease-in;
+  z-index: 2;
 
   &.swiper-button-disabled {
     cursor: initial;

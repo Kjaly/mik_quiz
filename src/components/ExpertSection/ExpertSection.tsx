@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyledExpertSection } from './ExpertSection.styled';
+import { StyledExpertSection, StyledDecorativeWrapper } from './ExpertSection.styled';
 import { Slider } from "../Slider";
 import { ContentWrapper } from "../ContentWrapper";
 import { Title } from "../Typography/Title";
 import { theme } from "../../theme";
 import { SwiperSlide } from "swiper/react";
-import { ExpertCard } from "../ExpertCard";
+import { ExpertCard } from "./ExpertCard";
+import { DecorativeLines } from "../DecorativeLines";
 
 export const ExpertSection: React.FC = () => {
 
@@ -33,7 +34,15 @@ export const ExpertSection: React.FC = () => {
     {
       name: 'Настя Иванова',
       description: 'Генеральный директор ООО “Челябинские путешественники”'
-    }
+    },
+    {
+      name: 'Андрей Иванов',
+      description: 'Генеральный директор ООО “Челябинские путешественники”'
+    },
+    {
+      name: 'Настя Иванова',
+      description: 'Генеральный директор ООО “Челябинские путешественники”'
+    },
   ]
   return (
     <StyledExpertSection>
@@ -50,6 +59,9 @@ export const ExpertSection: React.FC = () => {
             )
           })}
         </Slider>
+        <StyledDecorativeWrapper>
+          <DecorativeLines opacity={0.3} color={theme.color.blue}/>
+        </StyledDecorativeWrapper>
       </ContentWrapper>
     </StyledExpertSection>
   );
