@@ -22,4 +22,7 @@ export const StyledNavItem = styled.div`
   }
 `
 export const StyledNavUrl = styled.a`
+  color:inherit;
+  text-decoration: none;
+  font-size: 15px;
 `

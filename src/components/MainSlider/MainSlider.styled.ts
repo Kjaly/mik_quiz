@@ -4,7 +4,7 @@ export const StyledMainSlider = styled.div`
   height: 500px;
   margin-bottom: 20px;
   width: 100%;
-  background: ${({theme}) => theme.color.blue};
+  background: linear-gradient(90deg, ${({theme}) => theme.color.blue} 90%, rgba(0,0,0,0) 50%); ;
   position: relative;
   z-index: 1;
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { BorderStuckContainer } from "../BorderStuckContainer";
 import { StyledExpertSection } from './ExpertSection.styled';
 import { Slider } from "../Slider";
 import { ContentWrapper } from "../ContentWrapper";
@@ -35,26 +34,23 @@ export const ExpertSection: React.FC = () => {
       name: 'Настя Иванова',
       description: 'Генеральный директор ООО “Челябинские путешественники”'
     }
-    ]
+  ]
   return (
-    <BorderStuckContainer inversed>
-      <StyledExpertSection>
-        <ContentWrapper customMargin={'right'}>
-          <Title color={theme.color.blue} customMargin={'0 0 40px 0'}>
-            Эксперты
-          </Title>
-          <Slider>
-            {slides.map((item, key) => {
-              return (
-                <SwiperSlide key={key}>
-                  <ExpertCard name={item.name} description={item.description}/>
-                </SwiperSlide>
-              )
-            })}
-          </Slider>
-        </ContentWrapper>
-
-      </StyledExpertSection>
-    </BorderStuckContainer>
+    <StyledExpertSection>
+      <ContentWrapper>
+        <Title color={theme.color.blue} customMargin={'0 0 40px 0'}>
+          Эксперты
+        </Title>
+        <Slider>
+          {slides.map((item, key) => {
+            return (
+              <SwiperSlide key={key}>
+                <ExpertCard name={item.name} description={item.description}/>
+              </SwiperSlide>
+            )
+          })}
+        </Slider>
+      </ContentWrapper>
+    </StyledExpertSection>
   );
 };
