@@ -1,0 +1,1 @@
+export { RegistrationFormModal } from './RegistrationFormModal'

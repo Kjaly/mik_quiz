@@ -10,9 +10,15 @@ import { IconKey } from "../../Icons";
 import { Logo } from "../Logo";
 import { ContentWrapper } from "../ContentWrapper";
 import { theme } from "../../theme";
+import { modalsActions } from "../../store/modals/actions";
+import { useDispatch } from "react-redux";
 
 export const Header: React.FC = (props) => {
   const {} = props
+  const dispatch = useDispatch()
+  const handleClick = () => {
+    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+  }
   return (
     <ContentWrapper>
       <StyledHeaderWrapper>
@@ -34,9 +40,7 @@ export const Header: React.FC = (props) => {
             background={theme.color.yellow}
             title={'Регистрация'}
             color={'#fff'}
-            onClick={() => {
-              console.log('Регистрация')
-            }}/>
+            onClick={()=>handleClick()}/>
         </StyledAuthList>
       </StyledHeaderWrapper>
     </ContentWrapper>

@@ -15,8 +15,14 @@ export const Gallery: React.FC = () => {
         ))}
       </StyledGallery>
       <StyledButton>
-        <Button title={'Показать еще'} color={theme.color.blue} view={'bordered'} icon={IconArrowRight}
-                borderColor={'rgba(61, 79, 135, 0.2)'} reversed onClick={() => {
+        <Button
+          title={'Показать еще'}
+          color={theme.color.blue}
+          view={'bordered'}
+          icon={IconArrowRight}
+          borderColor={'rgba(61, 79, 135, 0.2)'}
+          reversed
+          onClick={() => {
           console.log(1)
         }}/>
       </StyledButton>

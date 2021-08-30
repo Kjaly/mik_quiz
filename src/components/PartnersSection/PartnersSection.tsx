@@ -38,9 +38,9 @@ export const PartnersSection: React.FC = () => {
               return (
                 <SwiperSlide key={key}>
                   <PartnerGrid>
-                    {partners.map(() => {
+                    {partners.map((item,index) => {
                       return (
-                        <PartnerCard/>
+                        <PartnerCard key={index}/>
                       )
                     })}
                   </PartnerGrid>
