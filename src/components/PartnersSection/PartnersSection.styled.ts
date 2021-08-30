@@ -9,7 +9,6 @@ export const StyledPartnersSection = styled.div`
 
   > p {
     height: 100%;
-    margin-right: 60px;
   }
 `
 
@@ -22,3 +21,35 @@ export const PartnerGrid = styled.div`
   grid-auto-flow: row dense;
   justify-content: space-between;
   margin-bottom: 30px`
+
+export const StyledLeftBlock = styled.div`
+  margin-right: 60px;
+
+`
+export const StyledPartnersNavigation = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100px;
+  > div {
+    background-color: ${({theme}) => theme.color.darkwhite};
+
+    .swiper-button-disabled {
+      cursor: initial;
+      background: ${({theme}) => theme.color.yellow};
+
+      > svg > path {
+        fill: #fff;
+      }
+    }
+
+    > svg {
+      height: 24px;
+    }
+  }
+  > :first-child {
+    left: 0;
+  } 
+  > :last-child {
+    right: 0;
+  }
+`

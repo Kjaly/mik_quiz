@@ -1,17 +1,15 @@
 import React from 'react';
 import { Swiper } from "swiper/react";
 import SwiperCore, { Navigation } from 'swiper'
-import { IconArrowRight } from "../../Icons";
-import { StyledSwiper, StyledSwiperNavigation } from './Slider.styled'
+import { StyledSwiper } from './Slider.styled'
+import { SwiperNavigationButton } from "../SwiperNavigationButton";
 
 SwiperCore.use([Navigation])
 export const Slider: React.FC = (props) => {
   const {children} = props
   return (
     <StyledSwiper>
-      <StyledSwiperNavigation className={'prev'} reverse>
-        <IconArrowRight/>
-      </StyledSwiperNavigation>
+      <SwiperNavigationButton name={'prev'} reversed/>
       <Swiper
         navigation={{
           prevEl: '.prev',
@@ -23,9 +21,7 @@ export const Slider: React.FC = (props) => {
       >
         {children}
       </Swiper>
-      <StyledSwiperNavigation className={'next'} reverse={false}>
-        <IconArrowRight/>
-      </StyledSwiperNavigation>
+      <SwiperNavigationButton name={'next'}/>
     </StyledSwiper>
   );
 };
