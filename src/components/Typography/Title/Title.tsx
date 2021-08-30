@@ -4,12 +4,13 @@ import { StyledTitle } from './Title.styled';
 export interface ITitleProps {
   color?: string;
   customMargin?: string;
+  size?: number;
 }
 
 export const Title: React.FC<ITitleProps> = (props) => {
-  const {children, color, customMargin} = props
+  const {children, color, customMargin, size} = props
   return (
-    <StyledTitle color={color} customMargin={customMargin}>
+    <StyledTitle size={size} color={color} customMargin={customMargin}>
       {children}
     </StyledTitle>
   );

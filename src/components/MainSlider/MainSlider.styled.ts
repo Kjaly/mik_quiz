@@ -4,14 +4,15 @@ export const StyledMainSlider = styled.div`
   height: 500px;
   margin-bottom: 20px;
   width: 100%;
-  background: linear-gradient(90deg, ${({theme}) => theme.color.blue} 90%, rgba(0,0,0,0) 50%); ;
+  background: linear-gradient(90deg, ${({theme}) => theme.color.blue} 90%, rgba(0, 0, 0, 0) 50%);;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 
 
   .swiper-container {
     width: 100%;
     height: 100%;
+    margin-left: -76px;
   }
 
   .swiper-slide {
@@ -38,6 +39,9 @@ export const StyledMainSlider = styled.div`
     object-fit: cover;
   }
 
+  .swiper-pagination {
+    margin-left: 76px;
+  }
 
   .swiper-pagination-bullet {
     width: 7px;
@@ -58,3 +62,32 @@ export const StyledMainSlider = styled.div`
   }
 
 `
+
+export const StyledBackImg = styled.div<{ active: boolean }>`
+  position: absolute;
+  right: 10%;
+  max-width: 50%;
+  height: 100%;
+  bottom: 0;
+  top: 0;
+  transition: all 0.5s ease-in;
+  opacity: ${({active}) => active ? 1 : 0};
+
+  > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+
+`
+
+export const StyledDecorativeWrapper = styled.div`
+  position: absolute;
+  content: '';
+  right: 0;
+  z-index: 1;
+  transform: rotate(45deg) scale(1, -1) translate(-50px, 10px);
+`
+
+

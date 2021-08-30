@@ -1,10 +1,11 @@
 import React from 'react';
 import { Title } from "../Typography/Title";
-import { StyledFinalistSection, StyledTitleBlock } from './FinalistSection.styled';
+import { StyledDecorativeWrapper, StyledFinalistSection, StyledTitleBlock } from './FinalistSection.styled';
 import { ContentWrapper } from "../ContentWrapper";
 import { theme } from "../../theme";
 import { Filter } from "../Filter";
 import { Gallery } from "../Gallery";
+import { DecorativeLines } from "../DecorativeLines";
 
 export const FinalistSection: React.FC = () => {
   return (
@@ -18,6 +19,9 @@ export const FinalistSection: React.FC = () => {
           </StyledTitleBlock>
           <Gallery/>
         </ContentWrapper>
+        <StyledDecorativeWrapper>
+          <DecorativeLines opacity={0.3} color={theme.color.blue}/>
+        </StyledDecorativeWrapper>
       </StyledFinalistSection>
   );
 };

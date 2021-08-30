@@ -4,6 +4,7 @@ export const StyledGalleryItem = styled.div`
   width: 100%;
   height: 180px;
   position: relative;
+  z-index: 1;
 `
 
 export const StyledItemImg = styled.div`
