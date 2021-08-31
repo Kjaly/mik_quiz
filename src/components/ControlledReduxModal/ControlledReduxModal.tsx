@@ -5,6 +5,7 @@ import { Action } from "redux";
 import { modalsActions } from "../../store/modals/actions";
 import { VideoModal } from "../Modals/VideoModal";
 import { PhotoModal } from "../Modals/PhotoModal";
+import { RegistrationFormModal } from "../RegistrationForm";
 
 export const ControlledReduxModal: React.FC = () => {
 
@@ -16,8 +17,10 @@ export const ControlledReduxModal: React.FC = () => {
   switch (modalName) {
     case 'videoGallery' :
       return <VideoModal closeModal={closeModal}/>;
-      case 'photoGallery' :
+    case 'photoGallery' :
       return <PhotoModal closeModal={closeModal}/>;
+    case 'registrationModal' :
+      return <RegistrationFormModal closeModal={closeModal}/>;
     default:
       return null;
   }
