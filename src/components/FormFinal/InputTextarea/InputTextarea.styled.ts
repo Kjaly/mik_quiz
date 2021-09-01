@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-export const StyledInputContainer = styled.div`
+export const StyledTextareaContainer = styled.div`
   width: 100%;`
-export const StyledInput = styled.input<{ view: string } & any>`
+export const StyledTextarea = styled.textarea<any>`
   width: 100%;
-  height: 54px;
+  max-height: 80px;
+  height: auto;
   margin-bottom: 20px;
   padding: 15px 30px;
   font-size: 15px;
@@ -12,7 +13,8 @@ export const StyledInput = styled.input<{ view: string } & any>`
   border: none;
   background: ${({theme}) => theme.color.darkwhite};
   position: relative;
-
+  resize: none;
+  
   :after {
     position: absolute;
     content: '';

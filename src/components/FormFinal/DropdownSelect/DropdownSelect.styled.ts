@@ -1,20 +1,27 @@
 import styled from "styled-components";
 
-export const StyledDropdown = styled.div <{ isOpen: boolean }>`
+export const StyledDropdown = styled.div <{ isOpen: boolean, disabled: boolean }>`
   width: 100%;
   overflow: hidden;
   max-height: ${({isOpen}) => isOpen ? '800px' : '45px'};
-  border: 1px solid ${({theme}) => theme.color.darkgray};
+  height: 100%;
   transition: all .2s ease-in-out;
-  cursor: pointer;
+  cursor: ${({disabled}) => disabled ? 'initial' : 'pointer'};
   margin-bottom: 20px;
+  opacity: ${({disabled}) => disabled && 0.7};
 
 `
 export const StyledDropdownSelected = styled.div<{ isOpen: boolean }>`
   width: 100%;
+  height: 45px;
   overflow: hidden;
-  padding: 10px 20px;
+  padding: 10px 30px;
   position: relative;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: ${({theme}) => theme.color.darkwhite};
 
 
   :after {
@@ -24,24 +31,26 @@ export const StyledDropdownSelected = styled.div<{ isOpen: boolean }>`
     width: 100%;
     left: 0;
     transition: all .2s ease-in-out;
-    background-color: ${({theme}) => theme.color.darkgray};
+    background-color: ${({theme}) => theme.color.blue};
     bottom: 0;
     transform: ${({isOpen}) => isOpen ? 'scale(1)' : 'scale(0)'};
+  }
+
+  > div {
+    transition: all .2s ease-in-out;
+    transform: rotate(${({isOpen}) => isOpen ? '180deg' : 0});
   }
 
 `
 export const StyledSelect = styled.ul`
   width: 100%;
   color: ${({theme}) => theme.color.darkgray};
+  background: ${({theme}) => theme.color.darkwhite};
   position: relative;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: '';
-
-  :hover {
-    filter: brightness(0.9);
-  }
 
   :after, :before {
     position: absolute;
@@ -54,12 +63,15 @@ export const StyledOption = styled.li<any>`
   list-style: none;
   width: 100%;
   height: 45px;
-  padding: 10px 20px;
+  padding: 10px 30px;
   transition: all 0.2s ease-in-out;
-  opacity: ${({disabled}) => disabled && 0.5};
-  : hover {
-    background-color: ${({disabled, theme}) => !disabled && theme.color.blue};
-    color: ${({disabled}) => !disabled && '#fff'};
-  }
+  opacity: ${({disabled}) => disabled && 0.5};: hover {
+  background-color: ${({disabled, theme}) => !disabled && theme.color.blue};
+  color: ${({disabled}) => !disabled && '#fff'};
+}
 
+`
+
+export const StyledArrow = styled.div`
+  width: 15px;
 `

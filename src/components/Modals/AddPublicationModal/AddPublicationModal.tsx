@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { ModalTemplate } from "../ModalTemplate";
+import React, { useState } from 'react';
+import { ModalTemplate } from '../ModalTemplate';
 import {
   StyledAddPublicationModal,
+  StyledButton,
+  StyledCross,
   StyledDropDownWrapper,
+  StyledFileViewer,
   StyledPublicationsTitle
 } from './AddPublicationModal.styled';
-import { DropdownSelect } from "../../FormFinal/DropdownSelect";
+import { DropdownSelect } from '../../FormFinal/DropdownSelect';
+import { IconCross } from '../../../Icons';
+import { Field, Form } from 'react-final-form';
+import { InputText } from '../../FormFinal/InputText';
+import { InputTextarea } from '../../FormFinal/InputTextarea';
+import { Button } from '../../Button';
+import { theme } from '../../../theme';
+import { PhotoDropzone } from '../../PhotoDropzone';
+import { FileViewer } from '../../FileViewer';
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -13,41 +24,104 @@ export interface IAddPublicationModalProps {
 
 export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) => {
   const {closeModal} = props
-  const [step, setStep] = useState(0);
 
-  const categoryOptions = ['корпус', 'ужас', 'доклад', 'выступление', 'карта']
-  const typeList = [
-    {name: 'корпус', types: ['объект', 'километр', 'карман', 'стул', ' плата']},
-    {name: 'ужас', types: ['разработка', 'глубина', 'карман', 'формапапа', ' плата']},
-    {name: 'доклад', types: ['глубина', 'папа', 'карман', 'стул', ' плата']},
-    {name: 'выступление', types: ['формапапа', 'километр', 'разработка', 'стул', ' глубина']},
-    {name: 'карта', types: ['папа', 'километр', 'формапапа', 'папа', ' плата']},
-  ]
+  const categoryOptions = ['Корпус', 'Ужас', 'Доклад', 'Выступление', 'Карта']
+  const typeList = ['Галерея фото', 'Видео']
 
-  const [option, setOption] = useState(categoryOptions[0] || '');
+  const [option, setOption] = useState('');
+  const [files, setFiles] = useState<Array<File>>([]);
 
   console.log(typeList);
-  const currentCategoryTypes = typeList.find(item => item.name === option)?.types || []
-
-  const [type, setType] = useState(currentCategoryTypes[0] || '');
-
-  useEffect(() => {
-    setType(currentCategoryTypes[0])
-  }, [option]);
+  const [type, setType] = useState('');
 
 
-  console.log(currentCategoryTypes);
-  console.log(option);
+  const handleSubmitForm = (values: any) => {
+    console.log(values)
+  }
+
   return (
     <ModalTemplate>
       <StyledAddPublicationModal>
         <StyledPublicationsTitle>Добавление публикации</StyledPublicationsTitle>
-        <StyledDropDownWrapper>
-          <DropdownSelect setOption={setOption} name={'category'} option={option} optionsList={categoryOptions}/>
-          <DropdownSelect setOption={setType} name={'type'} option={type} optionsList={currentCategoryTypes}/>
+        <Form
+          initialValues={{}}
+          onSubmit={handleSubmitForm}
+          render={(renderProps): JSX.Element => {
+            const {values} = renderProps
+            return (
+              <>
+                <StyledDropDownWrapper>
+                  <DropdownSelect
+                    setOption={setOption}
+                    placeholder="Категория"
+                    name={'category'}
+                    option={option}
+                    optionsList={categoryOptions}/>
+                  <DropdownSelect
+                    disabled={!option}
+                    setOption={setType}
+                    name={'type'}
+                    placeholder="Тип публикации"
+                    option={type}
+                    optionsList={typeList}/>
 
-        </StyledDropDownWrapper>
+                  {type === 'Видео' && (
+                    <>
+                      <Field
+                        name="title"
+                        component={InputText}
+                        type="text"
+                        placeholder="Заголовок"
+                      />
+                      <Field
+                        name="description"
+                        component={InputTextarea}
+                        placeholder="Описание"
+                      />
+
+                      <Field
+                        name="url"
+                        component={InputText}
+                        type="text"
+                        placeholder="Ссылка на видео в YouTube"
+                      />
+
+
+                    </>
+                  )}
+                  <StyledFileViewer>
+                    <FileViewer files={files} setFiles={setFiles}
+                    />
+                  </StyledFileViewer>
+                </StyledDropDownWrapper>
+
+                {type === 'Галерея фото' && (
+                  <PhotoDropzone
+                    files={files}
+                    setFiles={setFiles}
+                    name={'dropzone'}/>
+                )}
+
+                {(type === 'Видео' || files) && (
+                  <StyledButton>
+                    <Button
+                      background={theme.color.blue}
+                      color={'#fff'}
+                      title={'Добавить'}
+                      onClick={() => {
+                        console.log('Отправить')
+                      }}/>
+                  </StyledButton>
+                )}
+              </>
+            )
+          }}/>
+
+        <StyledCross onClick={closeModal}>
+          <IconCross/>
+        </StyledCross>
       </StyledAddPublicationModal>
     </ModalTemplate>
-  );
+  )
+    ;
 };
