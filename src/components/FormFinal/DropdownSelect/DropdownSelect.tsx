@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
-  StyledDropdown,
-  StyledSelect,
-  StyledOption,
-  StyledDropdownSelected,
   StyledArrow,
+  StyledDropdown,
+  StyledDropdownSelected,
+  StyledOption,
+  StyledSelect,
 } from './DropdownSelect.styled';
-import { IconArrowDown, IconCross } from "../../../Icons";
+import { IconArrowDown } from "../../../Icons";
 
 interface IDropdownSelect {
   optionsList: Array<string>;
@@ -32,7 +32,6 @@ export const DropdownSelect: React.FC<IDropdownSelect> = (props) => {
     setOption(item)
   }
 
-  console.log(isOpen, placeholder)
   return (
     <StyledDropdown disabled={disabled || false} isOpen={isOpen} onClick={handleOpen}>
       <StyledDropdownSelected isOpen={isOpen}>

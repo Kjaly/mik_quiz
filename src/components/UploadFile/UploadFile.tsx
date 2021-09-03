@@ -1,25 +1,27 @@
 import React from 'react';
 import { StyledUploadFile, StyledButtonWrapper, StyledIcon, StyledPreview } from './UploadFile.styled';
-import { IconCloud } from "../../Icons/IconCloud";
-import { IconCurvedArrow } from "../../Icons/IconCurvedArrow";
+import { IconCloud } from "../../Icons";
+import { IconCurvedArrow } from "../../Icons";
 
 interface IUploadFileProps {
   onClick: () => void;
+  isEmpty: boolean;
 }
 
 export const UploadFile: React.FC<IUploadFileProps> = (props) => {
-  const {onClick} = props
+  const {onClick, isEmpty} = props
+
   return (
     <StyledUploadFile onClick={onClick}>
       <StyledButtonWrapper>
         <IconCloud/>
         <p>Добавить <br/>публикацию</p>
       </StyledButtonWrapper>
-      <StyledPreview>
+      <StyledPreview isEmpty={isEmpty}>
         <StyledIcon>
           <IconCurvedArrow/>
         </StyledIcon>
-        <span>Добавьте свою первую публикацию!</span>
+        <p>Добавьте свою первую публикацию!</p>
       </StyledPreview>
     </StyledUploadFile>
   );

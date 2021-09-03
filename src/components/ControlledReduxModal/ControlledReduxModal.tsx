@@ -14,7 +14,6 @@ export const ControlledReduxModal: React.FC = () => {
   const dispatch = useDispatch();
   const closeModal = (): Action => dispatch(modalsActions.closeModalAction());
 
-  console.log(modalName);
   switch (modalName) {
     case 'videoGallery' :
       return <VideoModal closeModal={closeModal}/>;

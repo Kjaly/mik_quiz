@@ -13,10 +13,11 @@ export interface IButtonProps {
   reversed?: boolean,
   icon?: React.ElementType;
   view?: string;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<IButtonProps> = (props) => {
-  const {title, onClick, background, icon, reversed, color, view, borderColor} = props
+  const {title, onClick, background, icon, reversed, color, view, borderColor,disabled} = props
   const Icon = icon;
   return (
     <StyledButton
@@ -26,6 +27,7 @@ export const Button: React.FC<IButtonProps> = (props) => {
       color={color}
       view={view}
       borderColor={borderColor}
+      disabled={disabled}
     >
       {Icon &&
       <StyledIcon

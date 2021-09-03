@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ModalTemplate } from '../ModalTemplate';
 import {
+  StyledActiveWrapper,
   StyledAddPublicationModal,
   StyledButton,
   StyledCross,
@@ -17,6 +18,8 @@ import { Button } from '../../Button';
 import { theme } from '../../../theme';
 import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
+import { useDispatch } from "react-redux";
+import { piblicationsActions } from "../../../store/publications/actions";
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -24,6 +27,7 @@ export interface IAddPublicationModalProps {
 
 export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) => {
   const {closeModal} = props
+  const dispatch = useDispatch();
 
   const categoryOptions = ['Корпус', 'Ужас', 'Доклад', 'Выступление', 'Карта']
   const typeList = ['Галерея фото', 'Видео']
@@ -31,13 +35,15 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
   const [option, setOption] = useState('');
   const [files, setFiles] = useState<Array<File>>([]);
 
-  console.log(typeList);
   const [type, setType] = useState('');
 
 
   const handleSubmitForm = (values: any) => {
-    console.log(values)
+    const filePreviewUrl = !!files[0] ? URL.createObjectURL(files[0]) : values.url;
+
+    dispatch(piblicationsActions.addPublication({...values, files, option, type, url:filePreviewUrl}))
   }
+
 
   return (
     <ModalTemplate>
@@ -47,7 +53,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
           initialValues={{}}
           onSubmit={handleSubmitForm}
           render={(renderProps): JSX.Element => {
-            const {values} = renderProps
+            const {values, handleSubmit} = renderProps
             return (
               <>
                 <StyledDropDownWrapper>
@@ -65,54 +71,49 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                     option={type}
                     optionsList={typeList}/>
 
-                  {type === 'Видео' && (
-                    <>
-                      <Field
-                        name="title"
-                        component={InputText}
-                        type="text"
-                        placeholder="Заголовок"
-                      />
-                      <Field
-                        name="description"
-                        component={InputTextarea}
-                        placeholder="Описание"
-                      />
-
-                      <Field
-                        name="url"
-                        component={InputText}
-                        type="text"
-                        placeholder="Ссылка на видео в YouTube"
-                      />
-
-
-                    </>
-                  )}
-                  <StyledFileViewer>
-                    <FileViewer files={files} setFiles={setFiles}
+                  <StyledActiveWrapper isActive={type === 'Видео'}>
+                    <Field
+                      name="title"
+                      component={InputText}
+                      type="text"
+                      placeholder="Заголовок"
                     />
+                    <Field
+                      name="description"
+                      component={InputTextarea}
+                      placeholder="Описание"
+                    />
+
+                    <Field
+                      name="url"
+                      component={InputText}
+                      type="text"
+                      placeholder="Ссылка на видео в YouTube"
+                    />
+                  </StyledActiveWrapper>
+
+                  <StyledFileViewer>
+                    <FileViewer files={files} setFiles={setFiles}/>
                   </StyledFileViewer>
                 </StyledDropDownWrapper>
 
-                {type === 'Галерея фото' && (
+                <StyledActiveWrapper isActive={type === 'Галерея фото'}>
                   <PhotoDropzone
                     files={files}
                     setFiles={setFiles}
                     name={'dropzone'}/>
-                )}
+                </StyledActiveWrapper>
 
-                {(type === 'Видео' || files) && (
-                  <StyledButton>
-                    <Button
-                      background={theme.color.blue}
-                      color={'#fff'}
-                      title={'Добавить'}
-                      onClick={() => {
-                        console.log('Отправить')
-                      }}/>
-                  </StyledButton>
-                )}
+                  <StyledActiveWrapper isActive={type === 'Видео' || !!files.length}>
+                    <StyledButton>
+                      <Button
+                        disabled={type === 'Видео' && !values.url}
+                        background={theme.color.blue}
+                        color={'#fff'}
+                        title={'Добавить'}
+                        onClick={handleSubmit}/>
+                    </StyledButton>
+                  </StyledActiveWrapper>
               </>
             )
           }}/>

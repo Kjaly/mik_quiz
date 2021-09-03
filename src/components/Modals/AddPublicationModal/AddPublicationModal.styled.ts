@@ -20,6 +20,12 @@ export const StyledPublicationsTitle = styled.p`
 export const StyledDropDownWrapper = styled.div`
   max-width: 475px;
 `
+export const StyledActiveWrapper = styled.div<{ isActive: boolean }>`
+  transition: all .2s ease-in-out;
+  width: 100%;
+  overflow: hidden;
+  max-height: ${({isActive}) => isActive ? '800px' : '0px'}
+`
 export const StyledFileViewer = styled.div`
   width: 100%;
   margin-bottom: 20px;

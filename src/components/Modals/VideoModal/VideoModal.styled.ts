@@ -5,16 +5,23 @@ export const StyledVideoModal = styled.div`
   width: 800px;
   display: flex;
   flex-direction: column;
+  
+`
 
-  > div {
-    flex: 1;
-    background-color: #dedede;
-    border-radius: 8px;
-    max-height: 450px;
-    margin-bottom: 30px;
-    position: relative;
+export const StyledPlayer = styled.div`
+  flex: 1;
+  background-color: #dedede;
+  border-radius: 8px;
+  height: 450px;
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+  > div:nth-child(2){
+    height: 100%;
+    > iframe {
+      border-radius: 8px;
+    }
   }
-
 `
 
 export const StyledVideoTitle = styled.p`
@@ -42,14 +49,17 @@ export const StyledCloseIcon = styled.div`
   width: 40px;
   cursor: pointer;
   transition: all 0.2s ease-in;
-  &:hover{
+
+  &:hover {
     transform: scale(1.1);
   }
+
   > svg {
     width: 24px;
+
     > path {
-      fill:  ${({theme}) => theme.color.yellow};
+      fill: ${({theme}) => theme.color.yellow};
     }
   }
-  
+
 `
