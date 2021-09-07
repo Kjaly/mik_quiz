@@ -17,7 +17,7 @@ export const StyledItemImgWrapper = styled.div`
   cursor: pointer;
   position: relative;
 
-  &:after {
+  &::after {
     position: absolute;
     content: '';
     width: 100%;
@@ -29,7 +29,7 @@ export const StyledItemImgWrapper = styled.div`
   }
 
   :hover {
-    &:after {
+    &::after {
       transform: scale(1);
     }
 

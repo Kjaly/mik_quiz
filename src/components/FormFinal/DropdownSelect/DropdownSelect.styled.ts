@@ -24,7 +24,7 @@ export const StyledDropdownSelected = styled.div<{ isOpen: boolean }>`
   background: ${({theme}) => theme.color.darkwhite};
 
 
-  :after {
+  ::after {
     position: absolute;
     content: '';
     height: 1px;
@@ -52,7 +52,7 @@ export const StyledSelect = styled.ul`
   text-indent: 1px;
   text-overflow: '';
 
-  :after, :before {
+  ::after, :before {
     position: absolute;
     height: 15px;
     width: 15px;

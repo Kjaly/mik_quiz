@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledInfoBlock = styled.div`
   width: 100%;
@@ -14,16 +14,14 @@ export const StyledInfoImg = styled.div`
   flex-shrink: 0;
   margin-right: 60px;
   position: relative;
-  
-  :after{
+
+  ::after {
     position: absolute;
     content: "";
     bottom: 0;
-    height:3px;
+    height: 3px;
     width: 100%;
     background-color: ${({theme}) => theme.color.yellow};
-
-
   }
 `
 export const StyledInfoText = styled.div``
@@ -32,8 +30,8 @@ export const StyledInfoDescription = styled.p`
 `
 
 export const StyledInfoWrapper = styled.div`
-width: 100%;
-margin-bottom:100px ;
+  width: 100%;
+  margin-bottom: 100px;
 `
 
 export const StyledJoinCard = styled.div`
@@ -75,7 +73,7 @@ export const StyledJoinCardImg = styled.div`
 
 export const StyledDecorativeWrapper = styled.div`
   position: absolute;
-  content:'';
+  content: '';
   left: 0;
   z-index: 0;
   transform: rotate(-45deg) scale(-1, -1) translate(-115px, 50px);
