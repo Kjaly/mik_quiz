@@ -19,14 +19,14 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
     meta,
     onKeyDown,
     withHandleKeyDown,
-    placeholder
+    placeholder,
+    ...customProps
   } = props
 
   const { onChange, name, value, type } = input;
-
   return (
     <StyledInputContainer>
-      <StyledInput type={type} onChange={onChange} name={name} placeholder={placeholder} value={value}/>
+      <StyledInput autoComplete={'off'} view={customProps?.view} type={type} onChange={onChange} name={name} placeholder={placeholder} value={value}/>
     </StyledInputContainer>
   );
 };

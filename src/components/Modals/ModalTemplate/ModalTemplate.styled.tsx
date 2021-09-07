@@ -15,16 +15,3 @@ export const StyledModalWrapper = styled.div`
   overflow: hidden;
   background: rgba(44, 57, 99, .9);
 `
-
-export const ModalCloseButton = styled.div`
-  position: absolute;
-  cursor: pointer;
-  right: 50px;
-  top: 50px;
-  height: 18px;
-  width: 18px;
-
-  > svg > path {
-    fill: #fff;
-  }
-`

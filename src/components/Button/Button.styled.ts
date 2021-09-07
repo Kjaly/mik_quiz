@@ -14,9 +14,10 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   transition: all .2s ease-in;
   background: ${({background}) => background};
   border: ${({view, borderColor}) => view === 'bordered' && `1px solid ${borderColor || '#000'}`};
-
+  opacity: ${({disabled}) => disabled ? 0.5 : 1};
+  
   :hover {
-    background: ${({view, borderColor}) => view==='bordered' && borderColor};
+    background: ${({view, borderColor}) => view === 'bordered' && borderColor};
     filter: brightness(0.9);
   }
 `

@@ -6,6 +6,7 @@ import { modalsActions } from "../../store/modals/actions";
 import { VideoModal } from "../Modals/VideoModal";
 import { PhotoModal } from "../Modals/PhotoModal";
 import { RegistrationFormModal } from "../RegistrationForm";
+import { AddPublicationModal } from "../Modals/AddPublicationModal";
 
 export const ControlledReduxModal: React.FC = () => {
 
@@ -13,7 +14,6 @@ export const ControlledReduxModal: React.FC = () => {
   const dispatch = useDispatch();
   const closeModal = (): Action => dispatch(modalsActions.closeModalAction());
 
-  console.log(modalName);
   switch (modalName) {
     case 'videoGallery' :
       return <VideoModal closeModal={closeModal}/>;
@@ -21,6 +21,8 @@ export const ControlledReduxModal: React.FC = () => {
       return <PhotoModal closeModal={closeModal}/>;
     case 'registrationModal' :
       return <RegistrationFormModal closeModal={closeModal}/>;
+      case 'addPublicationModal' :
+      return <AddPublicationModal closeModal={closeModal}/>;
     default:
       return null;
   }

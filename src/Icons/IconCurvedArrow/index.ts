@@ -1,0 +1,1 @@
+export { IconCurvedArrow } from './IconCurvedArrow'

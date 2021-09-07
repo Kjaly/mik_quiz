@@ -11,7 +11,6 @@ const initialState: ModalState = {
 export default (state = initialState, action: ModalActions) => {
   switch (action.type) {
     case OPEN_MODAL:
-      console.log(action);
       return {
         ...state,
        ...action.payload,

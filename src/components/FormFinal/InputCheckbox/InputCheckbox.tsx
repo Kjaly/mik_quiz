@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyledInputContainer, StyledInput, StyledBox } from './InputCheckbox.styled';
+import React from 'react';
+import { StyledBox, StyledInput, StyledInputContainer } from './InputCheckbox.styled';
 import { FieldRenderProps } from "react-final-form";
 
 interface IInputCheckboxProps {
@@ -21,7 +21,6 @@ export const InputCheckbox: React.FC<IFormFinalCheckboxRadioProps> = (props) => 
 
   const error = !meta?.visited && !meta?.touched && meta?.data?.error ? meta?.data?.error : null;
 
-  console.log(name);
   return (
     <StyledInputContainer>
       <StyledInput

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyledButtonBlock,
   StyledCross,
@@ -39,7 +39,6 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
           onSubmit={handleSubmit}
           render={(renderProps): JSX.Element => {
             const {values} = renderProps;
-            console.log(values)
             return (
               <StyledForm>
                 <Field
