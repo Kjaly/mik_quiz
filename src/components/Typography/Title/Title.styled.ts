@@ -8,7 +8,7 @@ export const StyledTitle = styled.p<Partial<ITitleProps>>`
   color: ${({color}) => color ? color : '#fff'};
   margin: ${({customMargin}) => customMargin ? customMargin : '0'};
   position: relative;
-  &:after {
+  &::after {
     position: absolute;
     content: '';
     height:2px ;

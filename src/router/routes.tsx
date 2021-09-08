@@ -1,27 +1,28 @@
-import { Home } from "../pages/Home";
-import { RenderRoutes } from "./RenderRoutes";
-import { Publications } from "../pages/Publications";
+import { RenderRoutes } from './RenderRoutes';
+import {
+  About, Home,
+  Publications
+} from '../pages';
 
 export const ROUTES = [
-  { path: "/", key: "ROOT", exact: true, component: () => <Home/> },
+  {path: '/', key: 'ROOT', exact: true, component: () => <Home/>},
   {
-    path: "/publications",
-    key: "PUBLICATIONS",
+    path: '/publications',
+    key: 'PUBLICATIONS',
     component: RenderRoutes,
     routes: [
       {
-        path: "/publications",
-        key: "PUBLICATIONS_ROOT",
+        path: '/publications',
+        key: 'PUBLICATIONS_ROOT',
         exact: true,
         component: () => <Publications/>,
       },
-      {
-        path: "/app/page",
-        key: "APP_PAGE",
-        exact: true,
-        component: () => <h1>App Page</h1>,
-      },
     ],
+  },
+  {
+    path: '/about',
+    key: 'PUBLICATIONS',
+    component: () => <About/>,
   },
 ];
 

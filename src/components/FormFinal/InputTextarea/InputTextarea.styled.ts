@@ -15,7 +15,7 @@ export const StyledTextarea = styled.textarea<any>`
   position: relative;
   resize: none;
   
-  :after {
+  ::after {
     position: absolute;
     content: '';
     height: 1px;

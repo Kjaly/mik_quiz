@@ -20,7 +20,7 @@ export const StyledFilterItem = styled.div<{ isActive: boolean }>`
   :not(:last-child) {
     position: relative;
     
-    &:after {
+    &::after {
       opacity:${({isActive})=> isActive ? '0': '1'};
       position: absolute;
       content: '';

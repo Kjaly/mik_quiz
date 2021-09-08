@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledExpertCard = styled.div`
+  margin: 0 auto;
   width: 250px;
   height: 320px;
   background-color: #fff;
@@ -21,7 +22,7 @@ export const StyledExpertName = styled.p`
   position: relative;
   padding-bottom: 10px;
 
-  :after {
+  ::after {
     position: absolute;
     content: "";
     bottom: 0;

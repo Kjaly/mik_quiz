@@ -8,7 +8,8 @@ import { SwiperSlide } from "swiper/react";
 import { ExpertCard } from "./ExpertCard";
 import { DecorativeLines } from "../DecorativeLines";
 
-export const ExpertSection: React.FC = () => {
+export const ExpertSection: React.FC<any> = (props) => {
+  const {aboutPage} = props
 
   const slides = [
     {
@@ -45,7 +46,7 @@ export const ExpertSection: React.FC = () => {
     },
   ]
   return (
-    <StyledExpertSection>
+    <StyledExpertSection aboutPage={aboutPage}>
       <ContentWrapper>
         <Title color={theme.color.blue} customMargin={'0 0 40px 0'}>
           Эксперты

@@ -13,7 +13,7 @@ export const StyledInput = styled.input<{ view: string } & any>`
   background: ${({theme}) => theme.color.darkwhite};
   position: relative;
 
-  :after {
+  ::after {
     position: absolute;
     content: '';
     height: 1px;

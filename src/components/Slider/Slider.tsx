@@ -11,6 +11,25 @@ export const Slider: React.FC = (props) => {
     <StyledSwiper>
       <SwiperNavigationButton name={'prev'} reversed/>
       <Swiper
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+            slidesPerGroup:2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            slidesPerGroup:3
+          },
+          1366: {
+            spaceBetween: 15,
+            slidesPerView: 3,
+            slidesPerGroup:3
+          },
+          1920: {
+            slidesPerView: 4,
+          },
+        }}
         navigation={{
           prevEl: '.prev',
           nextEl: '.next',

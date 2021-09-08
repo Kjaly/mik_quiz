@@ -1,20 +1,20 @@
 import React from 'react';
 
-interface INavItemProps {
-  text: string;
-  url: string;
+import { StyledNavItem, StyledNavUrl } from './NavItem.styled'
+
+export interface INavItemProps {
+  text:string,
+  url: string,
+  isActive:boolean;
 }
 
-import {
-  StyledNavItem,
-  StyledNavUrl
-} from './NavItem.styled'
+export const NavItem: React.FC<INavItemProps> = (props) => {
+  const {text, url, isActive} = props
 
-export const NavItem: React.FC<any> = (props) => {
-  const {text, url} = props
+
   return (
-    <StyledNavItem>
-      <StyledNavUrl href={url}>
+    <StyledNavItem isActive={isActive}>
+      <StyledNavUrl  href={url}>
         {text}
       </StyledNavUrl>
     </StyledNavItem>
