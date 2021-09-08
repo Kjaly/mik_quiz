@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-import { AppState } from "../rootReducer";
+import { AppState } from "../store.types";
 import { TModalProps } from "./types";
 
 const getModalName = (state: AppState): string => state.modal.name;

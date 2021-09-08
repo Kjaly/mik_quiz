@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
@@ -5,7 +6,8 @@ import { fetchUserFailure, fetchUserSuccess } from "./actions";
 import { FETCH_USER_REQUEST } from "./actionTypes";
 import { IUser } from "./types";
 
-const getUsers = () =>
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+const getUsers = (): any =>
   axios.get<IUser[]>("https://jsonplaceholder.typicode.com/users");
 
 /*
@@ -13,8 +15,10 @@ const getUsers = () =>
 */
 function* fetchUserSaga() {
   try {
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(getUsers);
+    const response: any = yield call(getUsers);
     yield put(
       fetchUserSuccess({
         users: response.data,
@@ -29,11 +33,9 @@ function* fetchUserSaga() {
   }
 }
 
-/*
-  Starts worker saga on latest dispatched `FETCH_USER_REQUEST` action.
-  Allows concurrent increments.
-*/
-function* userSaga() {
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+function* userSaga(): any {
   yield all([takeLatest(FETCH_USER_REQUEST, fetchUserSaga)]);
 }
 

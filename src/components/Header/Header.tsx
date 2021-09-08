@@ -13,8 +13,7 @@ import { theme } from "../../theme";
 import { modalsActions } from "../../store/modals/actions";
 import { useDispatch } from "react-redux";
 
-export const Header: React.FC = (props) => {
-  const {} = props
+export const Header: React.FC<any> = () => {
   const dispatch = useDispatch()
   const handleClick = () => {
     dispatch(modalsActions.openModalAction({name: 'registrationModal'}))

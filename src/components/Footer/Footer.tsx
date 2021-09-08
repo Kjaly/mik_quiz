@@ -14,8 +14,7 @@ import { Logo } from "../Logo";
 import { ContentWrapper } from "../ContentWrapper";
 import { theme } from "../../theme";
 
-export const Footer: React.FC = (props) => {
-  const {} = props
+export const Footer: React.FC<any> = () => {
   return (
       <StyledFooterBackground>
         <ContentWrapper customMargin={'right'}>
