@@ -5,7 +5,6 @@ export const StyledInputContainer = styled.div`
 export const StyledInput = styled.input<{ view: string } & any>`
   width: 100%;
   height: 54px;
-  margin-bottom: 20px;
   padding: 15px 30px;
   font-size: 15px;
   color: #000;

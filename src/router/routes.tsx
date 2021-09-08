@@ -3,7 +3,8 @@ import {
   About,
   Home,
   Publications,
-  PrivacyPolicy
+  PrivacyPolicy,
+  Profile
 } from '../pages';
 
 export const ROUTES = [
@@ -23,13 +24,18 @@ export const ROUTES = [
   },
   {
     path: '/about',
-    key: 'PUBLICATIONS',
+    key: 'ABOUT',
     component: (): JSX.Element => <About/>,
   },
   {
     path: '/privacy',
-    key: 'PUBLICATIONS',
+    key: 'PRIVACY',
     component: (): JSX.Element => <PrivacyPolicy/>,
+  },
+  {
+    path: '/profile',
+    key: 'PROFILE',
+    component: (): JSX.Element => <Profile/>,
   },
 ];
 
