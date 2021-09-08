@@ -1,8 +1,7 @@
 import { createSelector } from "reselect";
 
-import { AppState } from "../rootReducer";
+import { AppState } from "../store.types";
 
-// @ts-ignore
 const getPublications = (state: AppState) => state.publicationsList.publications;
 
 export const getPublicationsSelector = createSelector(getPublications, (publications) => publications);

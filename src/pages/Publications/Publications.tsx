@@ -14,26 +14,25 @@ export const Publications: React.FC = () => {
 
   const dispatch = useDispatch()
 
-
   const handleClick = () => {
     console.log(publications);
-    console.log(publications.length)
+    console.log(publications?.length)
     dispatch(modalsActions.openModalAction({name: 'addPublicationModal'}))
   }
-  console.log(publications.length)
+  console.log(publications?.length)
   return (
     <StyledPublications>
       <TitleBanner>Мои публикации</TitleBanner>
       <ContentWrapper>
-        <StyledFilesGrid isEmpty={!publications.length}>
-          {publications.length ? publications?.map((item, key) => {
+        <StyledFilesGrid isEmpty={!publications?.length}>
+          {publications?.length ? publications?.map((item, key) => {
             console.log(item)
             return (
               <GalleryItem key={key} type={item.type === 'Видео' ? 1 : 2} edit url={item?.url}/>
             )
           }) : null}
           <StyledPreviewBlock>
-            <UploadFile isEmpty={!publications.length} onClick={handleClick}/>
+            <UploadFile isEmpty={!publications?.length} onClick={handleClick}/>
           </StyledPreviewBlock>
         </StyledFilesGrid>
       </ContentWrapper>

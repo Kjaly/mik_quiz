@@ -10,8 +10,6 @@ import { theme } from "../../theme";
 
 SwiperCore.use([Pagination]);
 
-interface IMainSliderProps {
-}
 
 interface ISliderItem {
   title: string,
@@ -37,8 +35,7 @@ const sliders: Array<ISliderItem> = [
   },
 ]
 
-export const MainSlider: React.FC<IMainSliderProps> = (props) => {
-  const {} = props
+export const MainSlider: React.FC = () => {
 
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 

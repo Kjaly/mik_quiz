@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-import { AppState } from "../rootReducer";
+import { AppState } from "../store.types";
 
 const getPending = (state: AppState) => state.user.pending;
 

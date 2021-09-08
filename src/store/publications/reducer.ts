@@ -1,20 +1,18 @@
-import {
-  ADD_PUBLICATION,
-  REMOVE_PUBLICATION,
-} from "./actionTypes";
+import { ADD_PUBLICATION, REMOVE_PUBLICATION, } from './actionTypes';
 
-import { TPublicationsActions, IPublicationsState } from "./types";
+import { IPublicationsState, TPublicationsActions } from './types';
 
 const initialState: IPublicationsState = {
   publications: [],
 };
 
-export default (state = initialState, action: TPublicationsActions) => {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export default (state = initialState, action: TPublicationsActions):any => {
   switch (action.type) {
     case ADD_PUBLICATION:
       return {
         ...state,
-        publications: [...state.publications, action.payload],
+        publications: state?.publications?.length ?  [...state.publications, action.payload] : [action.payload],
       };
     case REMOVE_PUBLICATION:
       return {

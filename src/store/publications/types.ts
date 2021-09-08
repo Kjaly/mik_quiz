@@ -18,10 +18,10 @@ export interface IVideoPublication extends IPublication {
   description:string;
 }
 
- export type TPublication =IPhotoPublication | IVideoPublication
+ export type TPublication = IPhotoPublication | IVideoPublication
 
 export interface IPublicationsState {
-  publications: Array<TPublication>;
+  publications: Array<TPublication> | any;
 }
 
 export interface ISetPublicationPayload {
