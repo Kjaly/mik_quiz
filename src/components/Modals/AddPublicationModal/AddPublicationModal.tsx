@@ -39,7 +39,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
 
 
   const handleSubmitForm = (values: any) => {
-    const filePreviewUrl = !!files[0] ? URL.createObjectURL(files[0]) : values.url;
+    const filePreviewUrl = files[0] ? URL.createObjectURL(files[0]) : values.url;
 
     dispatch(piblicationsActions.addPublication({...values, files, option, type, url:filePreviewUrl}))
   }

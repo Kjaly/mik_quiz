@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const RouteWithSubRoutes = (route:any) => {
   return (
     <Route

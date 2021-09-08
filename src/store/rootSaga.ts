@@ -1,7 +1,9 @@
-import { all, fork } from "redux-saga/effects";
+import { all, fork } from 'redux-saga/effects';
 
-import userSaga from "./user/sagas";
+import userSaga from './user/sagas';
 
-export function* rootSaga() {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
+export function* rootSaga(): any {
   yield all([fork(userSaga)]);
 }

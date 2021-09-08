@@ -8,7 +8,8 @@ const initialState: ModalState = {
   props: null,
 };
 
-export default (state = initialState, action: ModalActions) => {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export default (state = initialState, action: ModalActions):any => {
   switch (action.type) {
     case OPEN_MODAL:
       return {

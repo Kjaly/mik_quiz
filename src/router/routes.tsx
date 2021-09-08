@@ -1,11 +1,13 @@
 import { RenderRoutes } from './RenderRoutes';
 import {
-  About, Home,
-  Publications
+  About,
+  Home,
+  Publications,
+  PrivacyPolicy
 } from '../pages';
 
 export const ROUTES = [
-  {path: '/', key: 'ROOT', exact: true, component: () => <Home/>},
+  {path: '/', key: 'ROOT', exact: true, component: (): JSX.Element => <Home/>},
   {
     path: '/publications',
     key: 'PUBLICATIONS',
@@ -15,14 +17,19 @@ export const ROUTES = [
         path: '/publications',
         key: 'PUBLICATIONS_ROOT',
         exact: true,
-        component: () => <Publications/>,
+        component: (): JSX.Element => <Publications/>,
       },
     ],
   },
   {
     path: '/about',
     key: 'PUBLICATIONS',
-    component: () => <About/>,
+    component: (): JSX.Element => <About/>,
+  },
+  {
+    path: '/privacy',
+    key: 'PUBLICATIONS',
+    component: (): JSX.Element => <PrivacyPolicy/>,
   },
 ];
 
