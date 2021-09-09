@@ -1,0 +1,1 @@
+export { IconOsig } from './IconOsig'

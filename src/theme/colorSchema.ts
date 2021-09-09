@@ -4,5 +4,6 @@ export const colorSchema = {
   darkwhite:'#F8F8F8',
   darkgray:'#272727',
   gray:'#666666',
-  black:'#333333'
+  black:'#333333',
+  lightgray:'#DBD6D0'
 }

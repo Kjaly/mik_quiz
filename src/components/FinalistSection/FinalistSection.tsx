@@ -11,6 +11,9 @@ export const FinalistSection: React.FC = () => {
   return (
       <StyledFinalistSection>
         <ContentWrapper customMargin={'left'}>
+          <StyledDecorativeWrapper>
+            <DecorativeLines opacity={0.3} color={theme.color.blue}/>
+          </StyledDecorativeWrapper>
           <StyledTitleBlock>
             <Title color={theme.color.blue}>
               Финалисты

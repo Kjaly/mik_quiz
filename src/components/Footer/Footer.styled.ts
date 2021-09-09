@@ -44,5 +44,6 @@ export const StyledAuthList = styled.div`
 export const StyledFooterDescription = styled.p`
   color: #fff;
   font-size: 12px;
-  opacity: .5;
+  line-height: 1.5;
+  opacity: .4;
 `

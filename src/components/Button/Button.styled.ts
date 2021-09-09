@@ -15,7 +15,7 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   background: ${({background}) => background};
   border: ${({view, borderColor}) => view === 'bordered' && `1px solid ${borderColor || '#000'}`};
   opacity: ${({disabled}) => disabled ? 0.5 : 1};
-  
+
   :hover {
     background: ${({view, borderColor}) => view === 'bordered' && borderColor};
     filter: brightness(0.9);
@@ -24,8 +24,10 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
 
 export const StyledIcon = styled.div<Partial<IButtonProps>>`
   margin: ${({reversed}) => reversed ? '0 0 0 10px' : '0 10px 0 0'};
+  flex: 1 0 auto;
   height: 24px;
   width: 24px;
+  max-width: 24px;
   background: ${({view, borderColor}) => view === 'bordered' ? borderColor || '#fff' : '#fff'};
   border-radius: 50%;
   display: flex;
@@ -37,7 +39,7 @@ export const StyledIcon = styled.div<Partial<IButtonProps>>`
     width: 12px;
 
     > path {
-      fill: ${({view, color, theme}) => view === 'bordered' && color || theme.color.yellow};
+      fill: ${({view, color, theme, iconColor}) => iconColor ? iconColor : view === 'bordered' && color || theme.color.yellow};
     }
   }
 `

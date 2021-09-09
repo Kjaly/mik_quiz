@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { StyledBackImg, StyledDecorativeWrapper, StyledMainSlider } from "./MainSlider.styled";
+import {
+  StyledBackImg,
+  StyledDecorativeWrapper,
+  StyledDescription,
+  StyledIconNg,
+  StyledIconsBlock,
+  StyledInfo,
+  StyledMainSlider,
+  StyledMainWrapper,
+  StyledMprf
+} from "./MainSlider.styled";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SliderItem } from "./SliderItem";
 
@@ -7,32 +17,33 @@ import SwiperCore, { Pagination } from 'swiper/core';
 import { ContentWrapper } from "../ContentWrapper";
 import { DecorativeLines } from "../DecorativeLines";
 import { theme } from "../../theme";
+import { Title } from "../Typography/Title";
+import { IconMprf, IconNG } from "../../Icons";
+import bannerImage from '../../assets/images/banner/bannerImage.png'
 
 SwiperCore.use([Pagination]);
 
 
 interface ISliderItem {
   title: string,
-  description: string
+  description?: string
+  buttonText: string
 }
 
 const sliders: Array<ISliderItem> = [
   {
-    title: 'Заголовок',
-    description: 'Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет за собой процесс внедрения и модернизации новых предложений. Задача организации, в особенности же новая модель организационной деятельности позволяет оценить значение соответствующий условий активизации. С другой стороны новая модель организационной деятельности позволяет оценить значение дальнейших направлений развития. ',
+    title: `Участвуй в онлайн-викторине!
+    Запиши видеоролик!
+    Путешествуй по России!`,
+    buttonText: 'Учавствовать'
   },
   {
-    title: 'Заголовок2',
-    description: 'Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет за собой процесс внедрения и модернизации новых предложений. Задача организации, в особенности же новая модель организационной деятельности позволяет оценить значение соответствующий условий активизации. С другой стороны новая модель организационной деятельности позволяет оценить значение дальнейших направлений развития. ',
+    title: `Участвуй в онлайн-викторине!
+    Запиши видеоролик!
+    Путешествуй по России!`,
+    buttonText: 'Учавствовать'
   },
-  {
-    title: 'Заголовок3',
-    description: 'Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет за собой процесс внедрения и модернизации новых предложений. Задача организации, в особенности же новая модель организационной деятельности позволяет оценить значение соответствующий условий активизации. С другой стороны новая модель организационной деятельности позволяет оценить значение дальнейших направлений развития. ',
-  },
-  {
-    title: 'Заголовок4',
-    description: 'Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет за собой процесс внедрения и модернизации новых предложений. Задача организации, в особенности же новая модель организационной деятельности позволяет оценить значение соответствующий условий активизации. С другой стороны новая модель организационной деятельности позволяет оценить значение дальнейших направлений развития. ',
-  },
+
 ]
 
 export const MainSlider: React.FC = () => {
@@ -40,13 +51,11 @@ export const MainSlider: React.FC = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const images = [
-    'https://www.lancaster.ac.uk/media/lancaster-university/content-assets/images/alumni/new-alumni-website/LUJMedical02.jpg',
-    'https://ctfimages.intoglobal.com/xw2h6mjophtz/731sOVK2X4DrG83SK4jXAf/395ba54e3dc059a2fbb5b1fa5ca33cf3/Contentful_-_Campus_LifeUOM.jpg',
-    'https://i.guim.co.uk/img/media/10776732e4de44ac526313d88d7090cd5a82461d/19_52_1259_755/master/1259.jpg?width=1200&quality=85&auto=format&fit=max&s=3511729fb28b5130b4a69f27b2082481',
-    'http://www.purdue.edu/purdue/images/audience/about-banner.jpg',
+    bannerImage,
   ]
+
   return (
-    <>
+    <StyledMainWrapper>
       <StyledMainSlider>
         {images.map((item, index) => (
           <StyledBackImg key={index} active={index === activeSlideIndex}>
@@ -68,16 +77,44 @@ export const MainSlider: React.FC = () => {
                 <SwiperSlide key={key}>
                   <SliderItem
                     title={item.title}
-                    description={item.description}/>
+                    description={item.description}
+                    buttonText={item.buttonText}/>
                 </SwiperSlide>
               )
             })}
+
+            <StyledIconsBlock>
+              <StyledMprf>
+                <IconMprf/>
+                <p>Министерство просвещения<br/>
+                  Российской Федерации</p>
+              </StyledMprf>
+              <StyledIconNg>
+                <IconNG/>
+              </StyledIconNg>
+            </StyledIconsBlock>
           </Swiper>
         </ContentWrapper>
+
       </StyledMainSlider>
+      <ContentWrapper>
+        <StyledInfo>
+          <Title size={30} color={theme.color.darkgray}>Славные дороги прошлого – маршрут в будущее России</Title>
+          <StyledDescription>Проект «Славные дороги прошлого – маршрут в будущее России» посвящён памятным
+            историческим датам - 800-летие великого князя Александра Невского и 75-летие самой молодой в России
+            Калининградской области.
+            Участие в проекте даёт возможность старшеклассникам двух приграничных областей нашей страны -
+            Калининградской и Псковской, погрузиться в изучение истории родного края не по учебникам, а вживую. Приняв
+            участие в онлайн-викторине и став полуфиналистами проекта, отправиться на военно-исторические экскурсии,
+            пройти маршрутами знаменитых земляков, больше узнать о великих экспедициях и ратных подвигах. Участвуя в
+            создании видеолетописи западных форпостов России, победить в конкурсе видеороликов и отправиться в
+            путешествие по родной стране!</StyledDescription>
+        </StyledInfo>
+      </ContentWrapper>
       <StyledDecorativeWrapper>
         <DecorativeLines color={theme.color.yellow}/>
       </StyledDecorativeWrapper>
-    </>
-  );
+    </StyledMainWrapper>
+  )
+    ;
 };

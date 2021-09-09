@@ -5,15 +5,12 @@ export const StyledLogo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
-export const StyledTitle = styled.p`
-  font-weight: 700;
-  font-size: 25px;
-  color: ${({ theme }) => theme.color.blue};
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;`
-
-export const StyledSubtitle = styled(StyledTitle)`
-  font-size: 11px;
-  text-transform: lowercase;
+  width: 300px;
+  height: 60px;
+  
+  > svg {
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+  }
 `

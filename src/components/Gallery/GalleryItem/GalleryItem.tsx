@@ -33,7 +33,7 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
         </StyledItemButton>
         {url ? <StyledItemImg src={url}/> : null}
       </StyledItemImgWrapper>
-      <StyledItemUser>{edit ? <IconPen/> : 'test'}</StyledItemUser>
+      <StyledItemUser>{edit ? <IconPen/> : ''}</StyledItemUser>
     </StyledGalleryItem>
   );
 };
