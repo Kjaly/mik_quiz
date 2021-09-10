@@ -1,0 +1,1 @@
+export { FinalistSection } from './FinalistSection'

@@ -4,20 +4,40 @@ import {
   StyledTitle
 } from './Button.styled'
 
-interface IButtonProps {
+export interface IButtonProps {
   title: string,
   onClick: () => void,
   background?: string,
+  borderColor?: string,
+  color?: string,
+  reversed?: boolean,
   icon?: React.ElementType;
+  view?: string;
+  disabled?: boolean;
+  iconColor?: string;
 }
 
 export const Button: React.FC<IButtonProps> = (props) => {
-  const {title, onClick, background, icon} = props
+  const {title, onClick, background, icon, reversed, color, view, borderColor,disabled, iconColor} = props
   const Icon = icon;
   return (
-    <StyledButton onClick={onClick} background={background}>
+    <StyledButton
+      reversed={reversed}
+      onClick={onClick}
+      background={background}
+      color={color}
+      view={view}
+      borderColor={borderColor}
+      disabled={disabled}
+    >
       {Icon &&
-      <StyledIcon>
+      <StyledIcon
+        view={view}
+        borderColor={borderColor}
+        color={color}
+        reversed={reversed}
+        iconColor={iconColor}
+      >
         <Icon/>
       </StyledIcon>}
       <StyledTitle>{title}</StyledTitle>

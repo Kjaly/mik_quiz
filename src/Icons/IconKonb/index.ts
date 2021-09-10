@@ -1,0 +1,1 @@
+export { IconKonb } from './IconKonb'

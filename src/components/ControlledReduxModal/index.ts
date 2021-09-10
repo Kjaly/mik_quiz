@@ -1,0 +1,1 @@
+export { ControlledReduxModal } from './ControlledReduxModal'

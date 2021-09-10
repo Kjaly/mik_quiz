@@ -1,0 +1,1 @@
+export { IconNG } from './IconNG'

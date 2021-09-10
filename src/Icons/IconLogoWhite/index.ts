@@ -1,0 +1,1 @@
+export { IconLogoWhite } from './IconLogoWhite'

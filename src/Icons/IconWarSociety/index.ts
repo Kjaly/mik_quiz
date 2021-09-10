@@ -1,0 +1,1 @@
+export { IconWarSociety } from './IconWarSociety'

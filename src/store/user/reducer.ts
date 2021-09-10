@@ -12,7 +12,8 @@ const initialState: UserState = {
   error: null,
 };
 
-export default (state = initialState, action: UserActions) => {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export default (state = initialState, action: UserActions): any => {
   switch (action.type) {
     case FETCH_USER_REQUEST:
       return {

@@ -1,16 +1,26 @@
-import { combineReducers } from "redux";
+import { CombinedState, combineReducers, Reducer } from 'redux';
 
-import userReducer from "./user/reducer";
-import { connectRouter } from "connected-react-router";
+import userReducer from './user/reducer';
+import modalReducer from './modals/reducer';
+import publicationsReducer from './publications/reducer';
+import { connectRouter, RouterState } from 'connected-react-router';
+import { AppState } from './store.types';
+import { History } from 'history';
 
-import { createBrowserHistory } from "history";
+export type IRootReducer<R = undefined> = Reducer<CombinedState<AppState<R>>>;
 
-export const history = createBrowserHistory()
-const rootReducer = combineReducers({
+const rootReducer = {
   user: userReducer,
-  router: connectRouter(history),
-});
+  modal: modalReducer,
+  publicationsList: publicationsReducer,
+};
 
-export type AppState = ReturnType<typeof rootReducer>;
+export const createRootReducer = (history: History): IRootReducer<RouterState> =>
+  combineReducers({
+    router: connectRouter(history),
+    ...rootReducer,
+  });
 
-export default rootReducer;
+
+
+export default createRootReducer;
