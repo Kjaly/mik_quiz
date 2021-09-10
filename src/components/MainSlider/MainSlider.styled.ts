@@ -71,12 +71,13 @@ export const StyledMainSlider = styled.div`
 export const StyledIconsBlock = styled.div`
   position: absolute;
   bottom: 40px;
-  width: 450px;
+  width: 60%;
   height: 80px;
   display: flex;
   padding-left: 76px;
   margin-top: 50px;
   align-items: center;
+  justify-content: space-between;
 
 `
 export const StyledMprf = styled.div`
@@ -148,6 +149,8 @@ export const StyledDescription = styled.p`
   margin-top: 20px;
   line-height: 1.5;
   font-size: 20px;
+  text-align: justify;
+  white-space: pre-line;
 `
 
 

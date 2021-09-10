@@ -1,14 +1,12 @@
 import React from 'react';
 import {
   StyledGalleryItem,
+  StyledItemButton,
   StyledItemImg,
   StyledItemImgWrapper,
-  StyledItemButton,
   StyledItemUser,
 } from './GalleryItem.styled';
-import { IconVideo, IconPhoto } from "../../../Icons";
-import { useDispatch } from "react-redux";
-import { modalsActions } from "../../../store/modals/actions";
+import { IconPhoto, IconVideo } from "../../../Icons";
 import { IconPen } from "../../../Icons/IconPen";
 
 export interface IGalleryItemProps {
@@ -20,9 +18,9 @@ export interface IGalleryItemProps {
 export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
   const {type, url, edit} = props
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const handleClick = () => {
-    dispatch(modalsActions.openModalAction({name: type !== 1 ? 'photoGallery' : 'videoGallery'}))
+    // dispatch(modalsActions.openModalAction({name: type !== 1 ? 'photoGallery' : 'videoGallery'}))
   }
   return (
     <StyledGalleryItem onClick={handleClick}>
