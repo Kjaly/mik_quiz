@@ -102,7 +102,7 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
             reversed
             background={theme.color.yellow}
             color={'#fff'}
-            title={'Зарегестрироваться'}
+            title={'Зарегистрироваться'}
             onClick={() => {
               console.log('Логин')
             }}/>

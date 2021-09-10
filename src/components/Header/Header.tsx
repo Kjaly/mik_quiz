@@ -10,13 +10,13 @@ import { IconKey } from "../../Icons";
 import { Logo } from "../Logo";
 import { ContentWrapper } from "../ContentWrapper";
 import { theme } from "../../theme";
-import { modalsActions } from "../../store/modals/actions";
-import { useDispatch } from "react-redux";
+// import { modalsActions } from "../../store/modals/actions";
+// import { useDispatch } from "react-redux";
 
 export const Header: React.FC<any> = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const handleClick = () => {
-    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+    // dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
   return (
     <ContentWrapper>
