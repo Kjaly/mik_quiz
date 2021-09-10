@@ -6,7 +6,7 @@ import {
   StyledOption,
   StyledSelect,
 } from './DropdownSelect.styled';
-import { IconArrowDown } from "../../../Icons";
+import { IconArrowDown } from '../../../Icons';
 
 interface IDropdownSelect {
   optionsList: Array<string>;
@@ -33,14 +33,16 @@ export const DropdownSelect: React.FC<IDropdownSelect> = (props) => {
   }
 
   return (
-    <StyledDropdown disabled={disabled || false} isOpen={isOpen} onClick={handleOpen}>
+    <StyledDropdown tabIndex="0" disabled={disabled || false} isOpen={isOpen} onClick={handleOpen} onBlur={() => {
+      setIsOpen(false)
+    }}>
       <StyledDropdownSelected isOpen={isOpen}>
         <p>{option || placeholder}</p>
         <StyledArrow>
           <IconArrowDown/>
         </StyledArrow>
       </StyledDropdownSelected>
-      <StyledSelect>
+      <StyledSelect isOpen={isOpen}>
         {optionsList.map((item, key) => {
           return (
             <StyledOption disabled={option === item} onClick={() => handleSelect(item)} key={key} value={item}>
