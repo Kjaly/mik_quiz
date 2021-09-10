@@ -6,6 +6,7 @@ import {
   StyledIconNg,
   StyledIconsBlock,
   StyledInfo,
+  StyledItemDescription,
   StyledMainSlider,
   StyledMainWrapper,
   StyledMprf
@@ -19,15 +20,19 @@ import { DecorativeLines } from "../DecorativeLines";
 import { theme } from "../../theme";
 import { Title } from "../Typography/Title";
 import { IconMprf, IconNG } from "../../Icons";
-import bannerImage from '../../assets/images/banner/bannerImage.png'
+import mainImage from '../../assets/images/banner/mainImage.png'
+import mainImage2 from '../../assets/images/banner/mainImage2.jpg'
+import { SliderDescription } from "./SliderDescription";
 
+console.log(1);
 SwiperCore.use([Pagination]);
 
 
 interface ISliderItem {
   title: string,
-  description?: string
   buttonText: string
+  img?: string
+  description?: JSX.Element
 }
 
 const sliders: Array<ISliderItem> = [
@@ -35,33 +40,43 @@ const sliders: Array<ISliderItem> = [
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
-    buttonText: 'Учавствовать'
+    buttonText: 'Учавствовать',
+    img: mainImage,
   },
-  // {
-  //   title: `Участвуй в онлайн-викторине!
-  //   Запиши видеоролик!
-  //   Путешествуй по России!`,
-  //   buttonText: 'Учавствовать'
-  // },
-
+  {
+    title: `Участвуй в онлайн-викторине!
+    Запиши видеоролик!
+    Путешествуй по России!`,
+    buttonText: 'Учавствовать',
+    img: mainImage2,
+  },
+  {
+    title: `Участвуй в онлайн-викторине!
+    Запиши видеоролик!
+    Путешествуй по России!`,
+    buttonText: 'Учавствовать',
+    description: <SliderDescription/>,
+  },
 ]
+
 
 export const MainSlider: React.FC = () => {
 
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
-  const images = [
-    bannerImage,
-  ]
 
   return (
     <StyledMainWrapper>
       <StyledMainSlider>
-        {images.map((item, index) => (
+        {sliders.map((item, index) => (
           <StyledBackImg key={index} active={index === activeSlideIndex}>
-            <img
-              src={images[index]}
-              alt=""/>
+            {item.img && (
+              <img
+                src={item.img}
+                alt=""/>
+            )}
+
+            {item?.description && <StyledItemDescription>{item.description}</StyledItemDescription>}
           </StyledBackImg>
         ))}
         <ContentWrapper customMargin={'left'}>
@@ -77,7 +92,6 @@ export const MainSlider: React.FC = () => {
                 <SwiperSlide key={key}>
                   <SliderItem
                     title={item.title}
-                    description={item.description}
                     buttonText={item.buttonText}/>
                 </SwiperSlide>
               )
