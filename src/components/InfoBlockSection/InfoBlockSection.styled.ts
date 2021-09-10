@@ -1,37 +1,10 @@
 import styled from 'styled-components';
 
-export const StyledInfoBlock = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  margin: -160px 0 100px;
-`
-
-export const StyledInfoImg = styled.div`
-  width: 415px;
-  height: 392px;
-  background-color: ${({theme}) => theme.color.blue};
-  flex-shrink: 0;
-  margin-right: 60px;
-  position: relative;
-
-  ::after {
-    position: absolute;
-    content: "";
-    bottom: 0;
-    height: 3px;
-    width: 100%;
-    background-color: ${({theme}) => theme.color.yellow};
-  }
-`
-export const StyledInfoText = styled.div``
-export const StyledInfoDescription = styled.p`
-  font-size: 15px;
-`
 
 export const StyledInfoWrapper = styled.div`
   width: 100%;
-  margin-bottom: 100px;
+  padding: 100px 0;
+
 `
 
 export const StyledJoinCard = styled.div`
@@ -53,22 +26,45 @@ export const StyledJoinCardLeftBlock = styled.div`
   background-color: ${({theme}) => theme.color.blue};
   padding: 50px;
   width: 100%;
+  
+  
 `
 export const StyledJoinCardText = styled.p`
   font-size: 30px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `
 export const StyledJoinCardDescription = styled.p`
   font-size: 15px;
   margin-bottom: 30px;
 `
+export const StyledButtonWrapper = styled.div`
+  flex: 1 0 auto;
+  display: flex;
+  align-items:flex-end;
+  
+`
 
 export const StyledJoinCardImg = styled.div`
   background-color: ${({theme}) => theme.color.yellow};
   width: 350px;
-  height: auto;
+  height: 100%;
   flex-shrink: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  > img {
+    transition: all .2s ease-in-out;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  :hover {
+    > img {
+      transform: scale(1.2);
+    }
+  }
 `
 
 export const StyledDecorativeWrapper = styled.div`

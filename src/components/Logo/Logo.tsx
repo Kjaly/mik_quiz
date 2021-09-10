@@ -1,16 +1,17 @@
 import React from 'react';
-import { StyledSubtitle, StyledTitle } from './Logo.styled';
 import { StyledLogo } from './Logo.styled';
+import { IconLogo, IconLogoWhite } from "../../Icons";
 
-export const Logo: React.FC = () => {
+interface ILogoProps {
+  white?: boolean
+}
+
+export const Logo: React.FC<ILogoProps> = (props) => {
+  const {white} = props;
   return (
     <StyledLogo>
-      <StyledTitle>
-        наш город
-      </StyledTitle>
-      <StyledSubtitle>
-        общественная организация
-      </StyledSubtitle>
+      {white ?  <IconLogoWhite/> :  <IconLogo/>}
+
     </StyledLogo>
   );
 };

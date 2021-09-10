@@ -11,10 +11,45 @@ import { Title } from "../Typography/Title";
 import { PartnerCard } from "./PartnerCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SwiperNavigationButton } from "../SwiperNavigationButton";
+import {
+  IconKonb,
+  IconKopo,
+  IconMikAvia,
+  IconOsig,
+  IconWarSociety,
+  IconMinisterstvo
+} from "../../Icons";
+
 
 export const PartnersSection: React.FC = () => {
 
-  const partners = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]]
+  const partners = [[
+    {
+      name: 'ВОКО',
+      icon: IconMinisterstvo
+    },
+    {
+      name: 'РВИО',
+      icon: IconWarSociety
+    },
+    {
+      name: 'Мик-Авиа',
+      icon: IconMikAvia
+    },
+    {
+      name: 'ОСИГ',
+      icon: IconOsig
+    },
+    {
+      name: 'КОПО',
+      icon: IconKopo
+    },
+    {
+      name: 'КОНБ',
+      icon: IconKonb
+    }
+  ],
+  ]
 
   return (
     <StyledPartnersWrapper>
@@ -38,9 +73,9 @@ export const PartnersSection: React.FC = () => {
               return (
                 <SwiperSlide key={key}>
                   <PartnerGrid>
-                    {partners.map((item,index) => {
+                    {partners.map((item, index) => {
                       return (
-                        <PartnerCard key={index}/>
+                        <PartnerCard key={index} icon={item.icon}/>
                       )
                     })}
                   </PartnerGrid>

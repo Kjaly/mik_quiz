@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledPartnersWrapper = styled.div`
   width: 100%;
-  margin-bottom: 100px;
+  padding: 100px 0;
 `
 export const StyledPartnersSection = styled.div`
   display: flex;

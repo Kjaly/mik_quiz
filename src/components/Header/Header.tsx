@@ -28,9 +28,10 @@ export const Header: React.FC<any> = () => {
         <StyledAuthList>
           <Button
             icon={IconLock}
-            background={theme.color.blue}
-            title={'Войти'}
-            color={'#fff'}
+            background={'rgba(219, 214, 208, 0.5)'}
+            title={'Вход'}
+            iconColor={'#000'}
+            color={'#000'}
             onClick={() => {
               console.log('Логин')
             }}/>

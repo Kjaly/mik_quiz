@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+
+export const StyledMainWrapper = styled.div`
+  width: 100%;
+  height: 100%;`
 export const StyledMainSlider = styled.div`
   height: 500px;
   margin-bottom: 20px;
@@ -29,7 +33,8 @@ export const StyledMainSlider = styled.div`
     -webkit-box-align: center;
     -ms-flex-align: center;
     -webkit-align-items: center;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 60px;
   }
 
   .swiper-slide img {
@@ -63,6 +68,51 @@ export const StyledMainSlider = styled.div`
 
 `
 
+export const StyledIconsBlock = styled.div`
+  position: absolute;
+  bottom: 40px;
+  width: 60%;
+  height: 80px;
+  display: flex;
+  padding-left: 76px;
+  margin-top: 50px;
+  align-items: center;
+  justify-content: space-between;
+
+`
+export const StyledMprf = styled.div`
+  font-size: 13px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 30px;
+
+  > img {
+    width: 90px;
+    height: 100%;
+  }
+
+  > p {
+    color: #fff;
+    line-height: 1.5;
+  }
+
+`
+export const StyledIconNg = styled.div`
+
+  > svg {
+    width: 72px;
+    height: 72px;
+  }
+
+  > p {
+    color: #fff;
+  }
+
+`
+
+
 export const StyledBackImg = styled.div<{ active: boolean }>`
   position: absolute;
   right: 10%;
@@ -88,6 +138,19 @@ export const StyledDecorativeWrapper = styled.div`
   right: 0;
   z-index: 1;
   transform: rotate(45deg) scale(1, -1) translate(-50px, 10px);
+`
+export const StyledInfo = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 100px 0;
+`
+export const StyledDescription = styled.p`
+  width: 100%;
+  margin-top: 20px;
+  line-height: 1.5;
+  font-size: 20px;
+  text-align: justify;
+  white-space: pre-line;
 `
 
 
