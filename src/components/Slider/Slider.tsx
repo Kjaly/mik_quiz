@@ -14,19 +14,12 @@ export const Slider: React.FC = (props) => {
         breakpoints={{
           768: {
             slidesPerView: 2,
-            slidesPerGroup:2,
             spaceBetween: 20,
           },
           1024: {
             slidesPerView: 3,
-            slidesPerGroup:3
           },
-          1366: {
-            spaceBetween: 15,
-            slidesPerView: 3,
-            slidesPerGroup:3
-          },
-          1920: {
+          1280: {
             slidesPerView: 4,
           },
         }}
@@ -36,7 +29,6 @@ export const Slider: React.FC = (props) => {
         }}
         slidesPerView={4}
         spaceBetween={30}
-        slidesPerGroup={4}
       >
         {children}
       </Swiper>

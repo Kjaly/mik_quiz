@@ -20,7 +20,7 @@ export const StyledExpertImg = styled.img`
 
 export const StyledExpertCard = styled.div`
   margin: 0 auto;
-  width: 255px;
+  width: 100%;
   height: 360px;
   background-color: #fff;
   transition: all .2s ease-in-out;
