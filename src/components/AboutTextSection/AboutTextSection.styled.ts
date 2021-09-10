@@ -24,7 +24,7 @@ export const StyledImg = styled.div`
   }
 `
 export const StyledText = styled.div`
-  max-width: 640px;
+  max-width: 50%;
   margin-left: 60px;
 
   > p {
