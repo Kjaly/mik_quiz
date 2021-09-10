@@ -38,7 +38,7 @@ export const ExpertSection: React.FC<any> = (props) => {
     <StyledExpertSection aboutPage={aboutPage}>
       <ContentWrapper>
         <Title color={theme.color.blue} customMargin={'0 0 40px 0'}>
-          Жюри, Наставники и Эксперты
+          Жюри, эксперты и наставники
         </Title>
         <Slider>
           {slides.map((item, key) => {

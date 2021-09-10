@@ -5,10 +5,10 @@ export const StyledLogo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 60px;
+  width: 210px;
+  height: 54px;
   
-  > svg {
+  > img {
     height: 100%;
     width: 100%;
     object-fit:cover;
