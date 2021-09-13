@@ -132,6 +132,12 @@ export const StyledBackImg = styled.div<{ active: boolean }>`
 
 `
 
+export const StyledItemDescription = styled.div`
+  width: 100%;
+  max-width: 700px;
+  padding: 0 80px;
+`
+
 export const StyledDecorativeWrapper = styled.div`
   position: absolute;
   content: '';

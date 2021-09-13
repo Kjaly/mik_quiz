@@ -1,0 +1,1 @@
+export {SliderDescription} from './SliderDescription'

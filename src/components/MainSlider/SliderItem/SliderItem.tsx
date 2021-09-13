@@ -14,12 +14,11 @@ import { Title } from "../../Typography/Title";
 
 interface ISliderItemProps {
   title: string;
-  description?: string;
   buttonText: string;
 }
 
 export const SliderItem: React.FC<ISliderItemProps> = (props) => {
-  const {title, description, buttonText} = props
+  const {title, buttonText} = props
   return (
     <StyledSliderItem>
       <StyledSliderText>
@@ -28,9 +27,6 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
             {title}
           </Title>
         </StyledSliderItemTitle>
-        <StyledSliderItemDescription>
-          {description}
-        </StyledSliderItemDescription>
         <StyledButton>
           <Button
             reversed
