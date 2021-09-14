@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { device } from '../../theme/devices';
 
 
 export const StyledMainWrapper = styled.div`
@@ -8,10 +9,15 @@ export const StyledMainSlider = styled.div`
   height: 500px;
   margin-bottom: 20px;
   width: 100%;
-  background: linear-gradient(90deg, ${({theme}) => theme.color.blue} 90%, rgba(0, 0, 0, 0) 50%);;
   position: relative;
+  background: ${({theme}) => theme.color.blue};
   z-index: 2;
 
+
+  ${device.tabletL} {
+    background: linear-gradient(90deg, ${({theme}) => theme.color.blue} 90%, rgba(0, 0, 0, 0) 50%);
+
+  }
 
   .swiper-container {
     width: 100%;
@@ -115,13 +121,18 @@ export const StyledIconNg = styled.div`
 
 export const StyledBackImg = styled.div<{ active: boolean }>`
   position: absolute;
-  right: 10%;
+  right: 0;
   max-width: 50%;
   height: 100%;
   bottom: 0;
   top: 0;
   transition: all 0.5s ease-in;
   opacity: ${({active}) => active ? 1 : 0};
+
+  ${device.tabletL} {
+    right: 10%;
+
+  }
 
   > img {
     object-fit: cover;
@@ -139,11 +150,16 @@ export const StyledItemDescription = styled.div`
 `
 
 export const StyledDecorativeWrapper = styled.div`
-  position: absolute;
-  content: '';
-  right: 0;
-  z-index: 1;
-  transform: rotate(45deg) scale(1, -1) translate(-50px, 10px);
+  display: none;
+
+  ${device.tabletL} {
+    display: block;
+    position: absolute;
+    content: '';
+    right: 0;
+    z-index: 1;
+    transform: rotate(45deg) scale(1, -1) translate(-50px, 10px);
+  }
 `
 export const StyledInfo = styled.div`
   width: 100%;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyledHeaderWrapper, StyledNavWrapper,
   StyledAuthList,
@@ -25,10 +25,27 @@ export const Header: React.FC<any> = () => {
   const handleClick = () => {
     dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
+  const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
   const handleToggleMenu = () => {
     setIsOpen(!isOpen)
+
   }
+
+  useEffect(() => {
+
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+      document.body.style.paddingRight = `${scrollWidth}px`;
+    } else {
+      document.body.classList.remove('no-scroll');
+      document.body.style.paddingRight = `0px`;
+    }
+    return () => {
+      document.body.classList.remove('no-scroll');
+      document.body.style.paddingRight = `0px`;
+    }
+  }, [isOpen])
   return (
     <ContentWrapper>
       <StyledHeaderWrapper>
@@ -36,7 +53,7 @@ export const Header: React.FC<any> = () => {
           <Logo/>
         </StyledLogo>
         <StyledNavWrapper>
-          <Nav/>
+          <Nav setIsOpen={setIsOpen} mobileHidden isOpen={isOpen}/>
         </StyledNavWrapper>
 
         <StyledAuthList>
@@ -57,7 +74,7 @@ export const Header: React.FC<any> = () => {
               color={'#fff'}
               onClick={() => handleClick()}/>
           </AuthWrapper>
-          <StyledBurgerMenu onClick={handleToggleMenu}>
+          <StyledBurgerMenu isOpen={isOpen} onClick={handleToggleMenu}>
             <StyledBurger isOpen={isOpen}>
               <StyledBurgerLine isOpen={isOpen}/>
               <StyledBurgerLine isOpen={isOpen}/>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from '../../theme/devices';
 
 export const StyledFilter = styled.div`
   display: flex;
@@ -14,6 +15,8 @@ export const StyledFilterItem = styled.div<{ isActive: boolean }>`
   font-size: 15px;
   cursor: pointer;
   transition: all 0.2s ease-in;
+  
+  flex-basis:33%;
   :hover{
     filter: brightness(0.9);
   }
@@ -29,6 +32,10 @@ export const StyledFilterItem = styled.div<{ isActive: boolean }>`
       right: 0;
       background: ${({theme}) => theme.color.darkwhite}
     }
+  }
+  
+  ${device.tabletL}{
+    flex-basis:inherit;
   }
 `
 

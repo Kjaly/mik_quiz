@@ -14,18 +14,10 @@ export const StyledLogo = styled.div`
   flex-shrink: 0;
 `
 export const StyledNavWrapper = styled.div`
-
-  display: none;
-
-  ${device.tabletL} {
     display: flex;
     justify-content: space-between;
     flex: 0 1 300px;
     padding: 0 20px;
-  }
-
-
-
 `
 export const StyledAuthList = styled.div`
   display: flex;
@@ -60,7 +52,7 @@ export const AuthWrapper = styled.div`
 
 `
 
-export const StyledBurgerMenu = styled.div`
+export const StyledBurgerMenu = styled.div<{isOpen: boolean}>`
   height: 54px;
   width: 54px;
   background-color: ${({theme}) => theme.color.blue};
@@ -68,6 +60,8 @@ export const StyledBurgerMenu = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
+  z-index: 3;
 
   ${device.tabletL} {
     display: none;

@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { device } from '../../../theme/devices';
 
 export const StyledSliderItem = styled.div`
   color: #fff;
@@ -21,5 +22,10 @@ export const StyledButton = styled.div`
   max-width: 180px;
 `
 export const StyledSliderText = styled.div`
-  max-width: 640px;
+  max-width: 50%;
+
+  ${device.tabletL} {
+    max-width: 640px;
+
+  }
 `

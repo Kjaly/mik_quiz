@@ -7,13 +7,21 @@ export const StyledFooterBackground = styled.div`
 `
 export const StyledFooterWrapper = styled.div`
   width: 100%;
-  padding: 95px 0;
+  padding: 70px 40px;  
+`
+export const StyledDescriptionWrapper = styled.div`
+  width: 100%;
+  display: flex;
 `
 export const StyledFooterNav = styled.div`
   padding-bottom: 50px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  ${device.tablet} {
+    flex-direction: row;
+  }
 `
 export const StyledLogo = styled.div`
   flex-shrink: 0;
@@ -47,6 +55,8 @@ export const StyledAuthListDesktop = styled.div`
 `
 export const StyledAuthListMobile = styled(StyledAuthListDesktop)`
   display: flex;
+  flex-basis: 50%;
+  justify-content:flex-end;
   ${device.tabletL} {
     display: none;
   }
@@ -57,4 +67,9 @@ export const StyledFooterDescription = styled.p`
   font-size: 12px;
   line-height: 1.5;
   opacity: .4;
+  flex-basis: 50%;
+  ${device.tabletL} {
+    flex-basis: 100%;
+  }
+
 `
