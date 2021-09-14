@@ -9,7 +9,7 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   justify-content: center;
   padding: 15px 30px;
   color: ${({color}) => color ? color : '#000'};
-  height: 55px;
+  height: 54px;
   cursor: pointer;
   transition: all .2s ease-in;
   background: ${({background}) => background};

@@ -1,0 +1,1 @@
+export { IconRvio } from './IconRvio'

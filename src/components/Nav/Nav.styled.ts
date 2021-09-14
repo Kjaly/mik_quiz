@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledNav = styled.div`
   display: flex;
@@ -6,4 +6,4 @@ export const StyledNav = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 300px;
-  `
+`

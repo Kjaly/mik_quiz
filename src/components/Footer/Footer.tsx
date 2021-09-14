@@ -1,18 +1,20 @@
 import React from 'react';
 import {
-  StyledAuthList,
   StyledFooterBackground,
   StyledFooterDescription,
   StyledFooterNav,
   StyledFooterWrapper,
-  StyledNavWrapper
+  StyledNavWrapper,
+  StyledLogo,
+  StyledAuthListDesktop,
+  StyledAuthListMobile,
 } from './Footer.styled'
-import { Button } from "../Button";
-import { Nav } from "../Nav";
-import { IconKey, IconLock } from "../../Icons";
-import { Logo } from "../Logo";
-import { ContentWrapper } from "../ContentWrapper";
-import { theme } from "../../theme";
+import { Button } from '../Button';
+import { Nav } from '../Nav';
+import { IconKey, IconLock } from '../../Icons';
+import { Logo } from '../Logo';
+import { ContentWrapper } from '../ContentWrapper';
+import { theme } from '../../theme';
 
 export const Footer: React.FC<any> = () => {
   return (
@@ -20,11 +22,13 @@ export const Footer: React.FC<any> = () => {
       <ContentWrapper customMargin={'right'}>
         <StyledFooterWrapper>
           <StyledFooterNav>
-            <StyledNavWrapper>
+            <StyledLogo>
               <Logo white/>
+            </StyledLogo>
+            <StyledNavWrapper>
               <Nav/>
             </StyledNavWrapper>
-            <StyledAuthList>
+            <StyledAuthListDesktop>
               <Button
                 icon={IconLock}
                 iconColor={theme.color.blue}
@@ -42,7 +46,7 @@ export const Footer: React.FC<any> = () => {
                 onClick={() => {
                   console.log('Регистрация')
                 }}/>
-            </StyledAuthList>
+            </StyledAuthListDesktop>
           </StyledFooterNav>
 
           <StyledFooterDescription>
@@ -50,6 +54,26 @@ export const Footer: React.FC<any> = () => {
             Запрещается копирование, распространение (в том числе путем копирования на другие сайты и ресурсы в
             Интернете) или любое иное использование информации и объектов без предварительного согласия правообладателя.
           </StyledFooterDescription>
+          <StyledAuthListMobile>
+            <Button
+              icon={IconLock}
+              iconColor={theme.color.blue}
+              background={'rgba(255, 255, 255, 0.1)'}
+              color={'#fff'}
+              title={'Вход'}
+              onClick={() => {
+                console.log('Логин')
+              }}/>
+            <Button
+              icon={IconKey}
+              background={theme.color.yellow}
+              title={'Регистрация'}
+              color={'#fff'}
+              onClick={() => {
+                console.log('Регистрация')
+              }}/>
+          </StyledAuthListMobile>
+
         </StyledFooterWrapper>
       </ContentWrapper>
     </StyledFooterBackground>
