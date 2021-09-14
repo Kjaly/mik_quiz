@@ -1,0 +1,1 @@
+export { IconMoko } from './IconMoko'

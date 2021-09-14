@@ -6,35 +6,35 @@ import {
   StyledPartnersSection,
   StyledPartnersWrapper
 } from './PartnersSection.styled';
-import { ContentWrapper } from "../ContentWrapper";
-import { Title } from "../Typography/Title";
-import { PartnerCard } from "./PartnerCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { SwiperNavigationButton } from "../SwiperNavigationButton";
+import { ContentWrapper } from '../ContentWrapper';
+import { Title } from '../Typography/Title';
+import { PartnerCard } from './PartnerCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperNavigationButton } from '../SwiperNavigationButton';
 import {
   IconKonb,
   IconKopo,
-  IconMikAvia,
   IconOsig,
-  IconWarSociety,
-  IconMinisterstvo
-} from "../../Icons";
+  IconMoko,
+  IconKOopo,
+  IconRvio
+} from '../../Icons';
 
 
 export const PartnersSection: React.FC = () => {
 
   const partners = [[
     {
-      name: 'ВОКО',
-      icon: IconMinisterstvo
+      name: 'МОКО',
+      icon: IconMoko
     },
     {
       name: 'РВИО',
-      icon: IconWarSociety
+      icon: IconRvio
     },
     {
-      name: 'Мик-Авиа',
-      icon: IconMikAvia
+      name: 'КООПО',
+      icon: IconKOopo
     },
     {
       name: 'ОСИГ',

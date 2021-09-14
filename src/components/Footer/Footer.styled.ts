@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { device } from '../../theme/devices';
 
 export const StyledFooterBackground = styled.div`
   width: 100%;
@@ -14,30 +15,40 @@ export const StyledFooterNav = styled.div`
   display: flex;
   justify-content: space-between;
 `
-
+export const StyledLogo = styled.div`
+  flex-shrink: 0;
+`
 export const StyledNavWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  flex: .5;
+  flex: 0 1 300px;
+  padding: 0 20px;
 
   p, a {
     color: #fff;
 
   }
-
-  > div {
-    flex-shrink: 0;
-  }
-
 `
-export const StyledAuthList = styled.div`
-  display: flex;
-  flex: .5;
-  justify-content: flex-end;
-  align-items: center;
 
-  > div:first-child {
-    margin-right: 20px;
+export const StyledAuthListDesktop = styled.div`
+
+  display: none;
+
+  ${device.tabletL} {
+    display: flex;
+    flex: .5;
+    justify-content: flex-end;
+    align-items: center;
+
+    > div:first-child {
+      margin-right: 20px;
+    }
+  }
+`
+export const StyledAuthListMobile = styled(StyledAuthListDesktop)`
+  display: flex;
+  ${device.tabletL} {
+    display: none;
   }
 `
 

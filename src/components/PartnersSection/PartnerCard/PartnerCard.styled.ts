@@ -6,4 +6,9 @@ export const StyledPartnerCard = styled.div`
   background-color: ${({theme}) => theme.color.darkwhite};
   padding: 30px;
 
+  > img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 `
