@@ -1,25 +1,35 @@
 import React from 'react';
-import { Swiper } from "swiper/react";
+import { Swiper } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper'
-import { StyledSwiper } from './Slider.styled'
-import { SwiperNavigationButton } from "../SwiperNavigationButton";
+import {
+  StyledSwiper,
+  StyledMobileNavigation,
+  StyledDesktopNavigation
+} from './Slider.styled'
+import { SwiperNavigationButton } from '../SwiperNavigationButton';
 
 SwiperCore.use([Navigation])
 export const Slider: React.FC = (props) => {
   const {children} = props
   return (
     <StyledSwiper>
-      <SwiperNavigationButton name={'prev'} reversed/>
+      <StyledMobileNavigation>
+        <SwiperNavigationButton name={'prev'} reversed/>
+        <SwiperNavigationButton name={'next'}/>
+      </StyledMobileNavigation>
+      <StyledDesktopNavigation>
+        <SwiperNavigationButton name={'prev'} reversed/>
+      </StyledDesktopNavigation>
       <Swiper
         breakpoints={{
           768: {
             slidesPerView: 2,
-            spaceBetween: 20,
+            spaceBetween: 30,
           },
           1024: {
             slidesPerView: 3,
           },
-          1280: {
+          10280: {
             slidesPerView: 4,
           },
         }}
@@ -27,12 +37,14 @@ export const Slider: React.FC = (props) => {
           prevEl: '.prev',
           nextEl: '.next',
         }}
-        slidesPerView={4}
+        slidesPerView={1}
         spaceBetween={30}
       >
         {children}
       </Swiper>
-      <SwiperNavigationButton name={'next'}/>
+      <StyledDesktopNavigation>
+        <SwiperNavigationButton name={'next'}/>
+      </StyledDesktopNavigation>
     </StyledSwiper>
   );
 };

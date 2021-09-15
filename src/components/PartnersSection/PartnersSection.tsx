@@ -1,40 +1,39 @@
 import React from 'react';
 import {
-  PartnerGrid,
   StyledLeftBlock,
   StyledPartnersNavigation,
   StyledPartnersSection,
   StyledPartnersWrapper
 } from './PartnersSection.styled';
-import { ContentWrapper } from "../ContentWrapper";
-import { Title } from "../Typography/Title";
-import { PartnerCard } from "./PartnerCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { SwiperNavigationButton } from "../SwiperNavigationButton";
+import { ContentWrapper } from '../ContentWrapper';
+import { Title } from '../Typography/Title';
+import { PartnerCard } from './PartnerCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperNavigationButton } from '../SwiperNavigationButton';
 import {
   IconKonb,
   IconKopo,
-  IconMikAvia,
   IconOsig,
-  IconWarSociety,
-  IconMinisterstvo
-} from "../../Icons";
+  IconMoko,
+  IconKOopo,
+  IconRvio
+} from '../../Icons';
 
 
 export const PartnersSection: React.FC = () => {
 
-  const partners = [[
+  const partners = [
     {
-      name: 'ВОКО',
-      icon: IconMinisterstvo
+      name: 'МОКО',
+      icon: IconMoko
     },
     {
       name: 'РВИО',
-      icon: IconWarSociety
+      icon: IconRvio
     },
     {
-      name: 'Мик-Авиа',
-      icon: IconMikAvia
+      name: 'КООПО',
+      icon: IconKOopo
     },
     {
       name: 'ОСИГ',
@@ -48,7 +47,6 @@ export const PartnersSection: React.FC = () => {
       name: 'КОНБ',
       icon: IconKonb
     }
-  ],
   ]
 
   return (
@@ -67,18 +65,22 @@ export const PartnersSection: React.FC = () => {
               prevEl: '.prev-el',
               nextEl: '.next-el',
             }}
-            slidesPerView={1}
+            breakpoints={{
+              768: {
+                slidesPerView: 3,
+                slidesPerColumn:2,
+                spaceBetween:30
+              },
+            }}
+            slidesPerView={2}
+            slidesPerColumn={3}
+            spaceBetween={20}
+            slidesPerColumnFill={'row'}
           >
-            {partners.map((partners, key) => {
+            {partners.map((item, key) => {
               return (
                 <SwiperSlide key={key}>
-                  <PartnerGrid>
-                    {partners.map((item, index) => {
-                      return (
-                        <PartnerCard key={index} icon={item.icon}/>
-                      )
-                    })}
-                  </PartnerGrid>
+                  <PartnerCard  icon={item.icon}/>
                 </SwiperSlide>
               )
             })}

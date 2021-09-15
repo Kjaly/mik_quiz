@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { device } from '../../theme/devices';
 
 export const StyledPartnersWrapper = styled.div`
   width: 100%;
@@ -6,30 +7,51 @@ export const StyledPartnersWrapper = styled.div`
 `
 export const StyledPartnersSection = styled.div`
   display: flex;
+  flex-direction: column;
+
+  ${device.tabletL} {
+    flex-direction: row;
+  }
 
   > p {
     height: 100%;
   }
+
+  .swiper-container {
+    width: 100%;
+  }
+
+  .swiper-wrapper {
+    height: inherit;
+  }
 `
 
-export const PartnerGrid = styled.div`
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 30px;
-  grid-auto-flow: row dense;
-  justify-content: space-between;
-  margin-bottom: 30px`
 
 export const StyledLeftBlock = styled.div`
-  margin-right: 60px;
+  display: flex;
+  width: 100%;
+  margin-bottom: 30px;
+  justify-content: space-between;
+
+  ${device.tabletL} {
+    max-width: 280px;
+    width: inherit;
+    display: block;
+    margin-bottom: 0;
+    margin-right: 60px;
+  }
 
 `
 export const StyledPartnersNavigation = styled.div`
+
   position: relative;
-  height: 100%;
-  width: 100px;
+  height: 40px;
+  width: 120px;
+
+  ${device.tabletL} {
+    height: 100%;
+  }
+
   > div {
     background-color: ${({theme}) => theme.color.darkwhite};
 
@@ -46,9 +68,11 @@ export const StyledPartnersNavigation = styled.div`
       height: 24px;
     }
   }
+
   > :first-child {
     left: 0;
-  } 
+  }
+
   > :last-child {
     right: 0;
   }

@@ -1,1 +1,0 @@
-export { IconMinisterstvo } from './IconMinisterstvo'

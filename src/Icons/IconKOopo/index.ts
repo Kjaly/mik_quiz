@@ -1,0 +1,1 @@
+export { IconKOopo } from './IconKOopo'
