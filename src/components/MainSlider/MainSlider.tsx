@@ -9,24 +9,23 @@ import {
   StyledItemDescription,
   StyledMainSlider,
   StyledMainWrapper,
-  StyledMprf
-} from "./MainSlider.styled";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { SliderItem } from "./SliderItem";
+  StyledMprf,
+  StyledIconsBlockTop
+} from './MainSlider.styled';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { SliderItem } from './SliderItem';
 
-import SwiperCore, { Pagination } from 'swiper/core';
-import { ContentWrapper } from "../ContentWrapper";
-import { DecorativeLines } from "../DecorativeLines";
-import { theme } from "../../theme";
-import { Title } from "../Typography/Title";
-import { IconMprf, IconNG } from "../../Icons";
+import SwiperCore, { Pagination, Autoplay } from 'swiper/core';
+import { ContentWrapper } from '../ContentWrapper';
+import { DecorativeLines } from '../DecorativeLines';
+import { theme } from '../../theme';
+import { Title } from '../Typography/Title';
+import { IconMprf, IconNG } from '../../Icons';
 import mainImage from '../../assets/images/banner/mainImage.png'
 import mainImage2 from '../../assets/images/banner/mainImage2.jpg'
-import { SliderDescription } from "./SliderDescription";
+import { SliderDescription } from './SliderDescription';
 
-console.log(1);
-SwiperCore.use([Pagination]);
-
+SwiperCore.use([Pagination, Autoplay]);
 
 interface ISliderItem {
   title: string,
@@ -80,7 +79,15 @@ export const MainSlider: React.FC = () => {
           </StyledBackImg>
         ))}
         <ContentWrapper customMargin={'left'}>
+          <StyledIconsBlockTop>
+            <StyledMprf>
+              <IconMprf/>
+              <p>Министерство просвещения<br/>
+                Российской Федерации</p>
+            </StyledMprf>
+          </StyledIconsBlockTop>
           <Swiper
+            autoplay={{ delay: 5000 }}
             pagination={{clickable: true}}
             slidesPerView={1}
             onSlideChange={(value): void => {
@@ -98,11 +105,6 @@ export const MainSlider: React.FC = () => {
             })}
 
             <StyledIconsBlock>
-              <StyledMprf>
-                <IconMprf/>
-                <p>Министерство просвещения<br/>
-                  Российской Федерации</p>
-              </StyledMprf>
               <StyledIconNg>
                 <IconNG/>
               </StyledIconNg>

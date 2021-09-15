@@ -22,7 +22,11 @@ export const StyledButton = styled.div`
   max-width: 180px;
 `
 export const StyledSliderText = styled.div`
-  max-width: 50%;
+  max-width: 100%;
+
+  ${device.tabletL} {
+    max-width: 50%;
+  }
 
   ${device.tabletL} {
     max-width: 640px;

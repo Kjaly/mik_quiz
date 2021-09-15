@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { device } from '../../theme/devices';
 
 export const StyledHeaderWrapper = styled.div`
-  padding: 25px 40px;
+  padding: 25px 0;
   width: 100%;
   height: 110px;
   display: flex;

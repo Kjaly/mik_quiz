@@ -5,7 +5,7 @@ import { device } from '../../../theme/devices';
 
 export const StyledTitle = styled.p<Partial<ITitleProps>>`
   font-weight: ${({weight}) => weight ? weight : '700'};
-  font-size: 30px;
+  font-size: 24px;
   color: ${({color}) => color ? color : '#fff'};
   margin: ${({customMargin}) => customMargin ? customMargin : '0'};
   position: relative;

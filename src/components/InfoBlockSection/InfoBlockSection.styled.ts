@@ -14,9 +14,14 @@ export const StyledJoinCard = styled.div`
   color: #fff;
   background-color: ${({theme}) => theme.color.blue};
   margin-bottom: 30px;
+  flex-direction: column-reverse;
 
   :last-child {
     margin-bottom: 0;
+  }
+
+  ${device.tablet} {
+    flex-direction: row;
   }
 `
 export const StyledJoinCardLeftBlock = styled.div`
@@ -37,8 +42,8 @@ export const StyledJoinCardText = styled.p`
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 30px;
-  
-  ${device.tabletL}{
+
+  ${device.tabletL} {
     font-size: 30px;
   }
 `
@@ -76,9 +81,9 @@ export const StyledJoinCardImg = styled.div`
   }
 
   ${device.tablet} {
-    max-height:340px;
+    max-height: 340px;
   }
-  
+
   ${device.tabletL} {
     width: 350px;
     height: 100%;

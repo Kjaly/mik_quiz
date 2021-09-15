@@ -37,5 +37,10 @@ export const ROUTES = [
     key: 'PROFILE',
     component: (): JSX.Element => <Profile/>,
   },
+  {
+    path: '/quiz',
+    key: 'QUIZ',
+    component: (): JSX.Element => <About/>,
+  },
 ];
 

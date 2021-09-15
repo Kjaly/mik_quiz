@@ -10,24 +10,25 @@ export interface INavProps {
   isOpen?: boolean;
   setIsOpen?: (open: boolean) => void;
   mobileHidden?: boolean
+  isFooter?: boolean
 }
-
+export const navigation = [
+  {text: 'Главная', url: '/'},
+  {text: 'Викторина', url: '/quiz'},
+  {text: 'О проекте', url: '/about'},
+]
 export const Nav: React.FC<INavProps> = (props) => {
-  const {isOpen, mobileHidden, setIsOpen} = props
+  const {isOpen, mobileHidden, setIsOpen, isFooter} = props
   const currentLocation = useSelector(routerSelectors.getLocationPathName)
 
-  const navigation = [
-    {text: 'Главная', url: '/'},
-    {text: 'Викторина', url: '/quiz'},
-    {text: 'О проекте', url: '/about'},
-  ]
+
 
   return (
     <>
-      <StyledNav mobileHidden={mobileHidden}>
+      <StyledNav isFooter={isFooter} mobileHidden={mobileHidden}>
         {navigation.map((item, key) => {
           return (
-            <NavItem isActive={currentLocation === item.url} text={item.text} url={item.url} key={key}/>
+            <NavItem isFooter={isFooter} isActive={currentLocation === item.url} text={item.text} url={item.url} key={key}/>
           )
         })}
       </StyledNav>

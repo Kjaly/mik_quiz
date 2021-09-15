@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledWrapper = styled.div`
   height: 100%;
@@ -6,6 +6,7 @@ export const StyledWrapper = styled.div`
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   flex: 1;
