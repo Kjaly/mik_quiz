@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import { device } from '../../theme/devices';
 
-export const StyledNav = styled.div<{ mobileHidden?: boolean }>`
-  display: none;
-
+export const StyledNav = styled.div<{ mobileHidden?: boolean, isFooter?:boolean }>`
+  display: ${({mobileHidden})=> mobileHidden ? 'none' : 'flex'};
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  
+  flex-direction: ${({isFooter})=>isFooter ? 'column' : 'row'};
+  max-width: 300px;
   ${device.tabletL} {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 300px;
   }
 `
 export const StyledNavMobile = styled.div<{ isOpen?: boolean }>`

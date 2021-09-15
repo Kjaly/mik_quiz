@@ -22,8 +22,13 @@ export const StyledGallery = styled.div`
 `
 
 export const StyledButton = styled.div`
-  width: 250px;
+  width: 100%;
   margin-left: auto;
+  
+  ${device.tablet}{
+    width: 250px;
+
+  }
 `
 export const StyledGalleryWrapper = styled.div`
   display:flex;

@@ -27,6 +27,9 @@ export const Slider: React.FC = (props) => {
             spaceBetween: 30,
           },
           1024: {
+            slidesPerView: 3,
+          },
+          10280: {
             slidesPerView: 4,
           },
         }}

@@ -17,7 +17,7 @@ import pskov from '../../assets/images/infoBlock/pskov.png'
 
 
 const InfoBlockItem: React.FC<any> = (props) => {
-  const {text, description, url, img} = props
+  const {text, description, img} = props
   return (
     <StyledJoinCard>
       <StyledJoinCardLeftBlock>
@@ -52,8 +52,8 @@ export const InfoBlockSection: React.FC = () => {
   return (
     <ContentWrapper customMargin={'right'}>
       <StyledInfoWrapper>
-        <InfoBlockItem text={'Присоединяйтесь к международному слету полуфиналистов в г. Калининград'} img={kld}/>
-        <InfoBlockItem text={'Присоединяйтесь к международному слету полуфиналистов в г. Псков'} img={pskov}/>
+        <InfoBlockItem text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Калининград'} img={kld}/>
+        <InfoBlockItem text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Псков'} img={pskov}/>
       </StyledInfoWrapper>
 
     </ContentWrapper>

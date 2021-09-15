@@ -25,15 +25,23 @@ export const StyledImg = styled.div`
     position: absolute;
     content: "";
     bottom: 0;
+    left: 0;
     height: 3px;
     width: 100%;
     background-color: ${({theme}) => theme.color.yellow};
+  }
+
+  > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 
   ${device.tabletL} {
     max-width: 415px;
     margin-bottom: 0;
   }
+
 `
 export const StyledText = styled.div`
   width: 100%;

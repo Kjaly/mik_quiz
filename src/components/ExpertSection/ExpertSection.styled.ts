@@ -30,3 +30,7 @@ export const StyledDecorativeWrapper = styled.div`
   }
 `
 
+export const StyledTitle = styled.div`
+  max-width: 50%
+`
+

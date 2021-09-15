@@ -6,7 +6,7 @@ export const StyledMainWrapper = styled.div`
   width: 100%;
   height: 100%;`
 export const StyledMainSlider = styled.div`
-  height: 500px;
+  height: 600px;
   margin-bottom: 20px;
   width: 100%;
   position: relative;
@@ -21,7 +21,7 @@ export const StyledMainSlider = styled.div`
 
   .swiper-container {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 110px);
     margin-left: -76px;
   }
 
@@ -40,7 +40,6 @@ export const StyledMainSlider = styled.div`
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: flex-start;
-    margin-top: 60px;
   }
 
   .swiper-slide img {
@@ -84,6 +83,10 @@ export const StyledIconsBlock = styled.div`
   margin-top: 50px;
   align-items: center;
   justify-content: space-between;
+
+`
+export const StyledIconsBlockTop = styled.div`
+  margin-bottom: 20px;
 
 `
 export const StyledMprf = styled.div`
@@ -131,7 +134,6 @@ export const StyledBackImg = styled.div<{ active: boolean }>`
 
   ${device.tabletL} {
     right: 10%;
-
   }
 
   > img {
@@ -143,10 +145,20 @@ export const StyledBackImg = styled.div<{ active: boolean }>`
 
 `
 
-export const StyledItemDescription = styled.div`
-  width: 100%;
-  max-width: 700px;
-  padding: 0 80px;
+export const StyledItemDescription = styled.div<{ active?: boolean }>`
+  display: none;
+  margin-left: auto;
+
+  ${device.tablet} {
+    position: absolute;
+    right: 10%;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px;
+    max-width: 700px;
+    visibility: ${({active}) => active ? 'visible' : 'hidden'};
+  }
 `
 
 export const StyledDecorativeWrapper = styled.div`

@@ -17,6 +17,10 @@ export const StyledPartnersSection = styled.div`
     height: 100%;
   }
 
+  .swiper-container {
+    width: 100%;
+  }
+
   .swiper-wrapper {
     height: inherit;
   }
@@ -26,11 +30,11 @@ export const StyledPartnersSection = styled.div`
 export const StyledLeftBlock = styled.div`
   display: flex;
   width: 100%;
-  max-width: 280px;
   margin-bottom: 30px;
   justify-content: space-between;
 
   ${device.tabletL} {
+    max-width: 280px;
     width: inherit;
     display: block;
     margin-bottom: 0;
@@ -42,7 +46,7 @@ export const StyledPartnersNavigation = styled.div`
 
   position: relative;
   height: 40px;
-  width: 100px;
+  width: 120px;
 
   ${device.tabletL} {
     height: 100%;
