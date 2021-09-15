@@ -10,7 +10,8 @@ import {
   StyledMainSlider,
   StyledMainWrapper,
   StyledMprf,
-  StyledIconsBlockTop
+  StyledIconsBlockTop,
+  StyledSwiperText
 } from './MainSlider.styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SliderItem } from './SliderItem';
@@ -114,7 +115,11 @@ export const MainSlider: React.FC = () => {
                 <IconNG/>
               </StyledIconNg>
             </StyledIconsBlock>
+
           </Swiper>
+          <StyledSwiperText>
+            75 лет Калининградской области / 800 лет Александру Невскому
+          </StyledSwiperText>
         </ContentWrapper>
 
       </StyledMainSlider>
