@@ -1,1 +1,0 @@
-export { IconMikAvia } from './IconMikAvia'

@@ -4,12 +4,14 @@ import {
   StyledText
 } from './AboutTextSection.styled';
 import { ContentWrapper } from '../ContentWrapper';
-
+import textImg from '../../assets/images/about/textImg.png'
 export const AboutTextSection: React.FC = () => {
   return (
     <ContentWrapper>
       <StyledTextSection>
-        <StyledImg/>
+        <StyledImg>
+          <img src={textImg} alt=""/>
+        </StyledImg>
         <StyledText>
           <p> Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет
             за

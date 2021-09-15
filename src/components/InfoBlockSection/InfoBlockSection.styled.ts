@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../theme/devices';
 
 
 export const StyledInfoWrapper = styled.div`
@@ -13,9 +14,14 @@ export const StyledJoinCard = styled.div`
   color: #fff;
   background-color: ${({theme}) => theme.color.blue};
   margin-bottom: 30px;
+  flex-direction: column-reverse;
 
   :last-child {
     margin-bottom: 0;
+  }
+
+  ${device.tablet} {
+    flex-direction: row;
   }
 `
 export const StyledJoinCardLeftBlock = styled.div`
@@ -25,14 +31,21 @@ export const StyledJoinCardLeftBlock = styled.div`
   color: #fff;
   background-color: ${({theme}) => theme.color.blue};
   padding: 50px;
-  width: 100%;
-  
-  
+  flex-basis: 50%;
+
+  ${device.tabletL} {
+    flex-basis: 100%;
+  }
+
 `
 export const StyledJoinCardText = styled.p`
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   margin-bottom: 30px;
+
+  ${device.tabletL} {
+    font-size: 30px;
+  }
 `
 export const StyledJoinCardDescription = styled.p`
   font-size: 15px;
@@ -41,29 +54,39 @@ export const StyledJoinCardDescription = styled.p`
 export const StyledButtonWrapper = styled.div`
   flex: 1 0 auto;
   display: flex;
-  align-items:flex-end;
-  
+  align-items: flex-end;
+
 `
 
 export const StyledJoinCardImg = styled.div`
   background-color: ${({theme}) => theme.color.yellow};
-  width: 350px;
-  height: 100%;
+  flex-basis: 50%;
+  max-height: 500px;
   flex-shrink: 0;
   overflow: hidden;
   cursor: pointer;
   transition: all .2s ease-in-out;
+
   > img {
     transition: all .2s ease-in-out;
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
-  
+
   :hover {
     > img {
       transform: scale(1.2);
     }
+  }
+
+  ${device.tablet} {
+    max-height: 340px;
+  }
+
+  ${device.tabletL} {
+    width: 350px;
+    height: 100%;
   }
 `
 

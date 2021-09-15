@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IButtonProps } from "./Button";
+import { device } from '../../theme/devices';
 
 
 export const StyledButton = styled.div<Partial<IButtonProps>>`
@@ -7,9 +8,9 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   flex-direction: ${({reversed}) => reversed ? 'row-reverse' : 'row'};
   align-items: center;
   justify-content: center;
-  padding: 15px 30px;
+  padding: 15px 20px;
   color: ${({color}) => color ? color : '#000'};
-  height: 55px;
+  height: 54px;
   cursor: pointer;
   transition: all .2s ease-in;
   background: ${({background}) => background};
@@ -19,6 +20,10 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   :hover {
     background: ${({view, borderColor}) => view === 'bordered' && borderColor};
     filter: brightness(0.9);
+  }
+
+  ${device.tablet}{
+    padding: 15px 30px;
   }
 `
 

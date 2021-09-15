@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyledFilter, StyledFilterItem } from './Filter.styled';
-import { theme } from "../../theme";
+import { StyledFilter, StyledFilterArrow, StyledFilterItem } from './Filter.styled';
+import { theme } from '../../theme';
+import { IconArrowRight } from '../../Icons';
 
 interface IFilterValues {
   value: string;
@@ -12,7 +13,7 @@ interface IFilterValues {
 export const Filter: React.FC = () => {
 
   const [filter, setFilter] = useState('Все');
-
+  const [isOpen, setIsOpen] = useState(false)
   const filterValues: Array<IFilterValues> = [
     {
       value: 'Все',
@@ -28,17 +29,23 @@ export const Filter: React.FC = () => {
       title: 'Межрегиональные слеты',
     },
   ]
+
+  const handleClick = () => {
+    setIsOpen(!isOpen)
+  }
   return (
-    <StyledFilter>
-      {filterValues.map((item, key)=>(
+    <StyledFilter isOpen={isOpen} onClick={handleClick}>
+      {filterValues.map((item, key) => (
         <StyledFilterItem
           key={key}
-          isActive={filter===item.value}
+          isActive={filter === item.value}
           onClick={() => {
             setFilter(item.value);
           }}>{item.title}</StyledFilterItem>
       ))}
-
+      <StyledFilterArrow isOpen={isOpen}>
+        <IconArrowRight/>
+      </StyledFilterArrow>
     </StyledFilter>
   );
 };
