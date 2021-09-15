@@ -21,8 +21,13 @@ export const StyledMainSlider = styled.div`
 
   .swiper-container {
     width: 100%;
-    height: calc(100% - 110px);
+    height: calc(100% - 160px);
     margin-left: -76px;
+
+    ${device.tablet} {
+      height: calc(100% - 140px);
+    }
+
   }
 
   .swiper-slide {
@@ -88,6 +93,13 @@ export const StyledIconsBlock = styled.div`
 export const StyledIconsBlockTop = styled.div`
   margin-bottom: 20px;
 
+`
+export const StyledSwiperText = styled.div`
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  color: #fff;
 `
 export const StyledMprf = styled.div`
   font-size: 13px;
