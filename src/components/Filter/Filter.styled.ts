@@ -12,6 +12,7 @@ export const StyledFilter = styled.div<{ isOpen?: boolean }>`
 
   ${device.tablet} {
     flex-direction: row;
+    max-height: 47px;
 
   }
 `

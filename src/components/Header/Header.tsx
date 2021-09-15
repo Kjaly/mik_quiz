@@ -15,15 +15,15 @@ import { IconKey } from '../../Icons';
 import { Logo } from '../Logo';
 import { ContentWrapper } from '../ContentWrapper';
 import { theme } from '../../theme';
-import { modalsActions } from '../../store/modals/actions';
-import { useDispatch } from 'react-redux';
+// import { modalsActions } from '../../store/modals/actions';
+// import { useDispatch } from 'react-redux';
 
 export const Header: React.FC<any> = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const handleClick = () => {
-    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+    // dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
   const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
