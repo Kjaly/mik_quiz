@@ -14,10 +14,10 @@ export const StyledLogo = styled.div`
   flex-shrink: 0;
 `
 export const StyledNavWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex: 0 1 300px;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  flex: 0 1 300px;
+  padding: 0 20px;
 `
 export const StyledAuthList = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ export const AuthWrapper = styled.div`
 
 `
 
-export const StyledBurgerMenu = styled.div<{isOpen: boolean}>`
+export const StyledBurgerMenu = styled.div<{ isOpen: boolean }>`
   height: 54px;
   width: 54px;
   background-color: ${({theme}) => theme.color.blue};
@@ -61,7 +61,7 @@ export const StyledBurgerMenu = styled.div<{isOpen: boolean}>`
   align-items: center;
   cursor: pointer;
   position: relative;
-  z-index: 3;
+  z-index: 4;
 
   ${device.tabletL} {
     display: none;
@@ -108,5 +108,49 @@ export const StyledBurgerLine = styled.span<{ isOpen?: boolean }>`
     left: ${({isOpen}) => isOpen ? '25%' : '50%'}
 
   }
+
+`
+
+export const StyledAuthDropDown = styled.div<{ authIsOpen?: boolean }>`
+min-width: 190px;
+  > div:first-child {
+    > div {
+      transition: all .2s ease-in-out;
+      transform: rotate(${({authIsOpen}) => authIsOpen ? '-90deg' : '90deg'});
+    }
+  }
+
+  position: relative;
+`
+
+export const StyledAuthDropDownList = styled.div<{ authIsOpen?: boolean }>`
+  position: absolute;
+  top: 54px;
+  z-index: 3;
+  width: 100%;
+  max-height: ${({authIsOpen}) => authIsOpen ? '180px' : '0'};
+  transition: all .2s ease-in-out;
+  overflow: hidden;
+
+  > a {
+    color: ${({theme}) => theme.color.blue};
+    text-decoration: none;
+  }
+`
+export const StyledAuthDropDownItem = styled.div`
+  background: ${({theme}) => theme.color.darkwhite};
+  padding: 15px 30px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  :last-child {
+    margin-bottom: 0;
+    padding: 15px 30px;
+  }
+
+  :hover {
+    filter: brightness(0.9);
+  }
+
 
 `

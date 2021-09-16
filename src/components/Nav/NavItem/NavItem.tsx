@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { StyledNavItem, StyledNavUrl } from './NavItem.styled'
+import { StyledNavItem } from './NavItem.styled'
 
 import { history } from '../../../store'
+import { Link } from 'react-router-dom';
 
 export interface INavItemProps {
   text: string,
@@ -19,9 +20,9 @@ export const NavItem: React.FC<INavItemProps> = (props) => {
   }
   return (
     <StyledNavItem isFooter={isFooter} isActive={isActive} onClick={handleClick}>
-      <StyledNavUrl onClick={(e) => e.preventDefault()} href={url}>
+      <Link to={url}>
         {text}
-      </StyledNavUrl>
+      </Link>
     </StyledNavItem>
   );
 };

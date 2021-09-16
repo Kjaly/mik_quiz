@@ -20,6 +20,7 @@ import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
 import { useDispatch } from "react-redux";
 import { piblicationsActions } from "../../../store/publications/actions";
+import { modalsActions } from "../../../store/modals/actions";
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -42,6 +43,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
     const filePreviewUrl = files[0] ? URL.createObjectURL(files[0]) : values.url;
 
     dispatch(piblicationsActions.addPublication({...values, files, option, type, url:filePreviewUrl}))
+    dispatch(modalsActions.closeModalAction())
   }
 
 

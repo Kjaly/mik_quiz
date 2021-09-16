@@ -20,9 +20,8 @@ export const StyledNavMobileItem = styled.div<Partial<INavMobileItemProps>>`
     opacity: 0.1;
     transition: all .2s ease-in;
   }
-`
-export const StyledNavMobileUrl = styled.a`
-  color:inherit;
-  text-decoration: none;
-  font-size: 20px;
+  > a {
+    text-decoration: none;
+    color: unset;
+  }
 `
