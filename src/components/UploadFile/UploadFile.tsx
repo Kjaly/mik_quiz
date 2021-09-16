@@ -12,7 +12,7 @@ export const UploadFile: React.FC<IUploadFileProps> = (props) => {
 
   return (
     <StyledUploadFile >
-      <StyledButtonWrapper onClick={onClick}>
+      <StyledButtonWrapper isEmpty={isEmpty} onClick={onClick}>
         <IconList/>
         <p>Добавить <br/>публикацию</p>
       </StyledButtonWrapper>
