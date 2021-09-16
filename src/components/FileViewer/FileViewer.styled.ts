@@ -1,16 +1,24 @@
 import styled from 'styled-components';
+import { device } from "../../theme/devices";
 
 export const StyledFileViewer = styled.div`
   display: grid;
   width: 100%;
   grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, 45px);
+  grid-template-columns: repeat(2, minmax(130px, 150px));
+  grid-auto-rows: 100px;
   justify-content: space-between;
+
+  ${device.tablet} {
+    grid-template-columns: repeat(auto-fill, 100px);
+    grid-auto-rows: 65px;
+
+  }
 
 `
 export const StyledFileItem = styled.div`
-  height: 45px;
-  width: 45px;
+  height: 100%;
+  width: 100%;
   background-color: ${({theme}) => theme.color.darkwhite};
   position: relative;
   border-radius: 5px;
@@ -27,9 +35,9 @@ export const StyledFileImg = styled.img`
 
 `
 export const StyledFileRemove = styled.div<any>`
-  width: 16px;
-  height: 16px;
-  background: ${({theme}) => theme.color.darkgray};
+  width: 20px;
+  height: 20px;
+  background: ${({theme}) => theme.color.blue};
   border-radius: 50%;
   position: absolute;
   right: -5px;
@@ -41,7 +49,7 @@ export const StyledFileRemove = styled.div<any>`
   transition: all 0.2s ease-in;
 
   &:hover {
-    transform: scale(1.1);
+    background: ${({theme}) => theme.color.yellow};
   }
 
   > svg {
