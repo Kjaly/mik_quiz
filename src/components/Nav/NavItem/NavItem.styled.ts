@@ -30,9 +30,9 @@ export const StyledNavItem = styled.div<Partial<INavItemProps>>`
   &:hover::after {
     transform: scale(1);
   }
-  
-  
-  ${device.tablet}{
+
+
+  ${device.tablet} {
     width: auto;
     color: ${({theme, isFooter}) => isFooter ? '#fff' : theme.color.blue};
 
@@ -41,14 +41,14 @@ export const StyledNavItem = styled.div<Partial<INavItemProps>>`
       transform: ${({isActive}) => `scale(${isActive ? 1 : 0})`};
       opacity: 1;
     }
+
     &:last-child::after {
       display: block;
     }
     
   }
-`
-export const StyledNavUrl = styled.a`
-  color: inherit;
-  text-decoration: none;
-  font-size: 15px;
+
+  > a {
+    text-decoration: none;
+  }
 `

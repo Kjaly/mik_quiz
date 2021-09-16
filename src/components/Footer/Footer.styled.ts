@@ -122,14 +122,6 @@ export const StyledFooterDescription = styled.div`
     }
     
   }
-
-  ${device.tablet} {
-    text-align: left;
-    flex-basis: 50%;
-  }
-
-  ${device.tabletL} {
-    flex-basis: 100%;
-  }
+  
 
 `

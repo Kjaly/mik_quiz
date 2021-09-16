@@ -24,16 +24,17 @@ export const Publications: React.FC = () => {
     <StyledPublications>
       <TitleBanner>Мои публикации</TitleBanner>
       <ContentWrapper>
+
         <StyledFilesGrid isEmpty={!publications?.length}>
+          <StyledPreviewBlock>
+            <UploadFile isEmpty={!publications?.length} onClick={handleClick}/>
+          </StyledPreviewBlock>
           {publications?.length ? publications?.map((item, key) => {
-            console.log(item)
             return (
               <GalleryItem key={key} type={item.type === 'Видео' ? 1 : 2} edit url={item?.url}/>
             )
           }) : null}
-          <StyledPreviewBlock>
-            <UploadFile isEmpty={!publications?.length} onClick={handleClick}/>
-          </StyledPreviewBlock>
+
         </StyledFilesGrid>
       </ContentWrapper>
     </StyledPublications>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from "../../theme/devices";
 
 export const StyledProfileWrapper = styled.div`
   width: 100%;
@@ -8,21 +9,39 @@ export const StyledProfileWrapper = styled.div`
 `
 export const StyledProfile = styled.div`
   width: 100%;
-  padding: 100px 20px;
+  padding: 100px 0;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  ${device.tablet} {
+    flex-direction: row;
+  }
 `
 export const StyledProfileForm = styled.div`
-  display: grid;
-  max-width: 730px;
+  flex-basis: 100%;
   width: 100%;
-  grid-template-columns:repeat(2, 1fr);
-  grid-gap: 20px 30px;
-  
-`
 
+  > div {
+    margin-bottom: 20px;
+  }
+
+  ${device.tablet} {
+    flex-basis: 50%;
+
+  }
+
+  ${device.desktop} {
+    display: grid;
+    max-width: 730px;
+    flex-basis: 100%;
+    grid-template-columns:repeat(2, 1fr);
+    grid-gap: 20px 30px;
+  }
+
+`
 
 export const StyledAvatarInput = styled.div`
   visibility: hidden;
@@ -31,8 +50,22 @@ export const StyledAvatarInput = styled.div`
 `
 export const StyledImgWrapper = styled.div`
   position: relative;
-  width: 250px;
-  height: 200px;
+  height: 260px;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: rgba(255, 99, 71, 0.67);
+
+  ${device.tablet} {
+    flex-basis: 45%;
+    height: 200px;
+    align-self: flex-start;
+
+  }
+
+  ${device.desktop} {
+    flex-basis: 250px;
+  }
+
 `
 export const StyledIcon = styled.div`
   position: absolute;
@@ -49,10 +82,12 @@ export const StyledIcon = styled.div`
   align-items: center;
   cursor: pointer;
   transition: all .2s ease-in-out;
+
   :hover {
     background: ${({theme}) => theme.color.yellow};
 
   }
+
   > svg {
     height: 14px;
   }

@@ -6,21 +6,27 @@ import {
   StyledBurgerLine,
   StyledBurgerMenu,
   AuthWrapper,
-  StyledLogo
+  StyledLogo,
+  StyledAuthDropDown,
+  StyledAuthDropDownItem,
+  StyledAuthDropDownList
 } from './Header.styled'
 import { Button } from '../Button';
 import { Nav } from '../Nav';
-import { IconLock } from '../../Icons';
+import { IconArrowRight, IconLock } from '../../Icons';
 import { IconKey } from '../../Icons';
 import { Logo } from '../Logo';
 import { ContentWrapper } from '../ContentWrapper';
 import { theme } from '../../theme';
+import { Link } from 'react-router-dom';
 // import { modalsActions } from '../../store/modals/actions';
 // import { useDispatch } from 'react-redux';
 
 export const Header: React.FC<any> = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
+  const [authIsOpen, setAuthIsOpen] = useState(false)
   // const dispatch = useDispatch()
   const handleClick = () => {
     // dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
@@ -29,8 +35,16 @@ export const Header: React.FC<any> = () => {
 
   const handleToggleMenu = () => {
     setIsOpen(!isOpen)
-
+    setAuthIsOpen(false)
   }
+  const handleToggleAuth = () => {
+    setAuthIsOpen(!authIsOpen)
+  }
+
+  useEffect(() => {
+    setAuthIsOpen(false)
+  }, [isAuth]);
+
 
   useEffect(() => {
 
@@ -58,21 +72,53 @@ export const Header: React.FC<any> = () => {
 
         <StyledAuthList>
           <AuthWrapper>
-            <Button
-              icon={IconLock}
-              background={'rgba(219, 214, 208, 0.5)'}
-              title={'Вход'}
-              iconColor={'#000'}
-              color={'#000'}
-              onClick={() => {
-                console.log('Логин')
-              }}/>
-            <Button
-              icon={IconKey}
-              background={theme.color.yellow}
-              title={'Регистрация'}
-              color={'#fff'}
-              onClick={() => handleClick()}/>
+            {isAuth ?
+              (
+                <StyledAuthDropDown authIsOpen={authIsOpen} tabIndex={0} onBlur={()=>setAuthIsOpen(false)}>
+                  <Button
+                    reversed
+                    icon={IconArrowRight}
+                    background={theme.color.yellow}
+                    title={'Имя'}
+                    color={'#fff'}
+                    onClick={handleToggleAuth}/>
+                  <StyledAuthDropDownList authIsOpen={authIsOpen}>
+                    <Link to="/profile">
+                      <StyledAuthDropDownItem>
+                        Мои профиль
+                      </StyledAuthDropDownItem>
+                    </Link>
+                    <Link to="/publications">
+                      <StyledAuthDropDownItem>
+                        Мои публикации
+                      </StyledAuthDropDownItem>
+                    </Link>
+                    <StyledAuthDropDownItem onClick={() => setIsAuth(false)}>
+                      Выход
+                    </StyledAuthDropDownItem>
+                  </StyledAuthDropDownList>
+                </StyledAuthDropDown>
+              )
+              : (
+                <>
+                  <Button
+                    icon={IconLock}
+                    background={'rgba(219, 214, 208, 0.5)'}
+                    title={'Вход'}
+                    iconColor={'#000'}
+                    color={'#000'}
+                    onClick={() => {
+                      setIsAuth(true)
+                    }}/>
+                  <Button
+                    icon={IconKey}
+                    background={theme.color.yellow}
+                    title={'Регистрация'}
+                    color={'#fff'}
+                    onClick={() => handleClick()}/>
+                </>
+              )}
+
           </AuthWrapper>
           <StyledBurgerMenu isOpen={isOpen} onClick={handleToggleMenu}>
             <StyledBurger isOpen={isOpen}>

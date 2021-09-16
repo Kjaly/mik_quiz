@@ -26,7 +26,6 @@ export const StyledUploadFile = styled.div`
 export const StyledButtonWrapper = styled.div`
   height: 168px;
   width: 100%;
-  max-width: 255px;
   background-color: rgba(61, 79, 135, 0.07);
   border-radius: 4px;
   display: flex;
@@ -44,8 +43,8 @@ export const StyledButtonWrapper = styled.div`
   }
 
   > svg {
-    height: 40px;
-    width: 40px;
+    height: 24px;
+    width: 24px;
 
     > g {
       path {
