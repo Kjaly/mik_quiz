@@ -4,7 +4,8 @@ import {
   Home,
   Publications,
   PrivacyPolicy,
-  Profile
+  Profile,
+  Quiz
 } from '../pages';
 
 export const ROUTES = [
@@ -40,7 +41,7 @@ export const ROUTES = [
   {
     path: '/quiz',
     key: 'QUIZ',
-    component: (): JSX.Element => <About/>,
+    component: (): JSX.Element => <Quiz/>,
   },
 ];
 

@@ -13,7 +13,7 @@ export const RenderRoutes: React.FC<IRenderRoutes> = (props) => {
       {routes.map((route: any) => {
         return <RouteWithSubRoutes key={route.key} {...route} />;
       })}
-      <Route component={() => <h1>Not Found!</h1>}/>
+      <Route component={() => <div>Not Found!</div>}/>
     </Switch>
   );
 };
