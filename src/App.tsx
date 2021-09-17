@@ -8,7 +8,7 @@ import { ROUTES } from "./router/routes";
 import { Footer } from "./components/Footer";
 import { ControlledReduxModal } from "./components/ControlledReduxModal";
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <>
       <AppContainer>

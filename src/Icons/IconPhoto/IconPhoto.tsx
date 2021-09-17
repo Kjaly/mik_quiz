@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const IconPhoto: React.FC = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
+export const IconPhoto: React.FC = (): JSX.Element => {
   return (
     <svg width="100%" height="100%" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M5.1132 14.3181C3.80336 14.3181 2.63824 13.4795 2.21516 12.2309L2.18655 12.1368C2.08677 11.8062 2.04497 11.5281 2.04497 11.2499V5.67138L0.0600688 12.2971C-0.195217 13.2717 0.386517 14.282 1.36256 14.5512L14.0143 17.9395C14.1722 17.9804 14.3301 18 14.4857 18C15.3005 18 16.0451 17.4592 16.2538 16.6621L16.9909 14.3181H5.1132Z" fill="#FFB801"/>

@@ -39,6 +39,7 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
           onSubmit={handleSubmit}
           render={(renderProps): JSX.Element => {
             const {values} = renderProps;
+            console.log(values)
             return (
               <StyledForm>
                 <Field
@@ -85,8 +86,7 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
                 />
                 <Field
                   name="license"
-                  checked={values.license}
-                  component={InputCheckbox}
+                  render={InputCheckbox}
                   type="checkbox"
                   value={'license'}
                   label="Даю согласие на обработку персональных данных"

@@ -43,6 +43,9 @@ export const StyledForm = styled.div`
   flex: 1 0 auto;
   width: 100%;
   padding-bottom: 30px;
+  > div {
+    margin-bottom: 20px;
+  }
 `
 
 export const StyledButtonBlock = styled.div`

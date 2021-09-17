@@ -13,17 +13,12 @@ type IFormFinalInputTextProps = IInputTextProps &
 
 export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
   const {
-    onBlur,
-    onFocus,
     input,
-    meta,
-    onKeyDown,
-    withHandleKeyDown,
     placeholder,
     ...customProps
   } = props
-
   const { onChange, name, value, type } = input;
+
   return (
     <StyledInputContainer>
       <StyledInput autoComplete={'off'} view={customProps?.view} type={type} onChange={onChange} name={name} placeholder={placeholder} value={value}/>

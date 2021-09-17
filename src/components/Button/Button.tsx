@@ -6,13 +6,13 @@ import {
 
 export interface IButtonProps {
   title: string,
-  onClick: () => void,
   background?: string,
   borderColor?: string,
   color?: string,
   reversed?: boolean,
   icon?: React.ElementType;
   view?: string;
+  onClick?: () => void,
   disabled?: boolean;
   iconColor?: string;
 }

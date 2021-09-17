@@ -17,11 +17,22 @@ export const StyledQuizBlock = styled.div`
 export const StyledQuizHeaderSection = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 30px;
+  flex-direction: column;
+
+  ${device.tablet} {
+    flex-direction: row;
+    align-items: center;
+
+  }
 
 `
 export const StyledQuizTitle = styled.div`
+  margin-bottom: 10px;
+
+  ${device.tablet} {
+    margin-bottom: 0;
+  }
 `
 export const StyledQuizBullets = styled.div`
   display: flex;
@@ -44,14 +55,23 @@ export const StyledBulletItem = styled.div<{ isEnabled?: boolean, active?: boole
 export const StyledQuizMainSection = styled.div`
   width: 100%;
   background-color: #fff;
-  height: 400px;
   box-shadow: 0 22px 66px -13px rgba(104, 62, 0, 0.15);
-  padding: 40px;
+  padding: 20px;
+
+  .swiper-container {
+    height: 100%;
+  }
+  
+  ${device.desktop}{
+    padding: 40px;
+  }
 
 `
 export const StyledQuizQuestion = styled.div`
   position: relative;
   padding-bottom: 30px;
+  margin-bottom: 30px;
+
   ::after {
     position: absolute;
     content: '';
@@ -64,6 +84,33 @@ export const StyledQuizQuestion = styled.div`
   }
 `
 export const StyledQuizAnswers = styled.div`
+  display: grid;
+  grid-template-columns:repeat(1, 1fr);
+  grid-gap: 20px;
+  margin-bottom: 40px;
+
+  ${device.desktop} {
+    grid-template-columns:repeat(2, 1fr);
+  }
 `
-export const StyledButton = styled.div`
+export const StyledButtonBlock = styled.div<{ firstSlide?: boolean }>`
+  width: 100%;
+  display: flex;
+  justify-content: ${({firstSlide}) => firstSlide ? 'flex-end' : 'space-between'};
+  column-gap: 10px;
+
+`
+export const StyledButton = styled.div<{ reversed?: boolean }>`
+  max-width: 140px;
+
+  > div {
+    > div {
+      transform: rotate(${({reversed}) => reversed && '180deg'})
+    }
+  }
+`
+
+export const StyledTextarea = styled.div`
+  margin-bottom: 40px;
+  min-height: 228px;
 `

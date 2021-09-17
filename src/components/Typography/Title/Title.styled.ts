@@ -3,7 +3,7 @@ import { ITitleProps } from "./Title";
 import { device } from '../../../theme/devices';
 
 
-export const StyledTitle = styled.p<Partial<ITitleProps>>`
+export const StyledTitle = styled.div<Partial<ITitleProps>>`
   font-weight: ${({weight}) => weight ? weight : '700'};
   font-size: 24px;
   color: ${({color}) => color ? color : '#fff'};

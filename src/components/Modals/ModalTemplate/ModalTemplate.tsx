@@ -6,26 +6,30 @@ import { useDispatch } from "react-redux";
 export const ModalTemplate: React.FC = (props) => {
   const {children} = props;
   const dispatch = useDispatch()
+  const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
+
 
   const [isShown, setIsShown] = useState(false);
   useEffect(() => {
     setIsShown(true)
     document.body.classList.add("no-scroll");
+    document.body.style.paddingRight = `${scrollWidth}px`;
     return () => {
       setIsShown(false)
       document.body.classList.remove("no-scroll");
+      document.body.style.paddingRight = `0`;
     }
   }, [])
 
   const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if(e.target === e.currentTarget) {
+    if (e.target === e.currentTarget) {
       dispatch(modalsActions.closeModalAction())
     }
   }
 
   return (
-    <StyledModalWrapper isShown={isShown} onClick={(e)=>handleClose(e)}>
+    <StyledModalWrapper isShown={isShown} onClick={(e) => handleClose(e)}>
       {children}
     </StyledModalWrapper>
   );

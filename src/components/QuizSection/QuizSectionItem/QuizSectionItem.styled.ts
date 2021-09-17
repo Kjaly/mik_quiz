@@ -1,1 +1,4 @@
-export { QuizSectionItem } from './QuizSectionItem'
+import styled from "styled-components";
+
+
+export const StyledQuizItem = styled.div``
