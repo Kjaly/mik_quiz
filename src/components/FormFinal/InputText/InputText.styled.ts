@@ -10,14 +10,14 @@ export const StyledInput = styled.input<{ view: string } & any>`
   padding: 15px 30px;
   font-size: 15px;
   color: #000;
-  border: none;
+  border: ${({error, theme})=> error ? `1px solid ${theme.color.red} `: 'none'} ;
   background: ${({theme}) => theme.color.darkwhite};
   position: relative;
-  border-bottom: 0px solid ${({theme}) => theme.color.blue};
   transition: all .2s ease-in-out;
 
   :focus {
     border-bottom: 1px solid ${({theme}) => theme.color.blue};
+    color: ${({theme}) => theme.color.blue};
 
   }
 

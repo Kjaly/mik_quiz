@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledRegistrationFormModal = styled.div`
   max-width: 560px;
   max-height: 775px;
+  overflow: auto;
   height: 100%;
   width: 100%;
   background-color: #fff;
@@ -43,6 +44,7 @@ export const StyledForm = styled.div`
   flex: 1 0 auto;
   width: 100%;
   padding-bottom: 30px;
+
   > div {
     margin-bottom: 20px;
   }

@@ -19,6 +19,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Button } from "../Button";
 import { IconArrowRight } from "../../Icons";
 import { InputTextarea } from "../FormFinal/InputTextarea";
+import { history } from '../../store'
+import { useSelector } from "react-redux";
+import { routerSelectors } from "../../store/route";
 
 export interface IQuestion {
   id: number,
@@ -28,16 +31,19 @@ export interface IQuestion {
 }
 
 interface IQuizSectionProps {
-  questions: Array<IQuestion>
+  questions: Array<IQuestion>;
+  isEssay: boolean;
 }
 
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
-  const {questions} = props
+  const {questions, isEssay} = props
+  const currentPathname = useSelector(routerSelectors.getLocationPathName)
 
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [swiper, setSwiper] = useState<any>()
   const [step, setStep] = useState(0);
   const [maxEnabled, setMaxEnabled] = useState(0);
+
 
   const handleClick = (id: number) => {
     if (id <= maxEnabled) {
@@ -53,11 +59,19 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
         return swiper.slidePrev();
       }
       if (isLastQuestion) {
+        history.push(`${currentPathname}/essay`);
         return setStep(1)
       }
       return swiper.slideNext();
     }
   };
+
+  useEffect(() => {
+    if (isEssay) {
+      setStep(1)
+    }
+  }, [isEssay]);
+
 
   useEffect(() => {
     if (swiper) {
@@ -80,7 +94,6 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
         onSubmit={submitHandler}
         render={(renderProps): JSX.Element => {
           const {values, handleSubmit} = renderProps;
-          console.log(values)
           return (
             <>
               {step === 0 ? (
@@ -188,6 +201,5 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
 
 
     </StyledQuizBlock>
-
   );
 };

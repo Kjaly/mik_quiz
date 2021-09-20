@@ -11,6 +11,7 @@ export interface ModalState {
 
 export interface ModalPayload {
   name: string;
+  props?: any;
 }
 
 export interface TOpenModal {
@@ -18,13 +19,13 @@ export interface TOpenModal {
   payload: ModalPayload;
 
 }
+
 export type TModalProps = any;
 
 
 export type TCloseModal = {
   type: typeof CLOSE_MODAL;
 };
-
 
 
 export type ModalActions =

@@ -30,6 +30,7 @@ import { SliderDescription } from './SliderDescription';
 SwiperCore.use([Pagination, Autoplay]);
 
 interface ISliderItem {
+  id:number;
   title: string,
   buttonText: string
   img?: string
@@ -38,6 +39,7 @@ interface ISliderItem {
 
 const sliders: Array<ISliderItem> = [
   {
+    id:1,
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
@@ -45,6 +47,7 @@ const sliders: Array<ISliderItem> = [
     img: mainImage,
   },
   {
+    id:2,
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
@@ -52,6 +55,7 @@ const sliders: Array<ISliderItem> = [
     img: mainImage2,
   },
   {
+    id:3,
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
@@ -72,7 +76,7 @@ export const MainSlider: React.FC = () => {
       <StyledMainSlider>
         {sliders.map((item, index) => (
           <>
-            <StyledBackImg key={index} active={index === activeSlideIndex}>
+            <StyledBackImg key={item.id} active={index === activeSlideIndex}>
               {item.img && (
                 <img
                   src={item.img}

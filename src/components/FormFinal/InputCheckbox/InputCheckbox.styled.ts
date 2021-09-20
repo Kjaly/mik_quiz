@@ -29,7 +29,7 @@ export const StyledBox = styled.div<{ checked?: boolean }>`
   }
 
 `
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<any>`
   position: absolute;
   z-index: -1;
   opacity: 0;

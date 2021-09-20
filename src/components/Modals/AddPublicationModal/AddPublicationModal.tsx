@@ -41,7 +41,6 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
 
   const [type, setType] = useState('');
 
-  console.log(type);
   const handleSubmitForm = (values: any) => {
     const filePreviewUrl = files[0] ? URL.createObjectURL(files[0]) : values.url;
 

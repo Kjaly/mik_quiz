@@ -23,9 +23,29 @@ export const StyledTitleDescription = styled.div`
 export const StyledQuizWrapper = styled.div`
   position: relative;
 `
-export const StyledQuizTimer = styled.div`
+export const StyledEarlySection = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 0;
+
+  ${device.tablet} {
+    padding: 80px 0;
+  }
+
+  ${device.desktop} {
+    padding: 100px 0;
+  }
+
+`
+export const StyledButton = styled.div`
+  max-width: 200px;
+`
+export const StyledQuizTimer = styled.div<{ isEssay: boolean }>`
   position: absolute;
-  top: -30px;
+  top: ${({isEssay}) => isEssay ? '-50px' : '0'};
   display: flex;
   align-items: center;
   font-size: 24px;
@@ -37,7 +57,11 @@ export const StyledQuizTimer = styled.div`
   > svg {
     width: 24px;
     height: 24px;
-    fill:${({theme}) => theme.color.black};
+    fill: ${({theme}) => theme.color.black};
     margin-right: 10px;
+  }
+
+  ${device.tablet} {
+    top: ${({isEssay}) => isEssay ? '-50px' : '-30px'};
   }
 `

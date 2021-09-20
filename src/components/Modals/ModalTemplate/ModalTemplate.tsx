@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { StyledModalWrapper } from "./ModalTemplate.styled";
 import { modalsActions } from "../../../store/modals/actions";
 import { useDispatch } from "react-redux";
+import { history } from '../../../store'
 
-export const ModalTemplate: React.FC = (props) => {
-  const {children} = props;
+interface IModalTemplateProps {
+  redirect?: string;
+}
+
+export const ModalTemplate: React.FC<IModalTemplateProps> = (props) => {
+  const {children, redirect} = props;
   const dispatch = useDispatch()
   const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
@@ -24,6 +29,9 @@ export const ModalTemplate: React.FC = (props) => {
   const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.target === e.currentTarget) {
+      if (redirect) {
+        history.push(redirect)
+      }
       dispatch(modalsActions.closeModalAction())
     }
   }

@@ -13,6 +13,7 @@ export const ROUTES = [
   {
     path: '/publications',
     key: 'PUBLICATIONS',
+    auth: true,
     component: RenderRoutes,
     routes: [
       {
@@ -36,11 +37,13 @@ export const ROUTES = [
   {
     path: '/profile',
     key: 'PROFILE',
+    auth: true,
     component: (): JSX.Element => <Profile/>,
   },
   {
     path: '/quiz',
     key: 'QUIZ',
+    auth: true,
     component: (): JSX.Element => <Quiz/>,
   },
 ];

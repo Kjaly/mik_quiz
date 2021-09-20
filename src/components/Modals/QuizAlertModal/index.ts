@@ -1,0 +1,1 @@
+export {QuizAlertModal} from './QuizAlertModal'

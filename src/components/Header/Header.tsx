@@ -29,9 +29,13 @@ export const Header: React.FC<any> = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [authIsOpen, setAuthIsOpen] = useState(false)
   const dispatch = useDispatch()
-  const handleClick = () => {
+  const handleRegistration = () => {
     dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
+  const handleAuth = () => {
+    dispatch(modalsActions.openModalAction({name: 'authModal'}))
+  }
+
   const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
   const handleToggleMenu = () => {
@@ -75,7 +79,7 @@ export const Header: React.FC<any> = () => {
           <AuthWrapper>
             {isAuth ?
               (
-                <StyledAuthDropDown authIsOpen={authIsOpen} tabIndex={0} onBlur={()=>setAuthIsOpen(false)}>
+                <StyledAuthDropDown authIsOpen={authIsOpen} tabIndex={0} onBlur={() => setAuthIsOpen(false)}>
                   <Button
                     reversed
                     icon={IconArrowRight}
@@ -108,15 +112,14 @@ export const Header: React.FC<any> = () => {
                     title={'Вход'}
                     iconColor={'#000'}
                     color={'#000'}
-                    onClick={() => {
-                      setIsAuth(true)
-                    }}/>
+                    onClick={() => handleAuth()}/>
+
                   <Button
                     icon={IconKey}
                     background={theme.color.yellow}
                     title={'Регистрация'}
                     color={'#fff'}
-                    onClick={() => handleClick()}/>
+                    onClick={()=>handleRegistration()}/>
                 </>
               )}
 

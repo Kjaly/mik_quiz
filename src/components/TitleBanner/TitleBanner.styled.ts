@@ -12,7 +12,7 @@ export const StyledTitleBanner = styled.div`
   font-weight: 700;
   font-size: 32px;
 
-  ${device.tabletL} {
+  ${device.desktop} {
     background: linear-gradient(90deg, ${({theme}) => theme.color.blue} 90%, rgba(0, 0, 0, 0) 50%);;
 
   }
@@ -26,7 +26,7 @@ export const StyledImgBackground = styled.div`
   top: 0;
   transition: all 0.5s ease-in;
 
-  ${device.tabletL} {
+  ${device.desktop} {
     right: 10%;
   }
 
