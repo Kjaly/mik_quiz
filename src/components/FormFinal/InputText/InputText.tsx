@@ -19,6 +19,7 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
     meta,
     ...customProps
   } = props
+
   const {onChange, name, value, type, onBlur, onFocus} = input;
   const error = !meta?.visited && !meta?.touched && meta?.data?.error ? meta?.data?.error : null;
 

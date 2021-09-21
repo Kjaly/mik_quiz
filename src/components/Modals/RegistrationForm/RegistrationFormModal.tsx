@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyledButtonBlock,
   StyledCross,
@@ -6,17 +6,21 @@ import {
   StyledRegistrationFormModal,
   StyledTitle
 } from './RegistrationFormModal.styled';
-import { ModalTemplate } from "../ModalTemplate";
-import { IconArrowRight, IconCross, } from "../../../Icons";
-import { Button } from "../../Button";
-import { theme } from "../../../theme";
+import { ModalTemplate } from '../ModalTemplate';
+import { IconArrowRight, IconCross, } from '../../../Icons';
+import { Button } from '../../Button';
+import { theme } from '../../../theme';
 import { Field, Form } from 'react-final-form';
-import { InputText } from "../../FormFinal/InputText";
-import { IRegistrationFormModalValues } from "./RegistrationFormModal.types";
-import { InputCheckbox } from "../../FormFinal/InputCheckbox";
-import { asyncValidate } from "../../../services/forms/asyncValidate";
-import { formsNames } from "../../../services/forms/formsNames";
-import { setError } from "../../../services/forms/setFinalFormErrorMutator";
+import { InputText } from '../../FormFinal/InputText';
+import { IRegistrationFormModalValues } from './RegistrationFormModal.types';
+import { InputCheckbox } from '../../FormFinal/InputCheckbox';
+import { asyncValidate } from '../../../services/forms/asyncValidate';
+import { formsNames } from '../../../services/forms/formsNames';
+import { setError } from '../../../services/forms/setFinalFormErrorMutator';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUserRequest, removeUserErrors } from '../../../store/user/actions';
+import { getErrorsSelector, getMessageSelector } from '../../../store/user/selectors';
+import { modalsActions } from '../../../store/modals/actions';
 
 export interface IRegistrationFormProps {
   closeModal?: () => void;
@@ -25,9 +29,14 @@ export interface IRegistrationFormProps {
 
 export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) => {
   const {closeModal} = props
+  const dispatch = useDispatch();
+
+  const serverErrors = useSelector(getErrorsSelector);
   const submitHandler = (values: IRegistrationFormModalValues) => {
-    console.table(values)
+    const {privacy, ...body} = values
+    dispatch(registerUserRequest(body))
   }
+
   return (
     <ModalTemplate>
       <StyledRegistrationFormModal>
@@ -39,17 +48,17 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
         </StyledTitle>
         <Form
           initialValues={{
-            secondName: '',
-            firstName: '',
-            lastName: '',
-            city: '',
-            school: '',
-            class: '',
-            teacher: '',
+            // middle_name: '',
+            // first_name: '',
+            // last_name: '',
+            // city: '',
+            // school: '',
+            // school_class: '',
+            // school_teacher_history: '',
             email: '',
             password: '',
-            repeatPassword: '',
-            privacy: true,
+            password_confirmation: '',
+            // privacy: true,
           }}
           mutators={{setError}}
           onSubmit={submitHandler}
@@ -57,7 +66,6 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
             const {values, handleSubmit, form} = renderProps;
 
             const handleValidate = async (): Promise<void> => {
-              console.log(values)
               const errors = await asyncValidate(
                 values,
                 {
@@ -69,81 +77,101 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
                 handleSubmit();
               }
             };
+            if (serverErrors) {
+              Object.keys(serverErrors).forEach(item => {
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                form.mutators.setError({[item]: serverErrors[item][0]})
+                dispatch(removeUserErrors())
+              })
+            }
             return (
               <>
                 <StyledForm>
-                  <Field
-                    name="secondName"
-                    component={InputText}
-                    type="text"
-                    placeholder="Фамилия"
-                  />
-                  <Field
-                    name="firstName"
-                    component={InputText}
-                    type="text"
-                    placeholder="Имя"
-                  />
-                  <Field
-                    name="lastName"
-                    component={InputText}
-                    type="text"
-                    placeholder="Отчество"
-                  />
-                  <Field
-                    name="city"
-                    component={InputText}
-                    type="text"
-                    placeholder="Город"
-                  />
-                  <Field
-                    name="school"
-                    component={InputText}
-                    type="text"
-                    placeholder="Школа"
-                  />
-                  <Field
-                    name="class"
-                    component={InputText}
-                    type="text"
-                    placeholder="Класс"
-                  />
-                  <Field
-                    name="teacher"
-                    component={InputText}
-                    type="text"
-                    placeholder="ФИО учителя истории"
-                  />
+                  {/*<Field*/}
+                  {/*  name="middle_name"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="Фамилия"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
+                  {/*<Field*/}
+                  {/*  name="first_name"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="Имя"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
+                  {/*<Field*/}
+                  {/*  name="last_name"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="Отчество"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
+                  {/*<Field*/}
+                  {/*  name="city"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="Город"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
+                  {/*<Field*/}
+                  {/*  name="school"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="Школа"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
+                  {/*<Field*/}
+                  {/*  name="school_class"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="Класс"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
+                  {/*<Field*/}
+                  {/*  name="school_teacher_history"*/}
+                  {/*  component={InputText}*/}
+                  {/*  type="text"*/}
+                  {/*  placeholder="ФИО учителя истории"*/}
+                  {/*  errors={serverErrors}*/}
+                  {/*/>*/}
                   <Field
                     name="email"
                     component={InputText}
                     type="email"
                     placeholder="Email"
+                    errors={serverErrors}
                   />
                   <Field
                     name="password"
                     component={InputText}
                     type="password"
                     placeholder="Пароль"
+                    errors={serverErrors}
                   />
                   <Field
-                    name="repeatPassword"
+                    name="password_confirmation"
                     component={InputText}
                     type="password"
                     placeholder="Повтор пароля"
+                    errors={serverErrors}
                   />
-                  <Field
-                    name="privacy"
-                    render={InputCheckbox}
-                    type="checkbox"
-                    label="Даю согласие на обработку персональных данных"
-                  />
+                  {/*<Field*/}
+                  {/*  name="privacy"*/}
+                  {/*  render={InputCheckbox}*/}
+                  {/*  type="checkbox"*/}
+                  {/*  label="Даю согласие на обработку персональных данных"*/}
+                  {/*/>*/}
                 </StyledForm>
 
                 <StyledButtonBlock>
                   <Button
                     icon={IconArrowRight}
                     reversed
+                    // disabled={!values.privacy}
                     background={theme.color.yellow}
                     color={'#fff'}
                     title={'Зарегистрироваться'}

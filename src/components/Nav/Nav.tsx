@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { StyledNav, StyledNavMobile, StyledNavMobileAuth, StyledNavTitle } from './Nav.styled';
 import { NavItem } from './NavItem'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { routerSelectors } from '../../store/route';
 import { NavMobileItem } from './NavMobileItem';
-import { Button } from "../Button";
-import { IconKey, IconLock } from "../../Icons";
-import { theme } from "../../theme";
+import { Button } from '../Button';
+import { IconKey, IconLock } from '../../Icons';
+import { theme } from '../../theme';
+import { logoutUserRequest } from '../../store/user/actions';
+import { getUserIdSelector } from '../../store/user/selectors';
+import { modalsActions } from '../../store/modals/actions';
 
 
 export interface INavProps {
@@ -15,13 +18,14 @@ export interface INavProps {
   mobileHidden?: boolean
   isFooter?: boolean
 }
+
 interface INavigation {
   text: string;
   url: string;
   onClick?: () => void;
 }
 
-export const navigation:Array<INavigation> = [
+export const navigation: Array<INavigation> = [
   {text: 'Главная', url: '/'},
   {text: 'Викторина', url: '/quiz'},
   {text: 'О проекте', url: '/about'},
@@ -31,21 +35,28 @@ export const navigation:Array<INavigation> = [
 export const Nav: React.FC<INavProps> = (props) => {
   const {isOpen, mobileHidden, setIsOpen, isFooter} = props
   const currentLocation = useSelector(routerSelectors.getLocationPathName)
-  const [isAuth, setIsAuth] = useState(false);
+  const isAuth = useSelector(getUserIdSelector);
 
+  const dispatch = useDispatch()
   const handleLogout = (() => {
-    setIsAuth(false);
-    console.log(isAuth);
+    dispatch(logoutUserRequest())
   })
 
 
-  const authMobileNavigation:Array<INavigation> = [
+  const handleLogin = () => {
+    dispatch(modalsActions.openModalAction({name: 'authModal'}))
+  }
+  const handleReg = () => {
+    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+  }
+
+  const authMobileNavigation: Array<INavigation> = [
     {text: 'Мой профиль', url: '/profile'},
     {text: 'Мои публикации', url: '/publications'},
     {text: 'Выход', url: '', onClick: handleLogout},
   ]
 
-  const fullNavigation:Array<INavigation> = !isAuth ? navigation : [...navigation, ...authMobileNavigation]
+  const fullNavigation: Array<INavigation> = !isAuth ? navigation : [...navigation, ...authMobileNavigation]
   return (
     <>
       <StyledNav isFooter={isFooter} mobileHidden={mobileHidden}>
@@ -85,17 +96,13 @@ export const Nav: React.FC<INavProps> = (props) => {
               title={'Вход'}
               iconColor={'#000'}
               color={'#000'}
-              onClick={() => {
-                setIsAuth(true)
-              }}/>
+              onClick={handleLogin}/>
             <Button
               icon={IconKey}
               background={theme.color.yellow}
               title={'Регистрация'}
               color={'#fff'}
-              onClick={() => {
-                console.log(2)
-              }}/>
+              onClick={handleReg}/>
           </StyledNavMobileAuth>
         )}
       </StyledNavMobile>

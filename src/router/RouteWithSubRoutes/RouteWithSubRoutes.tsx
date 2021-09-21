@@ -1,13 +1,14 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import { useSelector } from 'react-redux';
+import { getUserIdSelector } from '../../store/user/selectors';
 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const RouteWithSubRoutes = (route: any,) => {
   const {path, exact, component: Component, routes, auth} = route
-  console.log(route)
-  // TODO поменять isAuth на данные с бэка
+  const isAuth = useSelector(getUserIdSelector);
   return (
     <>
       {
@@ -15,8 +16,7 @@ export const RouteWithSubRoutes = (route: any,) => {
           <PrivateRoute
             path={path}
             exact={exact}
-
-            isAuth={true}
+            isAuth={isAuth}
             component={(props: JSX.IntrinsicAttributes) => <Component {...props} routes={routes}/>}
           />
         ) : (

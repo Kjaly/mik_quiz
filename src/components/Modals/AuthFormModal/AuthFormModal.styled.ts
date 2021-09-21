@@ -46,6 +46,9 @@ export const StyledForm = styled.div`
 
   > div {
     margin-bottom: 20px;
+    :last-child{
+      margin-bottom: 0;
+    }
   }
 `
 
@@ -72,4 +75,9 @@ export const StyledAuthLink = styled.a`
     filter: brightness(0.7)
   }
 
+`
+
+export const StyledError = styled.div`
+  color:${({theme})=>theme.color.red};
+  font-size: 12px;
 `

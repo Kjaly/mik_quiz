@@ -23,6 +23,7 @@
     "connected-react-router": "^6.9.1",
     "dayjs": "^1.10.7",
     "dot-object": "^2.1.4",
+    "dotenv": "^10.0.0",
     "final-form": "^4.20.2",
     "history": "4.10.1",
     "query-string": "^7.0.1",
@@ -45,7 +46,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

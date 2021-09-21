@@ -19,14 +19,18 @@ import { Logo } from '../Logo';
 import { ContentWrapper } from '../ContentWrapper';
 import { theme } from '../../theme';
 import { Link } from 'react-router-dom';
-import { modalsActions } from "../../store/modals/actions";
-import { useDispatch } from "react-redux";
+import { modalsActions } from '../../store/modals/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserIdSelector } from '../../store/user/selectors';
+import { fetchUserRequest, logoutUserRequest, registerUserRequest } from '../../store/user/actions';
 
 
 export const Header: React.FC<any> = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
+
+  const isAuth = useSelector(getUserIdSelector);
+  console.log(isAuth)
   const [authIsOpen, setAuthIsOpen] = useState(false)
   const dispatch = useDispatch()
   const handleRegistration = () => {
@@ -45,11 +49,10 @@ export const Header: React.FC<any> = () => {
   const handleToggleAuth = () => {
     setAuthIsOpen(!authIsOpen)
   }
-
-  useEffect(() => {
-    setAuthIsOpen(false)
-  }, [isAuth]);
-
+  const logout = () => {
+    // dispatch(logoutUserRequest())
+    dispatch(fetchUserRequest())
+  }
 
   useEffect(() => {
 
@@ -98,7 +101,7 @@ export const Header: React.FC<any> = () => {
                         Мои публикации
                       </StyledAuthDropDownItem>
                     </Link>
-                    <StyledAuthDropDownItem onClick={() => setIsAuth(false)}>
+                    <StyledAuthDropDownItem onClick={logout}>
                       Выход
                     </StyledAuthDropDownItem>
                   </StyledAuthDropDownList>
@@ -119,7 +122,7 @@ export const Header: React.FC<any> = () => {
                     background={theme.color.yellow}
                     title={'Регистрация'}
                     color={'#fff'}
-                    onClick={()=>handleRegistration()}/>
+                    onClick={() => handleRegistration()}/>
                 </>
               )}
 

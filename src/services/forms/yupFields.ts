@@ -6,16 +6,15 @@ export const fields = {
   email: string()
     .typeError(errorsMessages.type)
     .email(errorsMessages.email)
-    .matches(regexps.email, errorsMessages.name)
+    // .matches(regexps.email, errorsMessages.name)
     .required(errorsMessages.required),
   password: string()
     .typeError(errorsMessages.type)
-    .matches(regexps.password, errorsMessages.name)
     .required(errorsMessages.required),
 
   userName: string()
     .typeError(errorsMessages.name)
-    .matches(regexps.userName, errorsMessages.name)
+    // .matches(regexps.userName, errorsMessages.name)
     .min(
       2,
       errorsMessages.minCharacters(2),

@@ -11,17 +11,16 @@ interface IShemaValues {
 export const getValidationSchema = ({formName}: IShemaValues): AnyObject | undefined => {
   const schema = {
     [formsNames.registration]: {
-      secondName: fields.userName,
-      firstName: fields.userSecondName,
-      lastName: fields.userLastName,
-      city: fields.city,
-      school: fields.school,
-      class: fields.class,
-      teacher: fields.teacher,
+      // middle_name: fields.userSecondName,
+      // first_name: fields.userName,
+      // last_name: fields.userLastName,
+      // city: fields.city,
+      // school: fields.school,
+      // school_class: fields.class,
+      // school_teacher_history: fields.teacher,
       email: fields.email,
       password: fields.password,
-      repeatPassword: fields.password,
-      privacy: fields.privacy,
+      password_confirmation: fields.password,
     },
     [formsNames.auth]: {
       email: fields.email,

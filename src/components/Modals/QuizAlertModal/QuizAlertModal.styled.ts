@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledQuizModal = styled.div`
   background-color: #fff;
   padding: 30px;
-  max-width: 400px;
+  max-width: 560px;
   font-size: 20px;
   display: flex;
   align-items: flex-start;

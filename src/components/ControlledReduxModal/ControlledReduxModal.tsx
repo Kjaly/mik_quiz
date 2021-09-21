@@ -9,6 +9,7 @@ import { RegistrationFormModal } from "../Modals/RegistrationForm";
 import { AuthFormModal } from "../Modals/AuthFormModal";
 import { AddPublicationModal } from "../Modals/AddPublicationModal";
 import { QuizAlertModal } from "../Modals/QuizAlertModal";
+import { MailConfirmModal } from '../Modals/MailConfirmModal';
 
 export const ControlledReduxModal: React.FC = () => {
 
@@ -29,6 +30,8 @@ export const ControlledReduxModal: React.FC = () => {
       return <AddPublicationModal closeModal={closeModal}/>;
     case 'quizAlertModal' :
       return <QuizAlertModal closeModal={closeModal}/>;
+      case 'mailConfirmModal' :
+      return <MailConfirmModal closeModal={closeModal}/>;
     default:
       return null;
   }

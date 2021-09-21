@@ -4,7 +4,7 @@ export const StyledRegistrationFormModal = styled.div`
   max-width: 560px;
   max-height: 775px;
   overflow: auto;
-  height: 100%;
+  height:auto;
   width: 100%;
   background-color: #fff;
   padding: 30px;
