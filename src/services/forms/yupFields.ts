@@ -1,5 +1,4 @@
-import { array, object, number, string, mixed, boolean, date } from 'yup';
-import { regexps } from '../../contsants/regExps';
+import { boolean, string } from 'yup';
 import { errorsMessages } from './errorsMessages';
 
 export const fields = {
@@ -10,6 +9,10 @@ export const fields = {
     .required(errorsMessages.required),
   password: string()
     .typeError(errorsMessages.type)
+    .min(
+      8,
+      errorsMessages.minCharacters(8),
+    )
     .required(errorsMessages.required),
 
   userName: string()

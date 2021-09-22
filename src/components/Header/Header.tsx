@@ -30,7 +30,6 @@ export const Header: React.FC<any> = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isAuth = useSelector(getUserIdSelector);
-  console.log(isAuth)
   const [authIsOpen, setAuthIsOpen] = useState(false)
   const dispatch = useDispatch()
   const handleRegistration = () => {
@@ -86,7 +85,7 @@ export const Header: React.FC<any> = () => {
                     reversed
                     icon={IconArrowRight}
                     background={theme.color.yellow}
-                    title={'Имя'}
+                    title={'Привет'}
                     color={'#fff'}
                     onClick={handleToggleAuth}/>
                   <StyledAuthDropDownList authIsOpen={authIsOpen}>

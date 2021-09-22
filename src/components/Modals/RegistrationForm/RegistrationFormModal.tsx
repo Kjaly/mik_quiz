@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   StyledButtonBlock,
   StyledCross,
@@ -13,13 +13,12 @@ import { theme } from '../../../theme';
 import { Field, Form } from 'react-final-form';
 import { InputText } from '../../FormFinal/InputText';
 import { IRegistrationFormModalValues } from './RegistrationFormModal.types';
-import { InputCheckbox } from '../../FormFinal/InputCheckbox';
 import { asyncValidate } from '../../../services/forms/asyncValidate';
 import { formsNames } from '../../../services/forms/formsNames';
 import { setError } from '../../../services/forms/setFinalFormErrorMutator';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserRequest, removeUserErrors } from '../../../store/user/actions';
-import { getErrorsSelector, getMessageSelector } from '../../../store/user/selectors';
+import { getErrorsSelector } from '../../../store/user/selectors';
 import { modalsActions } from '../../../store/modals/actions';
 
 export interface IRegistrationFormProps {
@@ -35,6 +34,9 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
   const submitHandler = (values: IRegistrationFormModalValues) => {
     const {privacy, ...body} = values
     dispatch(registerUserRequest(body))
+  }
+  const handleAuth = () => {
+    dispatch(modalsActions.openModalAction({name: 'authModal'}))
   }
 
   return (
@@ -87,58 +89,10 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
               })
             }
             return (
-              <>
+              <form onKeyDown={(e) => e.code === 'Enter' && handleValidate()}>
                 <StyledForm>
-                  {/*<Field*/}
-                  {/*  name="middle_name"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="Фамилия"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
-                  {/*<Field*/}
-                  {/*  name="first_name"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="Имя"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
-                  {/*<Field*/}
-                  {/*  name="last_name"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="Отчество"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
-                  {/*<Field*/}
-                  {/*  name="city"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="Город"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
-                  {/*<Field*/}
-                  {/*  name="school"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="Школа"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
-                  {/*<Field*/}
-                  {/*  name="school_class"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="Класс"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
-                  {/*<Field*/}
-                  {/*  name="school_teacher_history"*/}
-                  {/*  component={InputText}*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder="ФИО учителя истории"*/}
-                  {/*  errors={serverErrors}*/}
-                  {/*/>*/}
                   <Field
+                    autoComplete={'email'}
                     name="email"
                     component={InputText}
                     type="email"
@@ -146,6 +100,7 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
                     errors={serverErrors}
                   />
                   <Field
+                    autoComplete={'off'}
                     name="password"
                     component={InputText}
                     type="password"
@@ -153,41 +108,33 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
                     errors={serverErrors}
                   />
                   <Field
+                    autoComplete={'off'}
                     name="password_confirmation"
                     component={InputText}
                     type="password"
                     placeholder="Повтор пароля"
                     errors={serverErrors}
                   />
-                  {/*<Field*/}
-                  {/*  name="privacy"*/}
-                  {/*  render={InputCheckbox}*/}
-                  {/*  type="checkbox"*/}
-                  {/*  label="Даю согласие на обработку персональных данных"*/}
-                  {/*/>*/}
                 </StyledForm>
 
                 <StyledButtonBlock>
-                  <Button
-                    icon={IconArrowRight}
-                    reversed
-                    // disabled={!values.privacy}
-                    background={theme.color.yellow}
-                    color={'#fff'}
-                    title={'Зарегистрироваться'}
-                    onClick={handleValidate}/>
-
                   <Button
                     view={'bordered'}
                     borderColor={'rgba(61, 79, 135, 0.2)'}
                     background={'#fff'}
                     color={theme.color.blue}
                     title={'Уже есть аккаунт'}
-                    onClick={() => {
-                      console.log('Логин')
-                    }}/>
+                    onClick={handleAuth}/>
+
+                  <Button
+                    icon={IconArrowRight}
+                    reversed
+                    background={theme.color.yellow}
+                    color={'#fff'}
+                    title={'Зарегистрироваться'}
+                    onClick={handleValidate}/>
                 </StyledButtonBlock>
-              </>
+              </form>
             )
           }}
         />

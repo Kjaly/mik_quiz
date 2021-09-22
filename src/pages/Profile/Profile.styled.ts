@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from "../../theme/devices";
+import { device } from '../../theme/devices';
 
 export const StyledProfileWrapper = styled.div`
   width: 100%;
@@ -20,29 +20,42 @@ export const StyledProfile = styled.div`
     flex-direction: row;
   }
 `
-export const StyledProfileForm = styled.div`
+
+export const StyledProfileFormWrapper = styled.div`
   flex-basis: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
+  ${device.tablet} {
+    flex-basis: 50%;
+  }
+
+  ${device.desktop} {
+    flex-basis: 70%;
+  }
+
+`
+export const StyledProfileForm = styled.div`
   > div {
     margin-bottom: 20px;
   }
 
-  ${device.tablet} {
-    flex-basis: 50%;
-
-  }
+  width: 100%;
 
   ${device.desktop} {
     display: grid;
     max-width: 730px;
-    flex-basis: 100%;
     grid-template-columns:repeat(2, 1fr);
     grid-gap: 20px 30px;
   }
 
 `
 
+export const StyledButton = styled.div`
+  max-width: 140px;
+`
 export const StyledAvatarInput = styled.div`
   visibility: hidden;
   position: absolute;
@@ -53,7 +66,7 @@ export const StyledImgWrapper = styled.div`
   height: 260px;
   margin-bottom: 20px;
   width: 100%;
-  background-color: rgba(255, 99, 71, 0.67);
+  background-color: ${({theme}) => theme.color.darkwhite};
 
   ${device.tablet} {
     flex-basis: 45%;

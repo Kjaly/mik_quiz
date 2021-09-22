@@ -21,4 +21,5 @@ export { IconCheckCircle } from './IconCheckCircle'
 export { IconCheck } from './IconCheck'
 export { IconClock } from './IconClock'
 export { IconMail } from './IconMail'
+export { IconUser } from './IconUser'
 

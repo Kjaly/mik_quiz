@@ -6,5 +6,6 @@ export const colorSchema = {
   darkgray:'#272727',
   gray:'#666666',
   black:'#333333',
-  lightgray:'#DBD6D0'
+  lightgray:'#DBD6D0',
+  green:'#14CCAE'
 }
