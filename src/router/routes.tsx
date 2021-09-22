@@ -41,9 +41,13 @@ export const ROUTES = [
     component: (): JSX.Element => <Profile/>,
   },
   {
+    path: '/verify-account',
+    key: 'PROFILE',
+    component: (): JSX.Element => <Home/>,
+  },
+  {
     path: '/quiz',
     key: 'QUIZ',
-    auth: true,
     component: (): JSX.Element => <Quiz/>,
   },
 ];

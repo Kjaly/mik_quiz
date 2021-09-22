@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = (route: any) => {
+const PrivateRoute = (route: any): JSX.Element => {
   const {component: Component, isAuth, ...rest} = route
-  console.log(isAuth)
   return (
     <Route
       {...rest}

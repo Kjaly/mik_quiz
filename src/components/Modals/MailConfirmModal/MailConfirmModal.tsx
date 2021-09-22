@@ -8,15 +8,19 @@ import {
   StyledIcon,
   StyledMailConfirmTitle,
   StyledDescription,
+  StyledButton,
 } from './MailConfirmModal.styled'
 import { TModalProps } from '../../../store/modals/types';
 import { IconCross, IconMail } from '../../../Icons';
 import { modalsSelectors } from '../../../store/modals/selectors';
 import { useSelector } from 'react-redux';
+import { Button } from '../../Button';
+import { theme } from '../../../theme';
+import { history } from '../../../store'
 
 export const MailConfirmModal: React.FC<TModalProps> = (props) => {
   const {closeModal} = props
-  const {text} = useSelector(modalsSelectors.getModalProps)
+  const {text, title, noMail} = useSelector(modalsSelectors.getModalProps)
 
   const handleClose = () => {
     closeModal()
@@ -26,17 +30,34 @@ export const MailConfirmModal: React.FC<TModalProps> = (props) => {
       <StyledMailConfirmModal>
         <StyledHeader>
           <StyledMailConfirmTitle>
-            Подтверждение регистрации
+            {title || 'Подтверждение регистрации'}
           </StyledMailConfirmTitle>
           <StyledCloseIcon onClick={handleClose}>
             <IconCross/>
           </StyledCloseIcon>
         </StyledHeader>
         <StyledDescription>
-          <StyledIcon>
-            <IconMail/>
-          </StyledIcon>{text || 'Письмо подтверждения регистрации отправлено на ваш Email адрес. Проверьте свою электронную почту и завершите регистрацию.'}
+          {!noMail && (
+            <StyledIcon>
+              <IconMail/>
+            </StyledIcon>
+          )}
+          {text || 'Письмо подтверждения регистрации отправлено на ваш Email адрес. Проверьте свою электронную почту и завершите регистрацию.'}
+
+
         </StyledDescription>
+        {noMail && (
+          <StyledButton>
+            <Button
+              background={theme.color.yellow}
+              title={'Профиль'}
+              color={'#fff'}
+              onClick={() => {
+                history.push('/profile')
+                handleClose()
+              }}/>
+          </StyledButton>
+        )}
       </StyledMailConfirmModal>
     </ModalTemplate>
   );

@@ -27,6 +27,7 @@ export const StyledCloseIcon = styled.div`
 `
 
 export const StyledMailConfirmTitle = styled.div`
+  margin-right: 2em;
 `
 export const StyledHeader = styled.div`
 
@@ -35,16 +36,20 @@ export const StyledHeader = styled.div`
   align-items: center;
   font-weight: 700;
   font-size: 30px;
-  color:${({theme}) => theme.color.blue};
+  color: ${({theme}) => theme.color.blue};
   margin-bottom: 20px;
 `
 export const StyledDescription = styled.div`
   display: flex;
   width: 100%;
-  align-items:flex-start;
+  align-items: flex-start;
 `
 export const StyledIcon = styled.div`
   width: 48px;
   height: 36px;
   margin-right: 20px;
+`
+export const StyledButton = styled.div`
+  max-width: 140px;
+  margin: 20px auto 0;
 `

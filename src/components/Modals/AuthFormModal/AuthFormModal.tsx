@@ -19,9 +19,10 @@ import { IAuthFormModalValues } from './AuthFormModal.types';
 import { asyncValidate } from '../../../services/forms/asyncValidate';
 import { formsNames } from '../../../services/forms/formsNames';
 import { setError } from '../../../services/forms/setFinalFormErrorMutator';
-import { loginUserRequest, registerUserRequest, removeUserErrors } from '../../../store/user/actions';
+import { loginUserRequest, removeUserErrors } from '../../../store/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getErrorsSelector } from '../../../store/user/selectors';
+import { modalsActions } from '../../../store/modals/actions';
 
 export interface IRegistrationFormProps {
   closeModal?: () => void;
@@ -32,9 +33,11 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
   const {closeModal} = props
   const dispatch = useDispatch();
   const serverErrors = useSelector(getErrorsSelector);
-  console.log(serverErrors);
   const submitHandler = (values: IAuthFormModalValues) => {
     dispatch(loginUserRequest(values))
+  }
+  const handleRegistrate = () => {
+    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
   useEffect(() => {
     return () => {
@@ -63,7 +66,6 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
             const {values, handleSubmit, form} = renderProps;
 
             const handleValidate = async (): Promise<void> => {
-              console.log(values)
               const errors = await asyncValidate(
                 values,
                 {
@@ -87,15 +89,17 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
             }
 
             return (
-              <>
+              <form onKeyDown={(e) => e.code === 'Enter' && handleValidate()}>
                 <StyledForm>
                   <Field
+                    autoComplete={'email'}
                     name="email"
                     component={InputText}
                     type="text"
                     placeholder="Email"
                   />
                   <Field
+                    autoComplete={'off'}
                     name="password"
                     component={InputText}
                     type="password"
@@ -117,11 +121,11 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
                     onClick={handleValidate}/>
 
                   <StyledLinkBlock>
-                    <StyledAuthLink>Забыли пароль?</StyledAuthLink>
-                    <StyledAuthLink>Регистрация</StyledAuthLink>
+                    {/*<StyledAuthLink>Забыли пароль?</StyledAuthLink>*/}
+                    <StyledAuthLink onClick={handleRegistrate}>Регистрация</StyledAuthLink>
                   </StyledLinkBlock>
                 </StyledButtonBlock>
-              </>
+              </form>
             )
           }}
         />

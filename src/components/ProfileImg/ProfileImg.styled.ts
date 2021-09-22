@@ -7,7 +7,12 @@ export const StyledProfileImgWrapper = styled.div`
   width: 100%;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 
+  > svg {
+    height: 80%;
+  }
   ::after {
     position: absolute;
     content: "";
@@ -22,5 +27,6 @@ export const StyledProfileImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
 `
 

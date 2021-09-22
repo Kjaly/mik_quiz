@@ -1,17 +1,26 @@
 import {
+  CHECK_AUTH_USER_FAILURE,
+  CHECK_AUTH_USER_REQUEST,
+  CHECK_AUTH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
-  REGISTER_USER_REQUEST,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAILURE,
-  REMOVE_USER_ERRORS,
+  LOGIN_USER_FAILURE,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILURE,
+  LOGOUT_USER_FAILURE,
   LOGOUT_USER_REQUEST,
   LOGOUT_USER_SUCCESS,
-  LOGOUT_USER_FAILURE, CHECK_AUTH_USER_REQUEST, CHECK_AUTH_USER_SUCCESS, CHECK_AUTH_USER_FAILURE,
+  REGISTER_USER_FAILURE,
+  REGISTER_USER_REQUEST,
+  REGISTER_USER_SUCCESS,
+  REMOVE_USER_ERRORS,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  VERIFY_USER_FAILURE,
+  VERIFY_USER_REQUEST,
+  VERIFY_USER_SUCCESS,
 } from './actionTypes';
 
 export interface IUser {
@@ -37,6 +46,8 @@ export interface IUserRegistration {
   email: string;
   password: string;
   password_confirmation: string;
+  avatar?: File | null;
+  parental_agreement?: File | null;
 }
 
 export interface IUserLogin {
@@ -44,15 +55,53 @@ export interface IUserLogin {
   password?: string;
 }
 
+export interface IEmailVerify {
+  id?: number;
+  expires?: string;
+  hash?: string;
+  signature?: string;
+}
+
 export interface IRefreshPayload {
- refresh_token: string;
+  refresh_token: string;
+}
+
+export interface IPhoto {
+  alt:string,
+  description:string,
+  extension:string,
+  hash:string,
+  id:number,
+  mime:string,
+  name:string,
+  original_name:string,
+  url:string,
+  user_id:number,
 }
 
 export interface UserState extends Partial<IUser> {
   pending: boolean;
   api: IApi | null;
-  errors: string | null;
+  created_at?: string,
+  city?: string,
+  deleted_at?: string,
+  email?: string;
+  email_verified_at?: string;
+  parental_agreement?: any;
+  parental_agreement_id?: number;
+  photo?: IPhoto | null;
+  errors?: string | null;
+  first_name?: string,
+  id?: number,
+  is_completed?: boolean,
+  last_name?: string,
   message: string | null;
+  middle_name?: string,
+  name?: string,
+  school?: string,
+  school_class?: string,
+  school_teacher_history?: string,
+  updated_at?: string,
 }
 
 export interface FetchUserSuccessPayload {
@@ -81,6 +130,37 @@ export type FetchUserFailure = {
   type: typeof FETCH_USER_FAILURE;
   payload: FetchUserFailurePayload;
 };
+
+export interface UpdateUserRequest {
+  type: typeof UPDATE_USER_REQUEST;
+  payload: IUserRegistration;
+}
+
+export type UpdateUserSuccess = {
+  type: typeof UPDATE_USER_SUCCESS;
+  payload: FetchUserSuccessPayload;
+};
+
+export type UpdateUserFailure = {
+  type: typeof UPDATE_USER_FAILURE;
+  payload: FetchUserFailurePayload;
+};
+
+export interface VerifyUserRequest {
+  type: typeof VERIFY_USER_REQUEST;
+  payload: IEmailVerify;
+}
+
+export type VerifyUserSuccess = {
+  type: typeof VERIFY_USER_SUCCESS;
+  payload: FetchUserSuccessPayload;
+};
+
+export type VerifyUserFailure = {
+  type: typeof VERIFY_USER_FAILURE;
+  payload: FetchUserFailurePayload;
+};
+
 
 export interface LoginUserRequest {
   type: typeof LOGIN_USER_REQUEST;
@@ -160,3 +240,9 @@ export type UserActions =
   | CheckAuthUserRequest
   | CheckAuthUserSuccess
   | CheckAuthUserFailure
+  | UpdateUserRequest
+  | UpdateUserSuccess
+  | UpdateUserFailure
+  | VerifyUserRequest
+  | VerifyUserSuccess
+  | VerifyUserFailure

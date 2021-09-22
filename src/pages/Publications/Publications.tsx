@@ -15,11 +15,8 @@ export const Publications: React.FC = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    console.log(publications);
-    console.log(publications?.length)
     dispatch(modalsActions.openModalAction({name: 'addPublicationModal'}))
   }
-  console.log(publications?.length)
   return (
     <StyledPublications>
       <TitleBanner>Мои публикации</TitleBanner>

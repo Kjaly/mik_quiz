@@ -60,8 +60,8 @@ export const Nav: React.FC<INavProps> = (props) => {
   const fullNavigation: Array<INavigation> = !isAuth ? navigation : [...navigation, ...authMobileNavigation]
   return (
     <>
-      <StyledNav isAuth={!!isAuth} isFooter={isFooter} mobileHidden={mobileHidden}>
-        {navigation.filter(item=>isAuth ? item : !item.isAuth).map((item, key) => {
+      <StyledNav isFooter={isFooter} mobileHidden={mobileHidden}>
+        {navigation.map((item, key) => {
           return (
             <NavItem
               isFooter={isFooter}
@@ -77,7 +77,7 @@ export const Nav: React.FC<INavProps> = (props) => {
         <StyledNavTitle>
           Меню
         </StyledNavTitle>
-        {fullNavigation.filter(item=>isAuth ? item : !item.isAuth).map((item, key) => {
+        {fullNavigation.map((item, key) => {
           return (
             <NavMobileItem
               onClick={item?.onClick}
