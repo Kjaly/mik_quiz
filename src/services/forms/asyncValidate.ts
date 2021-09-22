@@ -9,11 +9,10 @@ interface IValidateOptions {
 
 export const asyncValidate = async <V = Record<string, string | null | undefined | boolean | any>>(
   values: V,
-  {formName}: IValidateOptions,
-  callback?: (errors: { [P in keyof V]?: string } | undefined) => void,
+  { formName }: IValidateOptions,
+  callback?: (errors: { [P in keyof V]?: string } | undefined) => void
 ): Promise<{ [P in keyof V]?: string } | undefined> => {
-  const formSchema = getValidationSchema({formName});
-
+  const formSchema = getValidationSchema({ formName });
 
   if (!formSchema) {
     console.warn('incorrect form schema');
@@ -21,12 +20,12 @@ export const asyncValidate = async <V = Record<string, string | null | undefined
   }
 
   try {
-    await yup.object(formSchema).validate(values, {abortEarly: false, context: values});
-  } catch (err) {
+    await yup.object(formSchema).validate(values, { abortEarly: false, context: values });
+  } catch (err: any) {
     const errors = err?.inner?.reduce(
-      (formError: { [P in keyof V]?: string }, innerError:any) =>
+      (formError: { [P in keyof V]?: string }, innerError: any) =>
         setIn(formError, innerError.path, innerError.message),
-      {},
+      {}
     );
 
     if (errors) {
