@@ -88,7 +88,7 @@ const logoutUser = (): Promise<AxiosResponse<AuthResponse>> =>
 
 const verifyUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> =>
   axios.get<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/verify`, {
-    ...payload,
+    params: payload,
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
