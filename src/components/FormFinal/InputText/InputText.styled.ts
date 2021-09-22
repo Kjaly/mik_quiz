@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledInputContainer = styled.div`
   width: 100%;
@@ -10,7 +10,7 @@ export const StyledInput = styled.input<{ view: string } & any>`
   padding: 15px 30px;
   font-size: 15px;
   color: #000;
-  border: ${({error, theme})=> error ? `1px solid ${theme.color.red} `: 'none'} ;
+  border: ${({error, theme}) => error ? `1px solid ${theme.color.red} ` : '1px solid transparent'};
   background: ${({theme}) => theme.color.darkwhite};
   position: relative;
   transition: all .2s ease-in-out;

@@ -8,6 +8,7 @@ export const StyledImgWrapper = styled.div`
   max-height: 200px;
   transition: all .2s ease-in-out;
   overflow: hidden;
+  flex: 1 0 50%;
 
 `
 export const StyledExpertImg = styled.img`
@@ -15,13 +16,14 @@ export const StyledExpertImg = styled.img`
   height: 100%;
   object-fit: cover;
   transition: all .2s ease-in-out;
+  min-height: 187px
 `
 
 
 export const StyledExpertCard = styled.div`
-  margin: 0 auto;
   width: 100%;
-  height: 360px;
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   transition: all .2s ease-in-out;
   cursor: pointer;
@@ -38,11 +40,13 @@ export const StyledExpertCard = styled.div`
 
 export const StyledExpertInfo = styled.div`
   width: 100%;
+  flex: 1 0 50%;
   padding: 20px 30px 30px;
+  min-height: 174px;
 `
 
 export const StyledExpertName = styled.p`
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   position: relative;
   padding-bottom: 10px;

@@ -7,6 +7,7 @@ import { ErrorTip } from "../../ErrorTip";
 interface IInputTextProps {
   placeholder?: string;
   value: string;
+  autoComplete: string;
 }
 
 type IFormFinalInputTextProps = IInputTextProps &
@@ -17,6 +18,7 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
     input,
     placeholder,
     meta,
+    autoComplete,
     ...customProps
   } = props
 
@@ -29,7 +31,7 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
         onFocus={onFocus}
         onBlur={onBlur}
         error={error}
-        autoComplete={'off'}
+        autoComplete={autoComplete}
         view={customProps?.view}
         type={type}
         onChange={onChange}

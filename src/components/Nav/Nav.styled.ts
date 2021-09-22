@@ -8,7 +8,7 @@ export const StyledNav = styled.div<{ mobileHidden?: boolean, isFooter?: boolean
   align-items: center;
 
   flex-direction: ${({isFooter}) => isFooter ? 'column' : 'row'};
-  max-width: ${({isAuth}) => isAuth ? '300px' : '150px'};
+  max-width: 300px;
 
   ${device.tabletL} {
     display: flex;

@@ -3,6 +3,14 @@ import { device } from '../../theme/devices';
 
 export const StyledSwiper = styled.div`
   position: relative;
+
+  .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .swiper-slide {
+    display: flex;
+  }
 `
 export const StyledMobileNavigation = styled.div`
   position: absolute;
@@ -20,5 +28,6 @@ export const StyledDesktopNavigation = styled.div`
   ${device.tabletL} {
     display: block;
   }
-
+  
+  
 `

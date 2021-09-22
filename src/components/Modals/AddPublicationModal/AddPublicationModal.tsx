@@ -22,8 +22,8 @@ import { Button } from '../../Button';
 import { theme } from '../../../theme';
 import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
-import { useDispatch } from "react-redux";
-import { piblicationsActions } from "../../../store/publications/actions";
+import { useDispatch } from 'react-redux';
+import { piblicationsActions } from '../../../store/publications/actions';
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -33,7 +33,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
   const {closeModal} = props
   const dispatch = useDispatch();
 
-  const categoryOptions = ['Корпус', 'Ужас', 'Доклад', 'Выступление', 'Карта']
+  const categoryOptions = ['Региональные слеты', 'Межрегиональные слеты']
   const typeList = ['Галерея фото', 'Видео']
   const [step, setStep] = useState(0);
   const [option, setOption] = useState('');

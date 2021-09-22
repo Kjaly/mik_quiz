@@ -116,7 +116,7 @@ export const StyledFooterDescription = styled.div`
       opacity: .8;
       margin-bottom: 10px;
     }
-    > span {
+    > a {
       text-decoration: underline;
       cursor: pointer;
     }

@@ -18,17 +18,19 @@ $api.interceptors.request.use((config) => {
 
 $api.interceptors.response.use(
   (config) => {
+    console.log(config, 'config')
     return config;
   },
   async (error) => {
-    if (error.response.status === 401) {
-      const originalRequest = error.config;
+    const originalRequest = error.config;
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+      originalRequest._isRetry = true;
       try {
         const refresh = localStorage.getItem('refresh_token');
         if (refresh) {
           const response = await axios.post<AuthResponse>(
             `${process.env.REACT_APP_API_URL}/refresh`,
-            { refresh_token: refresh }
+            {refresh_token: refresh}
           );
           localStorage.setItem('access_token', response.data?.access_token);
           return $api.request(originalRequest);
@@ -36,8 +38,8 @@ $api.interceptors.response.use(
       } catch (e: any) {
         console.warn('Пользователь не авторизован');
       }
-      throw error;
     }
+    throw error
   }
 );
 
