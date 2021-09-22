@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const StyledTextareaContainer = styled.div`
+  position: relative;
   width: 100%;`
 export const StyledTextarea = styled.textarea<any>`
   width: 100%;
-  max-height: 80px;
-  height: auto;
+  height: 100%;
   padding: 15px 30px;
   font-size: 15px;
   color: #000;
@@ -13,7 +13,7 @@ export const StyledTextarea = styled.textarea<any>`
   background: ${({theme}) => theme.color.darkwhite};
   position: relative;
   resize: none;
-  
+
   ::after {
     position: absolute;
     content: '';
@@ -24,6 +24,7 @@ export const StyledTextarea = styled.textarea<any>`
     background-color: ${({theme}) => theme.color.blue};
     bottom: 0;
     transform: scale(0);
+
     :focus {
       transform: scale(1);
 
@@ -45,4 +46,14 @@ export const StyledTextarea = styled.textarea<any>`
   }
 
 
+`
+
+export const StyledTextCounter = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-weight: 500;
+
+  color: ${({theme}) => theme.color.black};
+  opacity: 0.6;
 `

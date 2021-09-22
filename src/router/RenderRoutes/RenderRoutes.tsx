@@ -4,16 +4,18 @@ import { RouteWithSubRoutes } from "../RouteWithSubRoutes";
 
 interface IRenderRoutes {
   routes: any;
+  auth?: boolean;
 }
 
 export const RenderRoutes: React.FC<IRenderRoutes> = (props) => {
   const {routes} = props
+
   return (
     <Switch>
       {routes.map((route: any) => {
         return <RouteWithSubRoutes key={route.key} {...route} />;
       })}
-      <Route component={() => <h1>Not Found!</h1>}/>
+      <Route component={() => <div>Not Found!</div>}/>
     </Switch>
   );
 };

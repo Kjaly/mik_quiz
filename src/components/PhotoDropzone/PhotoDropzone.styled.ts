@@ -1,13 +1,18 @@
 import styled from 'styled-components';
+import { device } from "../../theme/devices";
 
 export const StyledPhotoDropZone = styled.div<{ isDragActive: boolean }>`
   width: 100%;
-  height: 100px;
   background-color: ${({theme}) => theme.color.darkwhite};
-  border: 1px dashed ${({theme}) => theme.color.darkgray};
   padding: 30px;
   display: flex;
+  flex-direction: column-reverse;
   filter: brightness(${({isDragActive}) => isDragActive && 0.9});
+
+  ${device.tablet} {
+    flex-direction: row;
+    height: 100px;
+  }
 
 `
 export const StyledButton = styled.div`
@@ -24,22 +29,39 @@ export const StyledButton = styled.div`
   }
 `
 export const StyledTextZone = styled.div`
-  > p {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: lowercase;
-  }
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  line-height: 1.5;
+
+  > p {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: lowercase;
+    margin-bottom: 10px;
+  }
+
+  ${device.tablet} {
+    > p {
+      margin-bottom: 0;
+    }
+  }
+
 `
 export const StyledAccepted = styled.div`
-  font-size: 10px;
+  font-size: 12px;
   opacity: 0.8;
   margin-right: 10px;
 `
 export const StyledSettings = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  ${device.tablet} {
+    flex-direction: row;
+    margin-bottom: 0;
+
+  }
 `

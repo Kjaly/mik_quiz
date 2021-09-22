@@ -1,18 +1,24 @@
 import styled from "styled-components";
+import { device } from "../../theme/devices";
 
 
 export const StyledPreview = styled.div<{ isEmpty: boolean }>`
-  display: ${({isEmpty}) => isEmpty ? 'flex' : 'none'};
-  height: 100%;
-  justify-content: flex-start;
-  position: relative;
-  margin-left: 80px;
 
-  > p {
-    font-size: 20px;
-    font-weight: 700;
-    max-width: 255px;
+  display: none;
 
+  ${device.tablet} {
+    display: ${({isEmpty}) => isEmpty ? 'flex' : 'none'};
+    height: 100%;
+    justify-content: flex-start;
+    position: relative;
+    margin-left: 80px;
+
+    > p {
+      font-size: 20px;
+      font-weight: 700;
+      max-width: 255px;
+
+    }
   }
 
 `
@@ -23,10 +29,10 @@ export const StyledUploadFile = styled.div`
   width: 100%;
 `
 
-export const StyledButtonWrapper = styled.div`
+export const StyledButtonWrapper = styled.div<{ isEmpty?: boolean }>`
   height: 168px;
+  max-width: ${({isEmpty}) => isEmpty ? '330px' : '100%'};
   width: 100%;
-  max-width: 255px;
   background-color: rgba(61, 79, 135, 0.07);
   border-radius: 4px;
   display: flex;
@@ -44,8 +50,8 @@ export const StyledButtonWrapper = styled.div`
   }
 
   > svg {
-    height: 40px;
-    width: 40px;
+    height: 24px;
+    width: 24px;
 
     > g {
       path {

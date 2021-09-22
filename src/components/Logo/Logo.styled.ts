@@ -7,7 +7,7 @@ export const StyledLogo = styled.div`
   align-items: center;
   width: 210px;
   height: 54px;
-  
+  cursor: pointer;
   > img {
     height: 100%;
     width: 100%;

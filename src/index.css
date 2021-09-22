@@ -5,6 +5,7 @@
   -webkit-font-smoothing: antialiased;
   color: inherit;
   font-family: Roboto, serif;
+  line-height: 1.5;
 }
 
 body {

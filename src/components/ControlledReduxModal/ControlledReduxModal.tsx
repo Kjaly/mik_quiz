@@ -5,8 +5,11 @@ import { Action } from "redux";
 import { modalsActions } from "../../store/modals/actions";
 import { VideoModal } from "../Modals/VideoModal";
 import { PhotoModal } from "../Modals/PhotoModal";
-import { RegistrationFormModal } from "../RegistrationForm";
+import { RegistrationFormModal } from "../Modals/RegistrationForm";
+import { AuthFormModal } from "../Modals/AuthFormModal";
 import { AddPublicationModal } from "../Modals/AddPublicationModal";
+import { QuizAlertModal } from "../Modals/QuizAlertModal";
+import { MailConfirmModal } from '../Modals/MailConfirmModal';
 
 export const ControlledReduxModal: React.FC = () => {
 
@@ -21,8 +24,14 @@ export const ControlledReduxModal: React.FC = () => {
       return <PhotoModal closeModal={closeModal}/>;
     case 'registrationModal' :
       return <RegistrationFormModal closeModal={closeModal}/>;
-      case 'addPublicationModal' :
+      case 'authModal' :
+      return <AuthFormModal closeModal={closeModal}/>;
+    case 'addPublicationModal' :
       return <AddPublicationModal closeModal={closeModal}/>;
+    case 'quizAlertModal' :
+      return <QuizAlertModal closeModal={closeModal}/>;
+      case 'mailConfirmModal' :
+      return <MailConfirmModal closeModal={closeModal}/>;
     default:
       return null;
   }
