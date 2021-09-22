@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyledNav, StyledNavMobile, StyledNavMobileAuth, StyledNavTitle } from './Nav.styled';
 import { NavItem } from './NavItem'
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,12 +22,13 @@ export interface INavProps {
 interface INavigation {
   text: string;
   url: string;
+  isAuth?: boolean
   onClick?: () => void;
 }
 
 export const navigation: Array<INavigation> = [
   {text: 'Главная', url: '/'},
-  {text: 'Викторина', url: '/quiz'},
+  {text: 'Викторина', url: '/quiz', isAuth: true},
   {text: 'О проекте', url: '/about'},
 ]
 
@@ -59,8 +60,8 @@ export const Nav: React.FC<INavProps> = (props) => {
   const fullNavigation: Array<INavigation> = !isAuth ? navigation : [...navigation, ...authMobileNavigation]
   return (
     <>
-      <StyledNav isFooter={isFooter} mobileHidden={mobileHidden}>
-        {navigation.map((item, key) => {
+      <StyledNav isAuth={!!isAuth} isFooter={isFooter} mobileHidden={mobileHidden}>
+        {navigation.filter(item=>isAuth ? item : !item.isAuth).map((item, key) => {
           return (
             <NavItem
               isFooter={isFooter}
@@ -76,7 +77,7 @@ export const Nav: React.FC<INavProps> = (props) => {
         <StyledNavTitle>
           Меню
         </StyledNavTitle>
-        {fullNavigation.map((item, key) => {
+        {fullNavigation.filter(item=>isAuth ? item : !item.isAuth).map((item, key) => {
           return (
             <NavMobileItem
               onClick={item?.onClick}

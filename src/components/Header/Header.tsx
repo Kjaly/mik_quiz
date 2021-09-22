@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyledHeaderWrapper, StyledNavWrapper,
+  AuthWrapper,
+  StyledAuthDropDown,
+  StyledAuthDropDownItem,
+  StyledAuthDropDownList,
   StyledAuthList,
   StyledBurger,
   StyledBurgerLine,
   StyledBurgerMenu,
-  AuthWrapper,
+  StyledHeaderWrapper,
   StyledLogo,
-  StyledAuthDropDown,
-  StyledAuthDropDownItem,
-  StyledAuthDropDownList
+  StyledNavWrapper
 } from './Header.styled'
 import { Button } from '../Button';
 import { Nav } from '../Nav';
-import { IconArrowRight, IconLock } from '../../Icons';
-import { IconKey } from '../../Icons';
+import { IconArrowRight, IconKey, IconLock } from '../../Icons';
 import { Logo } from '../Logo';
 import { ContentWrapper } from '../ContentWrapper';
 import { theme } from '../../theme';
@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 import { modalsActions } from '../../store/modals/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserIdSelector } from '../../store/user/selectors';
-import { fetchUserRequest, logoutUserRequest, registerUserRequest } from '../../store/user/actions';
+import { logoutUserRequest } from '../../store/user/actions';
 
 
 export const Header: React.FC<any> = () => {
@@ -50,8 +50,7 @@ export const Header: React.FC<any> = () => {
     setAuthIsOpen(!authIsOpen)
   }
   const logout = () => {
-    // dispatch(logoutUserRequest())
-    dispatch(fetchUserRequest())
+    dispatch(logoutUserRequest())
   }
 
   useEffect(() => {
