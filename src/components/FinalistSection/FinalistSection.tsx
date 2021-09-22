@@ -8,6 +8,11 @@ import { Gallery } from '../Gallery';
 import { DecorativeLines } from '../DecorativeLines';
 
 export const FinalistSection: React.FC = () => {
+  const filasiltList = []
+
+  if (!filasiltList.length) {
+    return null
+  }
   return (
     <StyledFinalistSection>
       <ContentWrapper customMargin={'left'}>

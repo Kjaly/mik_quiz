@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { error } from 'console'
 import { AuthResponse } from '../models/response/RegResponse';
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -10,15 +9,18 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use((config) => {
-  config.headers.Autorization = `Bearer ${localStorage.getItem('access_token')}`
+  const token = localStorage.getItem('access_token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
   return config
 })
 
 $api.interceptors.response.use((config) => {
   return config
 }, (async (error) => {
-  const originalRequest = error.config;
   if (error.response.status === 401) {
+    const originalRequest = error.config;
     try {
       const refresh = localStorage.getItem('refresh_token')
       const response = await axios.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/refresh`, {refresh_token: refresh});

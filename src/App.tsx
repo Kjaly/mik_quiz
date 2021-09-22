@@ -8,13 +8,12 @@ import { ROUTES } from './router/routes';
 import { Footer } from './components/Footer';
 import { ControlledReduxModal } from './components/ControlledReduxModal';
 import { useDispatch } from 'react-redux';
-import { checkAuthUserRequest, fetchUserRequest, fetchUserSuccess, loginUserRequest } from './store/user/actions';
+import { fetchUserRequest } from './store/user/actions';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
-      // dispatch(checkAuthUserRequest())
       dispatch(fetchUserRequest())
     }
   }, []);

@@ -26,7 +26,7 @@ import { AuthResponse } from '../../models/response/RegResponse';
 import $api from '../../http';
 
 const registrationUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> =>
-  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/register`, {
+  axios.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/register`, {
     ...payload
   });
 
@@ -40,7 +40,7 @@ const fetchUser = (): Promise<AxiosResponse<AuthResponse>> =>
   $api.get<AuthResponse>(`${process.env.REACT_APP_API_URL}/user`, {
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     }
   });
 
@@ -102,6 +102,7 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const response = yield call(registrationUser, action.payload);
+    console.log(response)
     if (response?.data) {
       yield put(
         registerUserSuccess({
@@ -144,7 +145,7 @@ function* logoutUserSaga() {
 
 }
 
-function* checkAuthSaga(action: Action<RegisterUserRequest>) {
+function* checkAuthSaga() {
 
   const refreshToken = localStorage.getItem('refresh_token');
   try {
