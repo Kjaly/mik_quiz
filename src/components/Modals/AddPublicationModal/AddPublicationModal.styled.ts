@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { device } from "../../../theme/devices";
 
 export const StyledAddPublicationModal = styled.div<{ step?: number }>`
-  max-width: 740px;
+  max-width: 560px;
   height: ${({step}) => step === 1 ? 'auto' : 'calc(100% - 100px)'};
   overflow: auto;
   width: 100%;

@@ -1,18 +1,23 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
-import { AppState } from "../store.types";
+import { AppState } from '../store.types';
 
 const getPending = (state: AppState) => state.user.pending;
 
-const getUsers = (state: AppState) => state.user.users;
+const getUser = (state: AppState) => state.user;
+const getUserId = (state: AppState) => state.user.id;
 
-const getError = (state: AppState) => state.user.error;
+const getErrors = (state: AppState) => state.user.errors;
+const getMessage = (state: AppState) => state.user.message;
 
-export const getUsersSelector = createSelector(getUsers, (users) => users);
+export const getUserSelector = createSelector(getUser, (users) => users);
 
 export const getPendingSelector = createSelector(
   getPending,
   (pending) => pending
 );
 
-export const getErrorSelector = createSelector(getError, (error) => error);
+export const getErrorsSelector = createSelector(getErrors, (error) => error);
+export const getMessageSelector = createSelector(getMessage, (message) => message);
+export const getUserIdSelector = createSelector(getUserId, (id) => id)
+

@@ -1,36 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyledHeaderWrapper, StyledNavWrapper,
+  AuthWrapper,
+  StyledAuthDropDown,
+  StyledAuthDropDownItem,
+  StyledAuthDropDownList,
   StyledAuthList,
   StyledBurger,
   StyledBurgerLine,
   StyledBurgerMenu,
-  AuthWrapper,
+  StyledHeaderWrapper,
   StyledLogo,
-  StyledAuthDropDown,
-  StyledAuthDropDownItem,
-  StyledAuthDropDownList
+  StyledNavWrapper
 } from './Header.styled'
 import { Button } from '../Button';
 import { Nav } from '../Nav';
-import { IconArrowRight, IconLock } from '../../Icons';
-import { IconKey } from '../../Icons';
+import { IconArrowRight, IconKey, IconLock } from '../../Icons';
 import { Logo } from '../Logo';
 import { ContentWrapper } from '../ContentWrapper';
 import { theme } from '../../theme';
 import { Link } from 'react-router-dom';
-// import { modalsActions } from '../../store/modals/actions';
-// import { useDispatch } from 'react-redux';
+import { modalsActions } from '../../store/modals/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserIdSelector } from '../../store/user/selectors';
+import { logoutUserRequest } from '../../store/user/actions';
+
 
 export const Header: React.FC<any> = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
+
+  const isAuth = useSelector(getUserIdSelector);
+  console.log(isAuth)
   const [authIsOpen, setAuthIsOpen] = useState(false)
-  // const dispatch = useDispatch()
-  const handleClick = () => {
-    // dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+  const dispatch = useDispatch()
+  const handleRegistration = () => {
+    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
+  const handleAuth = () => {
+    dispatch(modalsActions.openModalAction({name: 'authModal'}))
+  }
+
   const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
   const handleToggleMenu = () => {
@@ -40,11 +49,9 @@ export const Header: React.FC<any> = () => {
   const handleToggleAuth = () => {
     setAuthIsOpen(!authIsOpen)
   }
-
-  useEffect(() => {
-    setAuthIsOpen(false)
-  }, [isAuth]);
-
+  const logout = () => {
+    dispatch(logoutUserRequest())
+  }
 
   useEffect(() => {
 
@@ -74,7 +81,7 @@ export const Header: React.FC<any> = () => {
           <AuthWrapper>
             {isAuth ?
               (
-                <StyledAuthDropDown authIsOpen={authIsOpen} tabIndex={0} onBlur={()=>setAuthIsOpen(false)}>
+                <StyledAuthDropDown authIsOpen={authIsOpen} tabIndex={0} onBlur={() => setAuthIsOpen(false)}>
                   <Button
                     reversed
                     icon={IconArrowRight}
@@ -93,7 +100,7 @@ export const Header: React.FC<any> = () => {
                         Мои публикации
                       </StyledAuthDropDownItem>
                     </Link>
-                    <StyledAuthDropDownItem onClick={() => setIsAuth(false)}>
+                    <StyledAuthDropDownItem onClick={logout}>
                       Выход
                     </StyledAuthDropDownItem>
                   </StyledAuthDropDownList>
@@ -107,15 +114,14 @@ export const Header: React.FC<any> = () => {
                     title={'Вход'}
                     iconColor={'#000'}
                     color={'#000'}
-                    onClick={() => {
-                      setIsAuth(true)
-                    }}/>
+                    onClick={() => handleAuth()}/>
+
                   <Button
                     icon={IconKey}
                     background={theme.color.yellow}
                     title={'Регистрация'}
                     color={'#fff'}
-                    onClick={() => handleClick()}/>
+                    onClick={() => handleRegistration()}/>
                 </>
               )}
 

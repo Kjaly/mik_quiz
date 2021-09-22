@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { device } from '../../theme/devices';
 
-export const StyledNav = styled.div<{ mobileHidden?: boolean, isFooter?: boolean }>`
+export const StyledNav = styled.div<{ mobileHidden?: boolean, isFooter?: boolean, isAuth?: boolean }>`
   display: ${({mobileHidden}) => mobileHidden ? 'none' : 'flex'};
   width: 100%;
   justify-content: space-between;
   align-items: center;
 
   flex-direction: ${({isFooter}) => isFooter ? 'column' : 'row'};
-  max-width: 300px;
+  max-width: ${({isAuth}) => isAuth ? '300px' : '150px'};
 
   ${device.tabletL} {
     display: flex;

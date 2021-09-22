@@ -15,6 +15,7 @@ export const StyledJoinCard = styled.div`
   background-color: ${({theme}) => theme.color.blue};
   margin-bottom: 30px;
   flex-direction: column-reverse;
+  overflow: hidden;
 
   :last-child {
     margin-bottom: 0;
@@ -22,6 +23,8 @@ export const StyledJoinCard = styled.div`
 
   ${device.tablet} {
     flex-direction: row;
+    max-height: 340px;
+
   }
 `
 export const StyledJoinCardLeftBlock = styled.div`
@@ -67,11 +70,23 @@ export const StyledJoinCardImg = styled.div`
   cursor: pointer;
   transition: all .2s ease-in-out;
 
+  position: relative;
+
   > img {
     transition: all .2s ease-in-out;
     height: 100%;
     width: 100%;
     object-fit: cover;
+  }
+
+  ::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: ${({theme}) => theme.color.yellow}
   }
 
   :hover {
@@ -80,13 +95,9 @@ export const StyledJoinCardImg = styled.div`
     }
   }
 
-  ${device.tablet} {
-    max-height: 340px;
-  }
 
   ${device.tabletL} {
     width: 350px;
-    height: 100%;
   }
 `
 

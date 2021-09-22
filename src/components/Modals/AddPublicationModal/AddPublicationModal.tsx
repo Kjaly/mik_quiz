@@ -14,7 +14,7 @@ import {
   StyledPublicationsTitle
 } from './AddPublicationModal.styled';
 import { DropdownSelect } from '../../FormFinal/DropdownSelect';
-import { IconArrowRight, IconCheck, IconCross } from '../../../Icons';
+import { IconArrowRight, IconCheckCircle, IconCross } from '../../../Icons';
 import { Field, Form } from 'react-final-form';
 import { InputText } from '../../FormFinal/InputText';
 import { InputTextarea } from '../../FormFinal/InputTextarea';
@@ -41,7 +41,6 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
 
   const [type, setType] = useState('');
 
-  console.log(type);
   const handleSubmitForm = (values: any) => {
     const filePreviewUrl = files[0] ? URL.createObjectURL(files[0]) : values.url;
 
@@ -56,7 +55,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
         <StyledPublicationsTitle>
           {step === 1 && (
             <StyledMobileIcon>
-              <IconCheck/>
+              <IconCheckCircle/>
             </StyledMobileIcon>
           )}
           Добавление публикации
@@ -138,7 +137,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
         ) : (
           <StyledCompletePublication>
             <StyledCompleteIcon>
-              <IconCheck/>
+              <IconCheckCircle/>
             </StyledCompleteIcon>
             <StyledCompleteText>
               Публикация отправлена на проверку модератором, мы отправим вам уведомление с результатами проверки на ваш
