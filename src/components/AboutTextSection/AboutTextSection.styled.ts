@@ -4,10 +4,7 @@ import { device } from '../../theme/devices';
 export const StyledTextSection = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
   padding: 100px 0;
-  flex-direction: column;
-  align-items: center;
 
 
   ${device.tabletL} {
@@ -20,6 +17,7 @@ export const StyledImg = styled.div`
   background-color: ${({theme}) => theme.color.blue};
   position: relative;
   margin-bottom: 20px;
+  float: left;
 
   ::after {
     position: absolute;
@@ -39,12 +37,13 @@ export const StyledImg = styled.div`
 
   ${device.tabletL} {
     max-width: 415px;
-    margin-bottom: 0;
+    margin: 0 30px 0 0;
   }
 
 `
 export const StyledText = styled.div`
   width: 100%;
+  text-align: justify;
 
   > p {
     font-size: 15px;
@@ -55,8 +54,4 @@ export const StyledText = styled.div`
     }
   }
 
-  ${device.tabletL} {
-    margin-left: 60px;
-    max-width: 50%;
-  }
 `

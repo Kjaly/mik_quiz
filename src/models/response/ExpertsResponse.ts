@@ -1,11 +1,8 @@
 import { IUser } from '../../store/user/types';
 
-export interface AuthResponse {
+export interface ExpertsResponse {
   access_token: string;
   refresh_token: string;
   user: IUser
 }
 
-export interface VerifyResponse {
-  message: string;
-}

@@ -15,9 +15,6 @@ export const StyledSliderItemTitle = styled.div`
   margin-bottom: 20px;
   position: relative;
 `
-export const StyledSliderItemDescription = styled.div`
-  margin-bottom: 40px;
-`
 export const StyledButton = styled.div`
   max-width: 180px;
 `
