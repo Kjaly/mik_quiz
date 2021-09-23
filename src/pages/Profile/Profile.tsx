@@ -76,19 +76,19 @@ export const Profile: React.FC = () => {
           </StyledImgWrapper>
           <Form
             initialValues={{
-              middle_name: user?.middle_name,
-              first_name: user?.first_name,
-              last_name: user?.last_name,
-              city: user?.city,
-              school: user?.school,
-              birthday: user?.birthday,
-              school_class: user?.school_class,
-              school_teacher_history: user?.school_teacher_history,
-              email: user?.email,
+              middle_name: user?.middle_name ? user?.middle_name : '',
+              first_name: user?.first_name ? user?.first_name : '',
+              last_name: user?.last_name ? user?.last_name : '',
+              city: user?.city ? user?.city : '',
+              school: user?.school ? user?.school : '',
+              birthday: user?.birthday ? user?.birthday : '',
+              school_class: user?.school_class ? user?.school_class : '',
+              school_teacher_history: user?.school_teacher_history ? user?.school_teacher_history : '',
+              email: user?.email ? user?.email : '',
               password: null,
               password_confirmation: null,
               parental_agreement: null,
-              parental_agreement_id: user?.parental_agreement_id,
+              parental_agreement_id: user?.parental_agreement_id ? user?.parental_agreement_id : '',
               photo: null,
             }}
             mutators={{setError}}
@@ -97,6 +97,7 @@ export const Profile: React.FC = () => {
               const {values, form, handleSubmit} = renderProps;
 
               const handleValidate = async (): Promise<void> => {
+                console.log(values);
                 const errors = await asyncValidate(
                   values,
                   {
