@@ -20,8 +20,8 @@ export const getValidationSchema = ({formName}: IShemaValues): AnyObject | undef
       password: fields.password,
     },
     [formsNames.profileUpdate]: {
-      middle_name: fields.userSecondName,
       first_name: fields.userName,
+      last_name: fields.userLastName,
       city: fields.city,
       birthday: fields.birthday,
       school: fields.school,
