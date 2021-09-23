@@ -18,6 +18,7 @@ import {
   IconKOopo,
   IconRvio
 } from '../../Icons';
+import { theme } from "../../theme";
 
 
 export const PartnersSection: React.FC = () => {
@@ -54,7 +55,7 @@ export const PartnersSection: React.FC = () => {
       <ContentWrapper customMargin={'right'}>
         <StyledPartnersSection>
           <StyledLeftBlock>
-            <Title color={'#000'}>Партнеры</Title>
+            <Title color={theme.color.blue}>Партнеры</Title>
             <StyledPartnersNavigation>
               <SwiperNavigationButton name={'prev-el'} reversed/>
               <SwiperNavigationButton name={'next-el'}/>

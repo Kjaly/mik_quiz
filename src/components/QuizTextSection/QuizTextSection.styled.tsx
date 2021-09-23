@@ -3,16 +3,8 @@ import { device } from "../../theme/devices";
 
 export const StyledQuizTextSection = styled.div`
   padding-top: 50px;
-  display: flex;
-  align-items: flex-start;
-  column-gap: 3em;
-  overflow: hidden;
   transition: all 0.2s ease-in-out;
-  flex-direction: column;
 
-  ${device.tablet} {
-    flex-direction: row;
-  }
 `
 export const StyledTextItem = styled.div<{ isEssay?: boolean }>`
   flex: 1;
@@ -23,6 +15,22 @@ export const StyledTextItem = styled.div<{ isEssay?: boolean }>`
     margin-bottom: 0;
   }
 `
+
+export const StyledItemTitle = styled.div`
+  font-size: 20px;
+  margin-bottom: 20px;
+`
+export const StyledTextWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  column-gap: 3em;
+  overflow: hidden;
+  flex-direction: column;
+
+  ${device.tablet} {
+    flex-direction: row;
+  }
+`
 export const StyledQuizTextTitle = styled.div`
   font-size: 20px;
   font-weight: 500;
@@ -30,4 +38,5 @@ export const StyledQuizTextTitle = styled.div`
 `
 export const StyledQuizTextDescription = styled.div`
   text-align: justify;
+  text-indent: 2em;
 `

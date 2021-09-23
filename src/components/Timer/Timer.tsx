@@ -2,28 +2,32 @@ import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { IconClock } from "../../Icons";
 import { modalsActions } from "../../store/modals/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { routerSelectors } from "../../store/route";
+import { useDispatch } from "react-redux";
 
-// interface ITimerProps {
-// }
+interface ITimerProps {
+  startTime?: string
+}
 
-export const Timer: React.FC<any> = (props) => {
 
+export const Timer: React.FC<ITimerProps> = (props) => {
+
+  const {startTime} = props
+
+  const startDate = dayjs(startTime).unix();
   const currentDate = dayjs().unix();
-  const finishTime = currentDate + (60 * 90)
+  const finishTime = startDate + (60 * 90)
+
   const dispatch = useDispatch();
   const [seconds, setSeconds] = useState(finishTime - currentDate);
 
 
-
   useEffect(() => {
     setSeconds(finishTime - currentDate)
-  }, []);
+  }, [startTime]);
 
 
   useEffect(() => {
-    let timer:ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout>;
     if (seconds > 0) {
       timer = setTimeout(() => setSeconds(seconds - 1), 1000);
     }

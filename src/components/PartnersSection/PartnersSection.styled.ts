@@ -3,7 +3,19 @@ import { device } from '../../theme/devices';
 
 export const StyledPartnersWrapper = styled.div`
   width: 100%;
-  padding: 100px 0;
+
+  padding: 30px 0 50px;
+
+  ${device.tablet} {
+    padding: 50px 0 80px;
+
+  }
+
+  ${device.desktop} {
+    padding: 75px 0 100px;
+
+  }
+
 `
 export const StyledPartnersSection = styled.div`
   display: flex;
@@ -46,7 +58,7 @@ export const StyledPartnersNavigation = styled.div`
 
   position: relative;
   height: 40px;
-  width: 120px;
+  width: 90px;
 
   ${device.tabletL} {
     height: 100%;

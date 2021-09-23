@@ -23,6 +23,7 @@ import { modalsActions } from "../../store/modals/actions";
 import { Timer } from "../../components/Timer";
 import { routerSelectors } from "../../store/route";
 import { fetchQuizRequest } from "../../store/quiz/actions";
+import { getQuizSelector } from "../../store/quiz/selectors";
 
 
 export const Quiz: React.FC = () => {
@@ -36,18 +37,23 @@ export const Quiz: React.FC = () => {
   // const finishDate = dayjs('2021-09-20T11:05:00.000Z').unix();
 
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
+  const quiz = useSelector(getQuizSelector)
 
   const isEssay = currentPathname.includes('essay')
 
+  useEffect(() => {
+      if (!quiz.id) {
+        dispatch(fetchQuizRequest())
+      }
+    }
+    , [])
 
   useEffect(() => {
     setIsQuizStarted(!!localStorage.getItem('isQuizStarted'))
   }, []);
 
 
-  console.log(currentPathname)
   const handleStartQuiz = () => {
-    dispatch(fetchQuizRequest())
     const isTestPage = currentPathname.includes('/test')
     if (dayjs().unix() < startDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
@@ -65,6 +71,7 @@ export const Quiz: React.FC = () => {
     setIsQuizStarted(true)
   }
 
+
   const {questions} = constants
   return (
     <StyledQuiz>
@@ -81,9 +88,9 @@ export const Quiz: React.FC = () => {
           <>
             <StyledQuizWrapper>
               <StyledQuizTimer isEssay={isEssay}>
-                <Timer/>
+                <Timer startTime={quiz?.user_answer?.created_at}/>
               </StyledQuizTimer>
-              <QuizSection isEssay={isEssay} questions={questions}/>
+              <QuizSection isEssay={isEssay} questions={quiz?.questions} id={quiz?.id} />
             </StyledQuizWrapper>
           </>) : (
           <StyledEarlySection>

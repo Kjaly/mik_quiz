@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ISwiperNavigationButtonProps } from "./SwiperNavigationButton";
+import { device } from "../../theme/devices";
 
 export const StyledSwiperNavigation = styled.div<Partial<ISwiperNavigationButtonProps>>`
   cursor: pointer;
@@ -14,9 +15,15 @@ export const StyledSwiperNavigation = styled.div<Partial<ISwiperNavigationButton
   align-items: center;
   transform: translateY(-50%) ${({reversed}) => reversed && 'rotate(180deg)'};
   right: ${({reversed}) => !reversed && '-60px'};
-  left: ${({reversed}) => reversed && '-60px'};
+  left: ${({reversed}) => reversed && '-30px'};
   transition: all .2s ease-in;
   z-index: 2;
+
+  
+  ${device.desktop}{
+    left: ${({reversed}) => reversed && '-60px'};
+    right: ${({reversed}) => !reversed && '-60px'};
+  }
 
   &.swiper-button-disabled {
     cursor: initial;

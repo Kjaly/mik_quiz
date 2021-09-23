@@ -5,10 +5,10 @@ export const StyledImgWrapper = styled.div`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  max-height: 200px;
+  max-height: 270px;
   transition: all .2s ease-in-out;
   overflow: hidden;
-  flex: 1 0 50%;
+  flex: 1 0 80%;
 
 `
 export const StyledExpertImg = styled.img`
@@ -40,7 +40,7 @@ export const StyledExpertCard = styled.div`
 
 export const StyledExpertInfo = styled.div`
   width: 100%;
-  flex: 1 0 50%;
+  flex: 1 0 20%;
   padding: 20px 30px 30px;
   min-height: 174px;
 `

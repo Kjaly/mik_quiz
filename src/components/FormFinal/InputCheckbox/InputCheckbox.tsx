@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyledBox, StyledInput, StyledInputContainer, StyledLabel } from './InputCheckbox.styled';
 import { FieldRenderProps } from "react-final-form";
 import { IconCheck } from "../../../Icons";
 import { ErrorTip } from "../../ErrorTip";
-import { onFocus } from "@reduxjs/toolkit/dist/query/core/setupListeners";
 
 interface IInputCheckboxProps {
   label?: string;
@@ -24,7 +23,10 @@ export const InputCheckbox: React.FC<IFormFinalCheckboxRadioProps> = (props) => 
 
   const error = !meta?.visited && meta?.data?.error ? meta?.data?.error : null;
   const handleClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-    onChange(!checked)
+    if (type === 'checkbox') {
+      onChange(!checked)
+    }
+
   }
   return (
     <StyledInputContainer onClick={handleClick}>

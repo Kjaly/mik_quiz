@@ -7,9 +7,12 @@ export const StyledQuizModal = styled.div`
   font-size: 20px;
   display: flex;
   align-items: flex-start;
-  
+  width: 100%;
+
   > p {
     margin-right: 1em;
+    width: 100%;
+    white-space: pre-wrap;
   }
 `
 

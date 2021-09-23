@@ -8,8 +8,10 @@ import {
   StyledQuizHeaderSection,
   StyledQuizMainSection,
   StyledQuizQuestion,
+  StyledDecorativeWrapper,
   StyledQuizTitle,
-  StyledTextarea
+  StyledTextarea,
+  StyledQuizWrapper
 } from "./QuizSection.styled";
 import { Title } from "../Typography/Title";
 import { theme } from "../../theme";
@@ -20,49 +22,42 @@ import { Button } from "../Button";
 import { IconArrowRight } from "../../Icons";
 import { InputTextarea } from "../FormFinal/InputTextarea";
 import { history } from '../../store'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { routerSelectors } from "../../store/route";
+import { DecorativeLines } from "../DecorativeLines";
+import { IQuestion } from "../../store/quiz/types";
+import { submitQuizRequest } from "../../store/quiz/actions";
 
-export interface IQuestion {
-  id: number,
-  question: string,
-  answers: Array<string>
-
-}
 
 interface IQuizSectionProps {
-  questions: Array<IQuestion>;
+  questions: Array<IQuestion> | null;
   isEssay: boolean;
+  id: number | null;
 }
 
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
-  const {questions, isEssay} = props
+  const {questions, isEssay, id} = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
 
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [swiper, setSwiper] = useState<any>()
   const [step, setStep] = useState(0);
   const [maxEnabled, setMaxEnabled] = useState(0);
+  const dispatch = useDispatch()
 
 
-  const handleClick = (id: number) => {
-    if (id <= maxEnabled) {
-      setActiveQuestion(id)
-    }
-  }
-  const isLastQuestion = activeQuestion === questions.length - 1;
-  const isFirstQuestion = activeQuestion === 0;
+  const isLastQuestion = questions && activeQuestion === questions?.length - 1;
 
   const handleNavigation = ({isPrev}: { isPrev?: boolean; }): void => {
     if (swiper) {
       if (isPrev) {
-        return swiper.slidePrev();
+        return swiper?.slidePrev();
       }
       if (isLastQuestion) {
         history.push(`${currentPathname}/essay`);
         return setStep(1)
       }
-      return swiper.slideNext();
+      return swiper?.slideNext();
     }
   };
 
@@ -83,12 +78,34 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   }, [activeQuestion]);
 
   const submitHandler = (values: any) => {
-    console.log(values)
+    if (id) {
+
+      // eslint-disable-next-line prefer-const
+      let {essay, ...currentValues} = values;
+      console.log(currentValues)
+      currentValues = Object.values(values).map((item, key) => (
+        {
+          question_id: key + 1,
+          answer: [
+            item,
+          ]
+        }
+      ))
+      console.log(currentValues)
+      dispatch(submitQuizRequest({id, answers: currentValues, essay}))
+    }
+
   }
 
-
   return (
+
     <StyledQuizBlock>
+      <StyledDecorativeWrapper>
+        <DecorativeLines opacity={0.3} color={theme.color.blue}/>
+      </StyledDecorativeWrapper>
+      <StyledDecorativeWrapper lineId={2}>
+        <DecorativeLines opacity={0.3} color={theme.color.yellow}/>
+      </StyledDecorativeWrapper>
       <Form
         initialValues={{}}
         onSubmit={submitHandler}
@@ -97,7 +114,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
           return (
             <>
               {step === 0 ? (
-                <>
+                <StyledQuizWrapper>
                   <StyledQuizHeaderSection>
                     <StyledQuizTitle>
                       <Title color={theme.color.blue}>
@@ -105,10 +122,10 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                       </Title>
                     </StyledQuizTitle>
                     <StyledQuizBullets>
-                      {questions.map((item, key) => {
+                      {questions?.map((item, key) => {
                         return (
                           <StyledBulletItem
-                            onClick={() => handleClick(key)}
+                            // onClick={() => handleClick(key)}
                             active={key === activeQuestion}
                             isEnabled={key < maxEnabled}
                             key={key}/>
@@ -122,35 +139,35 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                       onSlideChange={(swiper) => setActiveQuestion(swiper.activeIndex)}
                       allowTouchMove={false}
                     >
-                      {questions.map((item) => {
+                      {questions?.map((item) => {
                         return (
                           <SwiperSlide key={item.id}>
                             <StyledQuizQuestion>
                               {item.question}
                             </StyledQuizQuestion>
                             <StyledQuizAnswers>
-                              {item.answers.map((answer, key) => {
+                              {item.options.map((answer, key) => {
                                 return <QuizSectionItem
-                                  activeValue={values[`quest_${item.id}`]}
+                                  activeValue={values[`question_id_${item.id}`]}
                                   key={`${item.id}${key}`}
                                   answer={answer}
                                   questionId={item.id}/>
                               })}
                             </StyledQuizAnswers>
-                            <StyledButtonBlock firstSlide={isFirstQuestion}>
-                              {activeQuestion !== 0 &&
-                              <StyledButton reversed>
-                                <Button
-                                  icon={IconArrowRight}
-                                  background={theme.color.yellow}
-                                  title={'Назад'}
-                                  color={'#fff'}
-                                  onClick={() => {
-                                    handleNavigation({isPrev: true})
-                                  }}
-                                />
-                              </StyledButton>
-                              }
+                            <StyledButtonBlock>
+                              {/*{activeQuestion !== 0 &&*/}
+                              {/*<StyledButton reversed>*/}
+                              {/*  <Button*/}
+                              {/*    icon={IconArrowRight}*/}
+                              {/*    background={theme.color.yellow}*/}
+                              {/*    title={'Назад'}*/}
+                              {/*    color={'#fff'}*/}
+                              {/*    onClick={() => {*/}
+                              {/*      handleNavigation({isPrev: true})*/}
+                              {/*    }}*/}
+                              {/*  />*/}
+                              {/*</StyledButton>*/}
+                              {/*}*/}
                               <StyledButton>
                                 <Button
                                   reversed
@@ -171,12 +188,12 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                       })}
                     </Swiper>
                   </StyledQuizMainSection>
-                </>
+                </StyledQuizWrapper>
               ) : (
                 <StyledQuizMainSection>
                   <StyledTextarea>
                     <Field
-                      name="description"
+                      name="essay"
                       component={InputTextarea}
                       rows={10}
                       placeholder="Текстовое поле"
@@ -189,9 +206,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                       background={theme.color.yellow}
                       title={'Отправить'}
                       color={'#fff'}
-                      onClick={() => {
-                        console.log(1);
-                      }}/>
+                      onClick={handleSubmit}/>
                   </StyledButton>
                 </StyledQuizMainSection>
               )}

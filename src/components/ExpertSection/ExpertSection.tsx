@@ -17,11 +17,13 @@ export const ExpertSection: React.FC<any> = (props) => {
   const fetchExperts = () => {
     dispatch(fetchExpertsRequest())
   }
-  useEffect(() => {
-    fetchExperts()
-  }, [])
   const experts = useSelector(getExpertsSelector);
 
+  useEffect(() => {
+    if (!experts.length) {
+      fetchExperts()
+    }
+  }, [])
 
 
   return (

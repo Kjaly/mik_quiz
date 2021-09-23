@@ -21,7 +21,8 @@ export const StyledExpertSection = styled.div<{ aboutPage: boolean }>`
 export const StyledDecorativeWrapper = styled.div`
   display: none;
 
-  ${device.tabletL} {
+  ${device.tablet} {
+    display: block;
     position: absolute;
     content: '';
     left: 0;

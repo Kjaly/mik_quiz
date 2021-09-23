@@ -15,7 +15,7 @@ export const Contacts: React.FC = () => {
           <StyledContactItem>Калининградская Городская Общественная Организация «НАШ ГОРОД»</StyledContactItem>
           <StyledContactItem> Адрес: 236006 Калининград, ул. Житомирская, 16-20</StyledContactItem>
           <StyledContactItem> Телефон: +79632937469</StyledContactItem>
-          <StyledContactItem> E-mail: <a href="mailto: ngorod39@mail.ru">ngorod39@mail.ru</a></StyledContactItem>
+          <StyledContactItem> E-mail: <a href="mailto: info@future-of-russia.ru">info@future-of-russia.ru</a></StyledContactItem>
         </StyledContactList>
       </ContentWrapper>
     </StyledContacts>

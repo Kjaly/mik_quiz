@@ -1,17 +1,17 @@
-import {
-  FETCH_QUIZ_FAILURE,
-  FETCH_QUIZ_REQUEST,
-  FETCH_QUIZ_SUCCESS,
-
-} from './actionTypes';
+import { FETCH_QUIZ_FAILURE, FETCH_QUIZ_REQUEST, FETCH_QUIZ_SUCCESS, } from './actionTypes';
 
 import { QuizActions, QuizState } from './types';
 
 const initialState: QuizState = {
   pending: false,
-  api: null,
   errors: null,
   message: null,
+  id: null,
+  name: '',
+  created_at: '',
+  deleted_at: '',
+  questions: null,
+  user_answer: null,
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
