@@ -48,6 +48,7 @@ export const StyledExpertInfo = styled.div`
 export const StyledExpertName = styled.p`
   font-size: 17px;
   font-weight: 700;
+  line-height: 1.25;
   position: relative;
   padding-bottom: 10px;
 

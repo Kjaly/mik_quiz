@@ -13,7 +13,7 @@ import titleBackground from '../../assets/images/about/titleBackground.png'
 import { ContentWrapper } from "../../components/ContentWrapper";
 import { QuizSection } from "../../components/QuizSection";
 import { constants } from '../../contsants'
-import { IconArrowRight, IconClock } from "../../Icons";
+import { IconArrowRight } from "../../Icons";
 import { QuizTextSection } from '../../components/QuizTextSection';
 import dayjs from "dayjs";
 import { Button } from "../../components/Button";
@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalsActions } from "../../store/modals/actions";
 import { Timer } from "../../components/Timer";
 import { routerSelectors } from "../../store/route";
+import { fetchQuizRequest } from "../../store/quiz/actions";
 
 
 export const Quiz: React.FC = () => {
@@ -44,17 +45,17 @@ export const Quiz: React.FC = () => {
   }, []);
 
 
-
-
+  console.log(currentPathname)
   const handleStartQuiz = () => {
-
-    if (dayjs().unix() < startDate) {
+    dispatch(fetchQuizRequest())
+    const isTestPage = currentPathname.includes('/test')
+    if (dayjs().unix() < startDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
         props: {text: 'Дорогой участник викторины по истории России! Доступ для регистрации и участия в викторине будет открыт 25 сентября с 9:00 до 21:00 (время московское)'}
       }))
     }
-    if (dayjs().unix() > finishDate) {
+    if (dayjs().unix() > finishDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
         props: {text: 'Доступ для регистрации и участия в викторине закрыт'}
@@ -69,9 +70,9 @@ export const Quiz: React.FC = () => {
     <StyledQuiz>
       <TitleBanner img={titleBackground}>Викторина
         <StyledTitleDescription>
-          Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет
-          за
-          собой процесс внедрения и модернизации новых предложений.
+          {/*Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет*/}
+          {/*за*/}
+          {/*собой процесс внедрения и модернизации новых предложений.*/}
         </StyledTitleDescription>
       </TitleBanner>
       <ContentWrapper>
@@ -91,7 +92,7 @@ export const Quiz: React.FC = () => {
                 reversed
                 icon={IconArrowRight}
                 background={theme.color.yellow}
-                title={'Учавствовать'}
+                title={'Участвовать'}
                 color={'#fff'}
                 onClick={handleStartQuiz}/>
             </StyledButton>

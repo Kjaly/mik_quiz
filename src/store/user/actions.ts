@@ -14,6 +14,9 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REMOVE_USER_ERRORS,
+  RESEND_VERIFY_USER_FAILURE,
+  RESEND_VERIFY_USER_REQUEST,
+  RESEND_VERIFY_USER_SUCCESS,
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -32,8 +35,10 @@ import {
   FetchUserSuccess,
   FetchUserSuccessPayload,
   IEmailVerify,
+  IResendEmailVerify,
   IUserLogin,
   IUserRegistration,
+  IUserUpdatePayload,
   LoginUserFailure,
   LoginUserRequest,
   LoginUserSuccess,
@@ -43,12 +48,16 @@ import {
   RegisterUserRequest,
   RegisterUserSuccess,
   RemoveUserErrors,
+  ResendVerifyUserFailure,
+  ResendVerifyUserRequest,
+  ResendVerifyUserSuccess,
   UpdateUserFailure,
   UpdateUserRequest,
   UpdateUserSuccess,
   VerifyUserFailure,
   VerifyUserRequest,
   VerifyUserSuccess,
+  VerifyUserSuccessPayload,
 } from './types';
 
 export const fetchUserRequest = (): FetchUserRequest => ({
@@ -108,7 +117,7 @@ export const registerUserFailure = (
 });
 
 
-export const updateUserRequest = (payload: IUserRegistration): UpdateUserRequest => ({
+export const updateUserRequest = (payload: IUserUpdatePayload): UpdateUserRequest => ({
   type: UPDATE_USER_REQUEST,
   payload,
 });
@@ -143,6 +152,25 @@ export const verifyUserFailure = (
   payload: FetchUserFailurePayload
 ): VerifyUserFailure => ({
   type: VERIFY_USER_FAILURE,
+  payload,
+});
+
+export const resendVerifyUserRequest = (payload: IResendEmailVerify): ResendVerifyUserRequest => ({
+  type: RESEND_VERIFY_USER_REQUEST,
+  payload,
+});
+
+export const resendVerifyUserSuccess = (
+  payload: VerifyUserSuccessPayload
+): ResendVerifyUserSuccess => ({
+  type: RESEND_VERIFY_USER_SUCCESS,
+  payload,
+});
+
+export const resendVerifyUserFailure = (
+  payload: FetchUserFailurePayload
+): ResendVerifyUserFailure => ({
+  type: RESEND_VERIFY_USER_FAILURE,
   payload,
 });
 

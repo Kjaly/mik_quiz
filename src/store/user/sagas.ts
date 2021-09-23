@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import {
@@ -11,6 +11,11 @@ import {
   logoutUserSuccess,
   registerUserFailure,
   registerUserSuccess,
+  resendVerifyUserFailure,
+  resendVerifyUserRequest,
+  resendVerifyUserSuccess,
+  updateUserFailure,
+  updateUserSuccess,
   verifyUserFailure,
   verifyUserSuccess,
 } from './actions';
@@ -20,15 +25,27 @@ import {
   LOGIN_USER_REQUEST,
   LOGOUT_USER_REQUEST,
   REGISTER_USER_REQUEST,
+  RESEND_VERIFY_USER_REQUEST,
   UPDATE_USER_REQUEST,
   VERIFY_USER_REQUEST,
 } from './actionTypes';
-import { IRefreshPayload, IUserLogin, IUserRegistration, RegisterUserRequest, UpdateUserRequest } from './types';
+import {
+  IEmailVerify,
+  IRefreshPayload,
+  IResendEmailVerify,
+  IUserLogin,
+  IUserRegistration,
+  IUserUpdatePayload,
+  RegisterUserRequest,
+  UpdateUserRequest,
+  VerifyUserRequest
+} from './types';
 import { Action } from 'redux-actions';
 import { modalsActions } from '../modals/actions';
-import { AuthResponse } from '../../models/response/RegResponse';
+import { AuthResponse, VerifyResponse } from '../../models/response/RegResponse';
 import $api from '../../http';
 import { alertsActions } from '../alerts/actions';
+import { history } from "../index";
 
 const registrationUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> =>
   $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/register`, {
@@ -36,7 +53,7 @@ const registrationUser = (payload: IUserRegistration): Promise<AxiosResponse<Aut
   });
 
 const loginUser = (payload: IUserLogin): Promise<AxiosResponse<AuthResponse>> =>
-  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/login`, {
+  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/login?include=photo,parental_agreement`, {
     ...payload,
   });
 const checkAuth = (payload: IRefreshPayload): Promise<AxiosResponse<AuthResponse>> =>
@@ -74,11 +91,21 @@ const fetchUser = (): Promise<AxiosResponse<AuthResponse>> =>
 const logoutUser = (): Promise<AxiosResponse<AuthResponse>> =>
   $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/logout`);
 
-const verifyUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> =>
-  axios.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/verify`, {
-    ...payload,
-  }, );
+const verifyUser = (payload: IEmailVerify): Promise<AxiosResponse<VerifyResponse>> => {
+  return $api.get<VerifyResponse>(`${process.env.REACT_APP_API_URL}/auth/verify`, {
+    params: {
+      ...payload
+    }
+  });
+}
 
+const resendVerifyUser = (payload: IResendEmailVerify): Promise<AxiosResponse<VerifyResponse>> => {
+  return $api.get<VerifyResponse>(`${process.env.REACT_APP_API_URL}/auth/verify/resend`, {
+    params: {
+      ...payload
+    }
+  });
+}
 
 function* fetchUserSaga() {
   try {
@@ -91,12 +118,21 @@ function* fetchUserSaga() {
       })
     );
     if (!response.data?.data?.is_completed) {
-      yield put(
-        modalsActions.openModalAction({
-          name: 'mailConfirmModal',
-          props: {text: 'Для использования сайта, без ограничений. Пожалуйста заполните свой профиль', noMail: true},
-        })
-      );
+      if (response.data?.data?.email_verified_at) {
+        yield put(
+          modalsActions.openModalAction({
+            name: 'mailConfirmModal',
+            props: {text: 'Для использования сайта, без ограничений. Пожалуйста заполните свой профиль', noMail: true},
+          })
+        );
+      } else {
+        yield put(
+          modalsActions.openModalAction({
+            name: 'mailConfirmModal',
+            props: {text: response.data?.message},
+          })
+        )
+      }
     }
   } catch (e: any) {
     yield put(
@@ -125,6 +161,7 @@ function* loginUserSaga(action: Action<RegisterUserRequest>) {
     localStorage.setItem('access_token', response.data?.access_token);
     localStorage.setItem('refresh_token', response.data?.refresh_token);
     localStorage.setItem('expires_in', response.data?.expires_in);
+
     if (!response.data?.data?.email_verified_at) {
       yield put(
         modalsActions.openModalAction({
@@ -132,6 +169,8 @@ function* loginUserSaga(action: Action<RegisterUserRequest>) {
           props: {text: response.data?.message},
         })
       );
+    } else {
+      yield put(modalsActions.closeModalAction())
     }
   } catch (e: any) {
     yield put(
@@ -179,14 +218,16 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
   }
 }
 
-function* updateUserSaga(action: Action<UpdateUserRequest>) {
+function* updateUserSaga(action: Action<IUserUpdatePayload>) {
+  const {user, data} = action.payload
+  console.log(user, 'test')
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(updateUser, action.payload);
+    const response = yield call(updateUser, data);
     if (response?.data) {
       yield put(
-        verifyUserSuccess({
+        updateUserSuccess({
           user: response.data.data,
         })
       );
@@ -197,17 +238,27 @@ function* updateUserSaga(action: Action<UpdateUserRequest>) {
         })
       );
 
+      if (user.email !== response.data.data.email) {
+        yield put(resendVerifyUserRequest({email: response.data.data.email}))
+      } else if (!response.data.data.email_verified_at) {
+        yield put(
+          modalsActions.openModalAction({
+            name: 'mailConfirmModal',
+            props: {text: response.data?.message},
+          })
+        );
+      }
     }
   } catch (e: any) {
     yield put(
-      verifyUserFailure({
+      updateUserFailure({
         errors: e.response?.data?.errors,
       })
     );
   }
 }
 
-function* verifyUserSaga(action: Action<UpdateUserRequest>) {
+function* verifyUserSaga(action: Action<VerifyUserRequest>) {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -218,10 +269,44 @@ function* verifyUserSaga(action: Action<UpdateUserRequest>) {
           user: response.data.data,
         })
       );
+
+      yield put(
+        modalsActions.openModalAction({
+          name: 'mailConfirmModal',
+          props: {text: response.data?.message},
+        })
+      );
     }
   } catch (e: any) {
     yield put(
       verifyUserFailure({
+        errors: e.response?.data?.errors,
+      })
+    );
+  }
+}
+
+function* resendVerifyUserSaga(action: Action<UpdateUserRequest>) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const response = yield call(resendVerifyUser, action.payload);
+    if (response?.data) {
+      yield put(
+        resendVerifyUserSuccess({message: response.data?.message}
+        )
+      );
+
+      yield put(
+        modalsActions.openModalAction({
+          name: 'mailConfirmModal',
+          props: {text: response.data?.message},
+        })
+      );
+    }
+  } catch (e: any) {
+    yield put(
+      resendVerifyUserFailure({
         errors: e.response?.data?.errors,
       })
     );
@@ -240,9 +325,11 @@ function* logoutUserSaga() {
           api: null,
         })
       );
+      history.push('/')
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('expires_in');
+
     }
 
   } catch (e: any) {
@@ -288,6 +375,7 @@ function* userSaga(): any {
   yield all([takeLatest(CHECK_AUTH_USER_REQUEST, checkAuthSaga)]);
   yield all([takeLatest(UPDATE_USER_REQUEST, updateUserSaga)]);
   yield all([takeLatest(VERIFY_USER_REQUEST, verifyUserSaga)]);
+  yield all([takeLatest(RESEND_VERIFY_USER_REQUEST, resendVerifyUserSaga)]);
 }
 
 export default userSaga;

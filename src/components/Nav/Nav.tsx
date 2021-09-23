@@ -23,6 +23,7 @@ interface INavigation {
   text: string;
   url: string;
   isAuth?: boolean
+  isFooter?: boolean
   onClick?: () => void;
 }
 
@@ -30,6 +31,7 @@ export const navigation: Array<INavigation> = [
   {text: 'Главная', url: '/'},
   {text: 'Викторина', url: '/quiz', isAuth: true},
   {text: 'О проекте', url: '/about'},
+  {text: 'Контакты', url: '/contacts', isFooter: true},
 ]
 
 
@@ -61,7 +63,7 @@ export const Nav: React.FC<INavProps> = (props) => {
   return (
     <>
       <StyledNav isFooter={isFooter} mobileHidden={mobileHidden}>
-        {navigation.map((item, key) => {
+        {navigation.filter((item) => isFooter ? item : !item.isFooter).map((item, key) => {
           return (
             <NavItem
               isFooter={isFooter}

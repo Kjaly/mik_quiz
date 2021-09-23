@@ -12,7 +12,9 @@ export const StyledProfileImgWrapper = styled.div`
 
   > svg {
     height: 80%;
+    fill: ${({theme}) => theme.color.grey};
   }
+
   ::after {
     position: absolute;
     content: "";
@@ -27,6 +29,5 @@ export const StyledProfileImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
 `
 

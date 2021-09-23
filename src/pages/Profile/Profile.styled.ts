@@ -37,29 +37,41 @@ export const StyledProfileFormWrapper = styled.div`
   }
 
 `
-export const StyledProfileForm = styled.div`
-  > div {
-    margin-bottom: 20px;
-  }
-
-  width: 100%;
-
-  ${device.desktop} {
-    display: grid;
-    max-width: 730px;
-    grid-template-columns:repeat(2, 1fr);
-    grid-gap: 20px 30px;
-  }
-
-`
-
 export const StyledButton = styled.div`
   max-width: 140px;
 `
+
 export const StyledAvatarInput = styled.div`
   visibility: hidden;
   position: absolute;
   z-index: -1;
+`
+export const StyledEmailField = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > div {
+    margin-bottom: 10px;
+  }
+`
+
+export const StyledVerifiedEmail = styled.div<{ completed?: boolean }>`
+  font-size: 14px;
+  color: ${({theme, completed}) => completed && theme.color.green};
+  display: flex;
+
+  > span {
+    margin-left: 0.25rem;
+    cursor: pointer;
+    color: ${({theme}) => theme.color.blue};
+    transition: all .2s ease-in-out;
+    display: block;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 `
 export const StyledImgWrapper = styled.div`
   position: relative;
@@ -77,6 +89,45 @@ export const StyledImgWrapper = styled.div`
 
   ${device.desktop} {
     flex-basis: 250px;
+  }
+
+`
+export const StyledProfileForm = styled.div`
+  > div {
+    margin-bottom: 20px;
+  }
+
+  width: 100%;
+  position: relative;
+
+  :first-child {
+    margin-bottom: 20px;
+
+    ::after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: ${({theme}) => theme.color.blue};
+      opacity: .2;
+    }
+
+    ${device.desktop} {
+      padding-bottom: 20px;
+      display: grid;
+      max-width: 730px;
+      grid-template-columns:repeat(2, 1fr);
+      grid-gap: 20px 30px;
+      margin-bottom: 20px;
+
+      > div {
+        margin-bottom: 0;
+      }
+    }
+
+
   }
 
 `

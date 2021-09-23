@@ -1,108 +1,117 @@
 export const experts = [
   {
     name: 'Марина Эдуардовна Оргеева',
-    description: 'Председатель Калининградской областной Думы',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Оргеева_синий.jpg/1200px-Оргеева_синий.jpg',
+    description: 'председатель Калининградской областной Думы',
+    img: 'marina_orgeeva.jpg',
   },
   {
     name: 'Светлана Сергеевна Трусенёва',
-    description: 'Министр образования Калининградской области',
-    img: 'https://kgd.ru/media/k2/items/cache/71d542e5434f0a76064cf73e6bb6d0a7_XL.jpg',
+    description: 'министр образования Калининградской области',
+    img: 'svetlana_truseneva.jpg',
   },
   {
     name: 'Андрей Викторович Ермак',
-    description: 'Министр по культуре и туризму Калининградской области',
-    img: 'https://www.global-kaliningrad.ru/usr/person/big-person-16114835361.jpg'
+    description: 'министр по культуре и туризму Калининградской области',
+    img: 'andrey_yermak.jpg',
   },
   {
     name: 'Андрей Дмитриевич Ермаков',
-    description: 'Председатель комитета образования Псковской области',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    description: 'председатель комитета образования Псковской области  ',
+    img: 'andrey_yermakov.jpg',
   },
   {
     name: 'Марина Валериевна Егорова',
-    description: 'Председатель комитета по туризму Псковской области',
-    img: 'https://gov39.ru/upload/iblock/525/52505b5f90e41672df4df294b013d531.JPG',
+    description: 'и.о. председателя комитета по туризму Псковской области',
+    img: 'marina_egorova.jpg',
   },
   {
     name: 'Денис Алексеевич Миронюк',
-    description: 'Заместитель министра по культуре и туризму Калининградской области',
-    img: 'https://www.global-kaliningrad.ru/usr/person/big-person-16114835361.jpg'
+    description: 'заместитель министра по культуре и туризму Калининградской области',
+    img: 'denis_mironyuk.jpg',
   },
   {
     name: 'Валентин Сергеевич Корнеевец',
     description: 'д.г.н., профессор, директор института рекреации, туризма и физической культуры БФУ им. И. Канта',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    img: 'valentin_korneyevets.jpg',
   },
   {
     name: 'Алексей Витальевич Волков',
-    description: 'Президент Общенационального союза индустрии гостеприимства',
-    img: 'https://gov39.ru/upload/iblock/525/52505b5f90e41672df4df294b013d531.JPG',
+    description: 'президент Общенационального союза индустрии гостеприимства',
+    img: 'aleksey_volkov.png',
   },
   {
     name: 'Татьяна Сергеевна Козловская',
-    description: 'Руководитель федерального проекта «Живые уроки»',
-    img: 'https://www.global-kaliningrad.ru/usr/person/big-person-16114835361.jpg'
+    description: 'руководитель федерального проекта «Живые уроки»',
+    img: 'tatyana_kozlovskaya.jpg',
   },
   {
-    name: 'онстантин Александрович Пахалюк',
-    description: 'кандидат политических наук, заместитель директора департамента науки и образования Российского военно-исторического общества',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    name: 'Константин Александрович Пахалюк',
+    description: 'кандидат политических наук, заместитель директора департамента науки и образования РВИО',
+    img: 'konstantin_pakhalyuk.jpg',
   },
   {
     name: 'Сергей Викторович Благов',
-    description: 'Старший преподаватель кафедры истории Калининградского государственного технического университета',
-    img: 'https://gov39.ru/upload/iblock/525/52505b5f90e41672df4df294b013d531.JPG',
+    description: 'старший преподаватель кафедры истории Калининградского государственного технического университета',
+    img: 'sergej_blagov.jpg',
   },
   {
-    name: 'Хромов Николай Елизарович',
-    description: 'Вице-адмирал, профессор Академии военно-исторических наук РФ',
-    img: 'https://www.global-kaliningrad.ru/usr/person/big-person-16114835361.jpg'
+    name: 'Николай Елизарович Хромов',
+    description: 'вице-адмирал, профессор Академии военно-исторических наук РФ',
+    img: 'nikolaj_hromov.jpg',
   },
   {
     name: 'Михаил Галимханович Бадамшин',
     description: 'заведующий музея «Бункер» филиала Калининградского областного историко-художественного музея',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    img: 'mihail_badamshin.jpg',
   },
   {
     name: 'Вячеслав Александрович Папшев',
-    description: 'Капитан 1 ранга в отставке, гид-проводник по спортивному  и детско-юношескому туризму',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    description: 'капитан 1 ранга в отставке, гид-проводник по спортивному и детско-юношескому туризму',
+    img: 'vyacheslav_papshev.jpg',
   },
   {
     name: 'Раиса Даниловна Минакова',
-    description: 'Кандидат политических наук, писатель, краевед',
-    img: 'https://www.global-kaliningrad.ru/usr/person/big-person-16114835361.jpg'
+    description: 'кандидат политических наук, писатель, краевед',
+    img: 'raisa_minakova.jpg',
   },
   {
     name: 'Татьяна Викторовна Комарницкая',
-    description: 'Руководитель проекта, генеральный директор ООО «Мик-Авиа»',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    description: 'руководитель проекта, генеральный директор ООО «Мик-Авиа»',
+    img: 'tatyana_komarnickaya.jpg',
   },
   {
     name: 'Павел Анатольевич Будников',
-    description: 'Журналист',
-    img: 'https://gov39.ru/upload/iblock/525/52505b5f90e41672df4df294b013d531.JPG',
-  },
-  {
-    name: 'Хромов Николай Елизарович',
-    description: 'Вице-адмирал, профессор Академии военно-исторических наук РФ',
-    img: 'https://www.global-kaliningrad.ru/usr/person/big-person-16114835361.jpg'
+    description: 'журналист',
+    img: 'pavel_budnikov.jpg',
   },
   {
     name: 'Елена Вячеславовна Кретова',
-    description: 'Гид-экскурсовод',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    description: 'гид-экскурсовод',
+    img: 'elena_kretova.jpg',
   },
   {
     name: 'Изабелла Анатольевна Коваль',
-    description: 'Директор ООО «Славянский Тур»',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    description: 'директор ООО «Славянский Тур»',
+    img: 'koval_izabella_anatolyevna.jpg',
   },
   {
     name: 'Ирина Анатольевна Шабалина',
-    description: 'Руководитель отдела образования ООО «Мик-Авиа»',
-    img: 'https://westrussia.org/wp-content/uploads/2021/03/dsc_5430-1.jpg'
+    description: 'руководитель отдела образования ООО «Мик-Авиа»',
+    img: 'irina_shabalina.jpg',
   },
-
+  {
+    name: 'Кристина Валентиновна Печникова',
+    description: 'руководитель отдела развития ООО «Мик-Авиа»',
+    img: 'pechnikova_kristina.jpg',
+  },
+  {
+    name: 'Светлана Владимировна Хромова',
+    description: 'руководитель КГОО «Наш Город»',
+    img: 'svetlana_hromova.jpg',
+  },
+  {
+    name: 'Кошемчук Елена Валерьевна',
+    description: 'директор ГБУК Калининградская областная научная библиотека»',
+    img: 'elena_koshemchuk.jpg',
+  }
 ]
