@@ -62,31 +62,37 @@ const checkAuth = (payload: IRefreshPayload): Promise<AxiosResponse<AuthResponse
   });
 
 const updateUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> => {
-
   function getFormData(object: any) {
     const formData = new FormData();
-    Object.keys(object).forEach(key => formData.append(key, object[key]));
+    Object.keys(object).forEach((key) => formData.append(key, object[key]));
     return formData;
   }
 
-  const formData = getFormData(payload)
+  const formData = getFormData(payload);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  formData.append('_method', 'PATCH')
-  return $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
+  formData.append('_method', 'PATCH');
+  return $api.post<AuthResponse>(
+    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     }
-  });
-}
+  );
+};
 
 const fetchUser = (): Promise<AxiosResponse<AuthResponse>> =>
-  $api.get<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  });
+  $api.get<AuthResponse>(
+    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }
+  );
 
 const logoutUser = (): Promise<AxiosResponse<AuthResponse>> =>
   $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/logout`);
@@ -166,7 +172,7 @@ function* loginUserSaga(action: Action<RegisterUserRequest>) {
       yield put(
         modalsActions.openModalAction({
           name: 'mailConfirmModal',
-          props: {text: response.data?.message},
+          props: { text: response.data?.message },
         })
       );
     } else {
@@ -204,7 +210,7 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
         yield put(
           modalsActions.openModalAction({
             name: 'mailConfirmModal',
-            props: {text: response.data?.message},
+            props: { text: response.data?.message },
           })
         );
       }
@@ -234,7 +240,7 @@ function* updateUserSaga(action: Action<IUserUpdatePayload>) {
 
       yield put(
         alertsActions.openAlertAction({
-          text: 'Сохранено!'
+          text: 'Сохранено!',
         })
       );
 
@@ -329,13 +335,10 @@ function* logoutUserSaga() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('expires_in');
-
     }
-
   } catch (e: any) {
-    console.warn('logout')
+    console.warn('logout');
   }
-
 }
 
 function* checkAuthSaga() {
@@ -343,7 +346,7 @@ function* checkAuthSaga() {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(checkAuth, {refresh_token: `${refreshToken}`});
+    const response = yield call(checkAuth, { refresh_token: `${refreshToken}` });
     yield put(
       checkAuthUserSuccess({
         user: response.data.data,
