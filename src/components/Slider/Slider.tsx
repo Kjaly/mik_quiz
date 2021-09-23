@@ -29,7 +29,7 @@ export const Slider: React.FC = (props) => {
           1024: {
             slidesPerView: 3,
           },
-          1280: {
+          1356: {
             slidesPerView: 4,
           },
         }}
