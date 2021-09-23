@@ -28,8 +28,8 @@ const App = (): JSX.Element => {
   useEffect(() => {
     if (currentQuery && currentQuery.id) {
       const currentValues = {...currentQuery, id: +currentQuery?.id}
-      history.push('/')
       if (currentPath.includes('verify-account')) {
+        history.push('/')
         dispatch(verifyUserRequest(currentValues))
       }
     }

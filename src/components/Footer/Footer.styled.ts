@@ -42,12 +42,14 @@ export const StyledNavWrapper = styled.div`
 
 
   ${device.tablet} {
-    flex: 0 1 300px;
+    flex: 0 1 50%;
+    justify-content: flex-end;
     padding: 0 20px;
 
     > div {
       flex-direction: row;
       align-items: center;
+      column-gap: 1em;
     }
 
     > div > div:not(:last-child)::after {
@@ -112,16 +114,18 @@ export const StyledFooterDescription = styled.div`
 
   p {
     opacity: .4;
+
     &:first-child {
       opacity: .8;
       margin-bottom: 10px;
     }
+
     > a {
       text-decoration: underline;
       cursor: pointer;
     }
-    
+
   }
-  
+
 
 `

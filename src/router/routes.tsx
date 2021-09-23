@@ -5,7 +5,7 @@ import {
   Publications,
   PrivacyPolicy,
   Profile,
-  Quiz
+  Quiz, Contacts
 } from '../pages';
 
 export const ROUTES = [
@@ -49,6 +49,11 @@ export const ROUTES = [
     path: '/quiz',
     key: 'QUIZ',
     component: (): JSX.Element => <Quiz/>,
+  },
+  {
+    path: '/contacts',
+    key: 'CONTACTS',
+    component: (): JSX.Element => <Contacts/>,
   },
 ];
 

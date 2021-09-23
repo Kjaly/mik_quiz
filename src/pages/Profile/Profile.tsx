@@ -1,13 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   StyledAvatarInput,
   StyledButton,
+  StyledEmailField,
   StyledIcon,
   StyledImgWrapper,
   StyledProfile,
   StyledProfileForm,
   StyledProfileFormWrapper,
-  StyledProfileWrapper
+  StyledProfileWrapper,
+  StyledVerifiedEmail,
 } from './Profile.styled';
 import { TitleBanner } from '../../components/TitleBanner';
 import { ContentWrapper } from '../../components/ContentWrapper';
@@ -24,24 +26,43 @@ import { removeUserErrors, updateUserRequest } from '../../store/user/actions';
 import { IUserRegistration } from '../../store/user/types';
 import { InputFile } from '../../components/FormFinal/InputFile';
 import { setError } from '../../services/forms/setFinalFormErrorMutator';
+import { asyncValidate } from "../../services/forms/asyncValidate";
+import { formsNames } from "../../services/forms/formsNames";
 
 export const Profile: React.FC = () => {
 
   const inputFile = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null);
+  const [fileUrl, setFileUrl] = useState('');
+  const user = useSelector(getUserSelector);
+
   const dispatch = useDispatch()
   const submitHandler = (values: IUserRegistration): void => {
     const currentValues = {...Object.fromEntries(Object.entries(values).filter(([_, v]) => v != null))} as IUserRegistration
-    dispatch(updateUserRequest(currentValues))
+    dispatch(updateUserRequest({user, data: currentValues}))
   }
 
 
   const serverErrors = useSelector(getErrorsSelector);
-  const user = useSelector(getUserSelector);
-  const fileUrl = file ? URL.createObjectURL(file) : user?.photo?.url || ''
-  const handleImgUpload = () => {
+  useEffect(() => {
+    console.log(user)
+    console.log(file)
+    if (file) {
+      console.log(1)
+      return setFileUrl(URL.createObjectURL(file))
+    }
+    if (user?.photo?.url) {
+      console.log(2)
+      setFileUrl(user?.photo?.url)
+    }
+
+  }, [file, user])
+
+  const handleImgUpload = (): void => {
     inputFile?.current?.click();
   }
+
+
   return (
     <StyledProfileWrapper>
       <TitleBanner>Мой профиль</TitleBanner>
@@ -60,12 +81,14 @@ export const Profile: React.FC = () => {
               last_name: user?.last_name,
               city: user?.city,
               school: user?.school,
+              birthday: user?.birthday,
               school_class: user?.school_class,
               school_teacher_history: user?.school_teacher_history,
               email: user?.email,
               password: null,
               password_confirmation: null,
               parental_agreement: null,
+              parental_agreement_id: user?.parental_agreement_id,
               photo: null,
             }}
             mutators={{setError}}
@@ -73,6 +96,18 @@ export const Profile: React.FC = () => {
             render={(renderProps): JSX.Element => {
               const {values, form, handleSubmit} = renderProps;
 
+              const handleValidate = async (): Promise<void> => {
+                const errors = await asyncValidate(
+                  values,
+                  {
+                    formName: formsNames.profileUpdate,
+                  },
+                  form.mutators.setError,
+                );
+                if (!errors) {
+                  handleSubmit();
+                }
+              };
 
               if (serverErrors && typeof serverErrors !== 'string') {
                 Object.keys(serverErrors).forEach(item => {
@@ -110,20 +145,33 @@ export const Profile: React.FC = () => {
                       component={InputText}
                       type="text"
                       placeholder="Имя"
-                    />
-                    <Field
-                      autoComplete={'off'}
-                      name="middle_name"
-                      component={InputText}
-                      type="text"
-                      placeholder="Фамилия"
+                      errors={serverErrors}
                     />
                     <Field
                       autoComplete={'off'}
                       name="last_name"
                       component={InputText}
                       type="text"
+                      placeholder="Фамилия"
+                      errors={serverErrors}
+                    />
+                    <Field
+                      autoComplete={'off'}
+                      name="middle_name"
+                      component={InputText}
+                      type="text"
                       placeholder="Отчество"
+                      errors={serverErrors}
+                    />
+                    <Field
+                      autoComplete={'off'}
+                      name="birthday"
+                      min='2003-01-01'
+                      max='2016-01-01'
+                      component={InputText}
+                      type="date"
+                      placeholder="Дата рождения"
+                      errors={serverErrors}
                     />
                     <Field
                       autoComplete={'off'}
@@ -131,6 +179,7 @@ export const Profile: React.FC = () => {
                       component={InputText}
                       type="text"
                       placeholder="Город"
+                      errors={serverErrors}
                     />
                     <Field
                       autoComplete={'off'}
@@ -138,13 +187,16 @@ export const Profile: React.FC = () => {
                       component={InputText}
                       type="text"
                       placeholder="Школа"
+                      errors={serverErrors}
                     />
                     <Field
                       autoComplete={'off'}
                       name="school_class"
                       component={InputText}
                       type="text"
+                      maxLength={3}
                       placeholder="Класс"
+                      errors={serverErrors}
                     />
                     <Field
                       autoComplete={'off'}
@@ -152,15 +204,36 @@ export const Profile: React.FC = () => {
                       component={InputText}
                       type="text"
                       placeholder="ФИО учителя истории"
+                      errors={serverErrors}
                     />
-
                     <Field
-                      autoComplete={'email'}
-                      name="email"
-                      component={InputText}
-                      type="email"
-                      placeholder="Почта"
+                      autoComplete={'off'}
+                      name="parental_agreement"
+                      component={InputFile}
+                      placeholder="Соглашение"
+                      uploadText={'Соглашение выбрано'}
+                      completed={!!user.parental_agreement_id}
+                      errors={serverErrors}
                     />
+                  </StyledProfileForm>
+                  <hr/>
+                  <StyledProfileForm>
+                    <StyledEmailField>
+                      <Field
+                        autoComplete={'email'}
+                        name="email"
+                        component={InputText}
+                        type="email"
+                        placeholder="Почта"
+                      />
+                      {!user.email_verified_at &&
+                      (
+                        <StyledVerifiedEmail>
+                          Почта не подтвеждена.
+                          <span onClick={() => submitHandler(values)}>Подтвердить</span>
+                        </StyledVerifiedEmail>
+                      )}
+                    </StyledEmailField>
                     <Field
                       autoComplete={'off'}
                       name="password"
@@ -177,14 +250,7 @@ export const Profile: React.FC = () => {
                       placeholder="Подтверждение пароля"
                       errors={serverErrors}
                     />
-                    <Field
-                      autoComplete={'off'}
-                      name="parental_agreement"
-                      component={InputFile}
-                      placeholder="Соглашение"
-                      uploadText={'Соглашение выбрано'}
-                      completed={!!user.parental_agreement_id}
-                    />
+
                   </StyledProfileForm>
                   <StyledButton>
                     <Button
@@ -193,7 +259,7 @@ export const Profile: React.FC = () => {
                       background={theme.color.yellow}
                       title={'Сохранить'}
                       color={'#fff'}
-                      onClick={handleSubmit}/>
+                      onClick={handleValidate}/>
                   </StyledButton>
                 </StyledProfileFormWrapper>
               )

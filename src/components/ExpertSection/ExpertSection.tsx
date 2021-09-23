@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyledExpertSection, StyledDecorativeWrapper, StyledTitle } from './ExpertSection.styled';
+import React, { useEffect } from 'react';
+import { StyledDecorativeWrapper, StyledExpertSection, StyledTitle } from './ExpertSection.styled';
 import { Slider } from '../Slider';
 import { ContentWrapper } from '../ContentWrapper';
 import { Title } from '../Typography/Title';
@@ -7,12 +7,23 @@ import { theme } from '../../theme';
 import { SwiperSlide } from 'swiper/react';
 import { ExpertCard } from './ExpertCard';
 import { DecorativeLines } from '../DecorativeLines';
-import { constants } from '../../contsants'
+import { fetchExpertsRequest } from "../../store/experts/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getExpertsSelector } from "../../store/experts/selectors";
 
 export const ExpertSection: React.FC<any> = (props) => {
   const {aboutPage} = props
+  const dispatch = useDispatch()
+  const fetchExperts = () => {
+    dispatch(fetchExpertsRequest())
+  }
+  useEffect(() => {
+    fetchExperts()
+  }, [])
+  const experts = useSelector(getExpertsSelector);
 
-const { experts } = constants
+
+
   return (
     <StyledExpertSection aboutPage={aboutPage}>
       <ContentWrapper>
@@ -23,10 +34,10 @@ const { experts } = constants
         </StyledTitle>
 
         <Slider>
-          {experts.map((item, key) => {
+          {experts?.map((item, key) => {
             return (
               <SwiperSlide key={key}>
-                <ExpertCard name={item.name} description={item.description} img={item.img}/>
+                <ExpertCard name={item.name} description={item.description} img={item.photo.url}/>
               </SwiperSlide>
             )
           })}

@@ -1,4 +1,4 @@
-import { boolean, string } from 'yup';
+import { boolean, mixed, number, string } from 'yup';
 import { errorsMessages } from './errorsMessages';
 
 export const fields = {
@@ -58,6 +58,8 @@ export const fields = {
     .required(errorsMessages.required),
   school: string()
     .required(errorsMessages.required),
+  birthday: string()
+    .required(errorsMessages.required),
   class: string()
     .required(errorsMessages.required),
   teacher: string()
@@ -65,4 +67,11 @@ export const fields = {
   privacy: boolean()
     .required(errorsMessages.required)
     .oneOf([true], errorsMessages.required),
+  fileId: number(),
+  file: mixed().when('parental_agreement_id', {
+    is: (fileId: number) => {
+      console.log(fileId);
+      return !fileId
+    }, then: mixed().required(errorsMessages.required)
+  }),
 };

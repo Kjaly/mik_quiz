@@ -19,16 +19,20 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
     placeholder,
     meta,
     autoComplete,
+    maxLength,
+    min,
+    max,
     ...customProps
   } = props
 
-  const {onChange, name, value, type, onBlur, onFocus} = input;
+  const {onChange, name, value, type, onBlur, onFocus,} = input;
   const error = !meta?.visited && !meta?.touched && meta?.data?.error ? meta?.data?.error : null;
 
   return (
     <StyledInputContainer>
       <StyledInput
         onFocus={onFocus}
+        maxLength={maxLength}
         onBlur={onBlur}
         error={error}
         autoComplete={autoComplete}
@@ -36,6 +40,8 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
         type={type}
         onChange={onChange}
         name={name}
+        min={min}
+        max={max}
         placeholder={placeholder}
         value={value}/>
       <ErrorTip error={error}/>

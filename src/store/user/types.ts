@@ -14,7 +14,7 @@ import {
   REGISTER_USER_FAILURE,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
-  REMOVE_USER_ERRORS,
+  REMOVE_USER_ERRORS, RESEND_VERIFY_USER_FAILURE, RESEND_VERIFY_USER_REQUEST, RESEND_VERIFY_USER_SUCCESS,
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -54,6 +54,10 @@ export interface IUserLogin {
   email?: string;
   password?: string;
 }
+export interface IUserUpdatePayload {
+  user:UserState;
+  data?: IUserRegistration;
+}
 
 export interface IEmailVerify {
   id?: number;
@@ -62,21 +66,25 @@ export interface IEmailVerify {
   signature?: string;
 }
 
+export interface IResendEmailVerify {
+  email?: string;
+}
+
 export interface IRefreshPayload {
   refresh_token: string;
 }
 
 export interface IPhoto {
-  alt:string,
-  description:string,
-  extension:string,
-  hash:string,
-  id:number,
-  mime:string,
-  name:string,
-  original_name:string,
-  url:string,
-  user_id:number,
+  alt: string,
+  description: string,
+  extension: string,
+  hash: string,
+  id: number,
+  mime: string,
+  name: string,
+  original_name: string,
+  url: string,
+  user_id: number,
 }
 
 export interface UserState extends Partial<IUser> {
@@ -87,6 +95,7 @@ export interface UserState extends Partial<IUser> {
   deleted_at?: string,
   email?: string;
   email_verified_at?: string;
+  birthday?: string;
   parental_agreement?: any;
   parental_agreement_id?: number;
   photo?: IPhoto | null;
@@ -106,6 +115,9 @@ export interface UserState extends Partial<IUser> {
 
 export interface FetchUserSuccessPayload {
   user: IUser;
+}
+export interface VerifyUserSuccessPayload {
+  message: string;
 }
 
 export interface AuthUserSuccessPayload {
@@ -133,7 +145,7 @@ export type FetchUserFailure = {
 
 export interface UpdateUserRequest {
   type: typeof UPDATE_USER_REQUEST;
-  payload: IUserRegistration;
+  payload: IUserUpdatePayload;
 }
 
 export type UpdateUserSuccess = {
@@ -158,6 +170,20 @@ export type VerifyUserSuccess = {
 
 export type VerifyUserFailure = {
   type: typeof VERIFY_USER_FAILURE;
+  payload: FetchUserFailurePayload;
+};
+export interface ResendVerifyUserRequest {
+  type: typeof RESEND_VERIFY_USER_REQUEST;
+  payload: IResendEmailVerify;
+}
+
+export type ResendVerifyUserSuccess = {
+  type: typeof RESEND_VERIFY_USER_SUCCESS;
+  payload: VerifyUserSuccessPayload;
+};
+
+export type ResendVerifyUserFailure = {
+  type: typeof RESEND_VERIFY_USER_FAILURE;
   payload: FetchUserFailurePayload;
 };
 
@@ -246,3 +272,6 @@ export type UserActions =
   | VerifyUserRequest
   | VerifyUserSuccess
   | VerifyUserFailure
+  | ResendVerifyUserRequest
+  | ResendVerifyUserSuccess
+  | ResendVerifyUserFailure

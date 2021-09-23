@@ -4,7 +4,7 @@ import { TitleBanner } from '../../components/TitleBanner';
 import { AboutTextSection } from '../../components/AboutTextSection';
 import { ExpertSection } from '../../components/ExpertSection';
 
-import titleBackground from '../../assets/images/banner/mainImage3.jpg'
+import titleBackground from '../../assets/images/about/titleBackground.png'
 
 export const About: React.FC = () => {
   return (

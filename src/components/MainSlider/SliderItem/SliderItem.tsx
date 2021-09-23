@@ -2,15 +2,14 @@ import React from 'react';
 import {
   StyledButton,
   StyledSliderItem,
-  StyledSliderItemDescription,
   StyledSliderItemTitle,
-  StyledSliderText
+  StyledSliderText,
 } from './SliderItem.styled';
 import { Button } from "../../Button";
 import { theme } from "../../../theme";
 import { IconArrowRight } from "../../../Icons";
 import { Title } from "../../Typography/Title";
-
+import { history } from '../../../store';
 
 interface ISliderItemProps {
   title: string;
@@ -35,7 +34,7 @@ export const SliderItem: React.FC<ISliderItemProps> = (props) => {
             title={buttonText}
             color={'#fff'}
             onClick={() => {
-              console.log('Логин')
+              history.push('/quiz')
             }}/>
         </StyledButton>
       </StyledSliderText>

@@ -34,6 +34,7 @@ export const StyledNavItem = styled.div<Partial<INavItemProps>>`
 
   ${device.tablet} {
     width: auto;
+    flex-shrink: 0;
     color: ${({theme, isFooter}) => isFooter ? '#fff' : theme.color.blue};
 
     &::after {
@@ -45,7 +46,7 @@ export const StyledNavItem = styled.div<Partial<INavItemProps>>`
     &:last-child::after {
       display: block;
     }
-    
+
   }
 
   > a {

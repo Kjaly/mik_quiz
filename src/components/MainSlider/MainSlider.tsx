@@ -43,7 +43,7 @@ const sliders: Array<ISliderItem> = [
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
-    buttonText: 'Учавствовать',
+    buttonText: 'Участвовать',
     img: mainImage,
   },
   {
@@ -51,7 +51,7 @@ const sliders: Array<ISliderItem> = [
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
-    buttonText: 'Учавствовать',
+    buttonText: 'Участвовать',
     img: mainImage2,
   },
   {
@@ -59,7 +59,7 @@ const sliders: Array<ISliderItem> = [
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
-    buttonText: 'Учавствовать',
+    buttonText: 'Участвовать',
     img: mainImage3,
     description: <SliderDescription/>,
   },

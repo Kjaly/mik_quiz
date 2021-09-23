@@ -85,7 +85,7 @@ export const Header: React.FC<any> = () => {
                     reversed
                     icon={IconArrowRight}
                     background={theme.color.yellow}
-                    title={'Привет'}
+                    title={'Привет!'}
                     color={'#fff'}
                     onClick={handleToggleAuth}/>
                   <StyledAuthDropDownList authIsOpen={authIsOpen}>
