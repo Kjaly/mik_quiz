@@ -125,10 +125,14 @@ function* fetchUserSaga() {
     );
     if (!response.data?.data?.is_completed) {
       if (response.data?.data?.email_verified_at) {
+        if (history.location.pathname.includes('/profile')) return null;
         yield put(
           modalsActions.openModalAction({
             name: 'mailConfirmModal',
-            props: {text: 'Для использования сайта, без ограничений. Пожалуйста заполните свой профиль', noMail: true},
+            props: {
+              text: 'Чтобы твои результаты были учтены, тебе необходимо (если ты совершеннолетний) или твоим родителям (опекунам) заполнить свой профиль и форму Согласия на обработку персональных данных и публикацию итогов викторины. Для этого распечатай соответствующий бланк, заполни и загрузи его в личном кабинете. Важно! Без этого документа твои результаты не будут засчитаны. Добавить Согласие можно в течение трех дней после завершения онлайн-викторины.',
+              noMail: true
+            },
           })
         );
       } else {
@@ -172,7 +176,7 @@ function* loginUserSaga(action: Action<RegisterUserRequest>) {
       yield put(
         modalsActions.openModalAction({
           name: 'mailConfirmModal',
-          props: { text: response.data?.message },
+          props: {text: response.data?.message},
         })
       );
     } else {
@@ -210,7 +214,7 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
         yield put(
           modalsActions.openModalAction({
             name: 'mailConfirmModal',
-            props: { text: response.data?.message },
+            props: {text: response.data?.message},
           })
         );
       }
@@ -346,7 +350,7 @@ function* checkAuthSaga() {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(checkAuth, { refresh_token: `${refreshToken}` });
+    const response = yield call(checkAuth, {refresh_token: `${refreshToken}`});
     yield put(
       checkAuthUserSuccess({
         user: response.data.data,

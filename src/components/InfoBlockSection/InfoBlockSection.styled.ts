@@ -58,7 +58,6 @@ export const StyledButtonWrapper = styled.div`
   flex: 1 0 auto;
   display: flex;
   align-items: flex-end;
-
 `
 
 export const StyledJoinCardImg = styled.div`

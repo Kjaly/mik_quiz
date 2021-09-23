@@ -10,6 +10,7 @@ export const StyledSwiper = styled.div`
 
   .swiper-slide {
     display: flex;
+    height: auto;
   }
 `
 export const StyledMobileNavigation = styled.div`
@@ -18,16 +19,16 @@ export const StyledMobileNavigation = styled.div`
   right: 60px;
 
 
-  ${device.tabletL} {
+  ${device.desktop} {
     display: none;
   }
 `
 export const StyledDesktopNavigation = styled.div`
   display: none;
 
-  ${device.tabletL} {
+  ${device.desktop} {
     display: block;
   }
-  
-  
+
+
 `

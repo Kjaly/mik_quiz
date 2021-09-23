@@ -5,6 +5,7 @@ import {
   StyledEmailField,
   StyledIcon,
   StyledImgWrapper,
+  StyledPolicyField,
   StyledProfile,
   StyledProfileForm,
   StyledProfileFormWrapper,
@@ -28,6 +29,7 @@ import { InputFile } from '../../components/FormFinal/InputFile';
 import { setError } from '../../services/forms/setFinalFormErrorMutator';
 import { asyncValidate } from "../../services/forms/asyncValidate";
 import { formsNames } from "../../services/forms/formsNames";
+import { Link } from 'react-router-dom';
 
 export const Profile: React.FC = () => {
 
@@ -207,15 +209,18 @@ export const Profile: React.FC = () => {
                       placeholder="ФИО учителя истории"
                       errors={serverErrors}
                     />
-                    <Field
-                      autoComplete={'off'}
-                      name="parental_agreement"
-                      component={InputFile}
-                      placeholder="Соглашение"
-                      uploadText={'Соглашение выбрано'}
-                      completed={!!user.parental_agreement_id}
-                      errors={serverErrors}
-                    />
+                    <StyledPolicyField>
+                      <Field
+                        autoComplete={'off'}
+                        name="parental_agreement"
+                        component={InputFile}
+                        placeholder="Соглашение"
+                        uploadText={'Соглашение выбрано'}
+                        completed={!!user.parental_agreement_id}
+                        errors={serverErrors}
+                      />
+                      <Link to="/files/privacy.pdf" target="_blank" download>Скачать</Link>
+                    </StyledPolicyField>
                   </StyledProfileForm>
                   <hr/>
                   <StyledProfileForm>

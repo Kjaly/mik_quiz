@@ -1,9 +1,11 @@
 import React from 'react';
 import {
+  StyledItemTitle,
   StyledQuizTextDescription,
   StyledQuizTextSection,
   StyledQuizTextTitle,
-  StyledTextItem
+  StyledTextItem,
+  StyledTextWrapper
 } from "./QuizTextSection.styled";
 import { useSelector } from "react-redux";
 import { routerSelectors } from "../../store/route";
@@ -24,32 +26,39 @@ export const QuizTextSection: React.FC<IQuizTextProps> = (props) => {
     <StyledQuizTextSection>
       {isEssay ? (
         <>
-          <StyledTextItem isEssay={isEssay}>
-            <StyledQuizTextTitle>
-              Тема 1
-            </StyledQuizTextTitle>
-            <StyledQuizTextDescription>
-              Среди первых переселенцев в Калининградскую область были жители десятков областей Советского Союза, в том
-              числе, и Псковской. Напишите, как вы думаете, что подвигло этих людей бросить свои родные земли и
-              отправиться
-              в неизвестность, на чужую землю, где, к тому же, еще жили их вчерашние враги - немцы. Почему, на ваш
-              взгляд,
-              они остались после переезда в Калининградской области и как они жили в первые послевоенные годы?
-            </StyledQuizTextDescription>
-          </StyledTextItem>
-          <StyledTextItem isEssay={isEssay}>
-            <StyledQuizTextTitle>
-              Тема 2
-            </StyledQuizTextTitle>
-            <StyledQuizTextDescription>
-              На протяжении многих веков Псков выступал западной окраиной Русской земли. Равным образом сегодня
-              Калининград
-              – самый западный регион России. Напишите эссе, нацеленное на сравнении того, как близость к западу
-              осмысляется
-              сегодня в обоих регионах? Какие исторические образы, примеры и события активно используются для осмысления
-              своего окраинного положения?
-            </StyledQuizTextDescription>
-          </StyledTextItem>
+          <StyledItemTitle>
+            Напишите эссе на одну из двух предложенных тем. Объем письменной работы – не более 800 знаков.
+          </StyledItemTitle>
+          <StyledTextWrapper>
+            <StyledTextItem isEssay={isEssay}>
+              <StyledQuizTextTitle>
+                Тема 1
+              </StyledQuizTextTitle>
+              <StyledQuizTextDescription>
+                Среди первых переселенцев в Калининградскую область были жители десятков областей Советского Союза, в
+                том
+                числе, и Псковской. Напишите, как вы думаете, что подвигло этих людей бросить свои родные земли и
+                отправиться
+                в неизвестность, на чужую землю, где, к тому же, еще жили их вчерашние враги - немцы. Почему, на ваш
+                взгляд,
+                они остались после переезда в Калининградской области и как они жили в первые послевоенные годы?
+              </StyledQuizTextDescription>
+            </StyledTextItem>
+            <StyledTextItem isEssay={isEssay}>
+              <StyledQuizTextTitle>
+                Тема 2
+              </StyledQuizTextTitle>
+              <StyledQuizTextDescription>
+                На протяжении многих веков Псков выступал западной окраиной Русской земли. Равным образом сегодня
+                Калининград
+                – самый западный регион России. Напишите эссе, нацеленное на сравнении того, как близость к западу
+                осмысляется
+                сегодня в обоих регионах? Какие исторические образы, примеры и события активно используются для
+                осмысления
+                своего окраинного положения?
+              </StyledQuizTextDescription>
+            </StyledTextItem>
+          </StyledTextWrapper>
         </>
       ) : (
         <StyledTextItem>

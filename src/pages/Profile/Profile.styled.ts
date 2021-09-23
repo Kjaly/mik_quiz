@@ -156,3 +156,18 @@ export const StyledIcon = styled.div`
     height: 14px;
   }
 `
+
+export const StyledPolicyField = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > div {
+    margin-bottom: 10px;
+  }
+
+  > a {
+    color: ${({theme}) => theme.color.blue};
+  }
+
+`

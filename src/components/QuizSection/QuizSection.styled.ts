@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "../../theme/devices";
 
 export const StyledQuizBlock = styled.div`
-
+  position: relative;
   margin: 30px 0 50px;
 
   ${device.tablet} {
@@ -13,6 +13,11 @@ export const StyledQuizBlock = styled.div`
   ${device.desktop} {
     margin: 70px 0 100px;
   }
+`
+
+export const StyledQuizWrapper = styled.div`
+  position: relative;
+  z-index: 1;
 `
 export const StyledQuizHeaderSection = styled.div`
   display: flex;
@@ -61,8 +66,14 @@ export const StyledQuizMainSection = styled.div`
   .swiper-container {
     height: 100%;
   }
-  
-  ${device.desktop}{
+
+  .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  ${device.desktop} {
     padding: 40px;
   }
 
@@ -88,6 +99,7 @@ export const StyledQuizAnswers = styled.div`
   grid-template-columns:repeat(1, 1fr);
   grid-gap: 20px;
   margin-bottom: 40px;
+  flex: 100%;
 
   ${device.desktop} {
     grid-template-columns:repeat(2, 1fr);
@@ -96,7 +108,7 @@ export const StyledQuizAnswers = styled.div`
 export const StyledButtonBlock = styled.div<{ firstSlide?: boolean }>`
   width: 100%;
   display: flex;
-  justify-content: ${({firstSlide}) => firstSlide ? 'flex-end' : 'space-between'};
+  justify-content: flex-end;
   column-gap: 10px;
 
 `
@@ -113,4 +125,18 @@ export const StyledButton = styled.div<{ reversed?: boolean }>`
 export const StyledTextarea = styled.div`
   margin-bottom: 40px;
   min-height: 228px;
+`
+
+export const StyledDecorativeWrapper = styled.div<{ lineId?: number }>`
+  display: none;
+
+  ${device.tablet} {
+    display: block;
+    position: absolute;
+    content: '';
+    left: ${({lineId}) => lineId === 2 ? '90%' : '-40%'};
+    top: ${({lineId}) => lineId === 2 ? '20%' : '100%'};
+    z-index: 0;
+    transform:${({lineId}) => lineId === 2 ? 'rotate(45deg) scale(1, -1) translate(-185px, 120px)' : 'rotate(-45deg) scale(-1, -1) translate(-115px, 50px)'} ;
+  }
 `

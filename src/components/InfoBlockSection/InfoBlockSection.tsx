@@ -14,10 +14,12 @@ import { Button } from "../Button";
 import { IconArrowRight } from "../../Icons";
 import kld from '../../assets/images/infoBlock/kld.png'
 import pskov from '../../assets/images/infoBlock/pskov.png'
+import { modalsActions } from "../../store/modals/actions";
+import { useDispatch } from "react-redux";
 
 
 const InfoBlockItem: React.FC<any> = (props) => {
-  const {text, description, img} = props
+  const {text, description, img, onClick} = props
   return (
     <StyledJoinCard>
       <StyledJoinCardLeftBlock>
@@ -25,9 +27,7 @@ const InfoBlockItem: React.FC<any> = (props) => {
           {text}
         </StyledJoinCardText>
         {description && (
-          <StyledJoinCardDescription>
-            {description}
-          </StyledJoinCardDescription>
+          <StyledJoinCardDescription >{description}</StyledJoinCardDescription>
         )}
         <StyledButtonWrapper>
           <Button
@@ -36,9 +36,7 @@ const InfoBlockItem: React.FC<any> = (props) => {
             title={'Присоединиться'}
             color={'#fff'}
             reversed
-            onClick={() => {
-              console.log('Присоединиться')
-            }}/>
+            onClick={onClick}/>
         </StyledButtonWrapper>
       </StyledJoinCardLeftBlock>
       <StyledJoinCardImg>
@@ -48,12 +46,29 @@ const InfoBlockItem: React.FC<any> = (props) => {
   )
 }
 
+
 export const InfoBlockSection: React.FC = () => {
+
+  const dispatch = useDispatch()
+  const handleClick = (text: string) => {
+    dispatch(modalsActions.openModalAction({
+      name: 'quizAlertModal',
+      props: {text}
+    }))
+  }
+
   return (
     <ContentWrapper customMargin={'right'}>
       <StyledInfoWrapper>
-        <InfoBlockItem text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Калининград'} img={kld}/>
-        <InfoBlockItem text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Псков'} img={pskov}/>
+        <InfoBlockItem
+          text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Калининград'}
+          onClick={() => handleClick('Межрегиональный слет в г. Калининград состоится 20 ноября 2021 г.')}
+          img={kld}
+        />
+        <InfoBlockItem
+          text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Псков'}
+          onClick={() => handleClick(`Межрегиональный слет в г. Псков \nсостоится 04 декабря 2021 г.`)}
+          img={pskov}/>
       </StyledInfoWrapper>
 
     </ContentWrapper>
