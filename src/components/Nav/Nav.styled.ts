@@ -18,7 +18,7 @@ export const StyledNavMobile = styled.div<{ isOpen?: boolean }>`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
