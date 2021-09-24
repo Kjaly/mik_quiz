@@ -112,7 +112,8 @@ export const StyledBurgerLine = styled.span<{ isOpen?: boolean }>`
 `
 
 export const StyledAuthDropDown = styled.div<{ authIsOpen?: boolean }>`
-min-width: 190px;
+  min-width: 190px;
+
   > div:first-child {
     > div {
       transition: all .2s ease-in-out;

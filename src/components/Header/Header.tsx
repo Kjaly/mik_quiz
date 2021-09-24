@@ -45,6 +45,8 @@ export const Header: React.FC<any> = () => {
     setIsOpen(!isOpen)
     setAuthIsOpen(false)
   }
+
+
   const handleToggleAuth = () => {
     setAuthIsOpen(!authIsOpen)
   }
@@ -66,6 +68,11 @@ export const Header: React.FC<any> = () => {
       document.body.style.paddingRight = `0px`;
     }
   }, [isOpen])
+
+  useEffect(() => {
+    setAuthIsOpen(false)
+  }, [isAuth]);
+
   return (
     <ContentWrapper>
       <StyledHeaderWrapper>
