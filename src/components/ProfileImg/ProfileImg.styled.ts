@@ -32,8 +32,8 @@ export const StyledProfileImg = styled.img`
 `
 export const StyledError = styled.div`
   position: absolute;
-  bottom: 10%;
-  left: 0;
+  top: 5%;
+  left: -10%;
   width: 100%;
 `
 
