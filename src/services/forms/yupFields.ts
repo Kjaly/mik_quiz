@@ -67,7 +67,7 @@ export const fields = {
   privacy: boolean()
     .required(errorsMessages.required)
     .oneOf([true], errorsMessages.required),
-  fileId: number(),
+  fileId: number().nullable(),
   file: mixed().when('parental_agreement_id', {
     is: (fileId: number) => {
       console.log(fileId);

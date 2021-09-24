@@ -47,17 +47,12 @@ export const Profile: React.FC = () => {
 
   const serverErrors = useSelector(getErrorsSelector);
   useEffect(() => {
-    console.log(user)
-    console.log(file)
     if (file) {
-      console.log(1)
       return setFileUrl(URL.createObjectURL(file))
     }
     if (user?.photo?.url) {
-      console.log(2)
       setFileUrl(user?.photo?.url)
     }
-
   }, [file, user])
 
   const handleImgUpload = (): void => {
@@ -90,7 +85,7 @@ export const Profile: React.FC = () => {
               password: null,
               password_confirmation: null,
               parental_agreement: null,
-              parental_agreement_id: user?.parental_agreement_id ? user?.parental_agreement_id : '',
+              parental_agreement_id: user?.parental_agreement_id ? user?.parental_agreement_id : null,
               photo: null,
             }}
             mutators={{setError}}
@@ -107,6 +102,7 @@ export const Profile: React.FC = () => {
                   },
                   form.mutators.setError,
                 );
+                console.log(errors)
                 if (!errors) {
                   handleSubmit();
                 }
@@ -219,7 +215,8 @@ export const Profile: React.FC = () => {
                         completed={!!user.parental_agreement_id}
                         errors={serverErrors}
                       />
-                      {!user.parental_agreement_id && <Link to="/files/privacy.pdf" target="_blank" download>Скачать бланк соглашения</Link>}
+                      {!user.parental_agreement_id &&
+                      <Link to="/files/privacy.pdf" target="_blank" download>Скачать бланк соглашения</Link>}
                     </StyledPolicyField>
                   </StyledProfileForm>
                   <hr/>
@@ -236,7 +233,7 @@ export const Profile: React.FC = () => {
                       (
                         <StyledVerifiedEmail>
                           Почта не подтвеждена.
-                          <span onClick={() => submitHandler(values)}>Подтвердить</span>
+                          <span onClick={() => submitHandler(values,)}>Подтвердить</span>
                         </StyledVerifiedEmail>
                       )}
                     </StyledEmailField>

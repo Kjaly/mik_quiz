@@ -12,7 +12,6 @@ import { TitleBanner } from '../../components/TitleBanner';
 import titleBackground from '../../assets/images/about/titleBackground.png'
 import { ContentWrapper } from "../../components/ContentWrapper";
 import { QuizSection } from "../../components/QuizSection";
-import { constants } from '../../contsants'
 import { IconArrowRight } from "../../Icons";
 import { QuizTextSection } from '../../components/QuizTextSection';
 import dayjs from "dayjs";
@@ -32,9 +31,7 @@ export const Quiz: React.FC = () => {
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [currentDate, setCurrentDate] = useState(dayjs().unix());
   const startDate = dayjs('2021-09-25T06:00:00.000Z').unix();
-  // const startDate = dayjs('2021-09-20T11:02:00.000Z').unix();
   const finishDate = dayjs('2021-09-25T18:00:00.000Z').unix();
-  // const finishDate = dayjs('2021-09-20T11:05:00.000Z').unix();
 
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
   const quiz = useSelector(getQuizSelector)
@@ -42,15 +39,17 @@ export const Quiz: React.FC = () => {
   const isEssay = currentPathname.includes('essay')
 
   useEffect(() => {
-      if (!quiz.id) {
-        dispatch(fetchQuizRequest())
-      }
+    setIsQuizStarted(!!localStorage.getItem('isQuizStarted'))
+    if (!!localStorage.getItem('isQuizStarted') && !quiz.id) {
+      dispatch(fetchQuizRequest())
     }
-    , [])
+  }, []);
 
   useEffect(() => {
-    setIsQuizStarted(!!localStorage.getItem('isQuizStarted'))
-  }, []);
+    if (!isQuizStarted && quiz.id) {
+      setIsQuizStarted(true)
+    }
+  }, [quiz]);
 
 
   const handleStartQuiz = () => {
@@ -67,12 +66,12 @@ export const Quiz: React.FC = () => {
         props: {text: 'Доступ для регистрации и участия в викторине закрыт'}
       }))
     }
-    localStorage.setItem('isQuizStarted', 'true')
-    setIsQuizStarted(true)
+    if (!quiz.id) {
+      dispatch(fetchQuizRequest())
+    }
   }
 
 
-  const {questions} = constants
   return (
     <StyledQuiz>
       <TitleBanner img={titleBackground}>Викторина
@@ -90,7 +89,7 @@ export const Quiz: React.FC = () => {
               <StyledQuizTimer isEssay={isEssay}>
                 <Timer startTime={quiz?.user_answer?.created_at}/>
               </StyledQuizTimer>
-              <QuizSection isEssay={isEssay} questions={quiz?.questions} id={quiz?.id} />
+              <QuizSection isEssay={isEssay} questions={quiz?.questions} id={quiz?.id}/>
             </StyledQuizWrapper>
           </>) : (
           <StyledEarlySection>

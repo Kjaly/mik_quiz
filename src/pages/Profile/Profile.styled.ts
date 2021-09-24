@@ -67,9 +67,10 @@ export const StyledVerifiedEmail = styled.div<{ completed?: boolean }>`
     color: ${({theme}) => theme.color.blue};
     transition: all .2s ease-in-out;
     display: block;
+    opacity: 0.75;
 
     &:hover {
-      transform: scale(1.05);
+      opacity: 1;
     }
   }
 `

@@ -37,15 +37,21 @@ function* fetchQuizSaga() {
           quiz: response.data.data
         })
       );
+
+      localStorage.setItem('isQuizStarted', 'true')
     }
   } catch (e: any) {
-    yield put(modalsActions.openModalAction({
-      name: 'quizAlertModal',
-      props: {
-        text: e.response.data.message,
-        isEnded: true,
-      }
-    }))
+    if (e.response.status === 401) {
+      yield put(modalsActions.openModalAction({name: 'authModal'}))
+    } else {
+      yield put(modalsActions.openModalAction({
+        name: 'quizAlertModal',
+        props: {
+          text: e.response.data.message,
+          isEnded: true,
+        }
+      }))
+    }
   }
 }
 
