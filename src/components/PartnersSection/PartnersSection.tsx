@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyledLeftBlock,
   StyledPartnersNavigation,
@@ -10,45 +10,26 @@ import { Title } from '../Typography/Title';
 import { PartnerCard } from './PartnerCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SwiperNavigationButton } from '../SwiperNavigationButton';
-import {
-  IconKonb,
-  IconKopo,
-  IconOsig,
-  IconMoko,
-  IconKOopo,
-  IconRvio
-} from '../../Icons';
 import { theme } from "../../theme";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPartnersRequest } from "../../store/partners/actions";
+import { getPartnersSelector } from "../../store/partners/selectors";
 
 
 export const PartnersSection: React.FC = () => {
 
-  const partners = [
-    {
-      name: 'МОКО',
-      icon: IconMoko
-    },
-    {
-      name: 'РВИО',
-      icon: IconRvio
-    },
-    {
-      name: 'КООПО',
-      icon: IconKOopo
-    },
-    {
-      name: 'ОСИГ',
-      icon: IconOsig
-    },
-    {
-      name: 'КОПО',
-      icon: IconKopo
-    },
-    {
-      name: 'КОНБ',
-      icon: IconKonb
+
+  const dispatch = useDispatch()
+  const fetchPartners = () => {
+    dispatch(fetchPartnersRequest())
+  }
+  const partners = useSelector(getPartnersSelector);
+
+  useEffect(() => {
+    if (!partners.length) {
+    fetchPartners()
     }
-  ]
+  }, [])
 
   return (
     <StyledPartnersWrapper>
@@ -69,8 +50,8 @@ export const PartnersSection: React.FC = () => {
             breakpoints={{
               768: {
                 slidesPerView: 3,
-                slidesPerColumn:2,
-                spaceBetween:30
+                slidesPerColumn: 2,
+                spaceBetween: 30
               },
             }}
             slidesPerView={2}
@@ -81,7 +62,7 @@ export const PartnersSection: React.FC = () => {
             {partners.map((item, key) => {
               return (
                 <SwiperSlide key={key}>
-                  <PartnerCard  icon={item.icon}/>
+                  <PartnerCard img={item.photo.url} name={item.name}/>
                 </SwiperSlide>
               )
             })}

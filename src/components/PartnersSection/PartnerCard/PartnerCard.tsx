@@ -3,19 +3,16 @@ import { StyledPartnerCard } from './PartnerCard.styled';
 
 
 interface IPartnerCardProps {
-  icon?: React.ElementType;
-
-
+  img: string;
+  name: string;
 }
 
 export const PartnerCard: React.FC<IPartnerCardProps> = (props) => {
-  const {icon} = props
-
-  const Icon = icon;
+  const {img, name} = props
 
   return (
     <StyledPartnerCard>
-      {Icon && <Icon/>}
+      <img src={img} alt={name}/>
     </StyledPartnerCard>
   );
 };

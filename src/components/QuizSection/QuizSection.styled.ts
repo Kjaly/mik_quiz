@@ -93,6 +93,19 @@ export const StyledQuizQuestion = styled.div`
     background: ${({theme}) => theme.color.darkgray};
     opacity: 0.2;
   }
+
+  > p > img {
+    max-height: 300px;
+    max-width: 300px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  ${device.mobileXL} {
+    > p > img {
+      width: inherit;
+    }
+  }
 `
 export const StyledQuizAnswers = styled.div`
   display: grid;
@@ -137,6 +150,6 @@ export const StyledDecorativeWrapper = styled.div<{ lineId?: number }>`
     left: ${({lineId}) => lineId === 2 ? '90%' : '-40%'};
     top: ${({lineId}) => lineId === 2 ? '20%' : '100%'};
     z-index: 0;
-    transform:${({lineId}) => lineId === 2 ? 'rotate(45deg) scale(1, -1) translate(-185px, 120px)' : 'rotate(-45deg) scale(-1, -1) translate(-115px, 50px)'} ;
+    transform: ${({lineId}) => lineId === 2 ? 'rotate(45deg) scale(1, -1) translate(-185px, 120px)' : 'rotate(-45deg) scale(-1, -1) translate(-115px, 50px)'};
   }
 `

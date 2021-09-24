@@ -219,7 +219,7 @@ export const Profile: React.FC = () => {
                         completed={!!user.parental_agreement_id}
                         errors={serverErrors}
                       />
-                      <Link to="/files/privacy.pdf" target="_blank" download>Скачать</Link>
+                      {!user.parental_agreement_id && <Link to="/files/privacy.pdf" target="_blank" download>Скачать бланк соглашения</Link>}
                     </StyledPolicyField>
                   </StyledProfileForm>
                   <hr/>

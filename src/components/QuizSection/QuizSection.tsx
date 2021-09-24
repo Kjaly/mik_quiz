@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyledBulletItem, StyledButton,
+  StyledBulletItem,
+  StyledButton,
   StyledButtonBlock,
+  StyledDecorativeWrapper,
   StyledQuizAnswers,
   StyledQuizBlock,
   StyledQuizBullets,
   StyledQuizHeaderSection,
   StyledQuizMainSection,
   StyledQuizQuestion,
-  StyledDecorativeWrapper,
   StyledQuizTitle,
-  StyledTextarea,
-  StyledQuizWrapper
+  StyledQuizWrapper,
+  StyledTextarea
 } from "./QuizSection.styled";
 import { Title } from "../Typography/Title";
 import { theme } from "../../theme";
@@ -35,16 +36,21 @@ interface IQuizSectionProps {
   id: number | null;
 }
 
+interface IAnswer {
+  question_id: number,
+  answer: Array<number>
+}
+
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   const {questions, isEssay, id} = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
 
   const [activeQuestion, setActiveQuestion] = useState(0);
+  const [answers, setAnswers] = useState<Array<IAnswer>>([]);
   const [swiper, setSwiper] = useState<any>()
   const [step, setStep] = useState(0);
   const [maxEnabled, setMaxEnabled] = useState(0);
   const dispatch = useDispatch()
-
 
   const isLastQuestion = questions && activeQuestion === questions?.length - 1;
 
@@ -61,16 +67,33 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
     }
   };
 
+
   useEffect(() => {
     if (isEssay) {
       setStep(1)
     }
   }, [isEssay]);
 
+  const handleAnswersSet = (value: number, queistionId: number): void => {
+    setAnswers([...answers, {question_id: queistionId, answer: [value]}])
+  }
+
 
   useEffect(() => {
-    if (swiper) {
-      swiper.slideTo(activeQuestion)
+    setAnswers(JSON.parse(localStorage.getItem("answers") || "[]"))
+
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("answers", JSON.stringify(answers));
+    if (answers.length) {
+      setActiveQuestion(answers.length)
+    }
+  }, [answers]);
+
+  useEffect(() => {
+    if (swiper && !isEssay) {
+      swiper?.slideTo(activeQuestion)
     }
     if (activeQuestion > maxEnabled) {
       setMaxEnabled(activeQuestion)
@@ -81,18 +104,9 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
     if (id) {
 
       // eslint-disable-next-line prefer-const
-      let {essay, ...currentValues} = values;
-      console.log(currentValues)
-      currentValues = Object.values(values).map((item, key) => (
-        {
-          question_id: key + 1,
-          answer: [
-            item,
-          ]
-        }
-      ))
-      console.log(currentValues)
-      dispatch(submitQuizRequest({id, answers: currentValues, essay}))
+      const {essay} = values;
+      const answers = JSON.parse(localStorage.getItem("answers") || "[]");
+      dispatch(submitQuizRequest({id, answers, essay}))
     }
 
   }
@@ -135,16 +149,18 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                   </StyledQuizHeaderSection>
                   <StyledQuizMainSection>
                     <Swiper
+
+                      autoHeight={true}
                       onSwiper={setSwiper}
-                      onSlideChange={(swiper) => setActiveQuestion(swiper.activeIndex)}
+                      onSlideChange={(swiper) => setActiveQuestion(swiper?.activeIndex)}
                       allowTouchMove={false}
                     >
                       {questions?.map((item) => {
                         return (
                           <SwiperSlide key={item.id}>
-                            <StyledQuizQuestion>
-                              {item.question}
-                            </StyledQuizQuestion>
+                            <StyledQuizQuestion dangerouslySetInnerHTML={{__html: item.question}}/>
+                            {/*<StyledQuizQuestion >{item.question}</StyledQuizQuestion>*/}
+
                             <StyledQuizAnswers>
                               {item.options.map((answer, key) => {
                                 return <QuizSectionItem
@@ -177,6 +193,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                                   disabled={!values[`quest_${item.id}`]}
                                   color={'#fff'}
                                   onClick={() => {
+                                    handleAnswersSet(values[`quest_${item.id}`], item.id)
                                     if (values[`quest_${item.id}`]) {
                                       handleNavigation({isPrev: false})
                                     }

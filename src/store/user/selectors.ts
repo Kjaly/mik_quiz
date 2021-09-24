@@ -9,6 +9,7 @@ const getUserId = (state: AppState) => state.user.id;
 
 const getErrors = (state: AppState) => state.user.errors;
 const getMessage = (state: AppState) => state.user.message;
+const getUserRole = (state: AppState) => state.user.message;
 
 export const getUserSelector = createSelector(getUser, (users) => users);
 
@@ -20,4 +21,5 @@ export const getPendingSelector = createSelector(
 export const getErrorsSelector = createSelector(getErrors, (error) => error);
 export const getMessageSelector = createSelector(getMessage, (message) => message);
 export const getUserIdSelector = createSelector(getUserId, (id) => id)
+export const getUserRoleSelector = createSelector(getUserRole, (Role) => Role)
 

@@ -23,5 +23,7 @@ export const StyledModalWrapper = styled.div<{ isShown?: boolean }>`
     transition: all .2s ease-in-out;
     opacity: ${({isShown}) => isShown ? 1 : 0};
     transform: translateY(${({isShown}) => isShown ? '0' : '200px'});
+    max-height:80%;
+    overflow: auto;
   }
 `

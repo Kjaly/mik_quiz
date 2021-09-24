@@ -8,7 +8,7 @@ import { Button } from '../Button';
 import { IconKey, IconLock } from '../../Icons';
 import { theme } from '../../theme';
 import { logoutUserRequest } from '../../store/user/actions';
-import { getUserIdSelector } from '../../store/user/selectors';
+import { getUserIdSelector, getUserRoleSelector } from '../../store/user/selectors';
 import { modalsActions } from '../../store/modals/actions';
 
 
@@ -24,6 +24,7 @@ interface INavigation {
   url: string;
   isAuth?: boolean
   isFooter?: boolean
+  isFinalist?: boolean
   onClick?: () => void;
 }
 
@@ -39,7 +40,8 @@ export const Nav: React.FC<INavProps> = (props) => {
   const {isOpen, mobileHidden, setIsOpen, isFooter} = props
   const currentLocation = useSelector(routerSelectors.getLocationPathName)
   const isAuth = useSelector(getUserIdSelector);
-
+  const role = useSelector(getUserRoleSelector)
+  const isFinalist = role === 'quiz_finalist'
   const dispatch = useDispatch()
   const handleLogout = (() => {
     dispatch(logoutUserRequest())
@@ -55,7 +57,7 @@ export const Nav: React.FC<INavProps> = (props) => {
 
   const authMobileNavigation: Array<INavigation> = [
     {text: 'Мой профиль', url: '/profile'},
-    {text: 'Мои публикации', url: '/publications'},
+    {text: 'Мои публикации', url: '/publications', isFinalist: true},
     {text: 'Выход', url: '', onClick: handleLogout},
   ]
 
@@ -79,7 +81,7 @@ export const Nav: React.FC<INavProps> = (props) => {
         <StyledNavTitle>
           Меню
         </StyledNavTitle>
-        {fullNavigation.map((item, key) => {
+        {fullNavigation.filter(item => isFinalist ? item : !item.isFinalist).map((item, key) => {
           return (
             <NavMobileItem
               onClick={item?.onClick}

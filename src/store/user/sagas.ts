@@ -53,7 +53,7 @@ const registrationUser = (payload: IUserRegistration): Promise<AxiosResponse<Aut
   });
 
 const loginUser = (payload: IUserLogin): Promise<AxiosResponse<AuthResponse>> =>
-  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/login?include=photo,parental_agreement`, {
+  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/login?include=roles,photo,parental_agreement`, {
     ...payload,
   });
 const checkAuth = (payload: IRefreshPayload): Promise<AxiosResponse<AuthResponse>> =>
@@ -73,7 +73,7 @@ const updateUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthRespo
   // @ts-ignore
   formData.append('_method', 'PATCH');
   return $api.post<AuthResponse>(
-    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement`,
+    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement&append=client_role`,
     formData,
     {
       headers: {
@@ -85,7 +85,7 @@ const updateUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthRespo
 
 const fetchUser = (): Promise<AxiosResponse<AuthResponse>> =>
   $api.get<AuthResponse>(
-    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement`,
+    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement&append=client_role`,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -339,6 +339,7 @@ function* logoutUserSaga() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('expires_in');
+      localStorage.removeItem('answers');
     }
   } catch (e: any) {
     console.warn('logout');

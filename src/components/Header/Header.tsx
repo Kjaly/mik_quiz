@@ -21,7 +21,7 @@ import { theme } from '../../theme';
 import { Link } from 'react-router-dom';
 import { modalsActions } from '../../store/modals/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserIdSelector } from '../../store/user/selectors';
+import { getUserIdSelector, getUserRoleSelector } from '../../store/user/selectors';
 import { logoutUserRequest } from '../../store/user/actions';
 
 
@@ -38,7 +38,7 @@ export const Header: React.FC<any> = () => {
   const handleAuth = () => {
     dispatch(modalsActions.openModalAction({name: 'authModal'}))
   }
-
+  const role = useSelector(getUserRoleSelector)
   const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
   const handleToggleMenu = () => {
@@ -94,11 +94,14 @@ export const Header: React.FC<any> = () => {
                         Мои профиль
                       </StyledAuthDropDownItem>
                     </Link>
-                    <Link to="/publications">
-                      <StyledAuthDropDownItem>
-                        Мои публикации
-                      </StyledAuthDropDownItem>
-                    </Link>
+                    {role === 'quiz_finalist' && (
+                      <Link to="/publications">
+                        <StyledAuthDropDownItem>
+                          Мои публикации
+                        </StyledAuthDropDownItem>
+                      </Link>
+                    )
+                    }
                     <StyledAuthDropDownItem onClick={logout}>
                       Выход
                     </StyledAuthDropDownItem>

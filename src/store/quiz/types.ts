@@ -16,28 +16,30 @@ export interface IQuiz {
 }
 
 export type IOption = {
-  id:number,
-  text:string,
+  id: number,
+  text: string,
 }
+
 export interface IQuestion {
   id: number,
-  quizz_id:number,
-  question:string,
+  quizz_id: number,
+  question: string,
   type: number,
-  options:Array<IOption>,
-  created_at:string,
-  updated_at:string,
+  options: Array<IOption>,
+  created_at: string,
+  updated_at: string,
   deleted_at: string | null
 }
+
 export interface IUserAnswer {
   id: number,
-  user_id:number,
-  quizz_id:number,
-  answer:string | null,
+  user_id: number,
+  quizz_id: number,
+  answer: string | null,
   correct_answers: number,
-  completed_at:string,
-  created_at:string,
-  updated_at:string,
+  completed_at: string,
+  created_at: string,
+  updated_at: string,
   deleted_at: string | null
 }
 
@@ -45,12 +47,12 @@ export interface QuizState {
   pending: boolean;
   errors: string | null;
   message: string | null;
-  id:number | null,
-  name:string,
-  created_at:string,
-  deleted_at:string,
-  questions:Array<IQuestion> | null,
-  user_answer:IUserAnswer | null,
+  id: number | null,
+  name: string,
+  created_at: string,
+  deleted_at: string,
+  questions: Array<IQuestion> | null,
+  user_answer: IUserAnswer | null,
 }
 
 export interface FetchQuizSuccessPayload {
@@ -62,7 +64,7 @@ export interface FetchQuizFailurePayload {
 }
 
 export interface SubmitQuizRequestPayload {
-  id:number
+  id: number
   answers: Array<any>,
   essay: string,
 }
@@ -70,7 +72,9 @@ export interface SubmitQuizRequestPayload {
 export interface FetchQuizSuccessPayload {
   quiz: IQuiz;
 
-}export interface SubmitQuizSuccessPayload {
+}
+
+export interface SubmitQuizSuccessPayload {
   quiz: IQuiz;
 }
 
@@ -94,19 +98,18 @@ export type FetchQuizFailure = {
 
 export interface SubmitQuizRequest {
   type: typeof SUBMIT_QUIZ_REQUEST;
-  payload:SubmitQuizRequestPayload
+  payload: SubmitQuizRequestPayload
 }
 
 export type SubmitQuizSuccess = {
   type: typeof SUBMIT_QUIZ_SUCCESS;
-  payload:SubmitQuizSuccessPayload
+  payload: SubmitQuizSuccessPayload
 };
 
 export type SubmitQuizFailure = {
   type: typeof SUBMIT_QUIZ_FAILURE;
   payload: SubmitQuizFailurePayload;
 };
-
 
 
 export type QuizActions =
