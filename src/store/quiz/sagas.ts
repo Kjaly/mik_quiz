@@ -5,9 +5,10 @@ import { fetchQuizFailure, fetchQuizSuccess, } from './actions';
 import { FETCH_QUIZ_REQUEST, SUBMIT_QUIZ_REQUEST, } from './actionTypes';
 import $api from '../../http';
 import { QuizResponse } from "../../models/response/QuizResponse";
-import { SubmitQuizRequest, SubmitQuizRequestPayload } from "./types";
+import { SubmitQuizRequestPayload } from "./types";
 import { Action } from "redux-actions";
 import { history } from '../index'
+import { modalsActions } from "../modals/actions";
 
 
 const fetchQuiz = (): Promise<AxiosResponse<QuizResponse>> =>
@@ -19,7 +20,7 @@ const fetchQuiz = (): Promise<AxiosResponse<QuizResponse>> =>
   });
 
 const submitQuiz = (payload: SubmitQuizRequestPayload): Promise<AxiosResponse<QuizResponse>> =>
-  $api.post<QuizResponse>(`${process.env.REACT_APP_API_URL}/quizes/${payload.id}/submit`, {
+  $api.post<QuizResponse>(`${process.env.REACT_APP_API_URL}/quizzes/${payload.id}/submit`, {
     answers: payload.answers,
     essay: payload.essay,
   });
@@ -37,18 +38,20 @@ function* fetchQuizSaga() {
         })
       );
     }
-
   } catch (e: any) {
-    yield put(
-      fetchQuizFailure({
-        errors: e.response.data.errors,
-      })
-    );
+    yield put(modalsActions.openModalAction({
+      name: 'quizAlertModal',
+      props: {
+        text: e.response.data.message,
+        isEnded: true,
+      }
+    }))
   }
 }
 
-function* submitQuizSaga(action: Action<SubmitQuizRequest>) {
+function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
   try {
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const response = yield call(submitQuiz, action.payload);
@@ -57,6 +60,18 @@ function* submitQuizSaga(action: Action<SubmitQuizRequest>) {
         quiz: response.data.data,
       })
     );
+    localStorage.removeItem('isQuizStarted')
+    localStorage.removeItem('answers')
+
+    yield put(modalsActions.openModalAction({
+      name: 'quizAlertModal',
+      props: {
+        text: response.data.message,
+        isEnded: true,
+        customText: true,
+      }
+    }))
+
 
     history.push('/')
   } catch (e: any) {

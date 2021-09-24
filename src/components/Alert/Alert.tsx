@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { StyledAlert } from './Alert.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { alertSelectors } from '../../store/alerts/selectors';
-import { alertsActions, closeAlertAction } from '../../store/alerts/actions';
+import { alertsActions } from '../../store/alerts/actions';
+
 
 export const Alert: React.FC = () => {
+  const props = useSelector(alertSelectors.getAlertProps)
   const dispatch = useDispatch()
   const [isShown, setIsShown] = useState(false);
-
   const alertText = useSelector(alertSelectors.getAlertText)
   useEffect(() => {
     if (alertText) {
@@ -34,7 +35,7 @@ export const Alert: React.FC = () => {
 
   if (!alertText) return null
   return (
-    <StyledAlert isShown={isShown}>
+    <StyledAlert type={props?.type} isShown={isShown}>
       {alertText}
     </StyledAlert>
   );

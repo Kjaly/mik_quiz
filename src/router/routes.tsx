@@ -13,6 +13,7 @@ export const ROUTES = [
   {
     path: '/publications',
     key: 'PUBLICATIONS',
+    finalist:true,
     auth: true,
     component: RenderRoutes,
     routes: [
