@@ -140,7 +140,7 @@ export default (state = initialState, action: UserActions): any => {
       };
     case LOGOUT_USER_SUCCESS:
       return {
-        initialState,
+        ...initialState,
       };
     case REMOVE_USER_ERRORS:
       return {

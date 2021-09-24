@@ -32,6 +32,7 @@ export const Quiz: React.FC = () => {
   const startDate = dayjs('2021-09-25T06:00:00.000Z').unix();
   const finishDate = dayjs('2021-09-25T18:00:00.000Z').unix();
 
+
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
   const quiz = useSelector(getQuizSelector)
 
@@ -52,6 +53,7 @@ export const Quiz: React.FC = () => {
 
 
   const handleStartQuiz = () => {
+
     const isTestPage = currentPathname.includes('/test')
     if (dayjs().unix() < startDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
@@ -62,7 +64,7 @@ export const Quiz: React.FC = () => {
     if (dayjs().unix() > finishDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
-        props: {text: 'Доступ для регистрации и участия в викторине закрыт'}
+        props: {text: 'Время прохождения Викторины истекло!'}
       }))
     }
     if (!quiz.id) {
@@ -86,7 +88,7 @@ export const Quiz: React.FC = () => {
           <>
             <StyledQuizWrapper>
               <StyledQuizTimer isEssay={isEssay}>
-                <Timer startTime={quiz?.user_answer?.created_at}/>
+                <Timer startTime={quiz?.user_answer?.created_at} />
               </StyledQuizTimer>
               <QuizSection isEssay={isEssay} questions={quiz?.questions} id={quiz?.id}/>
             </StyledQuizWrapper>

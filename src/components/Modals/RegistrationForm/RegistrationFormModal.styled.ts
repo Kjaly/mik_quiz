@@ -65,5 +65,11 @@ export const StyledButtonBlock = styled.div`
   }
   ${device.tablet} {
     flex-direction: row;
+    >div {
+      width: initial;
+    }
+    >div:last-child {
+      margin-bottom: 0;
+    }
   }
 `

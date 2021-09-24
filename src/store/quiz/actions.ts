@@ -36,16 +36,13 @@ export const fetchQuizFailure = (
   payload,
 });
 
-export const submitQuizRequest = (payload:SubmitQuizRequestPayload): SubmitQuizRequest => ({
+export const submitQuizRequest = (payload: SubmitQuizRequestPayload): SubmitQuizRequest => ({
   type: SUBMIT_QUIZ_REQUEST,
   payload,
 });
 
-export const submitQuizSuccess = (
-  payload: SubmitQuizSuccessPayload
-): SubmitQuizSuccess => ({
+export const submitQuizSuccess = (): SubmitQuizSuccess => ({
   type: SUBMIT_QUIZ_SUCCESS,
-  payload,
 });
 
 export const submitQuizFailure = (

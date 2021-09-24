@@ -1,6 +1,7 @@
-import { FETCH_QUIZ_FAILURE, FETCH_QUIZ_REQUEST, FETCH_QUIZ_SUCCESS, } from './actionTypes';
+import { FETCH_QUIZ_FAILURE, FETCH_QUIZ_REQUEST, FETCH_QUIZ_SUCCESS, SUBMIT_QUIZ_SUCCESS, } from './actionTypes';
 
 import { QuizActions, QuizState } from './types';
+import { LOGOUT_USER_SUCCESS } from "../user/actionTypes";
 
 const initialState: QuizState = {
   pending: false,
@@ -35,6 +36,14 @@ export default (state = initialState, action: QuizActions): any => {
         pending: false,
         quiz: null,
         errors: action.payload.errors,
+      };
+      case LOGOUT_USER_SUCCESS:
+      return {
+       ...initialState
+      };
+    case SUBMIT_QUIZ_SUCCESS:
+      return {
+        ...initialState
       };
     default:
       return {

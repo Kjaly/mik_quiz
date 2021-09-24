@@ -9,6 +9,7 @@ interface IInputTextProps {
   value: string;
   autoComplete: string;
   uploadText: string;
+  setError: (value: string) => void;
 }
 
 type IFormFinalInputTextProps = IInputTextProps &
@@ -22,6 +23,7 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
     meta,
     accept,
     completed,
+    setError,
   } = props
 
   const {onChange, name, value} = input;
@@ -39,6 +41,8 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
         type={'file'}
         accept={accept}
         onChange={(e: any) => {
+          console.log(1);
+          setError('')
           onChange(e.target.files[0])
         }}
         name={name}
