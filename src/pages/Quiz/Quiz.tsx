@@ -29,7 +29,6 @@ export const Quiz: React.FC = () => {
 
   const dispatch = useDispatch()
   const [isQuizStarted, setIsQuizStarted] = useState(false);
-  const [currentDate, setCurrentDate] = useState(dayjs().unix());
   const startDate = dayjs('2021-09-25T06:00:00.000Z').unix();
   const finishDate = dayjs('2021-09-25T18:00:00.000Z').unix();
 
