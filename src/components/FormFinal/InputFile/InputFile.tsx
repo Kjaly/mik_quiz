@@ -20,6 +20,7 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
     placeholder,
     uploadText,
     meta,
+    accept,
     completed,
   } = props
 
@@ -36,6 +37,7 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
         ref={inputFile}
         error={error}
         type={'file'}
+        accept={accept}
         onChange={(e: any) => {
           onChange(e.target.files[0])
         }}

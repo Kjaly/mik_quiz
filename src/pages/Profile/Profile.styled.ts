@@ -85,7 +85,6 @@ export const StyledImgWrapper = styled.div`
     flex-basis: 45%;
     height: 200px;
     align-self: flex-start;
-
   }
 
   ${device.desktop} {
@@ -93,6 +92,7 @@ export const StyledImgWrapper = styled.div`
   }
 
 `
+
 export const StyledProfileForm = styled.div`
   > div {
     margin-bottom: 20px;

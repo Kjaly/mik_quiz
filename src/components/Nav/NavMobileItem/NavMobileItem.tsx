@@ -17,7 +17,6 @@ export const NavMobileItem: React.FC<INavMobileItemProps> = (props) => {
   const {text, url, isActive, setIsOpen, onClick} = props
 
   const handleClick = () => {
-    console.log(onClick)
     if (onClick) {
       onClick()
     }

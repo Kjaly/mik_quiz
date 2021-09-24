@@ -30,4 +30,10 @@ export const StyledProfileImg = styled.img`
   height: 100%;
   object-fit: cover;
 `
+export const StyledError = styled.div`
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  width: 100%;
+`
 

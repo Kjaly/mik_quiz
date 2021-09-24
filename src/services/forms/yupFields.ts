@@ -70,7 +70,6 @@ export const fields = {
   fileId: number().nullable(),
   file: mixed().when('parental_agreement_id', {
     is: (fileId: number) => {
-      console.log(fileId);
       return !fileId
     }, then: mixed().required(errorsMessages.required)
   }),

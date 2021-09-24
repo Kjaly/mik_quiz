@@ -36,6 +36,7 @@ export const Profile: React.FC = () => {
   const inputFile = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState('');
+  const [imgError, setImgError] = useState('');
   const user = useSelector(getUserSelector);
 
   const dispatch = useDispatch()
@@ -45,9 +46,10 @@ export const Profile: React.FC = () => {
   }
 
 
-  const serverErrors = useSelector(getErrorsSelector);
+  const serverErrors: any = useSelector(getErrorsSelector);
   useEffect(() => {
     if (file) {
+      console.log(2);
       return setFileUrl(URL.createObjectURL(file))
     }
     if (user?.photo?.url) {
@@ -58,15 +60,22 @@ export const Profile: React.FC = () => {
   const handleImgUpload = (): void => {
     inputFile?.current?.click();
   }
+  useEffect(() => {
+   if (serverErrors?.photo[0]) {
+     console.log(1);
+     console.log(serverErrors?.photo[0],'test')
+     setImgError(serverErrors?.photo[0])
+   }
+  }, [serverErrors]);
 
-
+  console.log(imgError,'imgerror')
   return (
     <StyledProfileWrapper>
       <TitleBanner>Мой профиль</TitleBanner>
       <ContentWrapper>
         <StyledProfile>
           <StyledImgWrapper>
-            <ProfileImg src={fileUrl}/>
+            <ProfileImg src={fileUrl} error={imgError}/>
             <StyledIcon onClick={handleImgUpload}>
               <IconPen/>
             </StyledIcon>
@@ -94,7 +103,6 @@ export const Profile: React.FC = () => {
               const {values, form, handleSubmit} = renderProps;
 
               const handleValidate = async (): Promise<void> => {
-                console.log(values);
                 const errors = await asyncValidate(
                   values,
                   {
@@ -102,7 +110,6 @@ export const Profile: React.FC = () => {
                   },
                   form.mutators.setError,
                 );
-                console.log(errors)
                 if (!errors) {
                   handleSubmit();
                 }
@@ -127,9 +134,11 @@ export const Profile: React.FC = () => {
                             ref={inputFile}
                             type="file"
                             name={name}
+                            accept="image/jpeg,image/jpg,image/png"
                             onChange={({target}) => {
                               if (target?.files && target?.files?.length > 0) {
                                 setFile(target.files[0])
+                                setImgError('');
                                 onChange(target.files[0])
                               }
                             }
@@ -211,6 +220,7 @@ export const Profile: React.FC = () => {
                         name="parental_agreement"
                         component={InputFile}
                         placeholder="Соглашение"
+                        accept={"image/jpeg,image/jpg,image/png, application/pdf"}
                         uploadText={'Соглашение выбрано'}
                         completed={!!user.parental_agreement_id}
                         errors={serverErrors}

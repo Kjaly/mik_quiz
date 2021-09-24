@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { device } from "../../../theme/devices";
 
 export const StyledRegistrationFormModal = styled.div`
   max-width: 560px;
   max-height: 775px;
   overflow: auto;
-  height:auto;
+  height: auto;
   width: 100%;
   background-color: #fff;
   padding: 30px;
@@ -54,4 +55,15 @@ export const StyledButtonBlock = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column-reverse;
+
+  >div:last-child {
+    margin-bottom: 20px;
+  }
+  >div {
+    width: 100%;
+  }
+  ${device.tablet} {
+    flex-direction: row;
+  }
 `
