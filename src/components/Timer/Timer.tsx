@@ -30,8 +30,6 @@ export const Timer: React.FC<ITimerProps> = (props) => {
 
 
   useEffect(() => {
-    console.log(seconds);
-    console.log(thirtyMinutes);
 
     if (seconds === thirtyMinutes) {
       dispatch(

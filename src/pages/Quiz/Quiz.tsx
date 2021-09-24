@@ -8,7 +8,6 @@ import {
   StyledTitleDescription
 } from './Quiz.styled';
 import { TitleBanner } from '../../components/TitleBanner';
-import utc from 'dayjs/plugin/utc';
 
 import titleBackground from '../../assets/images/about/titleBackground.png'
 import { ContentWrapper } from "../../components/ContentWrapper";
@@ -27,12 +26,12 @@ import { getQuizSelector } from "../../store/quiz/selectors";
 
 
 export const Quiz: React.FC = () => {
-  dayjs.extend(utc);
 
   const dispatch = useDispatch()
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const startDate = dayjs('2021-09-25T06:00:00.000Z').unix();
   const finishDate = dayjs('2021-09-25T18:00:00.000Z').unix();
+
 
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
   const quiz = useSelector(getQuizSelector)
@@ -54,9 +53,7 @@ export const Quiz: React.FC = () => {
 
 
   const handleStartQuiz = () => {
-    console.log(finishDate);
-    console.log(dayjs().unix())
-    console.log(dayjs().unix() > finishDate)
+
     const isTestPage = currentPathname.includes('/test')
     if (dayjs().unix() < startDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
@@ -70,7 +67,6 @@ export const Quiz: React.FC = () => {
         props: {text: 'Время прохождения Викторины истекло!'}
       }))
     }
-    console.log('nice')
     if (!quiz.id) {
       dispatch(fetchQuizRequest())
     }
@@ -92,7 +88,7 @@ export const Quiz: React.FC = () => {
           <>
             <StyledQuizWrapper>
               <StyledQuizTimer isEssay={isEssay}>
-                <Timer startTime={quiz?.user_answer?.created_at}/>
+                <Timer startTime={quiz?.user_answer?.created_at} />
               </StyledQuizTimer>
               <QuizSection isEssay={isEssay} questions={quiz?.questions} id={quiz?.id}/>
             </StyledQuizWrapper>

@@ -67,7 +67,7 @@ export interface FetchQuizFailurePayload {
 export interface SubmitQuizRequestPayload {
   id: number
   answers: Array<any>,
-  essay: string,
+  essay?: string,
 }
 
 export interface FetchQuizSuccessPayload {

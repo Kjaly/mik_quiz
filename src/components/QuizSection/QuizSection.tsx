@@ -74,8 +74,8 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
     }
   }, [isEssay]);
 
-  const handleAnswersSet = (value: number, queistionId: number): void => {
-    setAnswers([...answers, {question_id: queistionId, answer: [value]}])
+  const handleAnswersSet = (value: number, questionId: number, ): void => {
+    setAnswers([...answers, {question_id: questionId, answer: [value]}])
   }
 
 
@@ -102,13 +102,18 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
 
   const submitHandler = (values: any) => {
     if (id) {
-
       // eslint-disable-next-line prefer-const
       const {essay} = values;
-      const answers = JSON.parse(localStorage.getItem("answers") || "[]");
-      dispatch(submitQuizRequest({id, answers, essay}))
+      console.log(answers)
+      const currentAnswers = JSON.parse(localStorage.getItem("answers") || "[]");
+      console.log(currentAnswers)
+      console.log(essay)
+      let data = {id, answers}
+      if (essay) {
+        data = Object?.assign(data, {essay})
+      }
+      dispatch(submitQuizRequest({...data}))
     }
-
   }
 
   return (
@@ -194,6 +199,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                                   color={'#fff'}
                                   onClick={() => {
                                     handleAnswersSet(values[`quest_${item.id}`], item.id)
+                                    submitHandler(values)
                                     if (values[`quest_${item.id}`]) {
                                       handleNavigation({isPrev: false})
                                     }

@@ -4,11 +4,11 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { fetchQuizFailure, fetchQuizSuccess, submitQuizSuccess, } from './actions';
 import { FETCH_QUIZ_REQUEST, SUBMIT_QUIZ_REQUEST, } from './actionTypes';
 import $api from '../../http';
-import { QuizResponse } from "../../models/response/QuizResponse";
-import { SubmitQuizRequestPayload } from "./types";
-import { Action } from "redux-actions";
+import { QuizResponse } from '../../models/response/QuizResponse';
+import { SubmitQuizRequestPayload } from './types';
+import { Action } from 'redux-actions';
 import { history } from '../index'
-import { modalsActions } from "../modals/actions";
+import { modalsActions } from '../modals/actions';
 
 
 const fetchQuiz = (): Promise<AxiosResponse<QuizResponse>> =>
@@ -60,24 +60,28 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(submitQuiz, action.payload);
-    yield put(
-      submitQuizSuccess()
-    );
-    localStorage.removeItem('isQuizStarted')
-    localStorage.removeItem('answers')
+    const response = yield call(submitQuiz, action.payload)
+    console.log(response)
+    if (response?.data?.is_completed) {
 
-    yield put(modalsActions.openModalAction({
-      name: 'quizAlertModal',
-      props: {
-        text: response.data.message,
-        isEnded: true,
-        customText: true,
-      }
-    }))
+      yield put(
+        submitQuizSuccess()
+      );
 
+      localStorage.removeItem('isQuizStarted')
+      localStorage.removeItem('answers')
 
-    history.push('/')
+      yield put(modalsActions.openModalAction({
+        name: 'quizAlertModal',
+        props: {
+          text: response.data.message,
+          isEnded: true,
+          customText: true,
+        }
+      }))
+      history.push('/')
+    }
+
   } catch (e: any) {
     yield put(
       fetchQuizFailure({
