@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { fetchQuizFailure, fetchQuizSuccess, } from './actions';
+import { fetchQuizFailure, fetchQuizSuccess, submitQuizSuccess, } from './actions';
 import { FETCH_QUIZ_REQUEST, SUBMIT_QUIZ_REQUEST, } from './actionTypes';
 import $api from '../../http';
 import { QuizResponse } from "../../models/response/QuizResponse";
@@ -62,9 +62,7 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
     // @ts-ignore
     const response = yield call(submitQuiz, action.payload);
     yield put(
-      fetchQuizSuccess({
-        quiz: response.data.data,
-      })
+      submitQuizSuccess()
     );
     localStorage.removeItem('isQuizStarted')
     localStorage.removeItem('answers')

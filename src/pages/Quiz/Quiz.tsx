@@ -8,6 +8,7 @@ import {
   StyledTitleDescription
 } from './Quiz.styled';
 import { TitleBanner } from '../../components/TitleBanner';
+import utc from 'dayjs/plugin/utc';
 
 import titleBackground from '../../assets/images/about/titleBackground.png'
 import { ContentWrapper } from "../../components/ContentWrapper";
@@ -26,6 +27,7 @@ import { getQuizSelector } from "../../store/quiz/selectors";
 
 
 export const Quiz: React.FC = () => {
+  dayjs.extend(utc);
 
   const dispatch = useDispatch()
   const [isQuizStarted, setIsQuizStarted] = useState(false);
@@ -50,7 +52,9 @@ export const Quiz: React.FC = () => {
     }
   }, [quiz]);
 
-
+  console.log(dayjs().unix());
+  console.log(dayjs.utc(), 'test');
+  console.log(1)
   const handleStartQuiz = () => {
     const isTestPage = currentPathname.includes('/test')
     if (dayjs().unix() < startDate && !isTestPage) {
@@ -62,7 +66,7 @@ export const Quiz: React.FC = () => {
     if (dayjs().unix() > finishDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
-        props: {text: 'Доступ для регистрации и участия в викторине закрыт'}
+        props: {text: 'Время прохождения Викторины истекло!'}
       }))
     }
     if (!quiz.id) {

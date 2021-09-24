@@ -1,3 +1,4 @@
+import { LogoutUserSuccess } from "../user/types";
 import {
   FETCH_QUIZ_FAILURE,
   FETCH_QUIZ_REQUEST,
@@ -103,7 +104,6 @@ export interface SubmitQuizRequest {
 
 export type SubmitQuizSuccess = {
   type: typeof SUBMIT_QUIZ_SUCCESS;
-  payload: SubmitQuizSuccessPayload
 };
 
 export type SubmitQuizFailure = {
@@ -119,4 +119,4 @@ export type QuizActions =
   | SubmitQuizRequest
   | SubmitQuizSuccess
   | SubmitQuizFailure
-  
+  | LogoutUserSuccess
