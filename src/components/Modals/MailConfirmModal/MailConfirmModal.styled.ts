@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from "../../../theme/devices";
 
 export const StyledMailConfirmModal = styled.div`
   background-color: #fff;
@@ -28,6 +29,11 @@ export const StyledCloseIcon = styled.div`
 
 export const StyledMailConfirmTitle = styled.div`
   margin-right: 2em;
+  font-size: 20px;
+
+  ${device.tablet} {
+    font-size: 30px;
+  }
 `
 export const StyledHeader = styled.div`
 
@@ -45,9 +51,21 @@ export const StyledDescription = styled.div`
   align-items: flex-start;
 `
 export const StyledIcon = styled.div`
+  display: none;
   width: 48px;
   height: 36px;
   margin-right: 20px;
+
+  ${device.tablet} {
+    display: block
+  }
+`
+export const StyledMobileIcon = styled(StyledIcon)`
+  display: block;
+
+  ${device.tablet} {
+    display: none
+  }
 `
 export const StyledButton = styled.div`
   max-width: 140px;

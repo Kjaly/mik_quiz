@@ -9,6 +9,7 @@ import {
   StyledMailConfirmTitle,
   StyledDescription,
   StyledButton,
+  StyledMobileIcon,
 } from './MailConfirmModal.styled'
 import { TModalProps } from '../../../store/modals/types';
 import { IconCross, IconMail } from '../../../Icons';
@@ -29,6 +30,11 @@ export const MailConfirmModal: React.FC<TModalProps> = (props) => {
     <ModalTemplate>
       <StyledMailConfirmModal>
         <StyledHeader>
+          {!noMail && (
+            <StyledMobileIcon>
+              <IconMail/>
+            </StyledMobileIcon>
+          )}
           <StyledMailConfirmTitle>
             {title || 'Подтверждение регистрации'}
           </StyledMailConfirmTitle>

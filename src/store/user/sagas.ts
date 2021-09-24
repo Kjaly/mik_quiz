@@ -230,7 +230,6 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
 
 function* updateUserSaga(action: Action<IUserUpdatePayload>) {
   const {user, data} = action.payload
-  console.log(user, 'test')
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -340,6 +339,7 @@ function* logoutUserSaga() {
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('expires_in');
       localStorage.removeItem('answers');
+      localStorage.removeItem('isQuizStarted');
     }
   } catch (e: any) {
     console.warn('logout');

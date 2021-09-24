@@ -4,7 +4,6 @@ import { Route, Redirect } from 'react-router-dom';
 const PrivateRoute = (route: any): JSX.Element => {
   const {component: Component, isAuth, isFinalist, finalist, ...rest} = route
   const hasToken = localStorage.getItem('access_token')
-  console.log(finalist)
   return (
     <>
       {finalist ? (
