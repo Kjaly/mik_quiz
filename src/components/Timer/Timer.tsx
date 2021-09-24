@@ -17,9 +17,9 @@ export const Timer: React.FC<ITimerProps> = (props) => {
   const startDate = dayjs(startTime).unix();
   const currentDate = dayjs().unix();
   const finishTime = startDate + (60 * 90)
-  const thirtyMinutes = startDate + (60 * 30)
-  const fifteenMinutes = startDate + (60 * 15)
-  const fiveMinutes = startDate + (60 * 5)
+  const thirtyMinutes = 60 * 30
+  const fifteenMinutes = 60 * 15
+  const fiveMinutes = 60 * 5
   const dispatch = useDispatch();
   const [seconds, setSeconds] = useState(finishTime - currentDate);
 
@@ -30,6 +30,8 @@ export const Timer: React.FC<ITimerProps> = (props) => {
 
 
   useEffect(() => {
+    console.log(seconds);
+    console.log(thirtyMinutes);
 
     if (seconds === thirtyMinutes) {
       dispatch(
@@ -67,11 +69,10 @@ export const Timer: React.FC<ITimerProps> = (props) => {
 
 
     if (seconds <= 0) {
-      console.log(1)
       dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
         props: {
-          text: 'Дорогой участник викторины по истории России! Время для прохождения викторины окончено',
+          text: 'Время прохождения Викторины истекло!',
           isEnded: true,
         }
       }))

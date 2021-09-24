@@ -27,8 +27,8 @@ import { removeUserErrors, updateUserRequest } from '../../store/user/actions';
 import { IUserRegistration } from '../../store/user/types';
 import { InputFile } from '../../components/FormFinal/InputFile';
 import { setError } from '../../services/forms/setFinalFormErrorMutator';
-import { asyncValidate } from "../../services/forms/asyncValidate";
-import { formsNames } from "../../services/forms/formsNames";
+import { asyncValidate } from '../../services/forms/asyncValidate';
+import { formsNames } from '../../services/forms/formsNames';
 import { Link } from 'react-router-dom';
 
 export const Profile: React.FC = () => {
@@ -61,14 +61,14 @@ export const Profile: React.FC = () => {
     inputFile?.current?.click();
   }
   useEffect(() => {
-   if (serverErrors?.photo[0]) {
-     console.log(1);
-     console.log(serverErrors?.photo[0],'test')
-     setImgError(serverErrors?.photo[0])
-   }
+    if (serverErrors?.photo[0]) {
+      console.log(1);
+      console.log(serverErrors?.photo[0], 'test')
+      setImgError(serverErrors?.photo[0])
+    }
   }, [serverErrors]);
 
-  console.log(imgError,'imgerror')
+  console.log(imgError, 'imgerror')
   return (
     <StyledProfileWrapper>
       <TitleBanner>Мой профиль</TitleBanner>
@@ -111,6 +111,9 @@ export const Profile: React.FC = () => {
                   form.mutators.setError,
                 );
                 if (!errors) {
+                  Object.keys(values).forEach(key => {
+                    form.mutators.setError([key], '');
+                  });
                   handleSubmit();
                 }
               };
@@ -174,8 +177,8 @@ export const Profile: React.FC = () => {
                     <Field
                       autoComplete={'off'}
                       name="birthday"
-                      min='2003-01-01'
-                      max='2016-01-01'
+                      min="2003-01-01"
+                      max="2016-01-01"
                       component={InputText}
                       type="date"
                       placeholder="Дата рождения"
@@ -202,7 +205,7 @@ export const Profile: React.FC = () => {
                       name="school_class"
                       component={InputText}
                       type="text"
-                      maxLength={3}
+                      maxLength={5}
                       placeholder="Класс"
                       errors={serverErrors}
                     />
@@ -219,13 +222,14 @@ export const Profile: React.FC = () => {
                         autoComplete={'off'}
                         name="parental_agreement"
                         component={InputFile}
+                        setError={(value: string) => form.mutators.setError({parental_agreement: value})}
                         placeholder="Соглашение"
-                        accept={"image/jpeg,image/jpg,image/png, application/pdf"}
+                        accept={'image/jpeg,image/jpg,image/png, application/pdf'}
                         uploadText={'Соглашение выбрано'}
                         completed={!!user.parental_agreement_id}
                         errors={serverErrors}
                       />
-                      {!user.parental_agreement_id &&
+                      {!user.parental_agreement_id && !values.parental_agreement &&
                       <Link to="/files/privacy.pdf" target="_blank" download>Скачать бланк соглашения</Link>}
                     </StyledPolicyField>
                   </StyledProfileForm>
@@ -242,7 +246,7 @@ export const Profile: React.FC = () => {
                       {!user.email_verified_at &&
                       (
                         <StyledVerifiedEmail>
-                          Почта не подтвеждена.
+                          Почта не подтверждена.
                           <span onClick={() => submitHandler(values,)}>Подтвердить</span>
                         </StyledVerifiedEmail>
                       )}

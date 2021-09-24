@@ -52,10 +52,11 @@ export const Quiz: React.FC = () => {
     }
   }, [quiz]);
 
-  console.log(dayjs().unix());
-  console.log(dayjs.utc(), 'test');
-  console.log(1)
+
   const handleStartQuiz = () => {
+    console.log(finishDate);
+    console.log(dayjs().unix())
+    console.log(dayjs().unix() > finishDate)
     const isTestPage = currentPathname.includes('/test')
     if (dayjs().unix() < startDate && !isTestPage) {
       return dispatch(modalsActions.openModalAction({
@@ -69,6 +70,7 @@ export const Quiz: React.FC = () => {
         props: {text: 'Время прохождения Викторины истекло!'}
       }))
     }
+    console.log('nice')
     if (!quiz.id) {
       dispatch(fetchQuizRequest())
     }
