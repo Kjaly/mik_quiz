@@ -6,6 +6,7 @@ import {
   StyledRegistrationFormModal,
   StyledTitle,
   StyledPreloader,
+  StyledError,
 } from './RegistrationFormModal.styled';
 import { ModalTemplate } from '../ModalTemplate';
 import { IconArrowRight, IconCross, } from '../../../Icons';
@@ -127,6 +128,9 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
                     placeholder="Повтор пароля"
                     errors={serverErrors}
                   />
+                  <StyledError>
+                    {typeof serverErrors === 'string' && serverErrors}
+                  </StyledError>
                 </StyledForm>
 
                 <StyledButtonBlock>

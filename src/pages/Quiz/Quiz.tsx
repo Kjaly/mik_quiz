@@ -20,10 +20,11 @@ import { theme } from '../../theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { Timer } from '../../components/Timer';
 import { routerSelectors } from '../../store/route';
-import { fetchQuizRequest } from '../../store/quiz/actions';
+import { fetchQuizRequest, submitQuizFailure } from '../../store/quiz/actions';
 import { getQuizSelector } from '../../store/quiz/selectors';
 import { getUserIdSelector } from '../../store/user/selectors';
 import { IAnswer } from '../../components/QuizSection/QuizSection';
+import { modalsActions } from '../../store/modals/actions';
 
 
 export const Quiz: React.FC = () => {
@@ -75,28 +76,16 @@ export const Quiz: React.FC = () => {
 
   const handleStartQuiz = () => {
     history.push('/quiz')
-    // if (dayjs().unix() < startDate && !isTestPage) {
-    //   localStorage.removeItem('isQuizStarted')
-    //   localStorage.removeItem('answers')
-    //   return dispatch(modalsActions.openModalAction({
-    //     name: 'quizAlertModal',
-    //     props: {text: 'Дорогой участник викторины по истории России! Доступ для регистрации и участия в викторине будет открыт 25 сентября с 9:00 до 21:00 (время московское)'}
-    //   }))
-    //
+      dispatch(submitQuizFailure())
+      localStorage.removeItem('isQuizStarted')
+      localStorage.removeItem('answers')
+      return dispatch(modalsActions.openModalAction({
+        name: 'quizAlertModal',
+        props: {text: 'Время прохождения Викторины истекло!'}
+      }))
+    // if (!quiz.id) {
+    //   dispatch(fetchQuizRequest())
     // }
-      // TODO В 8 часов выкатить
-    // if (dayjs().unix() > finishDate && !isTestPage) {
-    //   dispatch(submitQuizFailure())
-    //   localStorage.removeItem('isQuizStarted')
-    //   localStorage.removeItem('answers')
-    //   return dispatch(modalsActions.openModalAction({
-    //     name: 'quizAlertModal',
-    //     props: {text: 'Время прохождения Викторины истекло!'}
-    //   }))
-    // }
-    if (!quiz.id) {
-      dispatch(fetchQuizRequest())
-    }
   }
 
   const [answers, setAnswers] = useState<Array<IAnswer>>([]);

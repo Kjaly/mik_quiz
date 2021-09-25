@@ -222,7 +222,7 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
   } catch (e: any) {
     yield put(
       registerUserFailure({
-        errors: e.response?.data?.errors,
+        errors: e.response.data.errors || e.response.data.message,
       })
     );
   }
