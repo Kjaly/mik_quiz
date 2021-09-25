@@ -29,11 +29,8 @@ export const fetchQuizSuccess = (
   payload,
 });
 
-export const fetchQuizFailure = (
-  payload: FetchQuizFailurePayload
-): FetchQuizFailure => ({
+export const fetchQuizFailure = (): FetchQuizFailure => ({
   type: FETCH_QUIZ_FAILURE,
-  payload,
 });
 
 export const submitQuizRequest = (payload: SubmitQuizRequestPayload): SubmitQuizRequest => ({
