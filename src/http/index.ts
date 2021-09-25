@@ -39,6 +39,7 @@ $api.interceptors.response.use(
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('expires_in');
         localStorage.removeItem('answers');
+        localStorage.removeItem('essay');
         localStorage.removeItem('isQuizStarted');
         console.warn('Пользователь не авторизован');
       }

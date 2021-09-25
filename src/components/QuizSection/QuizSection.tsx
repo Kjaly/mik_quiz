@@ -37,7 +37,8 @@ interface IQuizSectionProps {
   id: number | null;
   answers: Array<IAnswer>;
   setAnswers: (answer: Array<IAnswer>) => void;
-  setEssay: (text:string) => void;
+  setEssay: (text: string) => void;
+  essay: string;
 }
 
 export interface IAnswer {
@@ -48,7 +49,7 @@ export interface IAnswer {
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   const {
     questions, isEssay, id, answers,
-    setAnswers, setEssay
+    setAnswers, setEssay, essay
   } = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
   const deadline = useSelector(getQuizDeadlineSelector);
@@ -73,7 +74,6 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
       return swiper?.slideNext();
     }
   };
-
 
 
   useEffect(() => {
@@ -128,7 +128,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
       const {essay} = values;
       let data = {id, answers}
       if (essay) {
-        data = Object?.assign(data, {essay, complete_quiz:true})
+        data = Object?.assign(data, {essay, complete_quiz: true})
       }
 
       dispatch(submitQuizRequest({...data}))
@@ -145,7 +145,9 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
         <DecorativeLines opacity={0.3} color={theme.color.yellow}/>
       </StyledDecorativeWrapper>
       <Form
-        initialValues={{}}
+        initialValues={{
+          essay: essay || ''
+        }}
         onSubmit={submitHandler}
         render={(renderProps): JSX.Element => {
           const {values, handleSubmit} = renderProps;

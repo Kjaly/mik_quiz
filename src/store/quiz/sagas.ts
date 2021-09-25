@@ -73,6 +73,7 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
 
       localStorage.removeItem('isQuizStarted')
       localStorage.removeItem('answers')
+      localStorage.removeItem('essay');
 
       yield put(modalsActions.openModalAction({
         name: 'quizAlertModal',

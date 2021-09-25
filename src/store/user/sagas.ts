@@ -323,12 +323,6 @@ function* resendVerifyUserSaga(action: Action<UpdateUserRequest>) {
 }
 
 function* logoutUserSaga() {
-  history.push('/')
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('refresh_token');
-  localStorage.removeItem('expires_in');
-  localStorage.removeItem('answers');
-  localStorage.removeItem('isQuizStarted');
   yield put(
     logoutUserSuccess({
       user: null,
@@ -342,6 +336,13 @@ function* logoutUserSaga() {
   } catch (e: any) {
     console.warn('logout');
   }
+  history.push('/')
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('expires_in');
+  localStorage.removeItem('answers');
+  localStorage.removeItem('essay');
+  localStorage.removeItem('isQuizStarted');
 }
 
 function* checkAuthSaga() {

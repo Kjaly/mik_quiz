@@ -43,7 +43,7 @@ export const Quiz: React.FC = () => {
   };
 
   useEffect(() => {
-    if (pageIsFocus) {
+    if (isQuizStarted && pageIsFocus) {
       dispatch(fetchQuizRequest())
     }
   }, [pageIsFocus]);
@@ -99,7 +99,13 @@ export const Quiz: React.FC = () => {
   }
 
   const [answers, setAnswers] = useState<Array<IAnswer>>([]);
-  const [essay, setEssay] = useState('');
+  const [essay, setEssay] = useState(localStorage.getItem('essay') || '');
+
+  useEffect(() => {
+    localStorage.setItem('essay', essay);
+  }, [essay]);
+
+
   return (
     <StyledQuiz>
       <TitleBanner img={titleBackground}>Викторина
@@ -122,6 +128,7 @@ export const Quiz: React.FC = () => {
                   startTime={quiz?.user_answer?.created_at}/>
               </StyledQuizTimer>
               <QuizSection
+                essay={essay}
                 setEssay={setEssay}
                 answers={answers}
                 setAnswers={setAnswers} isEssay={isEssay} questions={quiz?.questions} id={quiz?.id}/>

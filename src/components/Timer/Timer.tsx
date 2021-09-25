@@ -83,6 +83,7 @@ export const Timer: React.FC<ITimerProps> = (props) => {
       submitHandler()
       localStorage.removeItem('isQuizStarted')
       localStorage.removeItem('answers')
+      localStorage.removeItem('essay');
       dispatch(submitQuizFailure())
       dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
