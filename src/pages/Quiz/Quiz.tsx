@@ -54,24 +54,24 @@ export const Quiz: React.FC = () => {
 
   const handleStartQuiz = () => {
     const isTestPage = currentPathname.includes('/test')
-    if (dayjs().unix() < startDate && !isTestPage) {
-      localStorage.removeItem('isQuizStarted')
-      localStorage.removeItem('answers')
-      return dispatch(modalsActions.openModalAction({
-        name: 'quizAlertModal',
-        props: {text: 'Дорогой участник викторины по истории России! Доступ для регистрации и участия в викторине будет открыт 25 сентября с 9:00 до 21:00 (время московское)'}
-      }))
-
-    }
-    if (dayjs().unix() > finishDate && !isTestPage) {
-      dispatch(submitQuizFailure())
-      localStorage.removeItem('isQuizStarted')
-      localStorage.removeItem('answers')
-      return dispatch(modalsActions.openModalAction({
-        name: 'quizAlertModal',
-        props: {text: 'Время прохождения Викторины истекло!'}
-      }))
-    }
+    // if (dayjs().unix() < startDate && !isTestPage) {
+    //   localStorage.removeItem('isQuizStarted')
+    //   localStorage.removeItem('answers')
+    //   return dispatch(modalsActions.openModalAction({
+    //     name: 'quizAlertModal',
+    //     props: {text: 'Дорогой участник викторины по истории России! Доступ для регистрации и участия в викторине будет открыт 25 сентября с 9:00 до 21:00 (время московское)'}
+    //   }))
+    //
+    // }
+    // if (dayjs().unix() > finishDate && !isTestPage) {
+    //   dispatch(submitQuizFailure())
+    //   localStorage.removeItem('isQuizStarted')
+    //   localStorage.removeItem('answers')
+    //   return dispatch(modalsActions.openModalAction({
+    //     name: 'quizAlertModal',
+    //     props: {text: 'Время прохождения Викторины истекло!'}
+    //   }))
+    // }
     if (!quiz.id) {
       dispatch(fetchQuizRequest())
     }
