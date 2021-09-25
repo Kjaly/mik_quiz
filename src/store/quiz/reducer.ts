@@ -39,10 +39,7 @@ export default (state = initialState, action: QuizActions): any => {
       };
     case FETCH_QUIZ_FAILURE:
       return {
-        ...state,
-        pending: false,
-        quiz: null,
-        errors: action.payload.errors,
+        ...initialState
       };
       case LOGOUT_USER_SUCCESS:
       return {

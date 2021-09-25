@@ -44,6 +44,9 @@ function* fetchQuizSaga() {
       localStorage.setItem('isQuizStarted', 'true')
     }
   } catch (e: any) {
+    yield put(
+      fetchQuizFailure()
+    );
     if (e.response.status === 401) {
       yield put(modalsActions.openModalAction({name: 'authModal'}))
     } else {
@@ -88,9 +91,7 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
 
   } catch (e: any) {
     yield put(
-      fetchQuizFailure({
-        errors: e.response.data.errors,
-      })
+      fetchQuizFailure()
     );
   }
 }

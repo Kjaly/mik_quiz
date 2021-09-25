@@ -3,7 +3,7 @@ import { IconClock } from '../../Icons';
 import { modalsActions } from '../../store/modals/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { alertsActions } from '../../store/alerts/actions';
-import { submitQuizFailure, submitQuizRequest } from '../../store/quiz/actions';
+import { fetchQuizRequest, submitQuizFailure, submitQuizRequest } from '../../store/quiz/actions';
 import { getQuizDeadlineSelector } from '../../store/quiz/selectors';
 import { IAnswer } from '../QuizSection/QuizSection';
 
@@ -37,8 +37,15 @@ export const Timer: React.FC<ITimerProps> = (props) => {
   }
 
   useEffect(() => {
+    dispatch(fetchQuizRequest())
+  }, []);
+
+
+  useEffect(() => {
     if (deadline) {
       setSeconds(deadline)
+    } else {
+      submitHandler()
     }
   }, [deadline]);
 
@@ -49,7 +56,8 @@ export const Timer: React.FC<ITimerProps> = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  });
+  }, [seconds]);
+
   useEffect(() => {
 
     if (seconds === thirtyMinutes) {
@@ -97,6 +105,11 @@ export const Timer: React.FC<ITimerProps> = (props) => {
       }
     }
 
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    };
   }, [seconds]);
 
 

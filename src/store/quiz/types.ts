@@ -92,7 +92,6 @@ export type FetchQuizSuccess = {
 
 export type FetchQuizFailure = {
   type: typeof FETCH_QUIZ_FAILURE;
-  payload: FetchQuizFailurePayload;
 };
 
 export interface SubmitQuizRequest {
