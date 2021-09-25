@@ -78,6 +78,10 @@ export const StyledButtonBlock = styled.div`
     }
   }
 `
+export const StyledError = styled.div`
+  color:${({theme})=>theme.color.red};
+  font-size: 12px;
+`
 
 export const StyledPreloader = styled.div`
   position: absolute;

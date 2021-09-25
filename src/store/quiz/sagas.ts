@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { fetchQuizFailure, fetchQuizSuccess, submitQuizSuccess, } from './actions';
+import { fetchQuizFailure, fetchQuizSuccess, submitQuizFailure, submitQuizSuccess, } from './actions';
 import { FETCH_QUIZ_REQUEST, SUBMIT_QUIZ_REQUEST, } from './actionTypes';
 import $api from '../../http';
 import { QuizResponse } from '../../models/response/QuizResponse';
@@ -38,7 +38,6 @@ function* fetchQuizSaga() {
           quiz: response.data.data,
           deadline: response.data?.meta?.deadline
         })
-
       );
 
       localStorage.setItem('isQuizStarted', 'true')
@@ -90,10 +89,13 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
     }
 
   } catch (e: any) {
-    yield put(
-      fetchQuizFailure()
-    );
+    if (action.payload.answers.length) {
+      yield put(
+        submitQuizFailure()
+      );
+    }
   }
+
 }
 
 
