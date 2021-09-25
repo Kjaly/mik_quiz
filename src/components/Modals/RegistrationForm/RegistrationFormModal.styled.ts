@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { device } from "../../../theme/devices";
+import styled from 'styled-components';
+import { device } from '../../../theme/devices';
 
 export const StyledRegistrationFormModal = styled.div`
   max-width: 560px;
@@ -10,7 +10,8 @@ export const StyledRegistrationFormModal = styled.div`
   background-color: #fff;
   padding: 30px;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+  position: relative;
 `
 
 export const StyledTitle = styled.div`
@@ -57,19 +58,32 @@ export const StyledButtonBlock = styled.div`
   align-items: center;
   flex-direction: column-reverse;
 
-  >div:last-child {
+  > div:last-child {
     margin-bottom: 20px;
   }
-  >div {
+
+  > div {
     width: 100%;
   }
+
   ${device.tablet} {
     flex-direction: row;
-    >div {
+
+    > div {
       width: initial;
     }
-    >div:last-child {
+
+    > div:last-child {
       margin-bottom: 0;
     }
   }
+`
+
+export const StyledPreloader = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 `

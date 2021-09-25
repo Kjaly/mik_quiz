@@ -4,7 +4,8 @@ import {
   StyledCross,
   StyledForm,
   StyledRegistrationFormModal,
-  StyledTitle
+  StyledTitle,
+  StyledPreloader,
 } from './RegistrationFormModal.styled';
 import { ModalTemplate } from '../ModalTemplate';
 import { IconArrowRight, IconCross, } from '../../../Icons';
@@ -18,18 +19,18 @@ import { formsNames } from '../../../services/forms/formsNames';
 import { setError } from '../../../services/forms/setFinalFormErrorMutator';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserRequest, removeUserErrors } from '../../../store/user/actions';
-import { getErrorsSelector } from '../../../store/user/selectors';
+import { getErrorsSelector, getPendingSelector } from '../../../store/user/selectors';
 import { modalsActions } from '../../../store/modals/actions';
+import { Preloader } from '../../Preloader';
 
 export interface IRegistrationFormProps {
   closeModal?: () => void;
 }
 
-
 export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) => {
   const {closeModal} = props
   const dispatch = useDispatch();
-
+  const loading = useSelector(getPendingSelector)
   const serverErrors = useSelector(getErrorsSelector);
   const submitHandler = (values: IRegistrationFormModalValues) => {
     const {privacy, ...body} = values
@@ -42,6 +43,10 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
   return (
     <ModalTemplate>
       <StyledRegistrationFormModal>
+        {loading &&
+        <StyledPreloader>
+          <Preloader/>
+        </StyledPreloader>}
         <StyledTitle>
           <span>Регистрация</span>
           <StyledCross onClick={closeModal}>
