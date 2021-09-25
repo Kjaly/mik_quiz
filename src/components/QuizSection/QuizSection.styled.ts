@@ -62,6 +62,8 @@ export const StyledQuizMainSection = styled.div`
   background-color: #fff;
   box-shadow: 0 22px 66px -13px rgba(104, 62, 0, 0.15);
   padding: 20px;
+  position: relative;
+  z-index: 1;
 
   .swiper-container {
     height: 100%;

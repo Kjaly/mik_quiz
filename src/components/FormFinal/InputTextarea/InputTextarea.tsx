@@ -18,6 +18,7 @@ export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => 
     placeholder,
     rows = 3,
     maxCount = 800,
+    customOnChange,
     ...customProps
   } = props
 
@@ -34,18 +35,18 @@ export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => 
 
   const handleChange = (e: React.KeyboardEvent) => {
     const target = e.target as HTMLTextAreaElement
-    if (letterCount === maxCount && target.value.length >= letterCount) {
-      return null;
-    }
     setSpaceCount(target?.value?.match(/\s/g)?.length || 0)
-    const currentValue = target.value.substr(0, maxCount + spaceCount)
+    const currentValue = target.value.substr(0, maxCount + (target?.value?.match(/\s/g)?.length || 0))
     const currentEvent = {...e, target: {...e.target, value: currentValue}}
+    if (customOnChange) {
+      customOnChange(currentValue)
+    }
     onChange(currentEvent)
   }
 
   return (
     <StyledTextareaContainer>
-      <StyledTextarea rows={rows} onChange={handleChange} name={name} placeholder={placeholder} value={value}/>
+      <StyledTextarea maxLength={maxCount + spaceCount} rows={rows} onChange={handleChange} name={name} placeholder={placeholder} value={value}/>
       <StyledTextCounter>{letterCount} / {maxCount}</StyledTextCounter>
     </StyledTextareaContainer>
   );

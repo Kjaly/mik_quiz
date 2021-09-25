@@ -52,12 +52,9 @@ export interface QuizState {
   name: string,
   created_at: string,
   deleted_at: string,
+  deadline?: number,
   questions: Array<IQuestion> | null,
   user_answer: IUserAnswer | null,
-}
-
-export interface FetchQuizSuccessPayload {
-  quiz: IQuiz;
 }
 
 export interface FetchQuizFailurePayload {
@@ -68,11 +65,12 @@ export interface SubmitQuizRequestPayload {
   id: number
   answers: Array<any>,
   essay?: string,
+  complete_quiz?: boolean,
 }
 
 export interface FetchQuizSuccessPayload {
   quiz: IQuiz;
-
+  deadline:number;
 }
 
 export interface SubmitQuizSuccessPayload {
@@ -94,7 +92,6 @@ export type FetchQuizSuccess = {
 
 export type FetchQuizFailure = {
   type: typeof FETCH_QUIZ_FAILURE;
-  payload: FetchQuizFailurePayload;
 };
 
 export interface SubmitQuizRequest {

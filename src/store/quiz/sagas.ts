@@ -23,6 +23,7 @@ const submitQuiz = (payload: SubmitQuizRequestPayload): Promise<AxiosResponse<Qu
   $api.post<QuizResponse>(`${process.env.REACT_APP_API_URL}/quizzes/${payload.id}/submit`, {
     answers: payload.answers,
     essay: payload.essay,
+    complete_quiz: payload.complete_quiz,
   });
 
 
@@ -34,13 +35,18 @@ function* fetchQuizSaga() {
     if (response.data) {
       yield put(
         fetchQuizSuccess({
-          quiz: response.data.data
+          quiz: response.data.data,
+          deadline: response.data?.meta?.deadline
         })
+
       );
 
       localStorage.setItem('isQuizStarted', 'true')
     }
   } catch (e: any) {
+    yield put(
+      fetchQuizFailure()
+    );
     if (e.response.status === 401) {
       yield put(modalsActions.openModalAction({name: 'authModal'}))
     } else {
@@ -70,6 +76,7 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
 
       localStorage.removeItem('isQuizStarted')
       localStorage.removeItem('answers')
+      localStorage.removeItem('essay');
 
       yield put(modalsActions.openModalAction({
         name: 'quizAlertModal',
@@ -84,9 +91,7 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
 
   } catch (e: any) {
     yield put(
-      fetchQuizFailure({
-        errors: e.response.data.errors,
-      })
+      fetchQuizFailure()
     );
   }
 }

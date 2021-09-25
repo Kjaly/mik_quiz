@@ -1,34 +1,62 @@
-import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { IconClock } from "../../Icons";
-import { modalsActions } from "../../store/modals/actions";
-import { useDispatch } from "react-redux";
-import { alertsActions } from "../../store/alerts/actions";
-import { submitQuizFailure } from '../../store/quiz/actions';
+import { IconClock } from '../../Icons';
+import { modalsActions } from '../../store/modals/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { alertsActions } from '../../store/alerts/actions';
+import { fetchQuizRequest, submitQuizFailure, submitQuizRequest } from '../../store/quiz/actions';
+import { getQuizDeadlineSelector } from '../../store/quiz/selectors';
+import { IAnswer } from '../QuizSection/QuizSection';
 
 interface ITimerProps {
   startTime?: string
+  answers?: Array<IAnswer>
+  essay?: string
+  id?: number | null
 }
 
 
 export const Timer: React.FC<ITimerProps> = (props) => {
-
-  const {startTime} = props
-
-  const startDate = dayjs(startTime).unix();
-  const currentDate = dayjs().unix();
-  const finishTime = startDate + (60 * 90)
+  const {answers, essay, id} = props
+  const deadline = useSelector(getQuizDeadlineSelector);
   const thirtyMinutes = 60 * 30
   const fifteenMinutes = 60 * 15
   const fiveMinutes = 60 * 5
   const dispatch = useDispatch();
-  const [seconds, setSeconds] = useState(finishTime - currentDate);
+  const [seconds, setSeconds] = useState(deadline || null);
+  let timer!: ReturnType<typeof setTimeout>;
+
+  const submitHandler = () => {
+    if (id && answers) {
+      // eslint-disable-next-line prefer-const
+      let data = {id, answers}
+      if (essay) {
+        data = Object?.assign(data, {essay})
+      }
+      dispatch(submitQuizRequest({...data}))
+    }
+  }
+
+  useEffect(() => {
+    dispatch(fetchQuizRequest())
+  }, []);
 
 
   useEffect(() => {
-    setSeconds(finishTime - currentDate)
-  }, [startTime]);
+    if (deadline) {
+      setSeconds(deadline)
+    } else {
+      submitHandler()
+    }
+  }, [deadline]);
 
+  useEffect(() => {
+    if (seconds !== null && seconds > 0) {
+      timer = setInterval(() => setSeconds(seconds - 1), 1000);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [seconds]);
 
   useEffect(() => {
 
@@ -57,19 +85,13 @@ export const Timer: React.FC<ITimerProps> = (props) => {
         })
       )
     }
-  }, [seconds]);
 
 
-  useEffect(() => {
-    let timer!: ReturnType<typeof setTimeout>;
-    if (seconds > 0) {
-      timer = setTimeout(() => setSeconds(seconds - 1), 1000);
-    }
-
-
-    if (seconds <= 0) {
+    if (seconds !== null && seconds <= 0) {
+      submitHandler()
       localStorage.removeItem('isQuizStarted')
       localStorage.removeItem('answers')
+      localStorage.removeItem('essay');
       dispatch(submitQuizFailure())
       dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
@@ -82,10 +104,13 @@ export const Timer: React.FC<ITimerProps> = (props) => {
         clearTimeout(timer)
       }
     }
+
     return () => {
-      clearTimeout(timer);
+      if (timer) {
+        clearTimeout(timer)
+      }
     };
-  });
+  }, [seconds]);
 
 
   const getTime = (seconds: number) => {
@@ -101,9 +126,10 @@ export const Timer: React.FC<ITimerProps> = (props) => {
     return `${minutes}:${remainSeconds}`
   }
 
+  if (seconds !== null && seconds <= 0) return null
   return (
     <>
-      <IconClock/>{getTime(seconds)}
+      <IconClock/>{seconds !== null && getTime(seconds)}
     </>
   );
 };

@@ -61,14 +61,11 @@ export const Profile: React.FC = () => {
     inputFile?.current?.click();
   }
   useEffect(() => {
-    if (serverErrors?.photo[0]) {
-      console.log(1);
-      console.log(serverErrors?.photo[0], 'test')
-      setImgError(serverErrors?.photo[0])
+    if (serverErrors?.photo?.[0]) {
+      setImgError(serverErrors?.photo?.[0])
     }
   }, [serverErrors]);
 
-  console.log(imgError, 'imgerror')
   return (
     <StyledProfileWrapper>
       <TitleBanner>Мой профиль</TitleBanner>

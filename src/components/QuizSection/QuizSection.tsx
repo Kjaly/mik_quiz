@@ -13,40 +13,48 @@ import {
   StyledQuizTitle,
   StyledQuizWrapper,
   StyledTextarea
-} from "./QuizSection.styled";
-import { Title } from "../Typography/Title";
-import { theme } from "../../theme";
-import { QuizSectionItem } from "./QuizSectionItem";
+} from './QuizSection.styled';
+import { Title } from '../Typography/Title';
+import { theme } from '../../theme';
+import { QuizSectionItem } from './QuizSectionItem';
 import { Field, Form } from 'react-final-form';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Button } from "../Button";
-import { IconArrowRight } from "../../Icons";
-import { InputTextarea } from "../FormFinal/InputTextarea";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Button } from '../Button';
+import { IconArrowRight } from '../../Icons';
+import { InputTextarea } from '../FormFinal/InputTextarea';
 import { history } from '../../store'
-import { useDispatch, useSelector } from "react-redux";
-import { routerSelectors } from "../../store/route";
-import { DecorativeLines } from "../DecorativeLines";
-import { IQuestion } from "../../store/quiz/types";
-import { submitQuizRequest } from "../../store/quiz/actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { routerSelectors } from '../../store/route';
+import { DecorativeLines } from '../DecorativeLines';
+import { IQuestion } from '../../store/quiz/types';
+import { submitQuizRequest } from '../../store/quiz/actions';
+import { getQuizDeadlineSelector } from '../../store/quiz/selectors';
 
 
 interface IQuizSectionProps {
   questions: Array<IQuestion> | null;
   isEssay: boolean;
   id: number | null;
+  answers: Array<IAnswer>;
+  setAnswers: (answer: Array<IAnswer>) => void;
+  setEssay: (text: string) => void;
+  essay: string;
 }
 
-interface IAnswer {
+export interface IAnswer {
   question_id: number,
   answer: Array<number>
 }
 
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
-  const {questions, isEssay, id} = props
+  const {
+    questions, isEssay, id, answers,
+    setAnswers, setEssay, essay
+  } = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
+  const deadline = useSelector(getQuizDeadlineSelector);
 
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Array<IAnswer>>([]);
   const [swiper, setSwiper] = useState<any>()
   const [step, setStep] = useState(0);
   const [maxEnabled, setMaxEnabled] = useState(0);
@@ -69,30 +77,44 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
 
 
   useEffect(() => {
+    if (isEssay && !localStorage.getItem('isQuizStarted')) {
+      return history.push('/quiz')
+    }
     if (isEssay) {
       setStep(1)
     }
   }, [isEssay]);
 
-  const handleAnswersSet = (value: number, questionId: number, ): void => {
+  const handleAnswersSet = (value: number, questionId: number,): void => {
     setAnswers([...answers, {question_id: questionId, answer: [value]}])
   }
 
 
   useEffect(() => {
-    setAnswers(JSON.parse(localStorage.getItem("answers") || "[]"))
+    if (questions && answers.length >= questions?.length && step !== 1) {
+      setStep(1)
+      history.push('/quiz/essay')
+    }
+    if (questions && answers.length < questions?.length && step !== 0) {
+      setStep(0)
+      history.push('/quiz')
+    }
+  }, [questions, answers]);
 
+
+  useEffect(() => {
+    setAnswers(JSON.parse(localStorage.getItem('answers') || '[]'))
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("answers", JSON.stringify(answers));
+    localStorage.setItem('answers', JSON.stringify(answers));
     if (answers.length) {
       setActiveQuestion(answers.length)
     }
   }, [answers]);
 
   useEffect(() => {
-    if (swiper && !isEssay) {
+    if (swiper && !isEssay && activeQuestion) {
       swiper?.slideTo(activeQuestion)
     }
     if (activeQuestion > maxEnabled) {
@@ -106,8 +128,9 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
       const {essay} = values;
       let data = {id, answers}
       if (essay) {
-        data = Object?.assign(data, {essay})
+        data = Object?.assign(data, {essay, complete_quiz: true})
       }
+
       dispatch(submitQuizRequest({...data}))
     }
   }
@@ -122,7 +145,9 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
         <DecorativeLines opacity={0.3} color={theme.color.yellow}/>
       </StyledDecorativeWrapper>
       <Form
-        initialValues={{}}
+        initialValues={{
+          essay: essay || ''
+        }}
         onSubmit={submitHandler}
         render={(renderProps): JSX.Element => {
           const {values, handleSubmit} = renderProps;
@@ -133,7 +158,8 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                   <StyledQuizHeaderSection>
                     <StyledQuizTitle>
                       <Title color={theme.color.blue}>
-                        Вопрос {activeQuestion + 1}
+                        {deadline && deadline > 0 ? `Вопрос ${activeQuestion + 1}` : 'Викторина окончена'}
+
                       </Title>
                     </StyledQuizTitle>
                     <StyledQuizBullets>
@@ -153,6 +179,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
 
                       autoHeight={true}
                       onSwiper={setSwiper}
+                      initialSlide={activeQuestion}
                       onSlideChange={(swiper) => setActiveQuestion(swiper?.activeIndex)}
                       allowTouchMove={false}
                     >
@@ -214,6 +241,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                     <Field
                       name="essay"
                       component={InputTextarea}
+                      customOnChange={setEssay}
                       rows={10}
                       placeholder="Текстовое поле"
                     />
