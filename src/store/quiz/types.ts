@@ -65,6 +65,7 @@ export interface SubmitQuizRequestPayload {
   id: number
   answers: Array<any>,
   essay?: string,
+  complete_quiz?: boolean,
 }
 
 export interface FetchQuizSuccessPayload {

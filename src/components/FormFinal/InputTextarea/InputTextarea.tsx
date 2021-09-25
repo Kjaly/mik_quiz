@@ -18,6 +18,7 @@ export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => 
     placeholder,
     rows = 3,
     maxCount = 800,
+    customOnChange,
     ...customProps
   } = props
 
@@ -37,6 +38,9 @@ export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => 
     setSpaceCount(target?.value?.match(/\s/g)?.length || 0)
     const currentValue = target.value.substr(0, maxCount + (target?.value?.match(/\s/g)?.length || 0))
     const currentEvent = {...e, target: {...e.target, value: currentValue}}
+    if (customOnChange) {
+      customOnChange(currentValue)
+    }
     onChange(currentEvent)
   }
 

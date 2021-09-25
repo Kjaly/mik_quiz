@@ -23,6 +23,7 @@ const submitQuiz = (payload: SubmitQuizRequestPayload): Promise<AxiosResponse<Qu
   $api.post<QuizResponse>(`${process.env.REACT_APP_API_URL}/quizzes/${payload.id}/submit`, {
     answers: payload.answers,
     essay: payload.essay,
+    complete_quiz: payload.complete_quiz,
   });
 
 

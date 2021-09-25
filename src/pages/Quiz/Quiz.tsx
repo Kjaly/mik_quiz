@@ -23,6 +23,7 @@ import { routerSelectors } from '../../store/route';
 import { fetchQuizRequest } from '../../store/quiz/actions';
 import { getQuizSelector } from '../../store/quiz/selectors';
 import { getUserIdSelector } from '../../store/user/selectors';
+import { IAnswer } from '../../components/QuizSection/QuizSection';
 
 
 export const Quiz: React.FC = () => {
@@ -30,9 +31,22 @@ export const Quiz: React.FC = () => {
   const dispatch = useDispatch()
   const isAuth = useSelector(getUserIdSelector);
   const [isQuizStarted, setIsQuizStarted] = useState(false);
+  const [pageIsFocus, setPageIsFocus] = useState(true);
+
   // const startDate = dayjs('2021-09-25T06:00:00.000Z').unix();
   // const finishDate = dayjs('2021-09-25T18:00:00.000Z').unix();
+  window.onblur = () => {
+    setPageIsFocus(false)
+  };
+  window.onfocus = () => {
+    setPageIsFocus(true)
+  };
 
+  useEffect(() => {
+    if (pageIsFocus) {
+      dispatch(fetchQuizRequest())
+    }
+  }, [pageIsFocus]);
 
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
   const quiz = useSelector(getQuizSelector)
@@ -84,7 +98,8 @@ export const Quiz: React.FC = () => {
     }
   }
 
-
+  const [answers, setAnswers] = useState<Array<IAnswer>>([]);
+  const [essay, setEssay] = useState('');
   return (
     <StyledQuiz>
       <TitleBanner img={titleBackground}>Викторина
@@ -100,9 +115,16 @@ export const Quiz: React.FC = () => {
           <>
             <StyledQuizWrapper>
               <StyledQuizTimer isEssay={isEssay}>
-                <Timer startTime={quiz?.user_answer?.created_at}/>
+                <Timer
+                  id={quiz?.id}
+                  answers={answers}
+                  essay={essay}
+                  startTime={quiz?.user_answer?.created_at}/>
               </StyledQuizTimer>
-              <QuizSection isEssay={isEssay} questions={quiz?.questions} id={quiz?.id}/>
+              <QuizSection
+                setEssay={setEssay}
+                answers={answers}
+                setAnswers={setAnswers} isEssay={isEssay} questions={quiz?.questions} id={quiz?.id}/>
             </StyledQuizWrapper>
           </>) : (
           <StyledEarlySection>

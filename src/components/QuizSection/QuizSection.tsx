@@ -35,20 +35,25 @@ interface IQuizSectionProps {
   questions: Array<IQuestion> | null;
   isEssay: boolean;
   id: number | null;
+  answers: Array<IAnswer>;
+  setAnswers: (answer: Array<IAnswer>) => void;
+  setEssay: (text:string) => void;
 }
 
-interface IAnswer {
+export interface IAnswer {
   question_id: number,
   answer: Array<number>
 }
 
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
-  const {questions, isEssay, id} = props
+  const {
+    questions, isEssay, id, answers,
+    setAnswers, setEssay
+  } = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
   const deadline = useSelector(getQuizDeadlineSelector);
 
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Array<IAnswer>>([]);
   const [swiper, setSwiper] = useState<any>()
   const [step, setStep] = useState(0);
   const [maxEnabled, setMaxEnabled] = useState(0);
@@ -68,6 +73,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
       return swiper?.slideNext();
     }
   };
+
 
 
   useEffect(() => {
@@ -101,7 +107,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("answers", JSON.stringify(answers));
+    localStorage.setItem('answers', JSON.stringify(answers));
     if (answers.length) {
       setActiveQuestion(answers.length)
     }
@@ -122,8 +128,9 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
       const {essay} = values;
       let data = {id, answers}
       if (essay) {
-        data = Object?.assign(data, {essay})
+        data = Object?.assign(data, {essay, complete_quiz:true})
       }
+
       dispatch(submitQuizRequest({...data}))
     }
   }
@@ -232,6 +239,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                     <Field
                       name="essay"
                       component={InputTextarea}
+                      customOnChange={setEssay}
                       rows={10}
                       placeholder="Текстовое поле"
                     />
