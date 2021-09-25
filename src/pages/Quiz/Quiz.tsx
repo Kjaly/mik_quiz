@@ -84,6 +84,7 @@ export const Quiz: React.FC = () => {
     //   }))
     //
     // }
+      // TODO В 8 часов выкатить
     // if (dayjs().unix() > finishDate && !isTestPage) {
     //   dispatch(submitQuizFailure())
     //   localStorage.removeItem('isQuizStarted')
@@ -128,6 +129,7 @@ export const Quiz: React.FC = () => {
                   startTime={quiz?.user_answer?.created_at}/>
               </StyledQuizTimer>
               <QuizSection
+                isEnded={quiz?.isEnded}
                 essay={essay}
                 setEssay={setEssay}
                 answers={answers}

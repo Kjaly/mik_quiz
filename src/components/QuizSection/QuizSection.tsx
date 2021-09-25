@@ -28,7 +28,6 @@ import { routerSelectors } from '../../store/route';
 import { DecorativeLines } from '../DecorativeLines';
 import { IQuestion } from '../../store/quiz/types';
 import { submitQuizRequest } from '../../store/quiz/actions';
-import { getQuizDeadlineSelector } from '../../store/quiz/selectors';
 
 
 interface IQuizSectionProps {
@@ -39,6 +38,7 @@ interface IQuizSectionProps {
   setAnswers: (answer: Array<IAnswer>) => void;
   setEssay: (text: string) => void;
   essay: string;
+  isEnded?: boolean;
 }
 
 export interface IAnswer {
@@ -49,10 +49,9 @@ export interface IAnswer {
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   const {
     questions, isEssay, id, answers,
-    setAnswers, setEssay, essay
+    setAnswers, setEssay, essay, isEnded
   } = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
-  const deadline = useSelector(getQuizDeadlineSelector);
 
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [swiper, setSwiper] = useState<any>()
@@ -136,7 +135,6 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   }
 
   return (
-
     <StyledQuizBlock>
       <StyledDecorativeWrapper>
         <DecorativeLines opacity={0.3} color={theme.color.blue}/>
@@ -158,7 +156,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                   <StyledQuizHeaderSection>
                     <StyledQuizTitle>
                       <Title color={theme.color.blue}>
-                        {deadline && deadline > 0 ? `Вопрос ${activeQuestion + 1}` : 'Викторина окончена'}
+                        {!isEnded ? `Вопрос ${activeQuestion + 1}` : 'Викторина окончена'}
 
                       </Title>
                     </StyledQuizTitle>

@@ -55,6 +55,7 @@ export interface QuizState {
   deadline?: number,
   questions: Array<IQuestion> | null,
   user_answer: IUserAnswer | null,
+  isEnded?: boolean,
 }
 
 export interface FetchQuizFailurePayload {

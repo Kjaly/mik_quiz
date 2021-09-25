@@ -7,7 +7,7 @@ import {
 } from './actionTypes';
 
 import { QuizActions, QuizState } from './types';
-import { LOGOUT_USER_SUCCESS } from "../user/actionTypes";
+import { LOGOUT_USER_SUCCESS } from '../user/actionTypes';
 
 const initialState: QuizState = {
   pending: false,
@@ -19,6 +19,7 @@ const initialState: QuizState = {
   deleted_at: '',
   questions: null,
   user_answer: null,
+  isEnded: false,
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -34,22 +35,23 @@ export default (state = initialState, action: QuizActions): any => {
         ...state,
         pending: false,
         ...action.payload.quiz,
-        deadline:action.payload.deadline,
+        deadline: action.payload.deadline,
         errors: null,
       };
     case FETCH_QUIZ_FAILURE:
       return {
-        ...initialState
+        ...initialState,
+        isEnded: true,
       };
-      case LOGOUT_USER_SUCCESS:
+    case LOGOUT_USER_SUCCESS:
       return {
-       ...initialState
+        ...initialState
       };
     case SUBMIT_QUIZ_SUCCESS:
       return {
         ...initialState
       };
-      case SUBMIT_QUIZ_FAILURE:
+    case SUBMIT_QUIZ_FAILURE:
       return {
         ...initialState
       };
