@@ -4,6 +4,7 @@ import { IconClock } from "../../Icons";
 import { modalsActions } from "../../store/modals/actions";
 import { useDispatch } from "react-redux";
 import { alertsActions } from "../../store/alerts/actions";
+import { submitQuizFailure } from '../../store/quiz/actions';
 
 interface ITimerProps {
   startTime?: string
@@ -67,6 +68,9 @@ export const Timer: React.FC<ITimerProps> = (props) => {
 
 
     if (seconds <= 0) {
+      localStorage.removeItem('isQuizStarted')
+      localStorage.removeItem('answers')
+      dispatch(submitQuizFailure())
       dispatch(modalsActions.openModalAction({
         name: 'quizAlertModal',
         props: {

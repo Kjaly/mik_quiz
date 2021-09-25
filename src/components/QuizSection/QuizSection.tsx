@@ -104,10 +104,6 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
     if (id) {
       // eslint-disable-next-line prefer-const
       const {essay} = values;
-      console.log(answers)
-      const currentAnswers = JSON.parse(localStorage.getItem("answers") || "[]");
-      console.log(currentAnswers)
-      console.log(essay)
       let data = {id, answers}
       if (essay) {
         data = Object?.assign(data, {essay})

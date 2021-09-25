@@ -108,7 +108,6 @@ export type SubmitQuizSuccess = {
 
 export type SubmitQuizFailure = {
   type: typeof SUBMIT_QUIZ_FAILURE;
-  payload: SubmitQuizFailurePayload;
 };
 
 

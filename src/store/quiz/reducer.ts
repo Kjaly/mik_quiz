@@ -1,4 +1,10 @@
-import { FETCH_QUIZ_FAILURE, FETCH_QUIZ_REQUEST, FETCH_QUIZ_SUCCESS, SUBMIT_QUIZ_SUCCESS, } from './actionTypes';
+import {
+  FETCH_QUIZ_FAILURE,
+  FETCH_QUIZ_REQUEST,
+  FETCH_QUIZ_SUCCESS,
+  SUBMIT_QUIZ_FAILURE,
+  SUBMIT_QUIZ_SUCCESS,
+} from './actionTypes';
 
 import { QuizActions, QuizState } from './types';
 import { LOGOUT_USER_SUCCESS } from "../user/actionTypes";
@@ -42,6 +48,10 @@ export default (state = initialState, action: QuizActions): any => {
        ...initialState
       };
     case SUBMIT_QUIZ_SUCCESS:
+      return {
+        ...initialState
+      };
+      case SUBMIT_QUIZ_FAILURE:
       return {
         ...initialState
       };
