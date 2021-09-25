@@ -51,6 +51,7 @@ export const Header: React.FC<any> = () => {
     setAuthIsOpen(!authIsOpen)
   }
   const logout = () => {
+    setAuthIsOpen(false)
     dispatch(logoutUserRequest())
   }
 

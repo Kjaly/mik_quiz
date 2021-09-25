@@ -62,8 +62,6 @@ export const Profile: React.FC = () => {
   }
   useEffect(() => {
     if (serverErrors?.photo?.[0]) {
-      console.log(1);
-      console.log(serverErrors?.photo?.[0], 'test')
       setImgError(serverErrors?.photo?.[0])
     }
   }, [serverErrors]);

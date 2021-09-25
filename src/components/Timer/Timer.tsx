@@ -60,12 +60,11 @@ export const Timer: React.FC<ITimerProps> = () => {
 
   useEffect(() => {
     let timer!: ReturnType<typeof setTimeout>;
-    if (seconds && seconds > 0) {
+    if (seconds !== null && seconds > 0) {
       timer = setTimeout(() => setSeconds(seconds - 1), 1000);
     }
 
-
-    if (seconds && seconds <= 0) {
+    if (seconds !== null && seconds <= 0) {
       localStorage.removeItem('isQuizStarted')
       localStorage.removeItem('answers')
       dispatch(submitQuizFailure())
@@ -76,14 +75,14 @@ export const Timer: React.FC<ITimerProps> = () => {
           isEnded: true,
         }
       }))
-      if (timer) {
+      if (timer){
         clearTimeout(timer)
       }
     }
     return () => {
       clearTimeout(timer);
     };
-  });
+  },[seconds]);
 
 
   const getTime = (seconds: number) => {
@@ -99,9 +98,10 @@ export const Timer: React.FC<ITimerProps> = () => {
     return `${minutes}:${remainSeconds}`
   }
 
+  if (seconds !== null && seconds <= 0) return null
   return (
     <>
-      <IconClock/>{seconds && getTime(seconds)}
+      <IconClock/>{seconds !== null && getTime(seconds)}
     </>
   );
 };

@@ -13,21 +13,22 @@ import {
   StyledQuizTitle,
   StyledQuizWrapper,
   StyledTextarea
-} from "./QuizSection.styled";
-import { Title } from "../Typography/Title";
-import { theme } from "../../theme";
-import { QuizSectionItem } from "./QuizSectionItem";
+} from './QuizSection.styled';
+import { Title } from '../Typography/Title';
+import { theme } from '../../theme';
+import { QuizSectionItem } from './QuizSectionItem';
 import { Field, Form } from 'react-final-form';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Button } from "../Button";
-import { IconArrowRight } from "../../Icons";
-import { InputTextarea } from "../FormFinal/InputTextarea";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Button } from '../Button';
+import { IconArrowRight } from '../../Icons';
+import { InputTextarea } from '../FormFinal/InputTextarea';
 import { history } from '../../store'
-import { useDispatch, useSelector } from "react-redux";
-import { routerSelectors } from "../../store/route";
-import { DecorativeLines } from "../DecorativeLines";
-import { IQuestion } from "../../store/quiz/types";
-import { submitQuizRequest } from "../../store/quiz/actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { routerSelectors } from '../../store/route';
+import { DecorativeLines } from '../DecorativeLines';
+import { IQuestion } from '../../store/quiz/types';
+import { submitQuizRequest } from '../../store/quiz/actions';
+import { getQuizDeadlineSelector } from '../../store/quiz/selectors';
 
 
 interface IQuizSectionProps {
@@ -44,6 +45,7 @@ interface IAnswer {
 export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   const {questions, isEssay, id} = props
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
+  const deadline = useSelector(getQuizDeadlineSelector);
 
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [answers, setAnswers] = useState<Array<IAnswer>>([]);
@@ -69,19 +71,33 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
 
 
   useEffect(() => {
+    if (isEssay && !localStorage.getItem('isQuizStarted')) {
+      return history.push('/quiz')
+    }
     if (isEssay) {
       setStep(1)
     }
   }, [isEssay]);
 
-  const handleAnswersSet = (value: number, questionId: number, ): void => {
+  const handleAnswersSet = (value: number, questionId: number,): void => {
     setAnswers([...answers, {question_id: questionId, answer: [value]}])
   }
 
 
   useEffect(() => {
-    setAnswers(JSON.parse(localStorage.getItem("answers") || "[]"))
+    if (questions && answers.length >= questions?.length && step !== 1) {
+      setStep(1)
+      history.push('/quiz/essay')
+    }
+    if (questions && answers.length < questions?.length && step !== 0) {
+      setStep(0)
+      history.push('/quiz')
+    }
+  }, [questions, answers]);
 
+
+  useEffect(() => {
+    setAnswers(JSON.parse(localStorage.getItem('answers') || '[]'))
   }, []);
 
   useEffect(() => {
@@ -92,7 +108,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
   }, [answers]);
 
   useEffect(() => {
-    if (swiper && !isEssay) {
+    if (swiper && !isEssay && activeQuestion) {
       swiper?.slideTo(activeQuestion)
     }
     if (activeQuestion > maxEnabled) {
@@ -133,7 +149,8 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
                   <StyledQuizHeaderSection>
                     <StyledQuizTitle>
                       <Title color={theme.color.blue}>
-                        Вопрос {activeQuestion + 1}
+                        {deadline && deadline > 0 ? `Вопрос ${activeQuestion + 1}` : 'Викторина окончена'}
+
                       </Title>
                     </StyledQuizTitle>
                     <StyledQuizBullets>
@@ -153,6 +170,7 @@ export const QuizSection: React.FC<IQuizSectionProps> = (props) => {
 
                       autoHeight={true}
                       onSwiper={setSwiper}
+                      initialSlide={activeQuestion}
                       onSlideChange={(swiper) => setActiveQuestion(swiper?.activeIndex)}
                       allowTouchMove={false}
                     >

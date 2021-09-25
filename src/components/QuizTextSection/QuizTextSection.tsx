@@ -6,9 +6,9 @@ import {
   StyledQuizTextTitle,
   StyledTextItem,
   StyledTextWrapper
-} from "./QuizTextSection.styled";
-import { useSelector } from "react-redux";
-import { routerSelectors } from "../../store/route";
+} from './QuizTextSection.styled';
+import { useSelector } from 'react-redux';
+import { routerSelectors } from '../../store/route';
 
 interface IQuizTextProps {
   isQuizStarted?: boolean
@@ -24,7 +24,7 @@ export const QuizTextSection: React.FC<IQuizTextProps> = (props) => {
   if (isQuizStarted && !isEssay) return null;
   return (
     <StyledQuizTextSection>
-      {isEssay ? (
+      {isEssay && isQuizStarted ? (
         <>
           <StyledItemTitle>
             Напишите эссе на одну из двух предложенных тем. Объем письменной работы – не более 800 знаков.

@@ -45,7 +45,7 @@ import { modalsActions } from '../modals/actions';
 import { AuthResponse, VerifyResponse } from '../../models/response/RegResponse';
 import $api from '../../http';
 import { alertsActions } from '../alerts/actions';
-import { history } from "../index";
+import { history } from '../index';
 
 const registrationUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> =>
   $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/register`, {
@@ -323,24 +323,22 @@ function* resendVerifyUserSaga(action: Action<UpdateUserRequest>) {
 }
 
 function* logoutUserSaga() {
+  history.push('/')
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('expires_in');
+  localStorage.removeItem('answers');
+  localStorage.removeItem('isQuizStarted');
+  yield put(
+    logoutUserSuccess({
+      user: null,
+      api: null,
+    })
+  );
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const response = yield call(logoutUser);
-    if (response) {
-      yield put(
-        logoutUserSuccess({
-          user: null,
-          api: null,
-        })
-      );
-      history.push('/')
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('expires_in');
-      localStorage.removeItem('answers');
-      localStorage.removeItem('isQuizStarted');
-    }
   } catch (e: any) {
     console.warn('logout');
   }

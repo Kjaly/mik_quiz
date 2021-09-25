@@ -35,6 +35,11 @@ $api.interceptors.response.use(
           return $api.request(originalRequest);
         }
       } catch (e: any) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('expires_in');
+        localStorage.removeItem('answers');
+        localStorage.removeItem('isQuizStarted');
         console.warn('Пользователь не авторизован');
       }
     }
