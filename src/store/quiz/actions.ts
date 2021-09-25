@@ -2,7 +2,8 @@ import {
   FETCH_QUIZ_FAILURE,
   FETCH_QUIZ_REQUEST,
   FETCH_QUIZ_SUCCESS,
-  SUBMIT_QUIZ_FAILURE, SUBMIT_QUIZ_REQUEST,
+  SUBMIT_QUIZ_FAILURE,
+  SUBMIT_QUIZ_REQUEST,
   SUBMIT_QUIZ_SUCCESS,
 } from './actionTypes';
 import {
@@ -14,9 +15,8 @@ import {
   SubmitQuizFailure,
   SubmitQuizRequest,
   SubmitQuizRequestPayload,
-  SubmitQuizSuccess,
-  SubmitQuizSuccessPayload
-} from "./types";
+  SubmitQuizSuccess
+} from './types';
 
 export const fetchQuizRequest = (): FetchQuizRequest => ({
   type: FETCH_QUIZ_REQUEST,
@@ -45,10 +45,7 @@ export const submitQuizSuccess = (): SubmitQuizSuccess => ({
   type: SUBMIT_QUIZ_SUCCESS,
 });
 
-export const submitQuizFailure = (
-  payload: FetchQuizFailurePayload
-): SubmitQuizFailure => ({
+export const submitQuizFailure = (): SubmitQuizFailure => ({
   type: SUBMIT_QUIZ_FAILURE,
-  payload,
 });
 
