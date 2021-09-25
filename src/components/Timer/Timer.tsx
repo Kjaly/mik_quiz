@@ -1,33 +1,31 @@
-import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { IconClock } from "../../Icons";
-import { modalsActions } from "../../store/modals/actions";
-import { useDispatch } from "react-redux";
-import { alertsActions } from "../../store/alerts/actions";
+import { IconClock } from '../../Icons';
+import { modalsActions } from '../../store/modals/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { alertsActions } from '../../store/alerts/actions';
 import { submitQuizFailure } from '../../store/quiz/actions';
+import { getQuizDeadlineSelector } from '../../store/quiz/selectors';
 
 interface ITimerProps {
   startTime?: string
 }
 
 
-export const Timer: React.FC<ITimerProps> = (props) => {
+export const Timer: React.FC<ITimerProps> = () => {
 
-  const {startTime} = props
-
-  const startDate = dayjs(startTime).unix();
-  const currentDate = dayjs().unix();
-  const finishTime = startDate + (60 * 90)
+  const deadline = useSelector(getQuizDeadlineSelector);
   const thirtyMinutes = 60 * 30
   const fifteenMinutes = 60 * 15
   const fiveMinutes = 60 * 5
   const dispatch = useDispatch();
-  const [seconds, setSeconds] = useState(finishTime - currentDate);
+  const [seconds, setSeconds] = useState(deadline || null);
 
 
   useEffect(() => {
-    setSeconds(finishTime - currentDate)
-  }, [startTime]);
+    if (deadline) {
+      setSeconds(deadline)
+    }
+  }, [deadline]);
 
 
   useEffect(() => {
@@ -62,12 +60,12 @@ export const Timer: React.FC<ITimerProps> = (props) => {
 
   useEffect(() => {
     let timer!: ReturnType<typeof setTimeout>;
-    if (seconds > 0) {
+    if (seconds && seconds > 0) {
       timer = setTimeout(() => setSeconds(seconds - 1), 1000);
     }
 
 
-    if (seconds <= 0) {
+    if (seconds && seconds <= 0) {
       localStorage.removeItem('isQuizStarted')
       localStorage.removeItem('answers')
       dispatch(submitQuizFailure())
@@ -103,7 +101,7 @@ export const Timer: React.FC<ITimerProps> = (props) => {
 
   return (
     <>
-      <IconClock/>{getTime(seconds)}
+      <IconClock/>{seconds && getTime(seconds)}
     </>
   );
 };

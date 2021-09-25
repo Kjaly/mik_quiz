@@ -68,7 +68,6 @@ export const Profile: React.FC = () => {
     }
   }, [serverErrors]);
 
-  console.log(imgError, 'imgerror')
   return (
     <StyledProfileWrapper>
       <TitleBanner>Мой профиль</TitleBanner>

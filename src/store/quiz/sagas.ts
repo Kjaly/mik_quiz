@@ -34,8 +34,10 @@ function* fetchQuizSaga() {
     if (response.data) {
       yield put(
         fetchQuizSuccess({
-          quiz: response.data.data
+          quiz: response.data.data,
+          deadline: response.data?.meta?.deadline
         })
+
       );
 
       localStorage.setItem('isQuizStarted', 'true')

@@ -6,6 +6,7 @@ const getPending = (state: AppState) => state.quiz.pending;
 
 const getQuiz = (state: AppState) => state.quiz;
 const getQuizId = (state: AppState) => state.quiz.id;
+const getQuizExpires = (state: AppState) => state.quiz.deadline;
 
 const getErrors = (state: AppState) => state.quiz.errors;
 const getMessage = (state: AppState) => state.quiz.message;
@@ -20,4 +21,5 @@ export const getPendingSelector = createSelector(
 export const getErrorsSelector = createSelector(getErrors, (error) => error);
 export const getMessageSelector = createSelector(getMessage, (message) => message);
 export const getQuizIdSelector = createSelector(getQuizId, (id) => id)
+export const getQuizDeadlineSelector = createSelector(getQuizExpires, (deadline) => deadline)
 

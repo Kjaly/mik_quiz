@@ -53,7 +53,7 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
             // middle_name: '',
             // first_name: '',
             // last_name: '',
-            // city: '',
+            city: '',
             // school: '',
             // school_class: '',
             // school_teacher_history: '',
@@ -97,6 +97,13 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
                     component={InputText}
                     type="email"
                     placeholder="Email"
+                    errors={serverErrors}
+                  />
+                  <Field
+                    name="city"
+                    component={InputText}
+                    type="text"
+                    placeholder="Город"
                     errors={serverErrors}
                   />
                   <Field

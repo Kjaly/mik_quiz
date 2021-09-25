@@ -34,6 +34,7 @@ export default (state = initialState, action: QuizActions): any => {
         ...state,
         pending: false,
         ...action.payload.quiz,
+        deadline:action.payload.deadline,
         errors: null,
       };
     case FETCH_QUIZ_FAILURE:

@@ -12,6 +12,7 @@ export const getValidationSchema = ({formName}: IShemaValues): AnyObject | undef
   const schema = {
     [formsNames.registration]: {
       email: fields.email,
+      city: fields.city,
       password: fields.password,
       password_confirmation: fields.password,
     },
