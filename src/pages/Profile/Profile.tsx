@@ -61,10 +61,10 @@ export const Profile: React.FC = () => {
     inputFile?.current?.click();
   }
   useEffect(() => {
-    if (serverErrors?.photo[0]) {
+    if (serverErrors?.photo?.[0]) {
       console.log(1);
-      console.log(serverErrors?.photo[0], 'test')
-      setImgError(serverErrors?.photo[0])
+      console.log(serverErrors?.photo?.[0], 'test')
+      setImgError(serverErrors?.photo?.[0])
     }
   }, [serverErrors]);
 
