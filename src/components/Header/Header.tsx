@@ -129,7 +129,7 @@ export const Header: React.FC<any> = () => {
                   <Button
                     icon={IconKey}
                     background={theme.color.yellow}
-                    disabled
+                    // disabled
                     title={'Регистрация'}
                     color={'#fff'}
                     onClick={() => handleRegistration()}/>
