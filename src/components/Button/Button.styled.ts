@@ -19,6 +19,7 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
 
   :hover {
     background: ${({view, borderColor}) => view === 'bordered' && borderColor};
+    color: ${({view}) => view === 'bordered' && '#fff'};
 
     filter: brightness(0.9);
   }

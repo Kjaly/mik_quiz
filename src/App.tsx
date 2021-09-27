@@ -13,12 +13,18 @@ import { routerSelectors } from './store/route';
 import { IEmailVerify } from './store/user/types';
 import { history } from './store';
 import { Alert } from './components/Alert';
+import { getUserRoleSelector } from "./store/user/selectors";
+import { modalsActions } from "./store/modals/actions";
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const currentQuery = useSelector(routerSelectors.getLocationQuery) as IEmailVerify
   const currentPath = useSelector(routerSelectors.getLocationPathName)
+  const role = useSelector(getUserRoleSelector)
+  const isFinalist = role === 'quiz_finalist'
+
+
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
       dispatch(fetchUserRequest())
@@ -35,7 +41,11 @@ const App = (): JSX.Element => {
     }
   }, []);
 
-
+  useEffect(() => {
+    if (!isFinalist){
+      dispatch(modalsActions.openModalAction({name: 'finalistModal'}))
+    }
+  }, [role]);
 
   return (
     <>

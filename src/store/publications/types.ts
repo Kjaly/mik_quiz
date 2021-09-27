@@ -4,7 +4,7 @@ import {
 } from "./actionTypes";
 
 interface IPublication {
-  id: number;
+  id: string;
   category: string;
   type: string;
   url:string;
@@ -29,7 +29,7 @@ export interface ISetPublicationPayload {
 }
 
 export interface IRemovePublicationPayload {
-  id: number;
+  publications: Array<TPublication>;
 }
 
 

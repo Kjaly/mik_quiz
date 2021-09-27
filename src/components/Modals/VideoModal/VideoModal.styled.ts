@@ -12,7 +12,8 @@ export const StyledPlayer = styled.div`
   flex: 1;
   background-color: #dedede;
   border-radius: 8px;
-  height: 450px;
+  min-height: 450px;
+  height:450px;
   width: 100%;
   margin-bottom: 30px;
   position: relative;

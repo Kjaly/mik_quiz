@@ -123,27 +123,28 @@ function* fetchUserSaga() {
         user: response.data.data,
       })
     );
-    if (!response.data?.data?.is_completed) {
-      if (response.data?.data?.email_verified_at) {
-        if (history.location.pathname.includes('/profile')) return null;
-        yield put(
-          modalsActions.openModalAction({
-            name: 'mailConfirmModal',
-            props: {
-              text: 'Чтобы твои результаты были учтены, тебе необходимо (если ты совершеннолетний) или твоим родителям (опекунам) заполнить свой профиль и форму Согласия на обработку персональных данных и публикацию итогов викторины. Для этого распечатай соответствующий бланк, заполни и загрузи его в личном кабинете. Важно! Без этого документа твои результаты не будут засчитаны. Добавить Согласие можно в течение трех дней после завершения онлайн-викторины.',
-              noMail: true
-            },
-          })
-        );
-      } else {
-        yield put(
-          modalsActions.openModalAction({
-            name: 'mailConfirmModal',
-            props: {text: response.data?.message},
-          })
-        )
-      }
-    }
+    // TODO УБРАТЬ коммент
+    // if (!response.data?.data?.is_completed) {
+    //   if (response.data?.data?.email_verified_at) {
+    //     if (history.location.pathname.includes('/profile')) return null;
+    //     yield put(
+    //       modalsActions.openModalAction({
+    //         name: 'mailConfirmModal',
+    //         props: {
+    //           text: 'Чтобы твои результаты были учтены, тебе необходимо (если ты совершеннолетний) или твоим родителям (опекунам) заполнить свой профиль и форму Согласия на обработку персональных данных и публикацию итогов викторины. Для этого распечатай соответствующий бланк, заполни и загрузи его в личном кабинете. Важно! Без этого документа твои результаты не будут засчитаны. Добавить Согласие можно в течение трех дней после завершения онлайн-викторины.',
+    //           noMail: true
+    //         },
+    //       })
+    //     );
+    //   } else {
+    //     yield put(
+    //       modalsActions.openModalAction({
+    //         name: 'mailConfirmModal',
+    //         props: {text: response.data?.message},
+    //       })
+    //     )
+    //   }
+    // }
   } catch (e: any) {
     yield put(
       fetchUserFailure({

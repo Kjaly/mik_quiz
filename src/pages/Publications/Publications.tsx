@@ -8,6 +8,7 @@ import { ContentWrapper } from "../../components/ContentWrapper";
 import { publicationsSelector } from "../../store/publications/selectors";
 import { TPublication } from "../../store/publications/types";
 import { GalleryItem } from "../../components/Gallery/GalleryItem";
+import { publicationsActions } from "../../store/publications/actions";
 
 export const Publications: React.FC = () => {
   const publications: Array<TPublication> = useSelector(publicationsSelector.getPublicationsSelector);
@@ -16,6 +17,12 @@ export const Publications: React.FC = () => {
 
   const handleClick = () => {
     dispatch(modalsActions.openModalAction({name: 'addPublicationModal'}))
+  }
+
+  const handleRemove = (id: string) => {
+    console.log(id)
+    const currentPublications = publications.filter(item => item.id !== id)
+    dispatch(publicationsActions.removePublication({publications: currentPublications}))
   }
   return (
     <StyledPublications>
@@ -28,7 +35,8 @@ export const Publications: React.FC = () => {
           </StyledPreviewBlock>
           {publications?.length ? publications?.map((item, key) => {
             return (
-              <GalleryItem key={key} type={item.type === 'Видео' ? 1 : 2} edit url={item?.url}/>
+              <GalleryItem key={key} type={item.type === 'Видео' ? 1 : 2} edit publication={item}
+                           handleRemove={handleRemove}/>
             )
           }) : null}
 

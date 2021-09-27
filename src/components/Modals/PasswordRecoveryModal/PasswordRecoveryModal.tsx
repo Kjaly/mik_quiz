@@ -97,7 +97,7 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                   пароля
                 </StyledDescription>
                 <StyledForm isActive={!modalProps?.isActive}>
-                  {!modalProps?.isActive ? (
+                  {modalProps?.isActive ? (
                     <>
                       <Field
                         autoComplete={'off'}
@@ -143,6 +143,7 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                     reversed
                     background={'#fff'}
                     color={theme.color.blue}
+                    borderColor={theme.color.blue}
                     view={'bordered'}
                     title={'Войти на сайт'}
                     onClick={handleAuth}/>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ModalTemplate } from '../ModalTemplate';
 import {
   StyledActiveWrapper,
@@ -23,7 +23,7 @@ import { theme } from '../../../theme';
 import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
 import { useDispatch } from 'react-redux';
-import { piblicationsActions } from '../../../store/publications/actions';
+import { publicationsActions } from '../../../store/publications/actions';
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -38,16 +38,24 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
   const [step, setStep] = useState(0);
   const [option, setOption] = useState('');
   const [files, setFiles] = useState<Array<File>>([]);
-
   const [type, setType] = useState('');
 
+  const getId = ():string => {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
   const handleSubmitForm = (values: any) => {
     const filePreviewUrl = files[0] ? URL.createObjectURL(files[0]) : values.url;
 
-    dispatch(piblicationsActions.addPublication({...values, files, option, type, url: filePreviewUrl}))
+    const uid = getId()
+    dispatch(publicationsActions.addPublication({...values, files, option, type, url: filePreviewUrl, id: uid}))
     setStep(1)
     // dispatch(modalsActions.closeModalAction())
   }
+
+  useEffect(() => {
+    setFiles([])
+  }, [type]);
+
 
   return (
     <ModalTemplate>
@@ -96,6 +104,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                       <Field
                         name="description"
                         component={InputTextarea}
+                        maxCount={150}
                         placeholder="Описание"
                       />
 

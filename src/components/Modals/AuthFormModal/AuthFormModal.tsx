@@ -41,9 +41,9 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
     dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
 
-  // const handleRecoveryPassword = () => {
-  //   dispatch(modalsActions.openModalAction({name: 'recoveryPasswordModal'}))
-  // }
+  const handleRecoveryPassword = () => {
+    dispatch(modalsActions.openModalAction({name: 'recoveryPasswordModal'}))
+  }
   useEffect(() => {
     return () => {
       dispatch(removeUserErrors())
@@ -126,7 +126,7 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
                     onClick={handleValidate}/>
 
                   <StyledLinkBlock>
-                    {/*<StyledAuthLink onClick={handleRecoveryPassword}>Забыли пароль?</StyledAuthLink>*/}
+                    <StyledAuthLink onClick={handleRecoveryPassword}>Забыли пароль?</StyledAuthLink>
                     <StyledAuthLink onClick={handleRegistrate}>Регистрация</StyledAuthLink>
                   </StyledLinkBlock>
                 </StyledButtonBlock>

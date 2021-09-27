@@ -8,5 +8,6 @@ export const colorSchema = {
   grey:'#ddd',
   black:'#333333',
   lightgray:'#DBD6D0',
+  lightgray2:'#F4F3F1',
   green:'#14CCAE'
 }
