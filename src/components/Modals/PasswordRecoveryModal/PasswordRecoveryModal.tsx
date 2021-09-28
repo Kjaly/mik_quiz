@@ -114,45 +114,44 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
             return (
               <form onKeyDown={(e) => e.code === 'Enter' && handleValidate()}>
                 <StyledDescription>
-                  Пожалуйста, введите ваш email адрес указанный при регистрации для получения ссылки на восстановление
-                  пароля
-                </StyledDescription>
-                <StyledForm isActive={!modalProps?.isActive}>
+                  {modalProps?.isActive ? 'Пожалуйста, введите новый пароль' : 'Пожалуйста, введите ваш email адрес указанный при регистрации для получения ссылки на восстановление пароля'}
+                    </StyledDescription>
+                    <StyledForm isActive={!modalProps?.isActive}>
                   {modalProps?.isActive ? (
                     <>
-                      <Field
-                        autoComplete={'off'}
-                        name="password"
-                        component={InputText}
-                        type="password"
-                        placeholder="Пароль"
-                      />
-                      <Field
-                        autoComplete={'off'}
-                        name="password_confirmation"
-                        component={InputText}
-                        type="password"
-                        placeholder="Повтор пароля"
-                      />
-                    </>
-                  ) : (
                     <Field
-                      autoComplete={'email'}
-                      name="email"
-                      component={InputText}
-                      type="text"
-                      placeholder="Email"
+                    autoComplete={'off'}
+                    name="password"
+                    component={InputText}
+                    type="password"
+                    placeholder="Пароль"
                     />
-                  )}
+                    <Field
+                    autoComplete={'off'}
+                    name="password_confirmation"
+                    component={InputText}
+                    type="password"
+                    placeholder="Повтор пароля"
+                    />
+                    </>
+                    ) : (
+                    <Field
+                    autoComplete={'email'}
+                    name="email"
+                    component={InputText}
+                    type="text"
+                    placeholder="Email"
+                    />
+                    )}
 
-                  <StyledError>
-                    {typeof serverErrors === 'string' && serverErrors}
-                  </StyledError>
-                </StyledForm>
+                    <StyledError>
+                  {typeof serverErrors === 'string' && serverErrors}
+                    </StyledError>
+                    </StyledForm>
 
 
-                <StyledButtonBlock>
-                  <Button
+                    <StyledButtonBlock>
+                    <Button
                     icon={IconArrowRight}
                     reversed
                     background={theme.color.yellow}
@@ -160,7 +159,7 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                     title={'Восстановить пароль'}
                     onClick={() => handleReset(values)}/>
 
-                  <Button
+                    <Button
                     reversed
                     background={'#fff'}
                     color={theme.color.blue}
@@ -169,13 +168,13 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                     title={'Войти на сайт'}
                     onClick={handleAuth}/>
 
-                </StyledButtonBlock>
-              </form>
-            )
-          }}
-        />
+                    </StyledButtonBlock>
+                    </form>
+                    )
+                  }}
+                  />
 
-      </StyledPasswordRecoveryFormModal>
-    </ModalTemplate>
-  );
-};
+                </StyledPasswordRecoveryFormModal>
+              </ModalTemplate>
+            );
+          };

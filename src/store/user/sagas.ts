@@ -279,7 +279,7 @@ function* resetUserPasswordSaga(action: Action<ResetUserPasswordPayload>) {
           name: 'mailConfirmModal',
           props: {
             title:'Проверьте электронную почту',
-            text: `Мы отправили письмо c инструкцией на <a>name@mail.domain</a>`,
+            text: `Мы отправили письмо c инструкцией на <a>${action.payload?.data.email}</a>`,
           },
         })
       );

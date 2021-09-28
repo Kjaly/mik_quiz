@@ -126,7 +126,7 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
 
                   <StyledLinkBlock>
                     <StyledAuthLink onClick={handleRecoveryPassword}>Забыли пароль?</StyledAuthLink>
-                    <StyledAuthLink onClick={handleRegistrate}>Регистрация</StyledAuthLink>
+                    {/*<StyledAuthLink onClick={handleRegistrate}>Регистрация</StyledAuthLink>*/}
                   </StyledLinkBlock>
                 </StyledButtonBlock>
               </form>
