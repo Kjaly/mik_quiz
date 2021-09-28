@@ -25,7 +25,6 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
 
   const dispatch = useDispatch()
   const videoId = publication?.url?.split("v=")[1]?.split("&")[0];
-  console.log(videoId)
   const handleClick = () => {
     dispatch(modalsActions.openModalAction({name: type !== 1 ? 'photoGallery' : 'videoGallery', props: {videoId}}))
   }

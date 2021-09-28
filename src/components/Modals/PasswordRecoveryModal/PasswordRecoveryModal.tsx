@@ -18,7 +18,7 @@ import { IAuthFormModalValues } from './PasswordRecoveryModal.types';
 import { asyncValidate } from '../../../services/forms/asyncValidate';
 import { formsNames } from '../../../services/forms/formsNames';
 import { setError } from '../../../services/forms/setFinalFormErrorMutator';
-import { loginUserRequest, removeUserErrors } from '../../../store/user/actions';
+import { loginUserRequest, removeUserErrors, resetUserPasswordRequest } from '../../../store/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getErrorsSelector } from '../../../store/user/selectors';
 import { modalsActions } from '../../../store/modals/actions';
@@ -40,6 +40,15 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
   }
   const handleAuth = () => {
     dispatch(modalsActions.openModalAction({name: 'authModal'}))
+  }
+  console.log(modalProps)
+  const handleReset = (values: any) => {
+    let currentValues = {email: values.email}
+    if (modalProps?.isActive && modalProps?.token) {
+      const email = modalProps?.email.replace('%40', '@')
+      currentValues = {...values, token: modalProps?.token, email}
+    }
+    dispatch(resetUserPasswordRequest({data: {...currentValues}, reset: modalProps?.isActive}))
   }
   useEffect(() => {
     return () => {
@@ -68,13 +77,25 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
             const {values, handleSubmit, form} = renderProps;
 
             const handleValidate = async (): Promise<void> => {
-              const errors = await asyncValidate(
-                values,
-                {
-                  formName: formsNames.auth,
-                },
-                form.mutators.setError,
-              );
+              let errors
+              if (modalProps.isActive) {
+                errors = await asyncValidate(
+                  values,
+                  {
+                    formName: formsNames.resetPassword,
+                  },
+                  form.mutators.setError,
+                );
+              } else {
+                errors = await asyncValidate(
+                  values,
+                  {
+                    formName: formsNames.auth,
+                  },
+                  form.mutators.setError,
+                );
+              }
+
               if (!errors) {
                 handleSubmit();
               }
@@ -137,7 +158,7 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                     background={theme.color.yellow}
                     color={'#fff'}
                     title={'Восстановить пароль'}
-                    onClick={handleValidate}/>
+                    onClick={() => handleReset(values)}/>
 
                   <Button
                     reversed

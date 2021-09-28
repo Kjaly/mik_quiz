@@ -47,12 +47,7 @@ export const StyledForm = styled.div<{ isActive?: boolean }>`
   > div {
     margin-bottom: 20px;
 
-    :first-child {
-      margin-bottom: ${({isActive}) => !isActive && '0'};
-    }
-
     :nth-child(2) {
-      background: red;
       margin-bottom: ${({isActive}) => !isActive && '0'}
     }
 
@@ -76,20 +71,6 @@ export const StyledButtonBlock = styled.div`
   > div:first-child {
     flex: 1 0 auto;
   }
-`
-export const StyledLinkBlock = styled.div`
-`
-export const StyledAuthLink = styled.a`
-  width: 100%;
-  cursor: pointer;
-  display: block;
-  color: ${({theme}) => theme.color.blue};
-  transition: all .2s ease-in-out;
-
-  :hover {
-    filter: brightness(0.7)
-  }
-
 `
 
 export const StyledError = styled.div`

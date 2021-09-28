@@ -16,7 +16,11 @@ import {
   REMOVE_USER_ERRORS,
   RESEND_VERIFY_USER_FAILURE,
   RESEND_VERIFY_USER_REQUEST,
-  RESEND_VERIFY_USER_SUCCESS, SET_FILE_UPLOAD_STATUS,
+  RESEND_VERIFY_USER_SUCCESS,
+  RESET_USER_PASSWORD_FAILURE,
+  RESET_USER_PASSWORD_REQUEST,
+  RESET_USER_PASSWORD_SUCCESS,
+  SET_FILE_UPLOAD_STATUS,
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -50,7 +54,14 @@ import {
   RemoveUserErrors,
   ResendVerifyUserFailure,
   ResendVerifyUserRequest,
-  ResendVerifyUserSuccess, SetFileUploadStatusPayload, SetFileUploadStatusSuccess,
+  ResendVerifyUserSuccess,
+  ResetUserPasswordFailure,
+  ResetUserPasswordPayload,
+  ResetUserPasswordRequest,
+  ResetUserPasswordSuccess,
+  ResetUserPasswordSuccessPayload,
+  SetFileUploadStatusPayload,
+  SetFileUploadStatusSuccess,
   UpdateUserFailure,
   UpdateUserRequest,
   UpdateUserSuccess,
@@ -208,6 +219,25 @@ export const logoutUserSuccess = (
   payload: AuthUserSuccessPayload
 ): LogoutUserSuccess => ({
   type: LOGOUT_USER_SUCCESS,
+  payload,
+});
+
+export const resetUserPasswordRequest = (payload: ResetUserPasswordPayload): ResetUserPasswordRequest => ({
+  type: RESET_USER_PASSWORD_REQUEST,
+  payload,
+});
+
+export const resetUserPasswordSuccess = (
+  payload: ResetUserPasswordSuccessPayload
+): ResetUserPasswordSuccess => ({
+  type: RESET_USER_PASSWORD_SUCCESS,
+  payload,
+});
+
+export const resetUserPasswordFailure = (
+  payload: FetchUserFailurePayload
+): ResetUserPasswordFailure => ({
+  type: RESET_USER_PASSWORD_FAILURE,
   payload,
 });
 

@@ -10,16 +10,16 @@ import { ControlledReduxModal } from './components/ControlledReduxModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserRequest, verifyUserRequest } from './store/user/actions';
 import { routerSelectors } from './store/route';
-import { IEmailVerify } from './store/user/types';
+import { IEmailVerify, IResetPassword } from './store/user/types';
 import { history } from './store';
 import { Alert } from './components/Alert';
-import { getUserRoleSelector } from "./store/user/selectors";
-import { modalsActions } from "./store/modals/actions";
+import { getUserRoleSelector } from './store/user/selectors';
+import { modalsActions } from './store/modals/actions';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch()
 
-  const currentQuery = useSelector(routerSelectors.getLocationQuery) as IEmailVerify
+  const currentQuery = useSelector(routerSelectors.getLocationQuery) as IEmailVerify & IResetPassword
   const currentPath = useSelector(routerSelectors.getLocationPathName)
   const role = useSelector(getUserRoleSelector)
   const isFinalist = role === 'quiz_finalist'
@@ -42,7 +42,17 @@ const App = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    if (!isFinalist){
+    if (currentPath.includes('reset-password')) {
+      history.push('/')
+      dispatch(modalsActions.openModalAction({
+        name: 'recoveryPasswordModal',
+        props: {isActive: true, token: currentQuery?.token, email: currentQuery?.email}
+      }))
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isFinalist) {
       dispatch(modalsActions.openModalAction({name: 'finalistModal'}))
     }
   }, [role]);
