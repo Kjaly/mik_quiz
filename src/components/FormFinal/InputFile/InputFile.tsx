@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { StyledInput, StyledInputContainer, StyledLoader, StyledText } from './InputFile.styled';
 import { FieldRenderProps } from 'react-final-form';
 import { ErrorTip } from '../../ErrorTip';
@@ -37,9 +37,6 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
     inputFile?.current?.click();
   }
 
-  useEffect(() => {
-    console.log(uploadStatus)
-  }, [uploadStatus]);
 
   const handleChange = (e: any) => {
     setError('')

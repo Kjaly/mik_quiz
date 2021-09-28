@@ -21,10 +21,7 @@ export const Gallery: React.FC = () => {
           view={'bordered'}
           icon={IconArrowRight}
           borderColor={'rgba(61, 79, 135, 0.2)'}
-          reversed
-          onClick={() => {
-          console.log(1)
-        }}/>
+          reversed/>
       </StyledButton>
     </StyledGalleryWrapper>
   );

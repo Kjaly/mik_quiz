@@ -194,13 +194,11 @@ export const checkAuthUserFailure = (
 
 export const setFileUploadStatus = (
   payload: SetFileUploadStatusPayload
-): SetFileUploadStatusSuccess => {
-  console.log(payload, 'test')
-  return {
+): SetFileUploadStatusSuccess => ({
     type: SET_FILE_UPLOAD_STATUS,
     payload,
   }
-};
+);
 
 export const logoutUserRequest = (): LogoutUserRequest => ({
   type: LOGOUT_USER_REQUEST,
