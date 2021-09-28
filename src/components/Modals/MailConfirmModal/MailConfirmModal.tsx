@@ -10,6 +10,7 @@ import {
   StyledDescription,
   StyledButton,
   StyledMobileIcon,
+  StyledText,
 } from './MailConfirmModal.styled'
 import { TModalProps } from '../../../store/modals/types';
 import { IconCross, IconMail } from '../../../Icons';
@@ -48,8 +49,8 @@ export const MailConfirmModal: React.FC<TModalProps> = (props) => {
               <IconMail/>
             </StyledIcon>
           )}
-          {text || 'Письмо подтверждения регистрации отправлено на ваш Email адрес. Проверьте свою электронную почту и завершите регистрацию.'}
-
+          <StyledText
+            dangerouslySetInnerHTML={{__html: text || 'Письмо подтверждения регистрации отправлено на ваш Email адрес. Проверьте свою электронную почту и завершите регистрацию.'}}/>
 
         </StyledDescription>
         {noMail && (

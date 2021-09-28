@@ -16,7 +16,7 @@ export const StyledPhotoDropZone = styled.div<{ isDragActive: boolean }>`
 
 `
 export const StyledButton = styled.div`
-  max-width: 150px;
+  width: 100%;
   margin-right: 33px;
 
   > div {
@@ -26,6 +26,11 @@ export const StyledButton = styled.div`
     > a {
       font-size: 12px;
     }
+  }
+
+  ${device.tablet} {
+    max-width: 150px;
+
   }
 `
 export const StyledTextZone = styled.div`
@@ -60,7 +65,6 @@ export const StyledSettings = styled.div`
   margin-bottom: 10px;
 
   ${device.tablet} {
-    flex-direction: row;
     margin-bottom: 0;
 
   }

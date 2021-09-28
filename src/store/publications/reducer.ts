@@ -15,8 +15,10 @@ export default (state = initialState, action: TPublicationsActions):any => {
         publications: state?.publications?.length ?  [...state.publications, action.payload] : [action.payload],
       };
     case REMOVE_PUBLICATION:
+      console.log(action.payload)
       return {
         ...state,
+        publications: action.payload.publications,
       };
     default:
       return {

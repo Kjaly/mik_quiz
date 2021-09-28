@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from "../../../theme/devices";
+import { device } from '../../../theme/devices';
 
 export const StyledMailConfirmModal = styled.div`
   background-color: #fff;
@@ -28,7 +28,7 @@ export const StyledCloseIcon = styled.div`
 `
 
 export const StyledMailConfirmTitle = styled.div`
-  margin-right: 2em;
+  margin-right: 1em;
   font-size: 20px;
 
   ${device.tablet} {
@@ -49,6 +49,13 @@ export const StyledDescription = styled.div`
   display: flex;
   width: 100%;
   align-items: flex-start;
+`
+export const StyledText = styled.div`
+  display: inline;
+
+  > a {
+    color: ${({theme}) => theme.color.blue};
+  }
 `
 export const StyledIcon = styled.div`
   display: none;

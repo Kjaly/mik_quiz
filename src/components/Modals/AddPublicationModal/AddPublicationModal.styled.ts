@@ -63,7 +63,11 @@ export const StyledCross = styled.div`
   align-items: center;
 
   :hover {
-    transform: scale(1.1);
+    > svg {
+      transition: all 0.2s ease-in-out;
+      transform: scale(1.1);
+
+    }
   }
 
   > svg {

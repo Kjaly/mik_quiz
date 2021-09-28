@@ -18,7 +18,7 @@ const removePublication = (
   payload,
 });
 
-export const piblicationsActions = {
+export const publicationsActions = {
   addPublication,
   removePublication
 }

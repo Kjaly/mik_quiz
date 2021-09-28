@@ -47,6 +47,11 @@ export const ROUTES = [
     component: (): JSX.Element => <Home/>,
   },
   {
+    path: '/reset-password',
+    key: 'PROFILE',
+    component: (): JSX.Element => <Home/>,
+  },
+  {
     path: '/quiz',
     key: 'QUIZ',
     component: (): JSX.Element => <Quiz/>,

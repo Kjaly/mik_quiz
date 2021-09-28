@@ -11,17 +11,19 @@ import {
 import { TModalProps } from "../../../store/modals/types";
 import { IconCross } from "../../../Icons";
 import YouTube from "react-youtube";
+import { useSelector } from "react-redux";
+import { modalsSelectors } from "../../../store/modals/selectors";
 
 export const VideoModal: React.FC<TModalProps> = (props) => {
   const {closeModal} = props
+  const modalProps = useSelector(modalsSelectors.getModalProps)
+
 
   const opts = {
     height: '100%',
     width: '100%',
   }
 
-  const videoUrl = 'https://www.youtube.com/watch?v=20QiX8rmHnU';
-  const videoId = videoUrl.split("v=")[1].split("&")[0];
 
   return (
     <ModalTemplate>
@@ -31,7 +33,7 @@ export const VideoModal: React.FC<TModalProps> = (props) => {
             <IconCross/>
           </StyledCloseIcon>
           <YouTube
-            videoId={videoId}
+            videoId={modalProps.videoId}
             opts={opts}
           />
         </StyledPlayer>

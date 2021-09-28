@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  // StyledAuthLink,
+  StyledAuthLink,
   StyledButtonBlock,
   StyledCross,
   StyledError,
@@ -22,7 +22,7 @@ import { setError } from '../../../services/forms/setFinalFormErrorMutator';
 import { loginUserRequest, removeUserErrors } from '../../../store/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getErrorsSelector } from '../../../store/user/selectors';
-// import { modalsActions } from '../../../store/modals/actions';
+import { modalsActions } from '../../../store/modals/actions';
 
 export interface IRegistrationFormProps {
   closeModal?: () => void;
@@ -36,13 +36,13 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
   const submitHandler = (values: IAuthFormModalValues) => {
     dispatch(loginUserRequest(values))
   }
-  // const handleRegistrate = () => {
-  //   dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
-  // }
+  const handleRegistrate = () => {
+    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+  }
 
-  // const handleRecoveryPassword = () => {
-  //   dispatch(modalsActions.openModalAction({name: 'recoveryPasswordModal'}))
-  // }
+  const handleRecoveryPassword = () => {
+    dispatch(modalsActions.openModalAction({name: 'recoveryPasswordModal'}))
+  }
   useEffect(() => {
     return () => {
       dispatch(removeUserErrors())
@@ -125,8 +125,8 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
                     onClick={handleValidate}/>
 
                   <StyledLinkBlock>
-                    {/*<StyledAuthLink onClick={handleRecoveryPassword}>Забыли пароль?</StyledAuthLink>*/}
-                    {/*<StyledAuthLink onClick={handleRegistrate}>Регистрация</StyledAuthLink>*/}
+                    <StyledAuthLink onClick={handleRecoveryPassword}>Забыли пароль?</StyledAuthLink>
+                    <StyledAuthLink onClick={handleRegistrate}>Регистрация</StyledAuthLink>
                   </StyledLinkBlock>
                 </StyledButtonBlock>
               </form>

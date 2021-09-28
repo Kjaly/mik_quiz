@@ -27,6 +27,7 @@ import {
   LOGOUT_USER_REQUEST,
   REGISTER_USER_REQUEST,
   RESEND_VERIFY_USER_REQUEST,
+  RESET_USER_PASSWORD_REQUEST,
   UPDATE_USER_REQUEST,
   VERIFY_USER_REQUEST,
 } from './actionTypes';
@@ -38,6 +39,7 @@ import {
   IUserRegistration,
   IUserUpdatePayload,
   RegisterUserRequest,
+  ResetUserPasswordPayload,
   UpdateUserRequest,
   VerifyUserRequest
 } from './types';
@@ -127,6 +129,15 @@ const resendVerifyUser = (payload: IResendEmailVerify): Promise<AxiosResponse<Ve
   });
 }
 
+const forgotUserPassword = (payload: IUserLogin): Promise<AxiosResponse<AuthResponse>> =>
+  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/password/forgot`, {
+    ...payload,
+  });
+const resetUserPassword = (payload: IUserLogin): Promise<AxiosResponse<AuthResponse>> =>
+  $api.post<AuthResponse>(`${process.env.REACT_APP_API_URL}/auth/password/reset`, {
+    ...payload,
+  });
+
 function* fetchUserSaga() {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -137,6 +148,7 @@ function* fetchUserSaga() {
         user: response.data.data,
       })
     );
+
     if (!response.data?.data?.is_completed) {
       if (response.data?.data?.email_verified_at) {
         if (history.location.pathname.includes('/profile')) return null;
@@ -241,6 +253,47 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
     );
   }
 }
+
+function* resetUserPasswordSaga(action: Action<ResetUserPasswordPayload>) {
+  try {
+
+    if (action.payload?.data?.token) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      yield call(resetUserPassword, action.payload.data);
+      yield put(
+        modalsActions.openModalAction({
+          name: 'mailConfirmModal',
+          props: {
+            title:'Смена пароля',
+            text: `Пароль успешно измененен`,
+          },
+        })
+      );
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      yield call(forgotUserPassword, action.payload.data);
+      yield put(
+        modalsActions.openModalAction({
+          name: 'mailConfirmModal',
+          props: {
+            title:'Проверьте электронную почту',
+            text: `Мы отправили письмо c инструкцией на <a>name@mail.domain</a>`,
+          },
+        })
+      );
+    }
+
+  } catch (e: any) {
+    yield put(
+      registerUserFailure({
+        errors: e.response.data.errors || e.response.data.message,
+      })
+    );
+  }
+}
+
 
 function* updateUserSaga(action: Action<IUserUpdatePayload>) {
   const {data} = action.payload
@@ -395,6 +448,7 @@ function* userSaga(): any {
   yield all([takeLatest(UPDATE_USER_REQUEST, updateUserSaga)]);
   yield all([takeLatest(VERIFY_USER_REQUEST, verifyUserSaga)]);
   yield all([takeLatest(RESEND_VERIFY_USER_REQUEST, resendVerifyUserSaga)]);
+  yield all([takeLatest(RESET_USER_PASSWORD_REQUEST, resetUserPasswordSaga)]);
 }
 
 export default userSaga;

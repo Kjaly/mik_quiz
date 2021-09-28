@@ -20,6 +20,10 @@ export const getValidationSchema = ({formName}: IShemaValues): AnyObject | undef
       email: fields.email,
       password: fields.password,
     },
+    [formsNames.resetPassword]: {
+      password: fields.password,
+      password_confirmation: fields.password,
+    },
     [formsNames.profileUpdate]: {
       first_name: fields.userName,
       last_name: fields.userLastName,

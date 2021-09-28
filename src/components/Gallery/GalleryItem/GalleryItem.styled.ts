@@ -110,8 +110,27 @@ export const StyledItemUser = styled.div`
   > svg {
     height: 13px;
   }
+
   :hover {
     background-color: ${({theme}) => theme.color.yellow};
 
+  }
+`
+
+export const StyledItemCross = styled(StyledItemUser)`
+  bottom: initial;
+  top: -10%;
+  background-color: ${({theme}) => theme.color.red};
+
+  > svg {
+    height: 13px;
+
+    > path {
+      fill: #fff;
+    }
+  }
+
+  :hover {
+    background-color: ${({theme}) => theme.color.blue};
   }
 `
