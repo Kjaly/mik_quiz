@@ -124,7 +124,7 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                     name="password"
                     component={InputText}
                     type="password"
-                    placeholder="Пароль"
+                    placeholder="Новый пароль"
                     />
                     <Field
                     autoComplete={'off'}
