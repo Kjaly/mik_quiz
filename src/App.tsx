@@ -10,7 +10,6 @@ import { ControlledReduxModal } from './components/ControlledReduxModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserRequest, verifyUserRequest } from './store/user/actions';
 import { routerSelectors } from './store/route';
-import { IEmailVerify, IResetPassword } from './store/user/types';
 import { history } from './store';
 import { Alert } from './components/Alert';
 import { getUserRoleSelector } from './store/user/selectors';
@@ -19,7 +18,7 @@ import { modalsActions } from './store/modals/actions';
 const App = (): JSX.Element => {
   const dispatch = useDispatch()
 
-  const currentQuery = useSelector(routerSelectors.getLocationQuery) as IEmailVerify & IResetPassword
+  const currentQuery = useSelector(routerSelectors.getLocationQuery)
   const currentPath = useSelector(routerSelectors.getLocationPathName)
   const role = useSelector(getUserRoleSelector)
   const isFinalist = role === 'quiz_finalist'
