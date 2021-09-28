@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import store from '../../store'
 
 import {
   checkAuthUserFailure,
@@ -14,6 +15,7 @@ import {
   resendVerifyUserFailure,
   resendVerifyUserRequest,
   resendVerifyUserSuccess,
+  setFileUploadStatus,
   updateUserFailure,
   updateUserSuccess,
   verifyUserFailure,
@@ -62,6 +64,7 @@ const checkAuth = (payload: IRefreshPayload): Promise<AxiosResponse<AuthResponse
   });
 
 const updateUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthResponse>> => {
+
   function getFormData(object: any) {
     const formData = new FormData();
     Object.keys(object).forEach((key) => formData.append(key, object[key]));
@@ -79,6 +82,18 @@ const updateUser = (payload: IUserRegistration): Promise<AxiosResponse<AuthRespo
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      onUploadProgress: progressEvent => {
+        if (progressEvent.loaded < progressEvent.total) {
+          store.dispatch(setFileUploadStatus({
+            status: 'loading',
+          }))
+        } else {
+          store.dispatch(setFileUploadStatus({
+            status: '',
+          }))
+        }
+
+      }
     }
   );
 };
@@ -229,11 +244,11 @@ function* registerUserSaga(action: Action<RegisterUserRequest>) {
 }
 
 function* updateUserSaga(action: Action<IUserUpdatePayload>) {
-  const {user, data} = action.payload
+  const {data} = action.payload
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(updateUser, data);
+    const response = yield call(updateUser, data,);
     if (response?.data) {
       yield put(
         updateUserSuccess({
@@ -247,15 +262,8 @@ function* updateUserSaga(action: Action<IUserUpdatePayload>) {
         })
       );
 
-      if (user.email !== response.data.data.email) {
+      if (!response.data.data.email_verified_at) {
         yield put(resendVerifyUserRequest({email: response.data.data.email}))
-      } else if (!response.data.data.email_verified_at) {
-        yield put(
-          modalsActions.openModalAction({
-            name: 'mailConfirmModal',
-            props: {text: response.data?.message},
-          })
-        );
       }
     }
   } catch (e: any) {

@@ -61,3 +61,11 @@ export const StyledText = styled.div<{ value?: boolean }>`
     width: 24px;
   }
 `
+
+export const StyledLoader = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+`

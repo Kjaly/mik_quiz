@@ -19,7 +19,7 @@ import { Field, Form } from 'react-final-form';
 import { InputText } from '../../components/FormFinal/InputText';
 import { IconPen } from '../../Icons/IconPen';
 import { useDispatch, useSelector } from 'react-redux';
-import { getErrorsSelector, getUserSelector } from '../../store/user/selectors';
+import { getErrorsSelector, getUserSelector, getUserUploadStatusSelector } from '../../store/user/selectors';
 import { Button } from '../../components/Button';
 import { IconArrowRight } from '../../Icons';
 import { theme } from '../../theme';
@@ -38,6 +38,7 @@ export const Profile: React.FC = () => {
   const [fileUrl, setFileUrl] = useState('');
   const [imgError, setImgError] = useState('');
   const user = useSelector(getUserSelector);
+  const uploadStatus = useSelector(getUserUploadStatusSelector)
 
   const dispatch = useDispatch()
   const submitHandler = (values: IUserRegistration): void => {
@@ -49,7 +50,6 @@ export const Profile: React.FC = () => {
   const serverErrors: any = useSelector(getErrorsSelector);
   useEffect(() => {
     if (file) {
-      console.log(2);
       return setFileUrl(URL.createObjectURL(file))
     }
     if (user?.photo?.url) {
@@ -269,6 +269,7 @@ export const Profile: React.FC = () => {
                   <StyledButton>
                     <Button
                       reversed
+                      disabled={uploadStatus === 'loading'}
                       icon={IconArrowRight}
                       background={theme.color.yellow}
                       title={'Сохранить'}

@@ -66,7 +66,6 @@ function* submitQuizSaga(action: Action<SubmitQuizRequestPayload>) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const response = yield call(submitQuiz, action.payload)
-    console.log(response)
     if (response?.data?.is_completed) {
 
       yield put(

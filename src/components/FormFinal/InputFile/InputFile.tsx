@@ -1,8 +1,11 @@
-import React, { useRef } from 'react';
-import { StyledInput, StyledInputContainer, StyledText } from './InputFile.styled';
+import React, { useEffect, useRef } from 'react';
+import { StyledInput, StyledInputContainer, StyledLoader, StyledText } from './InputFile.styled';
 import { FieldRenderProps } from 'react-final-form';
 import { ErrorTip } from '../../ErrorTip';
 import { IconList } from '../../../Icons';
+import { getUserUploadStatusSelector } from '../../../store/user/selectors';
+import { useSelector } from 'react-redux';
+import { Preloader } from '../../Preloader';
 
 interface IInputTextProps {
   placeholder?: string;
@@ -25,7 +28,7 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
     completed,
     setError,
   } = props
-
+  const uploadStatus = useSelector(getUserUploadStatusSelector)
   const {onChange, name, value} = input;
   const error = !meta?.visited && !meta?.touched && meta?.data?.error ? meta?.data?.error : null;
 
@@ -33,18 +36,33 @@ export const InputFile: React.FC<IFormFinalInputTextProps> = (props) => {
   const handleClick = () => {
     inputFile?.current?.click();
   }
+
+  useEffect(() => {
+    console.log(uploadStatus)
+  }, [uploadStatus]);
+
+  const handleChange = (e: any) => {
+    setError('')
+    const file = e.target.files[0]
+    const reader = new FileReader();
+    reader.onload = function () {
+      onChange(file)
+    };
+    reader?.readAsArrayBuffer(file);
+  }
   return (
     <StyledInputContainer onClick={handleClick}>
+      {uploadStatus === 'loading' && (
+        <StyledLoader>
+          <Preloader/>
+        </StyledLoader>
+      )}
       <StyledInput
         ref={inputFile}
         error={error}
         type={'file'}
         accept={accept}
-        onChange={(e: any) => {
-          console.log(1);
-          setError('')
-          onChange(e.target.files[0])
-        }}
+        onChange={handleChange}
         name={name}
       />
       <StyledText value={!!value || completed}>
