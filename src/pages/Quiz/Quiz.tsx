@@ -76,13 +76,13 @@ export const Quiz: React.FC = () => {
 
   const handleStartQuiz = () => {
     history.push('/quiz')
-      dispatch(submitQuizFailure())
-      localStorage.removeItem('isQuizStarted')
-      localStorage.removeItem('answers')
-      return dispatch(modalsActions.openModalAction({
-        name: 'quizAlertModal',
-        props: {text: 'Время прохождения Викторины истекло!'}
-      }))
+    dispatch(submitQuizFailure())
+    localStorage.removeItem('isQuizStarted')
+    localStorage.removeItem('answers')
+    return dispatch(modalsActions.openModalAction({
+      name: 'quizAlertModal',
+      props: {text: 'Время прохождения Викторины истекло!'}
+    }))
     // if (!quiz.id) {
     //   dispatch(fetchQuizRequest())
     // }

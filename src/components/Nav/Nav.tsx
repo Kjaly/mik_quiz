@@ -105,7 +105,7 @@ export const Nav: React.FC<INavProps> = (props) => {
             <Button
               icon={IconKey}
               background={theme.color.yellow}
-              // disabled
+              disabled
               title={'Регистрация'}
               color={'#fff'}
               onClick={handleReg}/>

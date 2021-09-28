@@ -30,9 +30,6 @@ export const PhotoDropzone: React.FC<IPhotoDropzoneProps> = (props) => {
         setFiles(acceptedFiles)
       }
     },
-    onDropRejected: () => {
-      console.log('reject')
-    },
     accept: '.jpeg, .png',
     maxSize: maxFileSize,
   });
@@ -46,9 +43,7 @@ export const PhotoDropzone: React.FC<IPhotoDropzoneProps> = (props) => {
           background={theme.color.blue}
           title={'Выберите файлы'}
           color={'#fff'}
-          onClick={() => {
-            console.log('Логин')
-          }}/>
+          />
       </StyledButton>
       <StyledTextZone>
         <p>{isDragActive ? 'Бросайте их сюда' : 'Или перетяните файлы в это поле'}</p>

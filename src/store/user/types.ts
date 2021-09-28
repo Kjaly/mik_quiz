@@ -14,7 +14,11 @@ import {
   REGISTER_USER_FAILURE,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
-  REMOVE_USER_ERRORS, RESEND_VERIFY_USER_FAILURE, RESEND_VERIFY_USER_REQUEST, RESEND_VERIFY_USER_SUCCESS,
+  REMOVE_USER_ERRORS,
+  RESEND_VERIFY_USER_FAILURE,
+  RESEND_VERIFY_USER_REQUEST,
+  RESEND_VERIFY_USER_SUCCESS,
+  SET_FILE_UPLOAD_STATUS,
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -111,6 +115,7 @@ export interface UserState extends Partial<IUser> {
   school_class?: string,
   school_teacher_history?: string,
   updated_at?: string,
+  uploadStatus?: string,
 }
 
 export interface FetchUserSuccessPayload {
@@ -127,6 +132,9 @@ export interface AuthUserSuccessPayload {
 
 export interface FetchUserFailurePayload {
   errors: Record<string, Array<string>>;
+}
+export interface SetFileUploadStatusPayload {
+  status: string;
 }
 
 export interface FetchUserRequest {
@@ -232,6 +240,11 @@ export type CheckAuthUserFailure = {
   payload: FetchUserFailurePayload;
 };
 
+export type SetFileUploadStatusSuccess = {
+  type: typeof SET_FILE_UPLOAD_STATUS;
+  payload: SetFileUploadStatusPayload;
+};
+
 export interface LogoutUserRequest {
   type: typeof LOGOUT_USER_REQUEST;
 }
@@ -275,3 +288,4 @@ export type UserActions =
   | ResendVerifyUserRequest
   | ResendVerifyUserSuccess
   | ResendVerifyUserFailure
+  | SetFileUploadStatusSuccess

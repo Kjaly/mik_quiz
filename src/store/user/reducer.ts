@@ -10,7 +10,7 @@ import {
   REGISTER_USER_FAILURE,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
-  REMOVE_USER_ERRORS,
+  REMOVE_USER_ERRORS, SET_FILE_UPLOAD_STATUS,
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -34,6 +34,11 @@ const expires_in = localStorage.getItem('expires_in')
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export default (state = initialState, action: UserActions): any => {
   switch (action.type) {
+    case SET_FILE_UPLOAD_STATUS:
+      return {
+        ...state,
+        uploadStatus: action.payload.status,
+      };
     case FETCH_USER_REQUEST:
       return {
         ...state,

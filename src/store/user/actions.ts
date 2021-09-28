@@ -16,7 +16,7 @@ import {
   REMOVE_USER_ERRORS,
   RESEND_VERIFY_USER_FAILURE,
   RESEND_VERIFY_USER_REQUEST,
-  RESEND_VERIFY_USER_SUCCESS,
+  RESEND_VERIFY_USER_SUCCESS, SET_FILE_UPLOAD_STATUS,
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -50,7 +50,7 @@ import {
   RemoveUserErrors,
   ResendVerifyUserFailure,
   ResendVerifyUserRequest,
-  ResendVerifyUserSuccess,
+  ResendVerifyUserSuccess, SetFileUploadStatusPayload, SetFileUploadStatusSuccess,
   UpdateUserFailure,
   UpdateUserRequest,
   UpdateUserSuccess,
@@ -191,6 +191,14 @@ export const checkAuthUserFailure = (
   type: CHECK_AUTH_USER_FAILURE,
   payload,
 });
+
+export const setFileUploadStatus = (
+  payload: SetFileUploadStatusPayload
+): SetFileUploadStatusSuccess => ({
+    type: SET_FILE_UPLOAD_STATUS,
+    payload,
+  }
+);
 
 export const logoutUserRequest = (): LogoutUserRequest => ({
   type: LOGOUT_USER_REQUEST,
