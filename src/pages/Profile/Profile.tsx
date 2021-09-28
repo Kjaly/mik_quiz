@@ -23,7 +23,7 @@ import { getErrorsSelector, getUserSelector, getUserUploadStatusSelector } from 
 import { Button } from '../../components/Button';
 import { IconArrowRight } from '../../Icons';
 import { theme } from '../../theme';
-import { removeUserErrors, updateUserRequest } from '../../store/user/actions';
+import { removeUserErrors, resendVerifyUserRequest, updateUserRequest } from '../../store/user/actions';
 import { IUserRegistration } from '../../store/user/types';
 import { InputFile } from '../../components/FormFinal/InputFile';
 import { setError } from '../../services/forms/setFinalFormErrorMutator';
@@ -44,6 +44,10 @@ export const Profile: React.FC = () => {
   const submitHandler = (values: IUserRegistration): void => {
     const currentValues = {...Object.fromEntries(Object.entries(values).filter(([_, v]) => v != null))} as IUserRegistration
     dispatch(updateUserRequest({user, data: currentValues}))
+  }
+
+  const resendVerify = (email: string): void => {
+    dispatch(resendVerifyUserRequest({email}))
   }
 
 
@@ -240,11 +244,11 @@ export const Profile: React.FC = () => {
                         type="email"
                         placeholder="Почта"
                       />
-                      {!user.email_verified_at &&
+                      {(!user.email_verified_at && user.email === values.email) &&
                       (
                         <StyledVerifiedEmail>
                           Почта не подтверждена.
-                          <span onClick={() => submitHandler(values,)}>Подтвердить</span>
+                          <span onClick={() => resendVerify(values.email)}>Подтвердить</span>
                         </StyledVerifiedEmail>
                       )}
                     </StyledEmailField>

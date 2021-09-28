@@ -58,7 +58,7 @@ export const StyledEmailField = styled.div`
 
 export const StyledVerifiedEmail = styled.div<{ completed?: boolean }>`
   font-size: 14px;
-  color: ${({theme, completed}) => completed && theme.color.green};
+  color: ${({theme, completed}) => completed ? theme.color.green : theme.color.red};
   display: flex;
 
   > span {

@@ -13,7 +13,6 @@ import {
   registerUserFailure,
   registerUserSuccess,
   resendVerifyUserFailure,
-  resendVerifyUserRequest,
   resendVerifyUserSuccess,
   setFileUploadStatus,
   updateUserFailure,
@@ -263,7 +262,12 @@ function* updateUserSaga(action: Action<IUserUpdatePayload>) {
       );
 
       if (!response.data.data.email_verified_at) {
-        yield put(resendVerifyUserRequest({email: response.data.data.email}))
+        yield put(
+          modalsActions.openModalAction({
+            name: 'mailConfirmModal',
+            props: {text: response.data?.message},
+          })
+        );
       }
     }
   } catch (e: any) {
@@ -340,7 +344,7 @@ function* logoutUserSaga() {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(logoutUser);
+    yield call(logoutUser);
   } catch (e: any) {
     console.warn('logout');
   }
