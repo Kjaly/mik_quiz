@@ -115,51 +115,52 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
               <form onKeyDown={(e) => e.code === 'Enter' && handleValidate()}>
                 <StyledDescription>
                   {modalProps?.isActive ? 'Пожалуйста, введите новый пароль' : 'Пожалуйста, введите ваш email адрес указанный при регистрации для получения ссылки на восстановление пароля'}
-                    </StyledDescription>
-                    <StyledForm isActive={!modalProps?.isActive}>
+                </StyledDescription>
+                <StyledForm isActive={!modalProps?.isActive}>
                   {modalProps?.isActive ? (
                     <>
-                    <Field
-                    autoComplete={'off'}
-                    name="password"
-                    component={InputText}
-                    type="password"
-                    placeholder="Новый пароль"
-                    />
-                    <Field
-                    autoComplete={'off'}
-                    name="password_confirmation"
-                    component={InputText}
-                    type="password"
-                    placeholder="Повтор пароля"
-                    />
+                      <Field
+                        autoComplete={'off'}
+                        name="password"
+                        component={InputText}
+                        type="password"
+                        placeholder="Новый пароль"
+                      />
+                      <Field
+                        autoComplete={'off'}
+                        name="password_confirmation"
+                        component={InputText}
+                        type="password"
+                        placeholder="Повтор пароля"
+                      />
                     </>
-                    ) : (
+                  ) : (
                     <Field
-                    autoComplete={'email'}
-                    name="email"
-                    component={InputText}
-                    type="text"
-                    placeholder="Email"
+                      autoComplete={'email'}
+                      name="email"
+                      component={InputText}
+                      type="text"
+                      placeholder="Email"
                     />
-                    )}
+                  )}
 
-                    <StyledError>
-                  {typeof serverErrors === 'string' && serverErrors}
-                    </StyledError>
-                    </StyledForm>
+                  <StyledError>
+                    {typeof serverErrors === 'string' && serverErrors}
+                  </StyledError>
+                </StyledForm>
 
 
-                    <StyledButtonBlock>
-                    <Button
+                <StyledButtonBlock>
+                  <Button
                     icon={IconArrowRight}
                     reversed
                     background={theme.color.yellow}
                     color={'#fff'}
-                    title={'Восстановить пароль'}
+                    title={modalProps?.isActive ? 'Сохранить' : 'Восстановить пароль'}
                     onClick={() => handleReset(values)}/>
 
-                    <Button
+                  {!modalProps?.isActive &&
+                  <Button
                     reversed
                     background={'#fff'}
                     color={theme.color.blue}
@@ -167,14 +168,14 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
                     view={'bordered'}
                     title={'Войти на сайт'}
                     onClick={handleAuth}/>
+                  }
+                </StyledButtonBlock>
+              </form>
+            )
+          }}
+        />
 
-                    </StyledButtonBlock>
-                    </form>
-                    )
-                  }}
-                  />
-
-                </StyledPasswordRecoveryFormModal>
-              </ModalTemplate>
-            );
-          };
+      </StyledPasswordRecoveryFormModal>
+    </ModalTemplate>
+  );
+};

@@ -13,7 +13,7 @@ import {
   StyledText,
 } from './MailConfirmModal.styled'
 import { TModalProps } from '../../../store/modals/types';
-import { IconCross, IconMail } from '../../../Icons';
+import { IconCheckCircle, IconCross, IconMail } from '../../../Icons';
 import { modalsSelectors } from '../../../store/modals/selectors';
 import { useSelector } from 'react-redux';
 import { Button } from '../../Button';
@@ -22,7 +22,7 @@ import { history } from '../../../store'
 
 export const MailConfirmModal: React.FC<TModalProps> = (props) => {
   const {closeModal} = props
-  const {text, title, noMail} = useSelector(modalsSelectors.getModalProps)
+  const {text, title, noMail, isCompleted} = useSelector(modalsSelectors.getModalProps)
 
   const handleClose = () => {
     closeModal()
@@ -33,7 +33,7 @@ export const MailConfirmModal: React.FC<TModalProps> = (props) => {
         <StyledHeader>
           {!noMail && (
             <StyledMobileIcon>
-              <IconMail/>
+              {isCompleted ? <IconCheckCircle/> : <IconMail/>}
             </StyledMobileIcon>
           )}
           <StyledMailConfirmTitle>

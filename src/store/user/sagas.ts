@@ -267,6 +267,7 @@ function* resetUserPasswordSaga(action: Action<ResetUserPasswordPayload>) {
           props: {
             title:'Смена пароля',
             text: `Пароль успешно измененен`,
+            isCompleted:true,
           },
         })
       );
