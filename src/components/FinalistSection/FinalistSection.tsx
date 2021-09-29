@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Title } from '../Typography/Title';
 import { StyledDecorativeWrapper, StyledFinalistSection, StyledTitleBlock } from './FinalistSection.styled';
 import { ContentWrapper } from '../ContentWrapper';
@@ -6,11 +6,24 @@ import { theme } from '../../theme';
 import { Filter } from '../Filter';
 import { Gallery } from '../Gallery';
 import { DecorativeLines } from '../DecorativeLines';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPublicationsRequest } from '../../store/publications/actions';
+import { TPublication } from '../../store/publications/types';
+import { publicationsSelector } from '../../store/publications/selectors';
 
 export const FinalistSection: React.FC = () => {
-  const filasiltList = []
+  const publications: Array<TPublication> = useSelector(publicationsSelector.getPublicationsSelector);
 
-  if (!filasiltList.length) {
+  const dispatch = useDispatch();
+  console.log(publications);
+  useEffect(() => {
+    if (!publications.length) {
+      dispatch(fetchPublicationsRequest())
+    }
+  }, []);
+
+
+  if (!publications.length) {
     return null
   }
   return (

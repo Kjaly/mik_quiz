@@ -1,8 +1,8 @@
 import { ADD_PUBLICATION, REMOVE_PUBLICATION, } from './actionTypes';
 
-import { IPublicationsState, TPublicationsActions } from './types';
+import { IPublicationOLDsState, TPublicationsActions } from './types';
 
-const initialState: IPublicationsState = {
+const initialState: IPublicationOLDsState = {
   publications: [],
 };
 

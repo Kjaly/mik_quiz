@@ -25,6 +25,8 @@ export const PartnersSection: React.FC = () => {
   }
   const partners = useSelector(getPartnersSelector);
 
+
+
   useEffect(() => {
     if (!partners.length) {
     fetchPartners()
