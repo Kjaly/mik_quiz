@@ -13,7 +13,7 @@ export const StyledAddPublicationModal = styled.div<{ step?: number }>`
   transition: all 0.2s ease-in-out;
   position: relative;
 `
-export const StyledPublicationsTitle = styled.p`
+export const StyledPublicationsTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;

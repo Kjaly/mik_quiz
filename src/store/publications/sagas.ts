@@ -1,10 +1,22 @@
 import { AxiosResponse } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { fetchPublicationsFailure, fetchPublicationsSuccess, } from './actions';
-import { FETCH_PUBLICATION_REQUEST, FETCH_PUBLICATIONS_REQUEST, POST_PUBLICATION_REQUEST, } from './actionTypes';
+import {
+  fetchCategoriesFailure,
+  fetchCategoriesSuccess,
+  fetchPublicationsFailure,
+  fetchPublicationsSuccess,
+  postPublicationsFailure,
+  postPublicationsSuccess,
+} from './actions';
+import {
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_PUBLICATION_REQUEST,
+  FETCH_PUBLICATIONS_REQUEST,
+  POST_PUBLICATION_REQUEST,
+} from './actionTypes';
 import $api from '../../http';
-import { PublicationsResponse } from '../../models/response/PublicationsResponse';
+import { CategoriesResponse, PublicationsResponse } from '../../models/response/PublicationsResponse';
 import store from '../index';
 import { setFileUploadStatus } from '../user/actions';
 import { FetchPublicationRequestPayload, IPublicationRequestPayload } from './types';
@@ -27,7 +39,15 @@ const fetchPublication = (payload: { id: number }): Promise<AxiosResponse<Public
     },
   });
 
-const postPublication = (payload: IPublicationRequestPayload): Promise<AxiosResponse<PublicationsResponse>> => {
+const fetchCategories = (): Promise<AxiosResponse<CategoriesResponse>> =>
+  $api.get<CategoriesResponse>(`${process.env.REACT_APP_API_URL}/publication-categories`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  });
+
+const postPublications = (payload: IPublicationRequestPayload): Promise<AxiosResponse<PublicationsResponse>> => {
 
   function getFormData(object: any) {
     const formData = new FormData();
@@ -39,7 +59,7 @@ const postPublication = (payload: IPublicationRequestPayload): Promise<AxiosResp
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return $api.post<PublicationsResponse>(
-    `${process.env.REACT_APP_API_URL}/auth/user?include=photo,parental_agreement&append=client_role`,
+    `${process.env.REACT_APP_API_URL}/publications`,
     formData,
     {
       headers: {
@@ -60,6 +80,8 @@ const postPublication = (payload: IPublicationRequestPayload): Promise<AxiosResp
     }
   );
 };
+
+
 function* fetchPublicationsSaga() {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -98,13 +120,52 @@ function* fetchPublicationSaga(action: Action<FetchPublicationRequestPayload>) {
     );
   }
 }
+function* fetchCategoriesSaga() {
+  try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const response = yield call(fetchCategories);
+    if (response.data){
+      yield put(
+        fetchCategoriesSuccess({
+          categories: response.data.data,
+        })
+      );
+    }
+  } catch (e: any) {
+    yield put(
+      fetchCategoriesFailure({
+        errors: e.response.data.errors,
+      })
+    );
+  }
+}
+function* postPublicationsSaga(action: Action<FetchPublicationRequestPayload>) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const response = yield call(postPublications, action.payload);
+    yield put(
+      postPublicationsSuccess({
+        publications: response.data,
+      })
+    );
+  } catch (e: any) {
+    yield put(
+      postPublicationsFailure({
+        errors: e.response.data.errors,
+      })
+    );
+  }
+}
 
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 function* publicationsSaga(): any {
   yield all([takeLatest(FETCH_PUBLICATIONS_REQUEST, fetchPublicationsSaga)]);
   yield all([takeLatest(FETCH_PUBLICATION_REQUEST, fetchPublicationSaga)]);
-  yield all([takeLatest(POST_PUBLICATION_REQUEST, postPublication)]);
+  yield all([takeLatest(FETCH_CATEGORIES_REQUEST, fetchCategoriesSaga)]);
+  yield all([takeLatest(POST_PUBLICATION_REQUEST, postPublicationsSaga)]);
 }
 
 export default publicationsSaga;

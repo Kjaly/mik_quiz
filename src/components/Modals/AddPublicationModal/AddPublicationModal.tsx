@@ -22,38 +22,58 @@ import { Button } from '../../Button';
 import { theme } from '../../../theme';
 import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
-import { useDispatch } from 'react-redux';
-import { publicationsActions } from '../../../store/publications/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategoriesRequest, postPublicationsRequest } from '../../../store/publications/actions';
+import { TCategory } from "../../../store/publications/types";
+import { publicationsSelector } from "../../../store/publications/selectors";
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
 }
 
+
 export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) => {
   const {closeModal} = props
   const dispatch = useDispatch();
+  const categories: Array<TCategory> | null = useSelector(publicationsSelector.getCategoriesSelector);
 
-  const categoryOptions = ['Региональные слеты', 'Межрегиональные слеты']
-  const typeList = ['Галерея фото', 'Видео']
+  const [categoryList, setCategoryList] = useState<Array<TCategory>>([]);
+  const typeList = [{id: 1, name: 'Галерея фото'}, {id: 2, name: 'Видео'}]
   const [step, setStep] = useState(0);
-  const [option, setOption] = useState('');
-  const [files, setFiles] = useState<Array<File>>([]);
-  const [type, setType] = useState('');
+  const [option, setOption] = useState<TCategory>();
+  const [photos, setPhotos] = useState<Array<File>>([]);
+  const [type, setType] = useState<TCategory>();
 
-  const getId = ():string => {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-  }
+
+
+
   const handleSubmitForm = (values: any) => {
-    const filePreviewUrl = files[0] ? URL.createObjectURL(files[0]) : values.url;
+    const data = {
+      publication_category_id: option?.id,
+      type: type?.id,
+      photos,
+      ...values
+    }
+    dispatch(postPublicationsRequest({...data}))
 
-    const uid = getId()
-    dispatch(publicationsActions.addPublication({...values, files, option, type, url: filePreviewUrl, id: uid}))
     setStep(1)
     // dispatch(modalsActions.closeModalAction())
   }
 
   useEffect(() => {
-    setFiles([])
+    if (!categories?.length) {
+      dispatch(fetchCategoriesRequest())
+    }
+  }, []);
+
+  useEffect(() => {
+    if (categories?.length) {
+      setCategoryList(categories)
+    }
+  },[categories])
+
+  useEffect(() => {
+    setPhotos([])
   }, [type]);
 
 
@@ -85,7 +105,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                       placeholder="Категория"
                       name={'category'}
                       option={option}
-                      optionsList={categoryOptions}/>
+                      optionsList={categoryList}/>
                     <DropdownSelect
                       disabled={!option}
                       setOption={setType}
@@ -94,9 +114,9 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                       option={type}
                       optionsList={typeList}/>
 
-                    <StyledActiveWrapper isActive={type === 'Видео'}>
+                    <StyledActiveWrapper isActive={type?.id === 2}>
                       <Field
-                        name="title"
+                        name="name"
                         component={InputText}
                         type="text"
                         placeholder="Заголовок"
@@ -109,7 +129,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                       />
 
                       <Field
-                        name="url"
+                        name="youtube_url"
                         component={InputText}
                         type="text"
                         placeholder="Ссылка на видео в YouTube"
@@ -117,23 +137,23 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                     </StyledActiveWrapper>
 
                     <StyledFileViewer>
-                      {files.length ? <FileViewer files={files} setFiles={setFiles}/> : null}
+                      {photos.length ? <FileViewer files={photos} setFiles={setPhotos}/> : null}
                     </StyledFileViewer>
                   </StyledDropDownWrapper>
 
-                  <StyledActiveWrapper isActive={type === 'Галерея фото'}>
+                  <StyledActiveWrapper isActive={type?.id === 1}>
                     <PhotoDropzone
-                      files={files}
-                      setFiles={setFiles}
+                      files={photos}
+                      setFiles={setPhotos}
                       name={'dropzone'}/>
                   </StyledActiveWrapper>
 
-                  <StyledActiveWrapper isActive={type === 'Видео' || !!files.length}>
+                  <StyledActiveWrapper isActive={type?.id === 2 || !!photos.length}>
                     <StyledButton>
                       <Button
                         icon={IconArrowRight}
                         reversed
-                        disabled={type === 'Видео' && !values.url}
+                        disabled={type?.id === 2 && !values.url}
                         background={theme.color.yellow}
                         color={'#fff'}
                         title={'Добавить'}

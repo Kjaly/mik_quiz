@@ -1,5 +1,5 @@
 import { IRouterState } from './route/types';
-import { IPublicationOLDsState } from './publications/types';
+import { IPublicationsState } from './publications/types';
 import { ModalState } from './modals/types';
 import { UserState } from './user/types';
 import { AlertState } from './alerts/types';
@@ -14,6 +14,6 @@ export interface AppState<R = IRouterState> {
   partners: PartnersState,
   modal: ModalState,
   alert: AlertState,
-  publicationsList: IPublicationOLDsState,
+  publications: IPublicationsState,
   router: R;
 }

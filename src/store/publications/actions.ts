@@ -1,34 +1,35 @@
 import {
-  ADD_PUBLICATION, FETCH_PUBLICATION_FAILURE, FETCH_PUBLICATION_REQUEST, FETCH_PUBLICATION_SUCCESS,
+  FETCH_CATEGORIES_FAILURE,
+  FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS,
+  FETCH_PUBLICATION_FAILURE,
+  FETCH_PUBLICATION_REQUEST,
+  FETCH_PUBLICATION_SUCCESS,
   FETCH_PUBLICATIONS_FAILURE,
   FETCH_PUBLICATIONS_REQUEST,
-  FETCH_PUBLICATIONS_SUCCESS, POST_PUBLICATION_FAILURE, POST_PUBLICATION_REQUEST, POST_PUBLICATION_SUCCESS,
-  REMOVE_PUBLICATION,
+  FETCH_PUBLICATIONS_SUCCESS,
+  POST_PUBLICATION_FAILURE,
+  POST_PUBLICATION_REQUEST,
+  POST_PUBLICATION_SUCCESS,
 } from './actionTypes';
 import {
+  FetchCategoriesFailure,
+  FetchCategoriesRequest, FetchCategoriesSuccess,
+  FetchCategoriesSuccessPayload,
   FetchPublicationFailure,
-  FetchPublicationRequest, FetchPublicationRequestPayload,
+  FetchPublicationRequest,
+  FetchPublicationRequestPayload,
   FetchPublicationsFailure,
   FetchPublicationsFailurePayload,
-  FetchPublicationsRequest, FetchPublicationsSuccess,
-  FetchPublicationsSuccessPayload, FetchPublicationSuccess,
-  IAddPublicationAction,
-  IRemovePublicationAction,
-  IRemovePublicationPayload,
-  ISetPublicationPayload, PostPublicationFailure, PostPublicationRequest, PostPublicationSuccess,
+  FetchPublicationsRequest,
+  FetchPublicationsSuccess,
+  FetchPublicationsSuccessPayload,
+  FetchPublicationSuccess,
+  IPublicationRequestPayload,
+  PostPublicationsFailure,
+  PostPublicationsRequest,
+  PostPublicationsSuccess,
 } from './types';
 
-const addPublication = (payload: ISetPublicationPayload): IAddPublicationAction => ({
-  type: ADD_PUBLICATION,
-  payload,
-});
-
-const removePublication = (
-  payload: IRemovePublicationPayload
-): IRemovePublicationAction => ({
-  type: REMOVE_PUBLICATION,
-  payload,
-});
 
 export const fetchPublicationsRequest = (): FetchPublicationsRequest => ({
   type: FETCH_PUBLICATIONS_REQUEST,
@@ -67,26 +68,40 @@ export const fetchPublicationFailure = (
   payload,
 });
 
-export const postPublicationRequest = (payload: FetchPublicationRequestPayload): PostPublicationRequest => ({
+
+export const fetchCategoriesRequest = (): FetchCategoriesRequest => ({
+  type: FETCH_CATEGORIES_REQUEST,
+});
+
+export const fetchCategoriesSuccess = (
+  payload: FetchCategoriesSuccessPayload
+): FetchCategoriesSuccess => ({
+  type: FETCH_CATEGORIES_SUCCESS,
+  payload,
+});
+
+export const fetchCategoriesFailure = (
+  payload: FetchPublicationsFailurePayload
+): FetchCategoriesFailure => ({
+  type: FETCH_CATEGORIES_FAILURE,
+  payload,
+});
+
+export const postPublicationsRequest = (payload: IPublicationRequestPayload): PostPublicationsRequest => ({
   type: POST_PUBLICATION_REQUEST,
   payload
 });
 
-export const postPublicationSuccess = (
+export const postPublicationsSuccess = (
   payload: FetchPublicationsSuccessPayload
-): PostPublicationSuccess => ({
+): PostPublicationsSuccess => ({
   type: POST_PUBLICATION_SUCCESS,
   payload,
 });
 
-export const postPublicationFailure = (
+export const postPublicationsFailure = (
   payload: FetchPublicationsFailurePayload
-): PostPublicationFailure => ({
+): PostPublicationsFailure => ({
   type: POST_PUBLICATION_FAILURE,
   payload,
 });
-
-export const publicationsActions = {
-  addPublication,
-  removePublication
-}

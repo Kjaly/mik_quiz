@@ -29,16 +29,18 @@ export const Header: React.FC<any> = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const role = useSelector(getUserRoleSelector)
   const isAuth = useSelector(getUserIdSelector);
   const [authIsOpen, setAuthIsOpen] = useState(false)
+
   const dispatch = useDispatch()
+
   const handleRegistration = () => {
     dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
   }
   const handleAuth = () => {
     dispatch(modalsActions.openModalAction({name: 'authModal'}))
   }
-  const role = useSelector(getUserRoleSelector)
   const scrollWidth = typeof window !== 'undefined' ? window.innerWidth - document.body.clientWidth : 0;
 
   const handleToggleMenu = () => {

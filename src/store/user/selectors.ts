@@ -9,7 +9,7 @@ const getUserId = (state: AppState) => state.user.id;
 
 const getErrors = (state: AppState) => state.user.errors;
 const getMessage = (state: AppState) => state.user.message;
-const getUserRole = (state: AppState) => state.user.message;
+const getUserRole = (state: AppState) => state.user?.roles?.[0]?.slug;
 const getUploadStatus = (state: AppState) => state.user.uploadStatus;
 
 export const getUserSelector = createSelector(getUser, (users) => users);

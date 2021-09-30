@@ -12,18 +12,17 @@ import { TPublication } from '../../store/publications/types';
 import { publicationsSelector } from '../../store/publications/selectors';
 
 export const FinalistSection: React.FC = () => {
-  const publications: Array<TPublication> = useSelector(publicationsSelector.getPublicationsSelector);
+  const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
 
   const dispatch = useDispatch();
-  console.log(publications);
   useEffect(() => {
-    if (!publications.length) {
+    if (!publications?.length) {
       dispatch(fetchPublicationsRequest())
     }
   }, []);
 
 
-  if (!publications.length) {
+  if (!publications?.length) {
     return null
   }
   return (

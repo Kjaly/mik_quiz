@@ -121,6 +121,11 @@ export interface UserState extends Partial<IUser> {
   message: string | null;
   middle_name?: string,
   name?: string,
+  roles?: Array<{
+    id: number,
+    slug: string,
+    name: string,
+  }>,
   school?: string,
   school_class?: string,
   school_teacher_history?: string,

@@ -10,8 +10,8 @@ export const RouteWithSubRoutes = (route: any,) => {
   const {path, exact, component: Component, routes, auth, finalist} = route
   const role = useSelector(getUserRoleSelector)
   const isAuth = useSelector(getUserIdSelector);
+  const isFinalist = role === 'quiz_finalist'
 
-  const isFinalist = role !== 'quiz_finalist'
   return (
     <>
       {

@@ -1,24 +1,31 @@
-import { ADD_PUBLICATION, REMOVE_PUBLICATION, } from './actionTypes';
+import { IPublicationsState, TPublicationsActions } from './types';
+import { FETCH_CATEGORIES_FAILURE, FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS } from "./actionTypes";
 
-import { IPublicationOLDsState, TPublicationsActions } from './types';
-
-const initialState: IPublicationOLDsState = {
-  publications: [],
+const initialState: IPublicationsState = {
+  publicationsList: null,
+  categories: null,
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-export default (state = initialState, action: TPublicationsActions):any => {
+export default (state = initialState, action: TPublicationsActions): any => {
   switch (action.type) {
-    case ADD_PUBLICATION:
+    case FETCH_CATEGORIES_REQUEST:
       return {
         ...state,
-        publications: state?.publications?.length ?  [...state.publications, action.payload] : [action.payload],
+        pending: true,
       };
-    case REMOVE_PUBLICATION:
-      console.log(action.payload)
+    case FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        publications: action.payload.publications,
+        pending: false,
+        categories: action.payload.categories,
+        errors: null,
+      };
+    case FETCH_CATEGORIES_FAILURE:
+      return {
+        ...state,
+        categories: [],
+        errors: action.payload.errors,
       };
     default:
       return {

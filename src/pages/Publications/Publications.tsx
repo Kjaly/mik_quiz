@@ -8,21 +8,20 @@ import { ContentWrapper } from '../../components/ContentWrapper';
 import { publicationsSelector } from '../../store/publications/selectors';
 import { TPublication } from '../../store/publications/types';
 import { GalleryItem } from '../../components/Gallery/GalleryItem';
-import { publicationsActions } from '../../store/publications/actions';
 
 export const Publications: React.FC = () => {
-  const publications: Array<TPublication> = useSelector(publicationsSelector.getPublicationsSelector);
-
+  const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
   const dispatch = useDispatch()
+
 
   const handleClick = () => {
     dispatch(modalsActions.openModalAction({name: 'addPublicationModal'}))
   }
 
+
   const handleRemove = (id: string) => {
     console.log(id)
-    const currentPublications = publications.filter(item => item.id !== id)
-    dispatch(publicationsActions.removePublication({publications: currentPublications}))
+    const currentPublications = publications?.filter(item => item.id !== id)
   }
   return (
     <StyledPublications>

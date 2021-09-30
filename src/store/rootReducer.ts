@@ -20,9 +20,8 @@ const rootReducer = {
   quiz: quizReducer,
   modal: modalReducer,
   alert: alertReducer,
-  publicationsList: publicationsReducer,
+  publications: publicationsReducer,
 };
-
 
 export const createRootReducer = (history: History): IRootReducer<RouterState> =>
   combineReducers({

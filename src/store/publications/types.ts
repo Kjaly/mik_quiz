@@ -1,5 +1,7 @@
 import {
-  ADD_PUBLICATION,
+  FETCH_CATEGORIES_FAILURE,
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_SUCCESS,
   FETCH_PUBLICATION_FAILURE,
   FETCH_PUBLICATION_REQUEST,
   FETCH_PUBLICATION_SUCCESS,
@@ -9,7 +11,6 @@ import {
   POST_PUBLICATION_FAILURE,
   POST_PUBLICATION_REQUEST,
   POST_PUBLICATION_SUCCESS,
-  REMOVE_PUBLICATION,
 } from './actionTypes';
 
 interface IPublicationOLD {
@@ -31,8 +32,16 @@ export interface IVideoPublication extends IPublicationOLD {
 
 export type TPublication = IPhotoPublication | IVideoPublication
 
-export interface IPublicationOLDsState {
-  publications: Array<TPublication> | any;
+export type TCategory = {
+  id:number,
+  name:string,
+  created_at:string,
+  updated_at:string,
+}
+
+export interface IPublicationsState {
+  publicationsList: Array<TPublication> | null;
+  categories: Array<TCategory> | null;
 }
 
 export interface IPublicationRequestPayload {
@@ -45,17 +54,14 @@ export interface IPublicationRequestPayload {
   youtube_url?: string;
 }
 
-export interface ISetPublicationPayload {
-  publication: TPublication;
-}
 
-export interface IRemovePublicationPayload {
-  publications: Array<TPublication>;
-}
 
 export interface FetchPublicationsSuccessPayload {
   publications: Array<TPublication>;
+}
 
+export interface FetchCategoriesSuccessPayload {
+  categories: Array<TCategory>;
 }
 
 export interface FetchPublicationsFailurePayload {
@@ -65,21 +71,6 @@ export interface FetchPublicationsFailurePayload {
 export interface FetchPublicationRequestPayload {
   id: number;
 }
-export interface PostPublicationRequestPayload {
-  id: number;
-}
-
-
-export type IAddPublicationAction = {
-  type: typeof ADD_PUBLICATION;
-  payload: ISetPublicationPayload;
-};
-
-export type IRemovePublicationAction = {
-  type: typeof REMOVE_PUBLICATION;
-  payload: IRemovePublicationPayload;
-};
-
 
 export interface FetchPublicationsRequest {
   type: typeof FETCH_PUBLICATIONS_REQUEST;
@@ -110,31 +101,47 @@ export type FetchPublicationFailure = {
   payload: FetchPublicationsFailurePayload;
 };
 
-export interface PostPublicationRequest {
-  type: typeof POST_PUBLICATION_REQUEST;
-  payload: PostPublicationRequestPayload;
+export interface FetchCategoriesRequest {
+  type: typeof FETCH_CATEGORIES_REQUEST;
 }
 
-export type PostPublicationSuccess = {
+export type FetchCategoriesSuccess = {
+  type: typeof FETCH_CATEGORIES_SUCCESS;
+  payload: FetchCategoriesSuccessPayload;
+};
+
+export type FetchCategoriesFailure = {
+  type: typeof FETCH_CATEGORIES_FAILURE;
+  payload: FetchPublicationsFailurePayload;
+};
+
+
+export interface PostPublicationsRequest {
+  type: typeof POST_PUBLICATION_REQUEST;
+  payload: IPublicationRequestPayload;
+}
+
+export type PostPublicationsSuccess = {
   type: typeof POST_PUBLICATION_SUCCESS;
   payload: FetchPublicationsSuccessPayload;
 };
 
-export type PostPublicationFailure = {
+export type PostPublicationsFailure = {
   type: typeof POST_PUBLICATION_FAILURE;
   payload: FetchPublicationsFailurePayload;
 };
 
 
 export type TPublicationsActions =
-  | IAddPublicationAction
-  | IRemovePublicationAction
   | FetchPublicationsRequest
   | FetchPublicationsSuccess
   | FetchPublicationsFailure
   | FetchPublicationRequest
   | FetchPublicationSuccess
   | FetchPublicationFailure
-  | PostPublicationRequest
-  | PostPublicationSuccess
-  | PostPublicationFailure
+  | PostPublicationsRequest
+  | PostPublicationsSuccess
+  | PostPublicationsFailure
+  | FetchCategoriesRequest
+  | FetchCategoriesSuccess
+  | FetchCategoriesFailure
