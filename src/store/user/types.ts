@@ -113,6 +113,7 @@ export interface UserState extends Partial<IUser> {
   parental_agreement?: any;
   parental_agreement_id?: number;
   photo?: IPhoto | null;
+  photo_id?: number | null;
   errors?: string | Record<string, string> | null;
   first_name?: string,
   id?: number,

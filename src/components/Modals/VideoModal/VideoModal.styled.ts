@@ -1,41 +1,50 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledVideoModal = styled.div`
   height: 560px;
   width: 800px;
   display: flex;
   flex-direction: column;
-  
-`
+
+`;
 
 export const StyledPlayer = styled.div`
   flex: 1;
   background-color: #dedede;
   border-radius: 8px;
   min-height: 450px;
-  height:450px;
+  height: 450px;
   width: 100%;
   margin-bottom: 30px;
   position: relative;
-  > div:nth-child(2){
+
+  > div:nth-child(2) {
     height: 100%;
+
     > iframe {
       border-radius: 8px;
     }
   }
-`
+`;
 
+export const StyledLoader = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
 export const StyledVideoTitle = styled.p`
   color: #fff;
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
 
-`
+`;
 export const StyledVideoDescription = styled.p`
   color: #fff;
   font-size: 15px;
-`
+`;
 
 export const StyledCloseIcon = styled.div`
   position: absolute;
@@ -63,4 +72,4 @@ export const StyledCloseIcon = styled.div`
     }
   }
 
-`
+`;

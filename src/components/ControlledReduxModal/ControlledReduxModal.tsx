@@ -11,7 +11,8 @@ import { AddPublicationModal } from '../Modals/AddPublicationModal';
 import { QuizAlertModal } from '../Modals/QuizAlertModal';
 import { MailConfirmModal } from '../Modals/MailConfirmModal';
 import { PasswordRecoveryModal } from '../Modals/PasswordRecoveryModal';
-import { FinalistModal } from "../Modals/FinalistModal";
+import { FinalistModal } from '../Modals/FinalistModal';
+import { RemovePublicationModal } from '../Modals/RemovePublicationModal';
 
 export const ControlledReduxModal: React.FC = () => {
 
@@ -38,6 +39,8 @@ export const ControlledReduxModal: React.FC = () => {
       return <PasswordRecoveryModal closeModal={closeModal}/>;
     case 'finalistModal' :
       return <FinalistModal closeModal={closeModal}/>;
+    case 'removePublication' :
+      return <RemovePublicationModal closeModal={closeModal}/>;
     default:
       return null;
   }

@@ -41,7 +41,6 @@ export const PasswordRecoveryModal: React.FC<IPasswordRecoveryProps> = (props) =
   const handleAuth = () => {
     dispatch(modalsActions.openModalAction({name: 'authModal'}))
   }
-  console.log(modalProps)
   const handleReset = (values: any) => {
     let currentValues = {email: values.email}
     if (modalProps?.isActive && modalProps?.token) {

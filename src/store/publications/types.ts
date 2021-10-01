@@ -1,4 +1,7 @@
 import {
+  DELETE_PUBLICATION_FAILURE,
+  DELETE_PUBLICATION_REQUEST,
+  DELETE_PUBLICATION_SUCCESS,
   FETCH_CATEGORIES_FAILURE,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
@@ -11,32 +14,19 @@ import {
   POST_PUBLICATION_FAILURE,
   POST_PUBLICATION_REQUEST,
   POST_PUBLICATION_SUCCESS,
+  UPDATE_PUBLICATION_FAILURE,
+  UPDATE_PUBLICATION_REQUEST,
+  UPDATE_PUBLICATION_SUCCESS,
 } from './actionTypes';
+import { IUserRegistration } from '../user/types';
 
-interface IPublicationOLD {
-  id: string;
-  category: string;
-  type: string;
-  url: string;
-}
-
-
-export interface IPhotoPublication extends IPublicationOLD {
-  files: Array<File>;
-}
-
-export interface IVideoPublication extends IPublicationOLD {
-  title: string;
-  description: string;
-}
-
-export type TPublication = IPhotoPublication | IVideoPublication
+export type TPublication = IPublicationRequestPayload
 
 export type TCategory = {
-  id:number,
-  name:string,
-  created_at:string,
-  updated_at:string,
+  id: number,
+  name: string,
+  created_at: string,
+  updated_at: string,
 }
 
 export interface IPublicationsState {
@@ -44,16 +34,36 @@ export interface IPublicationsState {
   categories: Array<TCategory> | null;
 }
 
+export type TPhoto = {
+  alt: string | null,
+  created_at: string | null,
+  description: string | null,
+  extension: string,
+  id: number,
+  mime: string,
+  name: string,
+  original_name: string,
+  size: number,
+  url: string,
+  user_id: number,
+
+}
+
 export interface IPublicationRequestPayload {
+  category: number | null,
+  created_at: string,
+  updated_at: string,
+  id: number,
+  is_accepted: boolean,
   publication_category_id: number;
   type: number;
   photos_ids?: Array<number>;
-  photos?: Array<File>;
+  photos?: Array<TPhoto>;
   name?: string;
   description?: string;
   youtube_url?: string;
+  user?: IUserRegistration,
 }
-
 
 
 export interface FetchPublicationsSuccessPayload {
@@ -70,6 +80,10 @@ export interface FetchPublicationsFailurePayload {
 
 export interface FetchPublicationRequestPayload {
   id: number;
+}
+
+export interface UpdatePublicationRequestPayload {
+  data: TPublication;
 }
 
 export interface FetchPublicationsRequest {
@@ -131,6 +145,37 @@ export type PostPublicationsFailure = {
   payload: FetchPublicationsFailurePayload;
 };
 
+export interface DeletePublicationRequest {
+  type: typeof DELETE_PUBLICATION_REQUEST;
+  payload: FetchPublicationRequestPayload;
+}
+
+export type DeletePublicationSuccess = {
+  type: typeof DELETE_PUBLICATION_SUCCESS;
+  payload: FetchPublicationsSuccessPayload;
+};
+
+export type DeletePublicationFailure = {
+  type: typeof DELETE_PUBLICATION_FAILURE;
+  payload: FetchPublicationsFailurePayload;
+};
+
+
+export interface UpdatePublicationRequest {
+  type: typeof UPDATE_PUBLICATION_REQUEST;
+  payload: UpdatePublicationRequestPayload;
+}
+
+export type UpdatePublicationSuccess = {
+  type: typeof UPDATE_PUBLICATION_SUCCESS;
+  payload: FetchPublicationsSuccessPayload;
+};
+
+export type UpdatePublicationFailure = {
+  type: typeof UPDATE_PUBLICATION_FAILURE;
+  payload: FetchPublicationsFailurePayload;
+};
+
 
 export type TPublicationsActions =
   | FetchPublicationsRequest
@@ -145,3 +190,9 @@ export type TPublicationsActions =
   | FetchCategoriesRequest
   | FetchCategoriesSuccess
   | FetchCategoriesFailure
+  | DeletePublicationRequest
+  | DeletePublicationSuccess
+  | DeletePublicationFailure
+  | UpdatePublicationRequest
+  | UpdatePublicationSuccess
+  | UpdatePublicationFailure

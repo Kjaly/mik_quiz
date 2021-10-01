@@ -1,33 +1,27 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledPhotoModal = styled.div`
-  height: 560px;
-  width: 800px;
-  display: flex;
+  max-width: 1100px;
+  width: 100%;
   flex-direction: column;
+  max-height: 625px;
+  border-radius: 8px;
 
-  > div {
-    flex: 1;
-    background-color: #dedede;
-    border-radius: 8px;
-    max-height: 450px;
-    margin-bottom: 30px;
-    position: relative;
+`;
+
+export const StyledSwiper = styled.div`
+  height: 625px;
+
+  .swiper-container {
+    height: 100%;
   }
-
-`
-
-export const StyledPhotoTitle = styled.p`
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 10px;
-
-`
-export const StyledPhotoDescription = styled.p`
-  color: #fff;
-  font-size: 15px;
-`
+`;
+export const StyledSlideImg = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+`;
 
 export const StyledCloseIcon = styled.div`
   position: absolute;
@@ -42,14 +36,18 @@ export const StyledCloseIcon = styled.div`
   width: 40px;
   cursor: pointer;
   transition: all 0.2s ease-in;
-  &:hover{
+  z-index: 2;
+
+  &:hover {
     transform: scale(1.1);
   }
+
   > svg {
     width: 24px;
+
     > path {
-      fill:  ${({theme}) => theme.color.yellow};
+      fill: ${({theme}) => theme.color.yellow};
     }
   }
-  
-`
+
+`;

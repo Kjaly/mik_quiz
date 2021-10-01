@@ -1,5 +1,12 @@
 import { IPublicationsState, TPublicationsActions } from './types';
-import { FETCH_CATEGORIES_FAILURE, FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS } from "./actionTypes";
+import {
+  DELETE_PUBLICATION_FAILURE,
+  DELETE_PUBLICATION_REQUEST, DELETE_PUBLICATION_SUCCESS,
+  FETCH_CATEGORIES_FAILURE,
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_SUCCESS, FETCH_PUBLICATIONS_FAILURE, FETCH_PUBLICATIONS_REQUEST,
+  FETCH_PUBLICATIONS_SUCCESS,
+} from './actionTypes';
 
 const initialState: IPublicationsState = {
   publicationsList: null,
@@ -25,6 +32,43 @@ export default (state = initialState, action: TPublicationsActions): any => {
       return {
         ...state,
         categories: [],
+        errors: action.payload.errors,
+      };
+
+    case FETCH_PUBLICATIONS_REQUEST:
+      return {
+        ...state,
+        pending: true,
+      };
+    case FETCH_PUBLICATIONS_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        publicationsList: action.payload.publications,
+        errors: null,
+      };
+    case FETCH_PUBLICATIONS_FAILURE:
+      return {
+        ...state,
+        publicationsList: [],
+        errors: action.payload.errors,
+      };
+
+    case DELETE_PUBLICATION_REQUEST:
+      return {
+        ...state,
+        pending: true,
+      };
+    case DELETE_PUBLICATION_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        errors: null,
+      };
+    case DELETE_PUBLICATION_FAILURE:
+      return {
+        ...state,
+        publicationsList: [],
         errors: action.payload.errors,
       };
     default:

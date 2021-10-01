@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  StyledFileViewer,
-  StyledFileItem,
-  StyledFileImg,
-  StyledFileRemove
-} from './FileViewer.styled';
+import { StyledFileImg, StyledFileItem, StyledFileRemove, StyledFileViewer } from './FileViewer.styled';
 import { IconCross } from '../../Icons';
 
 interface IFileViewerProps {
@@ -16,23 +11,26 @@ interface IFileViewerProps {
 export const FileViewer: React.FC<IFileViewerProps> = (props) => {
   const {files, setFiles} = props;
 
-  const removeFile = (name: string): void => {
-    const currentFiles = files.filter(item => item.name !== name);
+  const removeFile = (id: number, name: string): void => {
+    const currentFiles = files.filter(item => item.id ? item.id !== id : item.name !== name);
     setFiles(currentFiles);
-  }
-
+  };
   return (
     <StyledFileViewer>
-      {files.map((item, index) =>
-        <StyledFileItem key={index}>
-          <StyledFileImg
-            src={URL.createObjectURL(item)}
-            alt={item.name}
-          />
-          <StyledFileRemove onClick={() => removeFile(item.name)}>
-            <IconCross/>
-          </StyledFileRemove>
-        </StyledFileItem>
+      {files.map((item, index) => {
+          const source = item?.url ? item?.url : URL.createObjectURL(item);
+          return (
+            <StyledFileItem key={index}>
+              <StyledFileImg
+                src={source}
+                alt={item.name}
+              />
+              <StyledFileRemove onClick={() => removeFile(item.id, item.name)}>
+                <IconCross/>
+              </StyledFileRemove>
+            </StyledFileItem>
+          );
+        },
       )}
     </StyledFileViewer>
   );

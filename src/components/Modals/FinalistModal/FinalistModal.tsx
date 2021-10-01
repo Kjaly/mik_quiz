@@ -43,25 +43,27 @@ export const FinalistModal: React.FC<TModalProps> = (props) => {
           Вы стали одним из финалистов викторины! Теперь вы можете добавлять свои публикации.
         </StyledTextBlock>
 
-        <StyledImgBlock>
-          <p>Чтобы вас увидели, загрузите свою фотографию здесь:</p>
-          {!files.length ? (
-            <PhotoDropzone
-              files={files}
-              setFiles={setFiles}
-              name={'dropzone'}/>
-          ) : (
-            <StyledImgView>
-              <StyledImgText>
-                Спасибо! Ваша фотография успешно загружена.Теперь вы можете добавить свои публикации.
-              </StyledImgText>
-              <StyledImgWrapper>
-                <StyledImg src={URL.createObjectURL(files[0])}/>
-              </StyledImgWrapper>
-            </StyledImgView>
-          )}
+        {!user.photo_id ? (
+          <StyledImgBlock>
+            <p>Чтобы вас увидели, загрузите свою фотографию здесь:</p>
+            {!files.length ? (
+              <PhotoDropzone
+                files={files}
+                setFiles={setFiles}
+                name={'dropzone'}/>
+            ) : (
+              <StyledImgView>
+                <StyledImgText>
+                  Спасибо! Ваша фотография успешно загружена.Теперь вы можете добавить свои публикации.
+                </StyledImgText>
+                <StyledImgWrapper>
+                  <StyledImg src={URL.createObjectURL(files[0])}/>
+                </StyledImgWrapper>
+              </StyledImgView>
+            )}
 
-        </StyledImgBlock>
+          </StyledImgBlock>
+        ) : null}
         <StyledButton>
           <Button
             reversed
@@ -69,9 +71,9 @@ export const FinalistModal: React.FC<TModalProps> = (props) => {
             background={theme.color.yellow}
             title={'Добавить публикацию'}
             color={'#fff'}
-            onClick={() => {
-              console.log(`1`)
-            }}/>
+            href={'/publications'}
+            onClick={handleClose}
+          />
         </StyledButton>
       </StyledFinalistModal>
     </ModalTemplate>

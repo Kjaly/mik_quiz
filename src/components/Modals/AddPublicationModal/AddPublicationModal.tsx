@@ -11,7 +11,7 @@ import {
   StyledDropDownWrapper,
   StyledFileViewer,
   StyledMobileIcon,
-  StyledPublicationsTitle
+  StyledPublicationsTitle,
 } from './AddPublicationModal.styled';
 import { DropdownSelect } from '../../FormFinal/DropdownSelect';
 import { IconArrowRight, IconCheckCircle, IconCross } from '../../../Icons';
@@ -23,9 +23,14 @@ import { theme } from '../../../theme';
 import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategoriesRequest, postPublicationsRequest } from '../../../store/publications/actions';
-import { TCategory } from "../../../store/publications/types";
-import { publicationsSelector } from "../../../store/publications/selectors";
+import {
+  fetchCategoriesRequest,
+  postPublicationsRequest,
+  updatePublicationRequest,
+} from '../../../store/publications/actions';
+import { TCategory, TPhoto } from '../../../store/publications/types';
+import { publicationsSelector } from '../../../store/publications/selectors';
+import { modalsSelectors } from '../../../store/modals/selectors';
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -33,49 +38,72 @@ export interface IAddPublicationModalProps {
 
 
 export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) => {
-  const {closeModal} = props
+  const {closeModal} = props;
   const dispatch = useDispatch();
+
+  const modalProps = useSelector(modalsSelectors.getModalProps);
   const categories: Array<TCategory> | null = useSelector(publicationsSelector.getCategoriesSelector);
 
   const [categoryList, setCategoryList] = useState<Array<TCategory>>([]);
-  const typeList = [{id: 1, name: 'Галерея фото'}, {id: 2, name: 'Видео'}]
+  const typeList = [{id: 1, name: 'Галерея фото'}, {id: 2, name: 'Видео'}];
   const [step, setStep] = useState(0);
   const [option, setOption] = useState<TCategory>();
   const [photos, setPhotos] = useState<Array<File>>([]);
-  const [type, setType] = useState<TCategory>();
-
-
+  const [photosUrl, setPhotosUrl] = useState<Array<TPhoto>>([]);
+  const [allPhotos, setAllPhotos] = useState<Array<any>>([]);
+  const [type, setType] = useState<{ id: number, name: string }>();
 
 
   const handleSubmitForm = (values: any) => {
-    const data = {
+    let data = {
       publication_category_id: option?.id,
       type: type?.id,
-      photos,
-      ...values
-    }
-    dispatch(postPublicationsRequest({...data}))
+      ...values,
+    };
 
-    setStep(1)
+    if (photos.length) {
+      data = {...data, photos};
+    }
+    if (modalProps?.publication) {
+      const photos_ids = modalProps?.publication?.photos?.map((item: TPhoto) => item.id);
+      dispatch(updatePublicationRequest({...data, photos_ids, id: modalProps?.publication?.id}));
+    } else {
+      dispatch(postPublicationsRequest({...data}));
+    }
+    setStep(1);
     // dispatch(modalsActions.closeModalAction())
-  }
+  };
+  console.log(modalProps?.publication);
 
   useEffect(() => {
     if (!categories?.length) {
-      dispatch(fetchCategoriesRequest())
+      dispatch(fetchCategoriesRequest());
     }
   }, []);
 
   useEffect(() => {
     if (categories?.length) {
-      setCategoryList(categories)
+      setCategoryList(categories);
     }
-  },[categories])
+  }, [categories]);
 
   useEffect(() => {
-    setPhotos([])
+    setPhotos([]);
   }, [type]);
 
+  useEffect(() => {
+    if (modalProps?.publication) {
+      const currentOption = categoryList?.find(item => item.id === modalProps?.publication?.publication_category_id);
+      const currentType = typeList?.find(item => item.id === modalProps?.publication?.type);
+      setOption(currentOption);
+      setType(currentType);
+      setPhotosUrl(modalProps?.publication?.photos);
+    }
+  }, [modalProps?.publication, categoryList]);
+
+  useEffect(() => {
+    setAllPhotos([...photos, ...photosUrl]);
+  }, [photos, photosUrl]);
 
   return (
     <ModalTemplate>
@@ -93,10 +121,14 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
         </StyledPublicationsTitle>
         {step === 0 ? (
           <Form
-            initialValues={{}}
+            initialValues={{
+              name: modalProps?.publication.name || '',
+              description: modalProps?.publication.description || '',
+              youtube_url: modalProps?.publication.youtube_url || '',
+            }}
             onSubmit={handleSubmitForm}
             render={(renderProps): JSX.Element => {
-              const {values, handleSubmit} = renderProps
+              const {values, handleSubmit} = renderProps;
               return (
                 <>
                   <StyledDropDownWrapper>
@@ -137,7 +169,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                     </StyledActiveWrapper>
 
                     <StyledFileViewer>
-                      {photos.length ? <FileViewer files={photos} setFiles={setPhotos}/> : null}
+                      {[allPhotos].length ? <FileViewer files={allPhotos} setFiles={setAllPhotos}/> : null}
                     </StyledFileViewer>
                   </StyledDropDownWrapper>
 
@@ -148,20 +180,21 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                       name={'dropzone'}/>
                   </StyledActiveWrapper>
 
-                  <StyledActiveWrapper isActive={type?.id === 2 || !!photos.length}>
+                  <StyledActiveWrapper isActive={type?.id === 2 || !!allPhotos.length}>
                     <StyledButton>
                       <Button
                         icon={IconArrowRight}
                         reversed
-                        disabled={type?.id === 2 && !values.url}
+                        disabled={type?.id === 2 && !values.youtube_url}
                         background={theme.color.yellow}
                         color={'#fff'}
                         title={'Добавить'}
-                        onClick={handleSubmit}/>
+                        onClick={handleSubmit}
+                      />
                     </StyledButton>
                   </StyledActiveWrapper>
                 </>
-              )
+              );
             }}/>
         ) : (
           <StyledCompletePublication>

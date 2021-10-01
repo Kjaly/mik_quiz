@@ -1,4 +1,6 @@
 import {
+  DELETE_PUBLICATION_FAILURE,
+  DELETE_PUBLICATION_REQUEST, DELETE_PUBLICATION_SUCCESS,
   FETCH_CATEGORIES_FAILURE,
   FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS,
   FETCH_PUBLICATION_FAILURE,
@@ -9,11 +11,15 @@ import {
   FETCH_PUBLICATIONS_SUCCESS,
   POST_PUBLICATION_FAILURE,
   POST_PUBLICATION_REQUEST,
-  POST_PUBLICATION_SUCCESS,
+  POST_PUBLICATION_SUCCESS, UPDATE_PUBLICATION_FAILURE, UPDATE_PUBLICATION_REQUEST, UPDATE_PUBLICATION_SUCCESS,
 } from './actionTypes';
 import {
+  DeletePublicationFailure,
+  DeletePublicationRequest,
+  DeletePublicationSuccess,
   FetchCategoriesFailure,
-  FetchCategoriesRequest, FetchCategoriesSuccess,
+  FetchCategoriesRequest,
+  FetchCategoriesSuccess,
   FetchCategoriesSuccessPayload,
   FetchPublicationFailure,
   FetchPublicationRequest,
@@ -28,6 +34,10 @@ import {
   PostPublicationsFailure,
   PostPublicationsRequest,
   PostPublicationsSuccess,
+  UpdatePublicationFailure,
+  UpdatePublicationRequest,
+  UpdatePublicationRequestPayload,
+  UpdatePublicationSuccess,
 } from './types';
 
 
@@ -103,5 +113,44 @@ export const postPublicationsFailure = (
   payload: FetchPublicationsFailurePayload
 ): PostPublicationsFailure => ({
   type: POST_PUBLICATION_FAILURE,
+  payload,
+});
+
+
+export const deletePublicationRequest = (payload: FetchPublicationRequestPayload): DeletePublicationRequest => ({
+  type: DELETE_PUBLICATION_REQUEST,
+  payload
+});
+
+export const deletePublicationSuccess = (
+  payload: FetchPublicationsSuccessPayload
+): DeletePublicationSuccess => ({
+  type: DELETE_PUBLICATION_SUCCESS,
+  payload,
+});
+
+export const deletePublicationFailure = (
+  payload: FetchPublicationsFailurePayload
+): DeletePublicationFailure => ({
+  type: DELETE_PUBLICATION_FAILURE,
+  payload,
+});
+
+export const updatePublicationRequest = (payload: UpdatePublicationRequestPayload): UpdatePublicationRequest => ({
+  type: UPDATE_PUBLICATION_REQUEST,
+  payload
+});
+
+export const updatePublicationSuccess = (
+  payload: FetchPublicationsSuccessPayload
+): UpdatePublicationSuccess => ({
+  type: UPDATE_PUBLICATION_SUCCESS,
+  payload,
+});
+
+export const updatePublicationFailure = (
+  payload: FetchPublicationsFailurePayload
+): UpdatePublicationFailure => ({
+  type: UPDATE_PUBLICATION_FAILURE,
   payload,
 });
