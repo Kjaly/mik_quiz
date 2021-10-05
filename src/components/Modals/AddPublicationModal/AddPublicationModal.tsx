@@ -60,7 +60,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
   const [currentPublication, setCurrentPublication] = useState<TPublication>();
 
 
-  const handleSubmitForm = (values: any) => {
+  const handleSubmitForm = (values?: any) => {
     let data = {
       publication_category_id: option?.id,
       type: type?.id,
@@ -115,7 +115,6 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
   }, [modalProps?.publication, categoryList, publications]);
 
   useEffect(() => {
-    console.log(photos);
     setAllPhotos([...photos, ...photosUrl]);
   }, [photos, photosUrl]);
 
@@ -148,20 +147,21 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                 return regexps.website.test(value) ? undefined : 'Введите корректую ссылку на видео';
               };
               const handleValidate = async (): Promise<void> => {
-                const errors = await asyncValidate(
+                if (modalProps?.publication && step !== 2) {
+                  return setStep(2)
+                }
+                const errors = type?.id === 2 && await asyncValidate(
                   values,
                   {
                     formName: formsNames.addPublication,
                   },
                   form.mutators.setError,
                 );
-                console.log(values);
-                if (!errors || type?.id === 1) {
+                if (!errors) {
                   handleSubmit();
                 } else {
                   setStep(0);
                 }
-                console.log(errors);
               };
               return (
                 <>
@@ -261,7 +261,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                             background={theme.color.yellow}
                             color={'#fff'}
                             title={modalProps?.publication ? 'Сохранить' : 'Добавить'}
-                            onClick={() => setStep(2)}
+                            onClick={()=> type?.id === 1 ? handleSubmitForm() : handleValidate()}
                           />
                         </StyledButton>
                       </StyledActiveWrapper>

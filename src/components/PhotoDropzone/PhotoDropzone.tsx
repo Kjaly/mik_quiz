@@ -23,8 +23,6 @@ export const PhotoDropzone: React.FC<IPhotoDropzoneProps> = (props) => {
   const {name, files, setFiles} = props
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop: (acceptedFiles) => {
-      console.log(files);
-      console.log(acceptedFiles);
       if (files) {
         setFiles([...files,...acceptedFiles])
       } else {
