@@ -20,15 +20,17 @@ export const FileViewer: React.FC<IFileViewerProps> = (props) => {
 
   const removeFile = (id: number, name: string): void => {
     const currentFiles = files.filter(item => item.id ? item.id !== id : item.name !== name);
-    const currentPublications = publications?.map(item => {
-      if (item.id === publicationId) {
-        const currentItem = {...item, photos: item?.photos?.filter(photo => photo.id !== id)};
-        return currentItem;
+    if (id) {
+      const currentPublications = publications?.map(item => {
+        if (item.id === publicationId) {
+          const currentItem = {...item, photos: item?.photos?.filter(photo => photo.id !== id)};
+          return currentItem;
+        }
+        return item;
+      });
+      if (currentPublications) {
+        dispatch(removePublicationImgRequest({publicationsList: currentPublications}));
       }
-      return item;
-    });
-    if (currentPublications) {
-      dispatch(removePublicationImgRequest({publicationsList: currentPublications}));
     }
     setFiles(currentFiles);
 

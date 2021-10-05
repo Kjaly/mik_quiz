@@ -10,10 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublicationsRequest } from '../../store/publications/actions';
 import { TPublication } from '../../store/publications/types';
 import { publicationsSelector } from '../../store/publications/selectors';
+import { routerSelectors } from '../../store/route';
 
 export const FinalistSection: React.FC = () => {
   const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
   const [filter, setFilter] = useState('0');
+  const currentPathname = useSelector(routerSelectors.getLocationPathName)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,7 +25,7 @@ export const FinalistSection: React.FC = () => {
   }, []);
 
 
-  if (!publications?.length) {
+  if (!publications?.length || !currentPathname.includes('test')) {
     return null;
   }
   return (

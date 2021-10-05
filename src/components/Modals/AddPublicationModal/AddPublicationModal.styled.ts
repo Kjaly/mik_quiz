@@ -27,7 +27,6 @@ export const StyledPublicationsTitle = styled.div`
 
 `;
 export const StyledDropDownWrapper = styled.div`
-  max-width: 475px;
 
   > div {
     margin-bottom: 20px;

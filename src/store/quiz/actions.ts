@@ -8,7 +8,6 @@ import {
 } from './actionTypes';
 import {
   FetchQuizFailure,
-  FetchQuizFailurePayload,
   FetchQuizRequest,
   FetchQuizSuccess,
   FetchQuizSuccessPayload,

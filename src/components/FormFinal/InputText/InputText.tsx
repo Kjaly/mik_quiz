@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyledInput } from './InputText.styled';
-import { StyledInputContainer } from './InputText.styled';
+import { StyledInput, StyledInputContainer } from './InputText.styled';
 import { FieldRenderProps } from 'react-final-form';
 import { ErrorTip } from '../../ErrorTip';
-import { string } from 'yup';
 
 interface IInputTextProps {
   placeholder?: string;
@@ -24,7 +22,6 @@ export const InputText: React.FC<IFormFinalInputTextProps> = (props) => {
     maxLength,
     min,
     max,
-    syncRegexValidate,
     ...customProps
   } = props;
 
