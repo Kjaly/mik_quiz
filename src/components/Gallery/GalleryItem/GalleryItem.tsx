@@ -2,7 +2,7 @@ import React from 'react';
 import {
   StyledGalleryItem,
   StyledItemButton,
-  StyledItemCross,
+  StyledItemCross, StyledItemEdit,
   StyledItemImg,
   StyledItemImgWrapper,
   StyledItemUser,
@@ -26,11 +26,11 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
   const dispatch = useDispatch();
   const videoId = publication?.youtube_url?.split('v=')[1]?.split('&')[0];
   const handleClick = () => {
-    let modalProps
+    let modalProps;
     if (type === 1) {
-      modalProps = {photos:publication?.photos}
+      modalProps = {photos: publication?.photos};
     } else {
-      modalProps = {videoId, name: publication?.name, description: publication?.description}
+      modalProps = {videoId, name: publication?.name, description: publication?.description};
     }
     dispatch(modalsActions.openModalAction({
       name: type === 1 ? 'photoGallery' : 'videoGallery',
@@ -47,7 +47,6 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
       }));
     }
   };
-
   const previewUrl = type === 1 ? publication?.photos?.[0]?.url : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   return (
     <StyledGalleryItem>
@@ -59,7 +58,9 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
         {previewUrl ? <StyledItemImg src={previewUrl}/> : null}
       </StyledItemImgWrapper>
       {handleRemove && <StyledItemCross onClick={handleRemovePublication}><IconCross/></StyledItemCross>}
-      <StyledItemUser onClick={handleEdit}>{edit ? <IconPen/> : ''}</StyledItemUser>
+      {edit
+        ? <StyledItemEdit onClick={handleEdit}><IconPen/></StyledItemEdit>
+        : <StyledItemUser onClick={handleEdit}><img src={publication?.user?.photo?.url} alt={publication?.user?.first_name}/></StyledItemUser>}
     </StyledGalleryItem>
   );
 };

@@ -91,7 +91,7 @@ export const StyledItemButton = styled.div`
 
 
 `;
-export const StyledItemUser = styled.div`
+export const StyledItemEdit = styled.div`
   position: absolute;
   height: 50px;
   width: 50px;
@@ -116,7 +116,17 @@ export const StyledItemUser = styled.div`
   }
 `;
 
-export const StyledItemCross = styled(StyledItemUser)`
+export const StyledItemUser = styled(StyledItemEdit)`
+  right: 10px;
+  left: initial;
+  overflow: hidden;
+  > img {
+    width: 100%;
+    object-fit: cover;
+  }
+`;
+
+export const StyledItemCross = styled(StyledItemEdit)`
   bottom: initial;
   top: -10px;
   left: initial;
@@ -132,5 +142,5 @@ export const StyledItemCross = styled(StyledItemUser)`
       fill: #fff;
     }
   }
-  
+
 `;

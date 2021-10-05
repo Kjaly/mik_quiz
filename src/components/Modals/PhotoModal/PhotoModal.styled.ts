@@ -1,20 +1,44 @@
 import styled from 'styled-components';
+import { device } from '../../../theme/devices';
 
 export const StyledPhotoModal = styled.div`
   max-width: 1100px;
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   max-height: 625px;
   border-radius: 8px;
-
 `;
 
 export const StyledSwiper = styled.div`
-  height: 625px;
+  height: 180px;
 
   .swiper-container {
     height: 100%;
   }
+
+  ${device.tablet} {
+    height: 322px;
+  }
+
+  ${device.desktop} {
+    height: 625px;
+  }
+`;
+
+export const StyledLeftNavigation = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(50%);
+  z-index: 2;
+  left: 0;
+  //> div {
+  //  left: initial;
+  //  right: initial;
+  //}
+`;
+export const StyledRightNavigation = styled(StyledLeftNavigation)`
+  left: initial;
+  right: 0;
 `;
 export const StyledSlideImg = styled.img`
   height: 100%;
@@ -25,15 +49,15 @@ export const StyledSlideImg = styled.img`
 
 export const StyledCloseIcon = styled.div`
   position: absolute;
-  right: -20px;
-  top: -20px;
+  right: -15px;
+  top: -15px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background-color: #fff;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
   transition: all 0.2s ease-in;
   z-index: 2;
@@ -43,10 +67,21 @@ export const StyledCloseIcon = styled.div`
   }
 
   > svg {
-    width: 24px;
+    width: 18px;
 
     > path {
       fill: ${({theme}) => theme.color.yellow};
+    }
+  }
+
+  ${device.tablet} {
+    right: -20px;
+    top: -20px;
+    height: 40px;
+    width: 40px;
+
+    > svg {
+      width: 24px;
     }
   }
 

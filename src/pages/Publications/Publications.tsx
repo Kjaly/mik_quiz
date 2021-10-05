@@ -16,7 +16,7 @@ export const Publications: React.FC = () => {
 
   useEffect(() => {
     if (!publications?.length) {
-      dispatch(fetchPublicationsRequest());
+      dispatch(fetchPublicationsRequest({}));
     }
   }, []);
 

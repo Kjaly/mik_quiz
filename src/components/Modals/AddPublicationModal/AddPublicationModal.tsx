@@ -4,6 +4,7 @@ import {
   StyledActiveWrapper,
   StyledAddPublicationModal,
   StyledButton,
+  StyledButtonsBlock,
   StyledCompleteIcon,
   StyledCompletePublication,
   StyledCompleteText,
@@ -24,13 +25,17 @@ import { PhotoDropzone } from '../../PhotoDropzone';
 import { FileViewer } from '../../FileViewer';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchCategoriesRequest,
+  fetchCategoriesRequest, fetchPublicationsRequest,
   postPublicationsRequest,
   updatePublicationRequest,
 } from '../../../store/publications/actions';
-import { TCategory, TPhoto } from '../../../store/publications/types';
+import { TCategory, TPhoto, TPublication } from '../../../store/publications/types';
 import { publicationsSelector } from '../../../store/publications/selectors';
 import { modalsSelectors } from '../../../store/modals/selectors';
+import { asyncValidate } from '../../../services/forms/asyncValidate';
+import { formsNames } from '../../../services/forms/formsNames';
+import { setError } from '../../../services/forms/setFinalFormErrorMutator';
+import { regexps } from '../../../contsants/regExps';
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -43,7 +48,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
 
   const modalProps = useSelector(modalsSelectors.getModalProps);
   const categories: Array<TCategory> | null = useSelector(publicationsSelector.getCategoriesSelector);
-
+  const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
   const [categoryList, setCategoryList] = useState<Array<TCategory>>([]);
   const typeList = [{id: 1, name: 'Галерея фото'}, {id: 2, name: 'Видео'}];
   const [step, setStep] = useState(0);
@@ -52,6 +57,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
   const [photosUrl, setPhotosUrl] = useState<Array<TPhoto>>([]);
   const [allPhotos, setAllPhotos] = useState<Array<any>>([]);
   const [type, setType] = useState<{ id: number, name: string }>();
+  const [currentPublication, setCurrentPublication] = useState<TPublication>();
 
 
   const handleSubmitForm = (values: any) => {
@@ -65,21 +71,27 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
       data = {...data, photos};
     }
     if (modalProps?.publication) {
-      const photos_ids = modalProps?.publication?.photos?.map((item: TPhoto) => item.id);
+      const photos_ids = currentPublication?.photos?.map((item: TPhoto) => item.id);
       dispatch(updatePublicationRequest({...data, photos_ids, id: modalProps?.publication?.id}));
     } else {
       dispatch(postPublicationsRequest({...data}));
     }
     setStep(1);
-    // dispatch(modalsActions.closeModalAction())
   };
-  console.log(modalProps?.publication);
+
 
   useEffect(() => {
     if (!categories?.length) {
       dispatch(fetchCategoriesRequest());
     }
+    return () => {
+      dispatch(fetchPublicationsRequest({}));
+    };
   }, []);
+
+  useEffect(() => {
+    setCurrentPublication(publications?.find(item => item.id === modalProps?.publication?.id));
+  }, [modalProps?.publication, publications]);
 
   useEffect(() => {
     if (categories?.length) {
@@ -95,13 +107,15 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
     if (modalProps?.publication) {
       const currentOption = categoryList?.find(item => item.id === modalProps?.publication?.publication_category_id);
       const currentType = typeList?.find(item => item.id === modalProps?.publication?.type);
+      const currentPublication = publications?.find(item => item.id === modalProps?.publication?.id);
       setOption(currentOption);
       setType(currentType);
-      setPhotosUrl(modalProps?.publication?.photos);
+      setPhotosUrl(currentPublication?.photos || photosUrl);
     }
-  }, [modalProps?.publication, categoryList]);
+  }, [modalProps?.publication, categoryList, publications]);
 
   useEffect(() => {
+    console.log(photos);
     setAllPhotos([...photos, ...photosUrl]);
   }, [photos, photosUrl]);
 
@@ -114,85 +128,145 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
               <IconCheckCircle/>
             </StyledMobileIcon>
           )}
-          Добавление публикации
+          {modalProps?.publication ? 'Редактирование' : 'Добавление'} публикации
           <StyledCross onClick={closeModal}>
             <IconCross/>
           </StyledCross>
         </StyledPublicationsTitle>
-        {step === 0 ? (
+        {step !== 1 ? (
           <Form
-            initialValues={{
+            initialValues={type?.id === 2 && {
               name: modalProps?.publication.name || '',
               description: modalProps?.publication.description || '',
               youtube_url: modalProps?.publication.youtube_url || '',
             }}
+            mutators={{setError}}
             onSubmit={handleSubmitForm}
             render={(renderProps): JSX.Element => {
-              const {values, handleSubmit} = renderProps;
+              const {values, handleSubmit, form} = renderProps;
+              const syncRegexValidate = (value: string) => {
+                return regexps.website.test(value) ? undefined : 'Введите корректую ссылку на видео';
+              };
+              const handleValidate = async (): Promise<void> => {
+                const errors = await asyncValidate(
+                  values,
+                  {
+                    formName: formsNames.addPublication,
+                  },
+                  form.mutators.setError,
+                );
+                console.log(values);
+                if (!errors || type?.id === 1) {
+                  handleSubmit();
+                } else {
+                  setStep(0);
+                }
+                console.log(errors);
+              };
               return (
                 <>
-                  <StyledDropDownWrapper>
-                    <DropdownSelect
-                      setOption={setOption}
-                      placeholder="Категория"
-                      name={'category'}
-                      option={option}
-                      optionsList={categoryList}/>
-                    <DropdownSelect
-                      disabled={!option}
-                      setOption={setType}
-                      name={'type'}
-                      placeholder="Тип публикации"
-                      option={type}
-                      optionsList={typeList}/>
+                  {step === 2 ? (
+                    <>
+                      После редактирования публикация попадет на повторную модерацию, вы уверены что хотите подвердить
+                      изменения?
+                      <StyledButtonsBlock>
+                        <StyledButton step={step}>
+                          <Button
+                            reversed
+                            background={theme.color.yellow}
+                            title={'Да'}
+                            color={'#fff'}
+                            onClick={handleValidate}/>
+                        </StyledButton>
 
-                    <StyledActiveWrapper isActive={type?.id === 2}>
-                      <Field
-                        name="name"
-                        component={InputText}
-                        type="text"
-                        placeholder="Заголовок"
-                      />
-                      <Field
-                        name="description"
-                        component={InputTextarea}
-                        maxCount={150}
-                        placeholder="Описание"
-                      />
+                        <StyledButton step={step}>
+                          <Button
+                            reversed
+                            background={theme.color.blue}
+                            title={'Нет'}
+                            color={'#fff'}
+                            onClick={closeModal}
+                          />
+                        </StyledButton>
 
-                      <Field
-                        name="youtube_url"
-                        component={InputText}
-                        type="text"
-                        placeholder="Ссылка на видео в YouTube"
-                      />
-                    </StyledActiveWrapper>
+                      </StyledButtonsBlock>
+                    </>
+                  ) : (
+                    <>
+                      <StyledDropDownWrapper>
+                        <DropdownSelect
+                          setOption={setOption}
+                          placeholder="Категория"
+                          name={'category'}
+                          option={option}
+                          optionsList={categoryList}/>
+                        {!modalProps?.publication &&
+                        <DropdownSelect
+                          disabled={!option}
+                          setOption={setType}
+                          name={'type'}
+                          placeholder="Тип публикации"
+                          option={type}
+                          optionsList={typeList}/>
+                        }
 
-                    <StyledFileViewer>
-                      {[allPhotos].length ? <FileViewer files={allPhotos} setFiles={setAllPhotos}/> : null}
-                    </StyledFileViewer>
-                  </StyledDropDownWrapper>
 
-                  <StyledActiveWrapper isActive={type?.id === 1}>
-                    <PhotoDropzone
-                      files={photos}
-                      setFiles={setPhotos}
-                      name={'dropzone'}/>
-                  </StyledActiveWrapper>
+                        <StyledActiveWrapper isActive={type?.id === 2}>
+                          <Field
+                            name="name"
+                            component={InputText}
+                            type="text"
+                            placeholder="Заголовок"
+                          />
+                          <Field
+                            name="description"
+                            component={InputTextarea}
+                            maxCount={150}
+                            placeholder="Описание"
+                          />
 
-                  <StyledActiveWrapper isActive={type?.id === 2 || !!allPhotos.length}>
-                    <StyledButton>
-                      <Button
-                        icon={IconArrowRight}
-                        reversed
-                        disabled={type?.id === 2 && !values.youtube_url}
-                        background={theme.color.yellow}
-                        color={'#fff'}
-                        title={'Добавить'}
-                        onClick={handleSubmit}
-                      />
-                    </StyledButton>
-                  </StyledActiveWrapper>
+                          <Field
+                            validate={syncRegexValidate}
+                            name="youtube_url"
+                            component={InputText}
+                            type="text"
+                            placeholder="Ссылка на видео в YouTube"
+                          />
+                        </StyledActiveWrapper>
+
+                        <StyledFileViewer>
+                          {[allPhotos].length
+                            ? <FileViewer
+                              files={allPhotos}
+                              setFiles={setAllPhotos}
+                              publicationId={modalProps?.publication?.id}
+                            />
+                            : null}
+                        </StyledFileViewer>
+                      </StyledDropDownWrapper>
+
+                      <StyledActiveWrapper isActive={type?.id === 1}>
+                        <PhotoDropzone
+                          files={photos}
+                          setFiles={setPhotos}
+                          name={'dropzone'}/>
+                      </StyledActiveWrapper>
+
+                      <StyledActiveWrapper isActive={type?.id === 2 || !!allPhotos.length}>
+                        <StyledButton>
+                          <Button
+                            icon={IconArrowRight}
+                            reversed
+                            disabled={type?.id === 2 && (!values.youtube_url || form.getFieldState('youtube_url')?.error)}
+                            background={theme.color.yellow}
+                            color={'#fff'}
+                            title={modalProps?.publication ? 'Сохранить' : 'Добавить'}
+                            onClick={() => setStep(2)}
+                          />
+                        </StyledButton>
+                      </StyledActiveWrapper>
+                    </>
+                  )}
                 </>
               );
             }}/>

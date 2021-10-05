@@ -24,6 +24,7 @@ export const RemovePublicationModal: React.FC<TModalProps> = (props) => {
   };
   const handleRemove = () => {
     remove();
+    closeModal();
   };
   return (
     <ModalTemplate>

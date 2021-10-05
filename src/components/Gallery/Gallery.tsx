@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyledButton, StyledGallery, StyledGalleryWrapper } from './Gallery.styled';
-import { GalleryItem } from "./GalleryItem";
-import { Button } from "../Button";
-import { IconArrowRight } from "../../Icons";
-import { theme } from "../../theme";
+import { GalleryItem } from './GalleryItem';
+import { Button } from '../Button';
+import { IconArrowRight } from '../../Icons';
+import { theme } from '../../theme';
+import { TPublication } from '../../store/publications/types';
+import { fetchPublicationsRequest } from '../../store/publications/actions';
+import { useDispatch } from 'react-redux';
 
-export const Gallery: React.FC = () => {
-  const test = [1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 2, 2, 1]
+
+interface IGalleryProps {
+  publications: Array<TPublication>;
+  filter: string;
+}
+
+export const Gallery: React.FC<IGalleryProps> = (props) => {
+  const {publications, filter} = props;
+  const dispatch = useDispatch();
+  const [publicationsCount, setPublicationsCount] = useState(12);
+  const handleFetchPublications = () => {
+    setPublicationsCount(publicationsCount + 12);
+  };
+
+  useEffect(() => {
+    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id:+filter}));
+  }, [publicationsCount, filter]);
+
   return (
     <StyledGalleryWrapper>
       <StyledGallery>
-        {test.slice(0, 12).map((item, key) => (
-          <GalleryItem key={key} type={item}/>
+        {publications.slice(0, 12).map((item, key) => (
+          <GalleryItem  publication={item} key={key} type={item.type}/>
         ))}
       </StyledGallery>
       <StyledButton>
@@ -21,6 +40,7 @@ export const Gallery: React.FC = () => {
           view={'bordered'}
           icon={IconArrowRight}
           borderColor={'rgba(61, 79, 135, 0.2)'}
+          onClick={handleFetchPublications}
           reversed/>
       </StyledButton>
     </StyledGalleryWrapper>

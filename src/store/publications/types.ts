@@ -13,12 +13,14 @@ import {
   FETCH_PUBLICATIONS_SUCCESS,
   POST_PUBLICATION_FAILURE,
   POST_PUBLICATION_REQUEST,
-  POST_PUBLICATION_SUCCESS,
+  POST_PUBLICATION_SUCCESS, REMOVE_PUBLICATION_IMG,
   UPDATE_PUBLICATION_FAILURE,
   UPDATE_PUBLICATION_REQUEST,
   UPDATE_PUBLICATION_SUCCESS,
 } from './actionTypes';
-import { IUserRegistration } from '../user/types';
+import { IUserRegistration, UserState } from '../user/types';
+import { TLink } from '../../models/response/PublicationsResponse';
+import { number } from 'yup';
 
 export type TPublication = IPublicationRequestPayload
 
@@ -27,6 +29,17 @@ export type TCategory = {
   name: string,
   created_at: string,
   updated_at: string,
+}
+
+export interface IMeta {
+  current_page: number,
+  from: number,
+  last_page: number,
+  links: Array<TLink>,
+  path: string,
+  per_page: number,
+  to: number,
+  total: number,
 }
 
 export interface IPublicationsState {
@@ -62,12 +75,17 @@ export interface IPublicationRequestPayload {
   name?: string;
   description?: string;
   youtube_url?: string;
-  user?: IUserRegistration,
+  user?: UserState,
 }
 
 
 export interface FetchPublicationsSuccessPayload {
   publications: Array<TPublication>;
+  meta: IMeta;
+}
+export interface FetchPublicationsSuccessPayload {
+  publications: Array<TPublication>;
+  meta: IMeta;
 }
 
 export interface FetchCategoriesSuccessPayload {
@@ -81,13 +99,22 @@ export interface FetchPublicationsFailurePayload {
 export interface FetchPublicationRequestPayload {
   id: number;
 }
+export interface FetchPublicationsRequestPayload {
+  size?:number
+  category_id?:number
+}
 
 export interface UpdatePublicationRequestPayload {
   data: TPublication;
 }
 
+export interface RemovePublicationImgPayload {
+  publicationsList: Array<TPublication>;
+}
+
 export interface FetchPublicationsRequest {
   type: typeof FETCH_PUBLICATIONS_REQUEST;
+  payload:FetchPublicationsRequestPayload;
 }
 
 export type FetchPublicationsSuccess = {
@@ -175,6 +202,10 @@ export type UpdatePublicationFailure = {
   type: typeof UPDATE_PUBLICATION_FAILURE;
   payload: FetchPublicationsFailurePayload;
 };
+export type RemovePublicationImg = {
+  type: typeof REMOVE_PUBLICATION_IMG;
+  payload: RemovePublicationImgPayload;
+};
 
 
 export type TPublicationsActions =
@@ -196,3 +227,4 @@ export type TPublicationsActions =
   | UpdatePublicationRequest
   | UpdatePublicationSuccess
   | UpdatePublicationFailure
+  | RemovePublicationImg

@@ -20,6 +20,9 @@ export const getValidationSchema = ({formName}: IShemaValues): AnyObject | undef
       email: fields.email,
       password: fields.password,
     },
+    [formsNames.addPublication]: {
+      youtube_url: fields.url,
+    },
     [formsNames.resetPassword]: {
       password: fields.password,
       password_confirmation: fields.password,

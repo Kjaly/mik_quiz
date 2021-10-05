@@ -23,7 +23,12 @@ import $api from '../../http';
 import { CategoriesResponse, PublicationsResponse } from '../../models/response/PublicationsResponse';
 import store from '../index';
 import { setFileUploadStatus } from '../user/actions';
-import { FetchPublicationRequestPayload, IPublicationRequestPayload, TPublication } from './types';
+import {
+  FetchPublicationRequestPayload,
+  FetchPublicationsRequestPayload,
+  IPublicationRequestPayload,
+  TPublication,
+} from './types';
 import { Action } from 'redux-actions';
 
 
@@ -46,8 +51,8 @@ function getFormData(object: any) {
 }
 
 
-const fetchPublications = (): Promise<AxiosResponse<PublicationsResponse>> =>
-  $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications?include=user,category,photos`, {
+const fetchPublications = (payload: FetchPublicationsRequestPayload): Promise<AxiosResponse<PublicationsResponse>> =>
+  $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications?include=user.photo,category,photos${payload.size ? `&page[size]=${payload.size}` : ''}${payload.category_id ? `&filter[category_id]=${payload.category_id}` : ''}`, {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -107,8 +112,8 @@ const postPublications = (payload: TPublication): Promise<AxiosResponse<Publicat
 };
 
 const updatePublications = (payload: IPublicationRequestPayload): Promise<AxiosResponse<PublicationsResponse>> => {
-  console.log(payload);
-  const formData = getFormData(payload);
+  const {id, ...currentPayload} = payload;
+  const formData = getFormData(currentPayload);
   formData.append('_method', 'PATCH');
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -137,14 +142,15 @@ const updatePublications = (payload: IPublicationRequestPayload): Promise<AxiosR
 };
 
 
-function* fetchPublicationsSaga() {
+function* fetchPublicationsSaga(action: Action<FetchPublicationsRequestPayload>) {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(fetchPublications);
+    const response = yield call(fetchPublications, action.payload);
     yield put(
       fetchPublicationsSuccess({
         publications: response.data.data,
+        meta: response.data.meta,
       }),
     );
   } catch (e: any) {
@@ -164,6 +170,7 @@ function* fetchPublicationSaga(action: Action<FetchPublicationRequestPayload>) {
     yield put(
       fetchPublicationsSuccess({
         publications: response.data.data.data,
+        meta: response.data.meta,
       }),
     );
   } catch (e: any) {
@@ -204,9 +211,10 @@ function* postPublicationsSaga(action: Action<FetchPublicationRequestPayload>) {
     yield put(
       postPublicationsSuccess({
         publications: response.data,
+        meta: response.data.meta,
       }),
     );
-    yield put(fetchPublicationsRequest());
+    yield put(fetchPublicationsRequest({}));
   } catch (e: any) {
     yield put(
       postPublicationsFailure({
@@ -221,7 +229,7 @@ function* deletePublicationSaga(action: Action<FetchPublicationRequestPayload>) 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     yield call(deletePublication, action.payload);
-    yield put(fetchPublicationsRequest());
+    yield put(fetchPublicationsRequest({}));
 
   } catch (e: any) {
     yield put(
@@ -237,7 +245,7 @@ function* updatePublicationSaga(action: Action<IPublicationRequestPayload>) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     yield call(updatePublications, action.payload);
-    yield put(fetchPublicationsRequest());
+    yield put(fetchPublicationsRequest({}));
 
   } catch (e: any) {
     yield put(

@@ -10,29 +10,34 @@ interface IFilterValues {
   color?: string;
 }
 
-export const Filter: React.FC = () => {
+interface IInterfaceProps {
+  filter: string;
+  setFilter: (filter: string) => void;
+}
 
-  const [filter, setFilter] = useState('Все');
-  const [isOpen, setIsOpen] = useState(false)
+export const Filter: React.FC<IInterfaceProps> = (props) => {
+  const {filter, setFilter} = props;
+
+  const [isOpen, setIsOpen] = useState(false);
   const filterValues: Array<IFilterValues> = [
     {
-      value: 'Все',
+      value: '0',
       title: 'Все',
-      background: theme.color.blue
+      background: theme.color.blue,
     },
     {
-      value: 'Региональные слеты',
+      value: '1',
       title: 'Региональные слеты',
     },
     {
-      value: 'Межрегиональные слеты',
+      value: '2',
       title: 'Межрегиональные слеты',
     },
-  ]
+  ];
 
   const handleClick = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
   return (
     <StyledFilter isOpen={isOpen} onClick={handleClick}>
       {filterValues.map((item, key) => (

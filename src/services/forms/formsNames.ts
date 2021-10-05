@@ -3,5 +3,5 @@ export const formsNames = {
   auth: 'auth',
   profileUpdate: 'profileUpdate',
   resetPassword: 'resetPassword',
-
+  addPublication: 'addPublication',
 };

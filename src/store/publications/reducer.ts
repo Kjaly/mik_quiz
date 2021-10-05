@@ -5,7 +5,7 @@ import {
   FETCH_CATEGORIES_FAILURE,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS, FETCH_PUBLICATIONS_FAILURE, FETCH_PUBLICATIONS_REQUEST,
-  FETCH_PUBLICATIONS_SUCCESS,
+  FETCH_PUBLICATIONS_SUCCESS, REMOVE_PUBLICATION_IMG,
 } from './actionTypes';
 
 const initialState: IPublicationsState = {
@@ -50,7 +50,6 @@ export default (state = initialState, action: TPublicationsActions): any => {
     case FETCH_PUBLICATIONS_FAILURE:
       return {
         ...state,
-        publicationsList: [],
         errors: action.payload.errors,
       };
 
@@ -68,8 +67,12 @@ export default (state = initialState, action: TPublicationsActions): any => {
     case DELETE_PUBLICATION_FAILURE:
       return {
         ...state,
-        publicationsList: [],
         errors: action.payload.errors,
+      };
+    case REMOVE_PUBLICATION_IMG:
+      return {
+        ...state,
+        publicationsList: action.payload.publicationsList || state.publicationsList,
       };
     default:
       return {

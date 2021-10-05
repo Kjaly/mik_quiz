@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Title } from '../Typography/Title';
 import { StyledDecorativeWrapper, StyledFinalistSection, StyledTitleBlock } from './FinalistSection.styled';
 import { ContentWrapper } from '../ContentWrapper';
@@ -13,17 +13,18 @@ import { publicationsSelector } from '../../store/publications/selectors';
 
 export const FinalistSection: React.FC = () => {
   const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
+  const [filter, setFilter] = useState('0');
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (!publications?.length) {
-      dispatch(fetchPublicationsRequest())
+      dispatch(fetchPublicationsRequest({}));
     }
   }, []);
 
 
   if (!publications?.length) {
-    return null
+    return null;
   }
   return (
     <StyledFinalistSection>
@@ -35,9 +36,9 @@ export const FinalistSection: React.FC = () => {
           <Title customMargin={'0 0 20px 0'} color={theme.color.blue}>
             Финалисты
           </Title>
-          <Filter/>
+          <Filter filter={filter} setFilter={setFilter}/>
         </StyledTitleBlock>
-        <Gallery/>
+        <Gallery filter={filter} publications={publications}/>
       </ContentWrapper>
       <StyledDecorativeWrapper>
         <DecorativeLines opacity={0.3} color={theme.color.blue}/>

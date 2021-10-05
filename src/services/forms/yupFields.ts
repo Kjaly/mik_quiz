@@ -1,5 +1,6 @@
 import { boolean, mixed, number, string } from 'yup';
 import { errorsMessages } from './errorsMessages';
+import { regexps } from '../../contsants/regExps';
 
 export const fields = {
   email: string()
@@ -70,7 +71,12 @@ export const fields = {
   fileId: number().nullable(),
   file: mixed().when('parental_agreement_id', {
     is: (fileId: number) => {
-      return !fileId
-    }, then: mixed().required(errorsMessages.required)
+      return !fileId;
+    }, then: mixed().required(errorsMessages.required),
   }),
+
+  url: string()
+    .required(errorsMessages.required)
+    .transform((value) => value.toLowerCase())
+    .matches(regexps.website, 'Введите корректую ссылку на видео'),
 };

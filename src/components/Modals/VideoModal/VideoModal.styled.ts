@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../../theme/devices';
 
 export const StyledVideoModal = styled.div`
   height: 560px;
@@ -12,10 +13,10 @@ export const StyledPlayer = styled.div`
   flex: 1;
   background-color: #dedede;
   border-radius: 8px;
-  min-height: 450px;
-  height: 450px;
+  min-height: 180px;
+  height: 180px;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
 
   > div:nth-child(2) {
@@ -24,6 +25,17 @@ export const StyledPlayer = styled.div`
     > iframe {
       border-radius: 8px;
     }
+  }
+
+  ${device.tablet} {
+    min-height: 322px;
+    height: 322px;
+  }
+
+  ${device.desktop} {
+    margin-bottom: 30px;
+    min-height: 450px;
+    height: 450px;
   }
 `;
 

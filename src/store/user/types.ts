@@ -44,17 +44,18 @@ export interface IApi {
 }
 
 export interface IUserRegistration {
-  first_name: string;
-  last_name: string;
-  middle_name: string;
-  school: string;
-  school_class: string;
-  school_teacher_history: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
+  first_name?: string;
+  last_name?: string;
+  middle_name?: string;
+  school?: string;
+  school_class?: string;
+  school_teacher_history?: string;
+  email?: string;
+  password?: string;
+  password_confirmation?: string;
   avatar?: File | null;
   parental_agreement?: File | null;
+  is_finalist_accepted?: boolean;
 }
 
 
@@ -118,6 +119,7 @@ export interface UserState extends Partial<IUser> {
   first_name?: string,
   id?: number,
   is_completed?: boolean,
+  is_finalist_accepted?: boolean,
   last_name?: string,
   message: string | null;
   middle_name?: string,
