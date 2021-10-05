@@ -6,7 +6,8 @@ import { IconArrowRight } from '../../Icons';
 import { theme } from '../../theme';
 import { TPublication } from '../../store/publications/types';
 import { fetchPublicationsRequest } from '../../store/publications/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMetasSelector } from '../../store/publications/selectors';
 
 
 interface IGalleryProps {
@@ -18,21 +19,26 @@ export const Gallery: React.FC<IGalleryProps> = (props) => {
   const {publications, filter} = props;
   const dispatch = useDispatch();
   const [publicationsCount, setPublicationsCount] = useState(12);
+  const meta = useSelector(getMetasSelector)
+  const isMaxPage = publicationsCount >= meta?.total
   const handleFetchPublications = () => {
-    setPublicationsCount(publicationsCount + 12);
+    if (!isMaxPage) {
+      setPublicationsCount(publicationsCount + 12);
+    }
   };
 
   useEffect(() => {
-    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id:+filter}));
+    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id: +filter}));
   }, [publicationsCount, filter]);
 
   return (
     <StyledGalleryWrapper>
       <StyledGallery>
-        {publications.slice(0, 12).map((item, key) => (
-          <GalleryItem  publication={item} key={key} type={item.type}/>
+        {publications.map((item, key) => (
+          <GalleryItem publication={item} key={key} type={item.type}/>
         ))}
       </StyledGallery>
+      {!isMaxPage &&
       <StyledButton>
         <Button
           title={'Показать еще'}
@@ -43,6 +49,7 @@ export const Gallery: React.FC<IGalleryProps> = (props) => {
           onClick={handleFetchPublications}
           reversed/>
       </StyledButton>
+      }
     </StyledGalleryWrapper>
   );
 };

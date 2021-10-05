@@ -13,14 +13,14 @@ import {
   FETCH_PUBLICATIONS_SUCCESS,
   POST_PUBLICATION_FAILURE,
   POST_PUBLICATION_REQUEST,
-  POST_PUBLICATION_SUCCESS, REMOVE_PUBLICATION_IMG,
+  POST_PUBLICATION_SUCCESS,
+  REMOVE_PUBLICATION_IMG,
   UPDATE_PUBLICATION_FAILURE,
   UPDATE_PUBLICATION_REQUEST,
   UPDATE_PUBLICATION_SUCCESS,
 } from './actionTypes';
-import { IUserRegistration, UserState } from '../user/types';
+import { UserState } from '../user/types';
 import { TLink } from '../../models/response/PublicationsResponse';
-import { number } from 'yup';
 
 export type TPublication = IPublicationRequestPayload
 
@@ -45,6 +45,7 @@ export interface IMeta {
 export interface IPublicationsState {
   publicationsList: Array<TPublication> | null;
   categories: Array<TCategory> | null;
+  meta: any;
 }
 
 export type TPhoto = {
@@ -83,6 +84,7 @@ export interface FetchPublicationsSuccessPayload {
   publications: Array<TPublication>;
   meta: IMeta;
 }
+
 export interface FetchPublicationsSuccessPayload {
   publications: Array<TPublication>;
   meta: IMeta;
@@ -99,9 +101,10 @@ export interface FetchPublicationsFailurePayload {
 export interface FetchPublicationRequestPayload {
   id: number;
 }
+
 export interface FetchPublicationsRequestPayload {
-  size?:number
-  category_id?:number
+  size?: number
+  category_id?: number
 }
 
 export interface UpdatePublicationRequestPayload {
@@ -114,7 +117,7 @@ export interface RemovePublicationImgPayload {
 
 export interface FetchPublicationsRequest {
   type: typeof FETCH_PUBLICATIONS_REQUEST;
-  payload:FetchPublicationsRequestPayload;
+  payload: FetchPublicationsRequestPayload;
 }
 
 export type FetchPublicationsSuccess = {

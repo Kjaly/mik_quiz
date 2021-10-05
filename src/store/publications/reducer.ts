@@ -11,6 +11,7 @@ import {
 const initialState: IPublicationsState = {
   publicationsList: null,
   categories: null,
+  meta:null,
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -45,6 +46,7 @@ export default (state = initialState, action: TPublicationsActions): any => {
         ...state,
         pending: false,
         publicationsList: action.payload.publications,
+        meta: action.payload.meta,
         errors: null,
       };
     case FETCH_PUBLICATIONS_FAILURE:
