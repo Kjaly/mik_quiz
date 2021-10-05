@@ -2,53 +2,65 @@ import React from 'react';
 import {
   StyledGalleryItem,
   StyledItemButton,
-  StyledItemCross,
+  StyledItemCross, StyledItemEdit,
   StyledItemImg,
   StyledItemImgWrapper,
   StyledItemUser,
 } from './GalleryItem.styled';
-import { IconCross, IconPhoto, IconVideo } from "../../../Icons";
-import { IconPen } from "../../../Icons/IconPen";
-import { modalsActions } from "../../../store/modals/actions";
-import { useDispatch } from "react-redux";
-import { TPublication } from "../../../store/publications/types";
+import { IconCross, IconPhoto, IconVideo } from '../../../Icons';
+import { IconPen } from '../../../Icons/IconPen';
+import { modalsActions } from '../../../store/modals/actions';
+import { useDispatch } from 'react-redux';
+import { TPublication } from '../../../store/publications/types';
 
 export interface IGalleryItemProps {
   type: number;
   edit?: boolean;
   publication?: TPublication;
-  handleRemove?: (id: string) => void;
+  handleRemove?: (id: number) => void;
 }
 
 export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
-  const {type, publication, edit, handleRemove} = props
+  const {type, publication, edit, handleRemove} = props;
 
-  const dispatch = useDispatch()
-  const videoId = publication?.url?.split("v=")[1]?.split("&")[0];
+  const dispatch = useDispatch();
+  const videoId = publication?.youtube_url?.split('v=')[1]?.split('&')[0];
   const handleClick = () => {
-    dispatch(modalsActions.openModalAction({name: type !== 1 ? 'photoGallery' : 'videoGallery', props: {videoId}}))
-  }
+    let modalProps;
+    if (type === 1) {
+      modalProps = {photos: publication?.photos};
+    } else {
+      modalProps = {videoId, name: publication?.name, description: publication?.description};
+    }
+    dispatch(modalsActions.openModalAction({
+      name: type === 1 ? 'photoGallery' : 'videoGallery',
+      props: {...modalProps},
+    }));
+  };
   const handleEdit = () => {
-    dispatch(modalsActions.openModalAction({name: 'addPublicationModal', props: {isEdit: true}}))
-  }
+    dispatch(modalsActions.openModalAction({name: 'addPublicationModal', props: {isEdit: true, publication}}));
+  };
   const handleRemovePublication = () => {
-   if (handleRemove && publication?.id) {
-     handleRemove(publication.id)
-   }
-  }
-
-  const previewUrl = type !== 1 ? publication?.url : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+    if (handleRemove && publication?.id) {
+      dispatch(modalsActions.openModalAction({
+        name: 'removePublication', props: {remove: () => handleRemove(publication.id)},
+      }));
+    }
+  };
+  const previewUrl = type === 1 ? publication?.photos?.[0]?.url : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   return (
     <StyledGalleryItem>
       <StyledItemImgWrapper onClick={handleClick}>
         <StyledItemButton>
-          {type === 1 ? <IconVideo/> : <IconPhoto/>}
+          {type !== 1 ? <IconVideo/> : <IconPhoto/>}
           <span>Смотреть</span>
         </StyledItemButton>
         {previewUrl ? <StyledItemImg src={previewUrl}/> : null}
       </StyledItemImgWrapper>
-      <StyledItemCross onClick={handleRemovePublication}><IconCross/></StyledItemCross>
-      <StyledItemUser onClick={handleEdit}>{edit ? <IconPen/> : ''}</StyledItemUser>
+      {handleRemove && <StyledItemCross onClick={handleRemovePublication}><IconCross/></StyledItemCross>}
+      {edit
+        ? <StyledItemEdit onClick={handleEdit}><IconPen/></StyledItemEdit>
+        : <StyledItemUser onClick={handleEdit}><img src={publication?.user?.photo?.url} alt={publication?.user?.first_name}/></StyledItemUser>}
     </StyledGalleryItem>
   );
 };

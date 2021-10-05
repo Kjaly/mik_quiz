@@ -10,6 +10,7 @@ import {
 
 export const ROUTES = [
   {path: '/', key: 'ROOT', exact: true, component: (): JSX.Element => <Home/>},
+  {path: '/test', key: 'ROOT', exact: true, component: (): JSX.Element => <Home/>},
   {
     path: '/publications',
     key: 'PUBLICATIONS',

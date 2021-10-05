@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from "../../../theme/devices";
+import { device } from '../../../theme/devices';
 
 export const StyledAddPublicationModal = styled.div<{ step?: number }>`
   max-width: 560px;
@@ -12,8 +12,8 @@ export const StyledAddPublicationModal = styled.div<{ step?: number }>`
   flex-direction: column;
   transition: all 0.2s ease-in-out;
   position: relative;
-`
-export const StyledPublicationsTitle = styled.p`
+`;
+export const StyledPublicationsTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -25,14 +25,13 @@ export const StyledPublicationsTitle = styled.p`
     margin-bottom: 30px;
   }
 
-`
+`;
 export const StyledDropDownWrapper = styled.div`
-  max-width: 475px;
 
   > div {
     margin-bottom: 20px;
   }
-`
+`;
 export const StyledActiveWrapper = styled.div<{ isActive: boolean }>`
   transition: all .2s ease-in-out;
   width: 100%;
@@ -47,11 +46,11 @@ export const StyledActiveWrapper = styled.div<{ isActive: boolean }>`
     }
   }
 
-`
+`;
 export const StyledFileViewer = styled.div`
   width: 100%;
   margin-bottom: 20px;
-`
+`;
 export const StyledCross = styled.div`
   flex: 1;
   height: 20px;
@@ -79,19 +78,27 @@ export const StyledCross = styled.div`
       opacity: 0.2;
     }
   }
-`
+`;
 
-export const StyledButton = styled.div`
+export const StyledButtonsBlock = styled.div`
+  display: flex;
+  column-gap: 1em;
+
+`;
+
+export const StyledButton = styled.div<{ step?: number }>`
   margin-top: 30px;
 
+  flex: ${({step}) => step === 2 && 0.5};
+
   ${device.tablet} {
-    max-width: 170px;
+    max-width: ${({step}) => step !== 2 && '170px'};
 
   }
-`
+`;
 export const StyledCompletePublication = styled.div`
   display: flex;
-`
+`;
 export const StyledCompleteIcon = styled.div`
   display: none;
 
@@ -103,10 +110,10 @@ export const StyledCompleteIcon = styled.div`
     flex-shrink: 0;
     margin-right: 20px;
   }
-`
+`;
 export const StyledCompleteText = styled.div`
   line-height: 1.5;
-`
+`;
 export const StyledMobileIcon = styled.div`
   height: 61px;
   width: 61px;
@@ -115,4 +122,4 @@ export const StyledMobileIcon = styled.div`
   ${device.tablet} {
     display: none;
   }
-`
+`;

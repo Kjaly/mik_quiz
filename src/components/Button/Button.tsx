@@ -3,6 +3,7 @@ import {
   StyledButton, StyledIcon,
   StyledTitle
 } from './Button.styled'
+import { history } from '../../store';
 
 export interface IButtonProps {
   title: string,
@@ -14,16 +15,20 @@ export interface IButtonProps {
   view?: string;
   onClick?: () => void,
   disabled?: boolean;
+  href?: string;
   iconColor?: string;
 }
 
 export const Button: React.FC<IButtonProps> = (props) => {
-  const {title, onClick, background, icon, reversed, color, view, borderColor, disabled, iconColor} = props
+  const {href, title, onClick, background, icon, reversed, color, view, borderColor, disabled, iconColor} = props
   const Icon = icon;
 
   const handleClick = () => {
     if (disabled) {
       return null
+    }
+    if (href) {
+      history.push(href)
     }
     if (typeof onClick === "function") onClick();
   }

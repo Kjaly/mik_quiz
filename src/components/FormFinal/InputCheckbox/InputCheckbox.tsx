@@ -17,16 +17,15 @@ type IFormFinalCheckboxRadioProps = IInputCheckboxProps &
 
 export const InputCheckbox: React.FC<IFormFinalCheckboxRadioProps> = (props) => {
   const {
-    input, meta, placeholder, label,
+    input, meta, label,
   } = props
   const {name, type, value, checked, onChange} = input;
 
   const error = !meta?.visited && meta?.data?.error ? meta?.data?.error : null;
-  const handleClick = (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+  const handleClick = () => {
     if (type === 'checkbox') {
       onChange(!checked)
     }
-
   }
   return (
     <StyledInputContainer onClick={handleClick}>

@@ -9,8 +9,9 @@ const getUserId = (state: AppState) => state.user.id;
 
 const getErrors = (state: AppState) => state.user.errors;
 const getMessage = (state: AppState) => state.user.message;
-const getUserRole = (state: AppState) => state.user.message;
+const getUserRole = (state: AppState) => state.user?.roles?.[0]?.slug;
 const getUploadStatus = (state: AppState) => state.user.uploadStatus;
+const getUserFinalistAccepted = (state: AppState) => state.user.is_finalist_accepted;
 
 export const getUserSelector = createSelector(getUser, (users) => users);
 
@@ -24,4 +25,5 @@ export const getMessageSelector = createSelector(getMessage, (message) => messag
 export const getUserIdSelector = createSelector(getUserId, (id) => id)
 export const getUserRoleSelector = createSelector(getUserRole, (Role) => Role)
 export const getUserUploadStatusSelector = createSelector(getUploadStatus, (status) => status)
+export const getUserIsFinalistAcceptedSelector = createSelector(getUserFinalistAccepted, (accepted) => accepted)
 

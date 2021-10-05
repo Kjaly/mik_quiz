@@ -14,6 +14,6 @@ export interface AppState<R = IRouterState> {
   partners: PartnersState,
   modal: ModalState,
   alert: AlertState,
-  publicationsList: IPublicationsState,
+  publications: IPublicationsState,
   router: R;
 }

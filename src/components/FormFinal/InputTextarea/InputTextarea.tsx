@@ -14,12 +14,10 @@ type IFormFinalInputTextareaProps = IInputTextareaProps &
 export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => {
   const {
     input,
-    meta,
     placeholder,
     rows = 3,
     maxCount = 800,
     customOnChange,
-    ...customProps
   } = props
 
 

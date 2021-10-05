@@ -9,7 +9,7 @@ const PrivateRoute = (route: any): JSX.Element => {
       {finalist ? (
         <Route
           {...rest}
-          render={props => !isFinalist ? <Redirect to="/"/> : <Component {...props} />}
+          render={props => !isFinalist && !hasToken ? <Redirect to="/"/> : <Component {...props} />}
         />
       ) : (
         <Route

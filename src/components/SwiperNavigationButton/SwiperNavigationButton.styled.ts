@@ -14,8 +14,8 @@ export const StyledSwiperNavigation = styled.div<Partial<ISwiperNavigationButton
   justify-content: center;
   align-items: center;
   transform: translateY(-50%) ${({reversed}) => reversed && 'rotate(180deg)'};
-  right: ${({reversed}) => !reversed && '-60px'};
-  left: ${({reversed}) => reversed && '-30px'};
+  right: ${({reversed}) => !reversed && '-20px'};
+  left: ${({reversed}) => reversed && '-20px'};
   transition: all .2s ease-in;
   z-index: 2;
 

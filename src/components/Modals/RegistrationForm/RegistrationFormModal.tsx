@@ -34,8 +34,7 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
   const loading = useSelector(getPendingSelector)
   const serverErrors = useSelector(getErrorsSelector);
   const submitHandler = (values: IRegistrationFormModalValues) => {
-    const {privacy, ...body} = values
-    dispatch(registerUserRequest(body))
+    dispatch(registerUserRequest(values))
   }
   const handleAuth = () => {
     dispatch(modalsActions.openModalAction({name: 'authModal'}))
@@ -56,17 +55,10 @@ export const RegistrationFormModal: React.FC<IRegistrationFormProps> = (props) =
         </StyledTitle>
         <Form
           initialValues={{
-            // middle_name: '',
-            // first_name: '',
-            // last_name: '',
             city: '',
-            // school: '',
-            // school_class: '',
-            // school_teacher_history: '',
             email: '',
             password: '',
             password_confirmation: '',
-            // privacy: true,
           }}
           mutators={{setError}}
           onSubmit={submitHandler}

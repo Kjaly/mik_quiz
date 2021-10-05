@@ -7,11 +7,12 @@ import {
   StyledSelect,
 } from './DropdownSelect.styled';
 import { IconArrowDown } from '../../../Icons';
+import { TCategory } from "../../../store/publications/types";
 
 interface IDropdownSelect {
-  optionsList: Array<string>;
-  setOption: (option: string) => void;
-  option: string;
+  optionsList: Array<TCategory | any> ;
+  setOption: (option: TCategory) => void;
+  option?: TCategory | any;
   name: string;
   placeholder?: string;
   disabled?: boolean;
@@ -28,7 +29,7 @@ export const DropdownSelect: React.FC<IDropdownSelect> = (props) => {
     }
   }
 
-  const handleSelect = (item: string) => {
+  const handleSelect = (item: TCategory) => {
     setOption(item)
   }
 
@@ -37,16 +38,17 @@ export const DropdownSelect: React.FC<IDropdownSelect> = (props) => {
       setIsOpen(false)
     }}>
       <StyledDropdownSelected isOpen={isOpen}>
-        <p>{option || placeholder}</p>
+        <p>{option?.name || placeholder}</p>
         <StyledArrow>
           <IconArrowDown/>
         </StyledArrow>
       </StyledDropdownSelected>
       <StyledSelect isOpen={isOpen}>
-        {optionsList.map((item, key) => {
+        {optionsList.map((item) => {
           return (
-            <StyledOption disabled={option === item} onClick={() => handleSelect(item)} key={key} value={item}>
-              {item}
+            <StyledOption disabled={option?.id === item.id} onClick={() => handleSelect(item)} key={item.id}
+                          value={item}>
+              {item.name}
             </StyledOption>
           )
         })}

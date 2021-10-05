@@ -12,7 +12,7 @@ import { fetchUserRequest, verifyUserRequest } from './store/user/actions';
 import { routerSelectors } from './store/route';
 import { history } from './store';
 import { Alert } from './components/Alert';
-import { getUserRoleSelector } from './store/user/selectors';
+import { getUserIsFinalistAcceptedSelector, getUserRoleSelector } from './store/user/selectors';
 import { modalsActions } from './store/modals/actions';
 
 const App = (): JSX.Element => {
@@ -21,6 +21,7 @@ const App = (): JSX.Element => {
   const currentQuery = useSelector(routerSelectors.getLocationQuery)
   const currentPath = useSelector(routerSelectors.getLocationPathName)
   const role = useSelector(getUserRoleSelector)
+  const isFinalisAccepted = useSelector(getUserIsFinalistAcceptedSelector)
   const isFinalist = role === 'quiz_finalist'
 
 
@@ -51,10 +52,10 @@ const App = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    if (isFinalist) {
+    if (isFinalist && !isFinalisAccepted) {
       dispatch(modalsActions.openModalAction({name: 'finalistModal'}))
     }
-  }, [role]);
+  }, [role, isFinalisAccepted]);
 
   return (
     <>

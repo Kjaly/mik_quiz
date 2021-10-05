@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledGalleryItem = styled.div`
   width: 100%;
   height: 180px;
   position: relative;
   z-index: 1;
-`
+`;
 
 export const StyledItemImgWrapper = styled.div`
   background-color: ${({theme}) => theme.color.blue};
@@ -47,7 +47,7 @@ export const StyledItemImgWrapper = styled.div`
       transform: translateX(-50%);
     }
   }
-`
+`;
 
 export const StyledItemImg = styled.img`
   position: absolute;
@@ -60,7 +60,7 @@ export const StyledItemImg = styled.img`
   object-fit: cover;
   opacity: 0.7;
   z-index: 0;
-`
+`;
 export const StyledItemButton = styled.div`
   height: 42px;
   width: 42px;
@@ -90,14 +90,14 @@ export const StyledItemButton = styled.div`
   }
 
 
-`
-export const StyledItemUser = styled.div`
+`;
+export const StyledItemEdit = styled.div`
   position: absolute;
   height: 50px;
   width: 50px;
   border-radius: 50%;
   bottom: -5px;
-  right: 10px;
+  left: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,24 +113,34 @@ export const StyledItemUser = styled.div`
 
   :hover {
     background-color: ${({theme}) => theme.color.yellow};
-
   }
-`
+`;
 
-export const StyledItemCross = styled(StyledItemUser)`
+export const StyledItemUser = styled(StyledItemEdit)`
+  right: 10px;
+  left: initial;
+  overflow: hidden;
+  > img {
+    width: 100%;
+    object-fit: cover;
+  }
+`;
+
+export const StyledItemCross = styled(StyledItemEdit)`
   bottom: initial;
-  top: -10%;
-  background-color: ${({theme}) => theme.color.red};
+  top: -10px;
+  left: initial;
+  right: -10px;
+  height: 20px;
+  width: 20px;
+  border: none;
 
   > svg {
-    height: 13px;
+    height: 10px;
 
     > path {
       fill: #fff;
     }
   }
 
-  :hover {
-    background-color: ${({theme}) => theme.color.blue};
-  }
-`
+`;

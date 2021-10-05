@@ -1,0 +1,1 @@
+export {RemovePublicationModal} from './RemovePublicationModal'

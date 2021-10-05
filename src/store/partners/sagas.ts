@@ -37,9 +37,8 @@ function* fetchPartnersSaga() {
 
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-function* expertSaga(): any {
+function* pertnerSaga(): any {
   yield all([takeLatest(FETCH_PARTNERS_REQUEST, fetchPartnersSaga)]);
-
 }
 
-export default expertSaga;
+export default pertnerSaga;

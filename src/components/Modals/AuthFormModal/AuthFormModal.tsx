@@ -36,9 +36,9 @@ export const AuthFormModal: React.FC<IRegistrationFormProps> = (props) => {
   const submitHandler = (values: IAuthFormModalValues) => {
     dispatch(loginUserRequest(values))
   }
-  const handleRegistrate = () => {
-    dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
-  }
+  // const handleRegistrate = () => {
+  //   dispatch(modalsActions.openModalAction({name: 'registrationModal'}))
+  // }
 
   const handleRecoveryPassword = () => {
     dispatch(modalsActions.openModalAction({name: 'recoveryPasswordModal'}))

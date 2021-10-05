@@ -5,7 +5,7 @@ export const StyledGallery = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-auto-rows: 182px;
   grid-gap: 30px;
   grid-auto-flow: row dense;
   justify-content: space-between;
@@ -13,11 +13,11 @@ export const StyledGallery = styled.div`
   
   ${device.tablet}{
     grid-template-columns: repeat(2, 300px);
-    grid-template-rows: repeat(3, 1fr);
+    grid-auto-rows: 230px;
   }
   ${device.tabletL}{
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-auto-rows: 220px;
   }
 `
 

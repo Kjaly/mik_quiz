@@ -44,6 +44,7 @@ export const StyledFinalistConfirmTitle = styled.div`
 
   > p {
     margin-right: 2rem;
+    font-weight: 700;
   }
 
   ${device.tablet} {

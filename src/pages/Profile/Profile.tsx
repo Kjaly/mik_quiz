@@ -46,7 +46,7 @@ export const Profile: React.FC = () => {
     dispatch(updateUserRequest({user, data: currentValues}))
   }
 
-  const resendVerify = (email: string): void => {
+  const resendVerify = (email?: string): void => {
     dispatch(resendVerifyUserRequest({email}))
   }
 
@@ -244,11 +244,11 @@ export const Profile: React.FC = () => {
                         type="email"
                         placeholder="Почта"
                       />
-                      {(!user.email_verified_at && user.email === values.email) &&
+                      {(!user.email_verified_at && user.email === values?.email) &&
                       (
                         <StyledVerifiedEmail>
                           Почта не подтверждена.
-                          <span onClick={() => resendVerify(values.email)}>Подтвердить</span>
+                          <span onClick={() => resendVerify(values?.email)}>Подтвердить</span>
                         </StyledVerifiedEmail>
                       )}
                     </StyledEmailField>
