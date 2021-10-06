@@ -10,17 +10,19 @@ export const StyledPhotoModal = styled.div`
 `;
 
 export const StyledSwiper = styled.div`
-  height: 180px;
+  height: 322px;
 
   .swiper-container {
     height: 100%;
   }
 
-  ${device.tablet} {
-    height: 322px;
+  .swiper-slide {
+    background: ${({theme})=>theme.color.darkgray};
+    width: 100% !important;
   }
 
-  ${device.desktop} {
+  
+  ${device.laptop} {
     height: 625px;
   }
 `;
@@ -31,10 +33,6 @@ export const StyledLeftNavigation = styled.div`
   transform: translateY(50%);
   z-index: 2;
   left: 0;
-  //> div {
-  //  left: initial;
-  //  right: initial;
-  //}
 `;
 export const StyledRightNavigation = styled(StyledLeftNavigation)`
   left: initial;
@@ -43,7 +41,7 @@ export const StyledRightNavigation = styled(StyledLeftNavigation)`
 export const StyledSlideImg = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
 `;
 

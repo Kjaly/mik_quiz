@@ -100,15 +100,19 @@ export interface FetchPublicationsFailurePayload {
 
 export interface FetchPublicationRequestPayload {
   id: number;
+  user_id?:number
 }
 
 export interface FetchPublicationsRequestPayload {
   size?: number
   category_id?: number
+  user_id?:number
+  type?:number
 }
 
 export interface UpdatePublicationRequestPayload {
   data: TPublication;
+  user_id?:number
 }
 
 export interface RemovePublicationImgPayload {
@@ -162,7 +166,7 @@ export type FetchCategoriesFailure = {
 
 export interface PostPublicationsRequest {
   type: typeof POST_PUBLICATION_REQUEST;
-  payload: IPublicationRequestPayload;
+  payload: UpdatePublicationRequestPayload;
 }
 
 export type PostPublicationsSuccess = {

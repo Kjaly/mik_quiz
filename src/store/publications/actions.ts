@@ -32,11 +32,11 @@ import {
   FetchPublicationRequestPayload,
   FetchPublicationsFailure,
   FetchPublicationsFailurePayload,
-  FetchPublicationsRequest, FetchPublicationsRequestPayload,
+  FetchPublicationsRequest,
+  FetchPublicationsRequestPayload,
   FetchPublicationsSuccess,
   FetchPublicationsSuccessPayload,
   FetchPublicationSuccess,
-  IPublicationRequestPayload,
   PostPublicationsFailure,
   PostPublicationsRequest,
   PostPublicationsSuccess,
@@ -106,7 +106,7 @@ export const fetchCategoriesFailure = (
   payload,
 });
 
-export const postPublicationsRequest = (payload: IPublicationRequestPayload): PostPublicationsRequest => ({
+export const postPublicationsRequest = (payload: UpdatePublicationRequestPayload): PostPublicationsRequest => ({
   type: POST_PUBLICATION_REQUEST,
   payload,
 });

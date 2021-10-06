@@ -9,15 +9,15 @@ import { publicationsSelector } from '../../store/publications/selectors';
 import { TPublication } from '../../store/publications/types';
 import { GalleryItem } from '../../components/Gallery/GalleryItem';
 import { deletePublicationRequest, fetchPublicationsRequest } from '../../store/publications/actions';
+import { getUserIdSelector } from '../../store/user/selectors';
 
 export const Publications: React.FC = () => {
   const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
   const dispatch = useDispatch();
+  const userId = useSelector(getUserIdSelector);
 
   useEffect(() => {
-    if (!publications?.length) {
-      dispatch(fetchPublicationsRequest({}));
-    }
+    dispatch(fetchPublicationsRequest({user_id: userId}));
   }, []);
 
   const handleClick = () => {
@@ -26,7 +26,7 @@ export const Publications: React.FC = () => {
 
 
   const handleRemove = (id: number) => {
-    dispatch(deletePublicationRequest({id}));
+    dispatch(deletePublicationRequest({id, user_id: userId}));
   };
   return (
     <StyledPublications>

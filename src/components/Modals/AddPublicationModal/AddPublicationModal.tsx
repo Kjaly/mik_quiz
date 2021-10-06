@@ -36,6 +36,7 @@ import { asyncValidate } from '../../../services/forms/asyncValidate';
 import { formsNames } from '../../../services/forms/formsNames';
 import { setError } from '../../../services/forms/setFinalFormErrorMutator';
 import { regexps } from '../../../contsants/regExps';
+import { getUserIdSelector } from '../../../store/user/selectors';
 
 export interface IAddPublicationModalProps {
   closeModal?: () => void;
@@ -45,6 +46,7 @@ export interface IAddPublicationModalProps {
 export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) => {
   const {closeModal} = props;
   const dispatch = useDispatch();
+  const userId = useSelector(getUserIdSelector);
 
   const modalProps = useSelector(modalsSelectors.getModalProps);
   const categories: Array<TCategory> | null = useSelector(publicationsSelector.getCategoriesSelector);
@@ -72,9 +74,12 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
     }
     if (modalProps?.publication) {
       const photos_ids = currentPublication?.photos?.map((item: TPhoto) => item.id);
-      dispatch(updatePublicationRequest({...data, photos_ids, id: modalProps?.publication?.id}));
+      dispatch(updatePublicationRequest({
+        data: {...data, photos_ids, id: modalProps?.publication?.id},
+        user_id: userId
+      }));
     } else {
-      dispatch(postPublicationsRequest({...data}));
+      dispatch(postPublicationsRequest({data: {...data}, user_id: userId}));
     }
     setStep(1);
   };
@@ -85,7 +90,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
       dispatch(fetchCategoriesRequest());
     }
     return () => {
-      dispatch(fetchPublicationsRequest({}));
+      dispatch(fetchPublicationsRequest({user_id: userId}));
     };
   }, []);
 
@@ -108,9 +113,13 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
       const currentOption = categoryList?.find(item => item.id === modalProps?.publication?.publication_category_id);
       const currentType = typeList?.find(item => item.id === modalProps?.publication?.type);
       const currentPublication = publications?.find(item => item.id === modalProps?.publication?.id);
+
       setOption(currentOption);
-      setType(currentType);
       setPhotosUrl(currentPublication?.photos || photosUrl);
+
+      if (type?.id !== currentType?.id) {
+        setType(currentType);
+      }
     }
   }, [modalProps?.publication, categoryList, publications]);
 
@@ -261,7 +270,7 @@ export const AddPublicationModal: React.FC<IAddPublicationModalProps> = (props) 
                             background={theme.color.yellow}
                             color={'#fff'}
                             title={modalProps?.publication ? 'Сохранить' : 'Добавить'}
-                            onClick={()=> type?.id === 1 ? handleSubmitForm() : handleValidate()}
+                            onClick={() => type?.id === 1 ? handleSubmitForm() : handleValidate()}
                           />
                         </StyledButton>
                       </StyledActiveWrapper>

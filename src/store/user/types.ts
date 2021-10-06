@@ -53,7 +53,7 @@ export interface IUserRegistration {
   email?: string;
   password?: string;
   password_confirmation?: string;
-  avatar?: File | null;
+  photo?: File | null;
   parental_agreement?: File | null;
   is_finalist_accepted?: boolean;
 }

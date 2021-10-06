@@ -27,7 +27,7 @@ import {
   FetchPublicationRequestPayload,
   FetchPublicationsRequestPayload,
   IPublicationRequestPayload,
-  TPublication,
+  TPublication, UpdatePublicationRequestPayload,
 } from './types';
 import { Action } from 'redux-actions';
 
@@ -52,12 +52,20 @@ function getFormData(object: any) {
 
 
 const fetchPublications = (payload: FetchPublicationsRequestPayload): Promise<AxiosResponse<PublicationsResponse>> =>
-  $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications?include=user.photo,category,photos${payload.size ? `&page[size]=${payload.size}` : ''}${payload.category_id ? `&filter[category_id]=${payload.category_id}` : ''}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  });
+  $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications?include=user.photo,category,photos${payload.size
+      ? `&page[size]=${payload.size}`
+      : ''}${payload.category_id
+      ? `&filter[category_id]=${payload.category_id}`
+      : ''}${payload.user_id
+      ? `&filter[user_id]=${payload.user_id}`
+      : ''}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })
+;
 
 const fetchPublication = (payload: { id: number }): Promise<AxiosResponse<PublicationsResponse>> =>
   $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications/${payload.id}`, {
@@ -203,18 +211,18 @@ function* fetchCategoriesSaga() {
   }
 }
 
-function* postPublicationsSaga(action: Action<FetchPublicationRequestPayload>) {
+function* postPublicationsSaga(action: Action<UpdatePublicationRequestPayload>) {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = yield call(postPublications, action.payload);
+    const response = yield call(postPublications, action.payload.data);
     yield put(
       postPublicationsSuccess({
         publications: response.data,
         meta: response.data.meta,
       }),
     );
-    yield put(fetchPublicationsRequest({}));
+    yield put(fetchPublicationsRequest({user_id: action.payload.user_id}));
   } catch (e: any) {
     yield put(
       postPublicationsFailure({
@@ -228,8 +236,8 @@ function* deletePublicationSaga(action: Action<FetchPublicationRequestPayload>) 
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    yield call(deletePublication, action.payload);
-    yield put(fetchPublicationsRequest({}));
+    yield call(deletePublication, {id: action.payload?.id});
+    yield put(fetchPublicationsRequest({user_id: action.payload.user_id}));
 
   } catch (e: any) {
     yield put(
@@ -240,12 +248,12 @@ function* deletePublicationSaga(action: Action<FetchPublicationRequestPayload>) 
   }
 }
 
-function* updatePublicationSaga(action: Action<IPublicationRequestPayload>) {
+function* updatePublicationSaga(action: Action<UpdatePublicationRequestPayload>) {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    yield call(updatePublications, action.payload);
-    yield put(fetchPublicationsRequest({}));
+    yield call(updatePublications, action.payload?.data);
+    yield put(fetchPublicationsRequest({user_id: action.payload?.user_id}));
 
   } catch (e: any) {
     yield put(

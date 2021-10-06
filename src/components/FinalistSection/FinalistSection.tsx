@@ -14,14 +14,12 @@ import { routerSelectors } from '../../store/route';
 
 export const FinalistSection: React.FC = () => {
   const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
-  const [filter, setFilter] = useState('0');
+  const [filter, setFilter] = useState<{ id: number, name: string }>({id: 0, name: 'Все'});
   const currentPathname = useSelector(routerSelectors.getLocationPathName)
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!publications?.length) {
-      dispatch(fetchPublicationsRequest({}));
-    }
+    dispatch(fetchPublicationsRequest({}));
   }, []);
 
 

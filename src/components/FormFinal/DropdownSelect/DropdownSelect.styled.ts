@@ -9,7 +9,7 @@ export const StyledDropdown = styled.div <{ isOpen: boolean, disabled: boolean }
   position: relative;
 
 `
-export const StyledDropdownSelected = styled.div<{ isOpen: boolean }>`
+export const StyledDropdownSelected = styled.div<{ isOpen: boolean, background?:string }>`
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -19,7 +19,7 @@ export const StyledDropdownSelected = styled.div<{ isOpen: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${({theme}) => theme.color.darkwhite};
+  background: ${({theme, background}) => background ? background : theme.color.darkwhite};
 
 
   ::after {

@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { device } from '../../theme/devices';
 
-export const StyledFilter = styled.div<{ isOpen?: boolean }>`
+export const StyledFilter = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-  max-height: ${({isOpen}) => isOpen ? '150px' : '47px'};
-
+  z-index: 2;
   transition: all .2s ease-in-out;
 
   ${device.tablet} {

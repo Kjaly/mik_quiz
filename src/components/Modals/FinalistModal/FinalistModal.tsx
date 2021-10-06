@@ -28,10 +28,15 @@ export const FinalistModal: React.FC<TModalProps> = (props) => {
   const [files, setFiles] = useState<Array<File>>([]);
   const dispatch = useDispatch();
   const customClose = () => {
-    dispatch(updateUserRequest({user, data: {is_finalist_accepted: true}}));
-  };
+      let currentData: any = {is_finalist_accepted: true}
+      if (files.length) {
+        currentData = {...currentData, photo: files[0]}
+      }
+      dispatch(updateUserRequest({user, data: {...currentData}}));
+    }
+  ;
   const handleClose = () => {
-    if (user.photo_id) {
+    if (user.photo_id || files.length) {
       customClose();
     }
     closeModal();
@@ -75,6 +80,7 @@ export const FinalistModal: React.FC<TModalProps> = (props) => {
           <Button
             reversed
             icon={IconArrowRight}
+            disabled={!files.length && !user.photo_id}
             background={theme.color.yellow}
             title={'Добавить публикацию'}
             color={'#fff'}

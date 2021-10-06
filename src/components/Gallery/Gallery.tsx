@@ -8,11 +8,12 @@ import { TPublication } from '../../store/publications/types';
 import { fetchPublicationsRequest } from '../../store/publications/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMetasSelector } from '../../store/publications/selectors';
+import { IFilterValues } from '../Filter/Filter';
 
 
 interface IGalleryProps {
   publications: Array<TPublication>;
-  filter: string;
+  filter: IFilterValues;
 }
 
 export const Gallery: React.FC<IGalleryProps> = (props) => {
@@ -26,9 +27,13 @@ export const Gallery: React.FC<IGalleryProps> = (props) => {
       setPublicationsCount(publicationsCount + 12);
     }
   };
+  useEffect(() => {
+    setPublicationsCount(12)
+  }, [filter]);
+
 
   useEffect(() => {
-    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id: +filter}));
+    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id: filter?.id}));
   }, [publicationsCount, filter]);
 
   return (

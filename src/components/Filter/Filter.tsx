@@ -1,56 +1,74 @@
-import React, { useState } from 'react';
-import { StyledFilter, StyledFilterArrow, StyledFilterItem } from './Filter.styled';
+import React, { useEffect, useState } from 'react';
+import { StyledFilter, StyledFilterItem } from './Filter.styled';
 import { theme } from '../../theme';
-import { IconArrowRight } from '../../Icons';
+import { DropdownSelect } from '../FormFinal/DropdownSelect';
 
-interface IFilterValues {
-  value: string;
-  title: string;
+export interface IFilterValues {
+  id: number;
+  name: string;
   background?: string;
   color?: string;
 }
 
 interface IInterfaceProps {
-  filter: string;
-  setFilter: (filter: string) => void;
+  filter: IFilterValues;
+  setFilter: (filter: IFilterValues) => void;
 }
 
 export const Filter: React.FC<IInterfaceProps> = (props) => {
   const {filter, setFilter} = props;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const filterValues: Array<IFilterValues> = [
     {
-      value: '0',
-      title: 'Все',
+      id: 0,
+      name: 'Все',
       background: theme.color.blue,
     },
     {
-      value: '1',
-      title: 'Региональные слеты',
+      id: 1,
+      name: 'Региональные слеты',
     },
     {
-      value: '2',
-      title: 'Межрегиональные слеты',
+      id: 2,
+      name: 'Межрегиональные слеты',
     },
   ];
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      setInnerWidth(window.innerWidth);
+    });
+    return () => {
+      window.removeEventListener('resize', function () {
+        setInnerWidth(window.innerWidth);
+      });
+    }
+  }, [])
+
   return (
-    <StyledFilter isOpen={isOpen} onClick={handleClick}>
-      {filterValues.map((item, key) => (
-        <StyledFilterItem
-          key={key}
-          isActive={filter === item.value}
-          onClick={() => {
-            setFilter(item.value);
-          }}>{item.title}</StyledFilterItem>
-      ))}
-      <StyledFilterArrow isOpen={isOpen}>
-        <IconArrowRight/>
-      </StyledFilterArrow>
+    <StyledFilter>
+      {innerWidth >= 768 ? (
+        <>
+          {filterValues.map((item, key) => (
+            <StyledFilterItem
+              key={key}
+              isActive={filter.id === item.id}
+              onClick={() => {
+                setFilter(item);
+              }}>{item?.name}</StyledFilterItem>
+          ))}
+        </>
+      ) : (
+        <DropdownSelect
+          setOption={setFilter}
+          name={'type'}
+          placeholder="Тип публикации"
+          option={filter}
+          background={'#fff'}
+          optionsList={filterValues}/>
+      )}
+
     </StyledFilter>
   );
 };
