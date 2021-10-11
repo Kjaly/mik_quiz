@@ -38,7 +38,6 @@ export const StyledDecorativeWrapper = styled.div`
       right: initial;
       bottom: 400px;
       transform: rotate(-45deg) scale(-1, -1) translate(-115px, 50px);
-
     }
   }
 `

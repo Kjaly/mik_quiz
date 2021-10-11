@@ -1,26 +1,28 @@
 import React from 'react';
 import {
-  StyledItemTitle,
+  StyledItemTitle, StyledLinkList, StyledLinksWrapper,
   StyledQuizTextDescription,
   StyledQuizTextSection,
   StyledQuizTextTitle,
   StyledTextItem,
-  StyledTextWrapper
+  StyledListItem,
+  StyledTextWrapper,
 } from './QuizTextSection.styled';
 import { useSelector } from 'react-redux';
 import { routerSelectors } from '../../store/route';
+import { Link } from 'react-router-dom';
 
 interface IQuizTextProps {
-  isQuizStarted?: boolean
+  isQuizStarted?: boolean;
 }
 
 export const QuizTextSection: React.FC<IQuizTextProps> = (props) => {
 
-  const {isQuizStarted} = props
-  const currentPathname = useSelector(routerSelectors.getLocationPathName)
+  const {isQuizStarted} = props;
+  const currentPathname = useSelector(routerSelectors.getLocationPathName);
 
 
-  const isEssay = currentPathname.includes('essay')
+  const isEssay = currentPathname.includes('essay');
   if (isQuizStarted && !isEssay) return null;
   return (
     <StyledQuizTextSection>
@@ -63,15 +65,33 @@ export const QuizTextSection: React.FC<IQuizTextProps> = (props) => {
       ) : (
         <StyledTextItem>
           <StyledQuizTextDescription>
-            Дорогой участник викторины по истории России! Ты зарегистрировался и можешь
-            перейти к заданиям. Обрати внимание на то, что на ответы и выполнение творческой
-            части викторины у тебя есть всего 90 минут. Мы подготовили 20 вопросов,
-            затрагивающих восемь столетий истории Отечества, а также предлагаем поразмыслить на
-            одну из двух тем, подготовленных нашими экспертами. У тебя есть всего одна попытка,
-            чтобы ответить правильно. Эссе не должно быть слишком длинным – не более 800 знаков.
+            <p>Дорогой участник! </p>
             <br/>
-            Желаем удачи!
+            Поздравляем тебя, ты прошел в следующий этап проекта «Славные дороги прошлого - маршрут в будущее России».
+            Приглашаем тебя принять участие в межрегиональном слете в г. Калининграде (30 октября) / Пскове (23 октября
+            2021 года). В ходе слета будет проведена конференция, а также организованы бесплатные экскурсии в
+            сопровождении экспертов проекта, ты сможешь выбрать или предложить тему видеоролика, посвященного
+            военно-историческим туристским маршрутам региона или исторической личности. Ты сможешь получить консультацию
+            специалистов и наставников по созданию контента.
           </StyledQuizTextDescription>
+
+          <StyledLinksWrapper>
+            <StyledLinkList>
+              <StyledListItem>
+                Скачать список{' '}
+                <Link to="/files/finalistsKld.docx" target="_blank" download>полуфиналистов
+                  Калининграда
+                </Link>
+              </StyledListItem>
+              <StyledListItem>
+                Скачать список{' '}
+                <Link to="/files/finalistsPskov.docx" target="_blank" download>полуфиналистов
+                  Пскова
+                </Link>
+              </StyledListItem>
+
+            </StyledLinkList>
+          </StyledLinksWrapper>
         </StyledTextItem>
       )
       }

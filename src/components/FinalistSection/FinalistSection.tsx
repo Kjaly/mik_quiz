@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Title } from '../Typography/Title';
-import { StyledDecorativeWrapper, StyledFinalistSection, StyledTitleBlock } from './FinalistSection.styled';
+import {
+  StyledDecorativeWrapper,
+  StyledFinalistSection,
+  StyledTitleBlock,
+} from './FinalistSection.styled';
 import { ContentWrapper } from '../ContentWrapper';
 import { theme } from '../../theme';
 import { Filter } from '../Filter';
@@ -10,20 +14,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublicationsRequest } from '../../store/publications/actions';
 import { TPublication } from '../../store/publications/types';
 import { publicationsSelector } from '../../store/publications/selectors';
-import { routerSelectors } from '../../store/route';
 
 export const FinalistSection: React.FC = () => {
   const publications: Array<TPublication> | null = useSelector(publicationsSelector.getPublicationsSelector);
   const [filter, setFilter] = useState<{ id: number, name: string }>({id: 0, name: 'Все'});
-  const currentPathname = useSelector(routerSelectors.getLocationPathName)
-
+  const [isFilteredEmpty, setIsFilteredEmpty] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchPublicationsRequest({}));
+    if (!publications?.length) {
+      dispatch(fetchPublicationsRequest({}));
+    }
   }, []);
 
+  useEffect(() => {
+    console.log(filter);
+    console.log(publications?.length);
+    if (filter.id && !publications?.length) {
+      setIsFilteredEmpty(true);
+    } else if (filter.id && isFilteredEmpty) {
+      setIsFilteredEmpty(false);
+    }
+  }, [filter, publications]);
 
-  if (!publications?.length || !currentPathname.includes('test')) {
+  if (!publications?.length && !isFilteredEmpty) {
     return null;
   }
   return (
@@ -39,6 +52,7 @@ export const FinalistSection: React.FC = () => {
           <Filter filter={filter} setFilter={setFilter}/>
         </StyledTitleBlock>
         <Gallery filter={filter} publications={publications}/>
+
       </ContentWrapper>
       <StyledDecorativeWrapper>
         <DecorativeLines opacity={0.3} color={theme.color.blue}/>
