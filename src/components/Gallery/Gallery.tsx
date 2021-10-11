@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyledButton, StyledGallery, StyledGalleryWrapper } from './Gallery.styled';
+import { StyledButton, StyledEmptyBlock, StyledGallery, StyledGalleryWrapper } from './Gallery.styled';
 import { GalleryItem } from './GalleryItem';
 import { Button } from '../Button';
 import { IconArrowRight } from '../../Icons';
@@ -12,7 +12,7 @@ import { IFilterValues } from '../Filter/Filter';
 
 
 interface IGalleryProps {
-  publications: Array<TPublication>;
+  publications?: Array<TPublication> | null;
   filter: IFilterValues;
 }
 
@@ -20,15 +20,15 @@ export const Gallery: React.FC<IGalleryProps> = (props) => {
   const {publications, filter} = props;
   const dispatch = useDispatch();
   const [publicationsCount, setPublicationsCount] = useState(12);
-  const meta = useSelector(getMetasSelector)
-  const isMaxPage = publicationsCount >= meta?.total
+  const meta = useSelector(getMetasSelector);
+  const isMaxPage = publicationsCount >= meta?.total;
   const handleFetchPublications = () => {
     if (!isMaxPage) {
       setPublicationsCount(publicationsCount + 12);
     }
   };
   useEffect(() => {
-    setPublicationsCount(12)
+    setPublicationsCount(12);
   }, [filter]);
 
 
@@ -39,9 +39,14 @@ export const Gallery: React.FC<IGalleryProps> = (props) => {
   return (
     <StyledGalleryWrapper>
       <StyledGallery>
-        {publications.map((item, key) => (
-          <GalleryItem publication={item} key={key} type={item.type}/>
-        ))}
+        {publications?.length ?
+          publications?.map((item, key) => (
+            <GalleryItem publication={item} key={key} type={item.type}/>
+          ))
+          : (
+            <StyledEmptyBlock>Публикации не найдены</StyledEmptyBlock>
+          )}
+
       </StyledGallery>
       {!isMaxPage &&
       <StyledButton>

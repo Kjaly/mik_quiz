@@ -34,3 +34,12 @@ export const StyledGalleryWrapper = styled.div`
   display:flex;
   flex-direction:column;
 `
+
+export const StyledEmptyBlock = styled.div`
+  width: 100%;
+  color:${({theme})=>theme.color.blue};
+  font-size: 20px;
+  opacity: 0.6;
+  text-align: center;
+  white-space: nowrap;
+`

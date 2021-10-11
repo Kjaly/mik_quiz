@@ -16,7 +16,7 @@ export const StyledSliderItemTitle = styled.div`
   position: relative;
 `
 export const StyledButton = styled.div`
-  max-width: 180px;
+  width: fit-content;
 `
 export const StyledSliderText = styled.div`
   max-width: 100%;

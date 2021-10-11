@@ -11,7 +11,7 @@ import {
   StyledMainWrapper,
   StyledMprf,
   StyledIconsBlockTop,
-  StyledSwiperText
+  StyledSwiperText,
 } from './MainSlider.styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SliderItem } from './SliderItem';
@@ -22,15 +22,15 @@ import { DecorativeLines } from '../DecorativeLines';
 import { theme } from '../../theme';
 import { Title } from '../Typography/Title';
 import { IconMprf, IconNG } from '../../Icons';
-import mainImage from '../../assets/images/banner/mainImage.png'
-import mainImage2 from '../../assets/images/banner/mainImage2.jpg'
-import mainImage3 from '../../assets/images/banner/mainImage3.jpg'
+import mainImage from '../../assets/images/banner/mainImage.png';
+import mainImage2 from '../../assets/images/banner/mainImage2.jpg';
+import mainImage3 from '../../assets/images/banner/mainImage3.jpg';
 import { SliderDescription } from './SliderDescription';
 
 SwiperCore.use([Pagination, Autoplay]);
 
 interface ISliderItem {
-  id:number;
+  id: number;
   title: string,
   buttonText: string
   img?: string
@@ -39,15 +39,14 @@ interface ISliderItem {
 
 const sliders: Array<ISliderItem> = [
   {
-    id:1,
-    title: `Участвуй в онлайн-викторине!
-    Запиши видеоролик!
-    Путешествуй по России!`,
-    buttonText: 'Участвовать',
+    id: 1,
+    title: `Результаты онлайн-викторины
+   Список участников следующего этапа`,
+    buttonText: 'Смотреть список',
     img: mainImage,
   },
   {
-    id:2,
+    id: 2,
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
@@ -55,7 +54,7 @@ const sliders: Array<ISliderItem> = [
     img: mainImage2,
   },
   {
-    id:3,
+    id: 3,
     title: `Участвуй в онлайн-викторине!
     Запиши видеоролик!
     Путешествуй по России!`,
@@ -63,7 +62,7 @@ const sliders: Array<ISliderItem> = [
     img: mainImage3,
     description: <SliderDescription/>,
   },
-]
+];
 
 
 export const MainSlider: React.FC = () => {
@@ -84,7 +83,8 @@ export const MainSlider: React.FC = () => {
               )}
 
             </StyledBackImg>
-            {item?.description && <StyledItemDescription active={index === activeSlideIndex}>{item.description}</StyledItemDescription>}
+            {item?.description &&
+            <StyledItemDescription active={index === activeSlideIndex}>{item.description}</StyledItemDescription>}
 
           </>
         ))}
@@ -109,9 +109,10 @@ export const MainSlider: React.FC = () => {
                 <SwiperSlide key={key}>
                   <SliderItem
                     title={item.title}
-                    buttonText={item.buttonText}/>
+                    buttonText={item.buttonText}
+                  />
                 </SwiperSlide>
-              )
+              );
             })}
 
             <StyledIconsBlock>
