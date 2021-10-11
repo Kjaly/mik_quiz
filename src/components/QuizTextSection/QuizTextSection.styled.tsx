@@ -39,6 +39,10 @@ export const StyledQuizTextTitle = styled.div`
 export const StyledQuizTextDescription = styled.div`
   text-align: justify;
   margin-bottom: 30px;
+
+  > p {
+    margin-bottom: 20px;
+  }
 `;
 export const StyledLinksWrapper = styled.div`
   > p {
