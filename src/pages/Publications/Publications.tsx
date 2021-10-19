@@ -17,7 +17,7 @@ export const Publications: React.FC = () => {
   const userId = useSelector(getUserIdSelector);
 
   useEffect(() => {
-    dispatch(fetchPublicationsRequest({user_id: userId}));
+    if (userId) dispatch(fetchPublicationsRequest({user_id: userId}));
   }, []);
 
   const handleClick = () => {

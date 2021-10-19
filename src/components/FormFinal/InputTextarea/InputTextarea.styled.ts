@@ -9,7 +9,7 @@ export const StyledTextarea = styled.textarea<any>`
   padding: 15px 30px;
   font-size: 15px;
   color: #000;
-  border: none;
+  border: ${({error, theme}) => error ? `1px solid ${theme.color.red} ` : '1px solid transparent'};
   background: ${({theme}) => theme.color.darkwhite};
   position: relative;
   resize: none;

@@ -22,7 +22,7 @@ export const FinalistSection: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!publications?.length) {
-      dispatch(fetchPublicationsRequest({}));
+      dispatch(fetchPublicationsRequest({is_accepted:true}));
     }
   }, []);
 

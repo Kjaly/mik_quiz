@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyledTextareaContainer, StyledTextarea, StyledTextCounter } from './InputTextarea.styled';
-import { FieldRenderProps } from "react-final-form";
+import { FieldRenderProps } from 'react-final-form';
+import { ErrorTip } from '../../ErrorTip';
 
 interface IInputTextareaProps {
   placeholder?: string;
@@ -18,10 +19,11 @@ export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => 
     rows = 3,
     maxCount = 800,
     customOnChange,
+    meta
   } = props
 
 
-  const {onChange, name, value} = input;
+  const {onChange, name, value, onBlur, onFocus} = input;
   const [letterCount, setLetterCount] = useState(0);
   const [spaceCount, setSpaceCount] = useState(0);
   useEffect(() => {
@@ -41,11 +43,24 @@ export const InputTextarea: React.FC<IFormFinalInputTextareaProps> = (props) => 
     }
     onChange(currentEvent)
   }
+  const error = (meta.modified && meta.error) || (!meta?.visited && !meta?.touched && meta?.data?.error ? meta?.data?.error : null);
 
   return (
     <StyledTextareaContainer>
-      <StyledTextarea maxLength={maxCount + spaceCount} rows={rows} onChange={handleChange} name={name} placeholder={placeholder} value={value}/>
+      <StyledTextarea
+        error={error}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        maxLength={maxCount + spaceCount}
+        rows={rows}
+        onChange={handleChange}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+      />
       <StyledTextCounter>{letterCount} / {maxCount}</StyledTextCounter>
+      <ErrorTip error={error}/>
+
     </StyledTextareaContainer>
   );
 };

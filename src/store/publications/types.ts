@@ -106,6 +106,7 @@ export interface FetchPublicationRequestPayload {
 export interface FetchPublicationsRequestPayload {
   size?: number
   category_id?: number
+  is_accepted?: boolean
   user_id?:number
   type?:number
 }

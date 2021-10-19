@@ -27,7 +27,8 @@ import {
   FetchPublicationRequestPayload,
   FetchPublicationsRequestPayload,
   IPublicationRequestPayload,
-  TPublication, UpdatePublicationRequestPayload,
+  TPublication,
+  UpdatePublicationRequestPayload,
 } from './types';
 import { Action } from 'redux-actions';
 
@@ -51,11 +52,13 @@ function getFormData(object: any) {
 }
 
 
-const fetchPublications = (payload: FetchPublicationsRequestPayload): Promise<AxiosResponse<PublicationsResponse>> =>
-  $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications?include=user.photo,category,photos${payload.size
+const fetchPublications = (payload: FetchPublicationsRequestPayload): Promise<AxiosResponse<PublicationsResponse>> =>{
+  return $api.get<PublicationsResponse>(`${process.env.REACT_APP_API_URL}/publications?include=user.photo,category,photos${payload.size
       ? `&page[size]=${payload.size}`
       : ''}${payload.category_id
       ? `&filter[category_id]=${payload.category_id}`
+      : ''}${payload.is_accepted
+      ? `&filter[is_accepted]=1`
       : ''}${payload.user_id
       ? `&filter[user_id]=${payload.user_id}`
       : ''}`,
@@ -65,6 +68,7 @@ const fetchPublications = (payload: FetchPublicationsRequestPayload): Promise<Ax
         'Accept': 'application/json',
       },
     })
+  }
 ;
 
 const fetchPublication = (payload: { id: number }): Promise<AxiosResponse<PublicationsResponse>> =>

@@ -59,6 +59,9 @@ export const fields = {
     .required(errorsMessages.required),
   school: string()
     .required(errorsMessages.required),
+  text: string()
+    .required(errorsMessages.required),
+
   birthday: string()
     .required(errorsMessages.required),
   class: string()
