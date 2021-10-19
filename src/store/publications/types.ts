@@ -77,6 +77,7 @@ export interface IPublicationRequestPayload {
   description?: string;
   youtube_url?: string;
   user?: UserState,
+  user_id?: number,
 }
 
 

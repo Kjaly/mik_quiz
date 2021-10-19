@@ -24,20 +24,21 @@ export const Publications: React.FC = () => {
     dispatch(modalsActions.openModalAction({name: 'addPublicationModal'}));
   };
 
-
   const handleRemove = (id: number) => {
     dispatch(deletePublicationRequest({id, user_id: userId}));
   };
+  console.log(publications)
+  const myPublications = publications?.filter((item)=>item.user_id === userId)
   return (
     <StyledPublications>
       <TitleBanner>Мои публикации</TitleBanner>
       <ContentWrapper>
 
-        <StyledFilesGrid isEmpty={!publications?.length}>
+        <StyledFilesGrid isEmpty={!myPublications?.length}>
           <StyledPreviewBlock>
-            <UploadFile isEmpty={!publications?.length} onClick={handleClick}/>
+            <UploadFile isEmpty={!myPublications?.length} onClick={handleClick}/>
           </StyledPreviewBlock>
-          {publications?.length ? publications?.map((item, key) => {
+          {myPublications?.length ? myPublications?.map((item, key) => {
             return (
               <GalleryItem
                 key={key}
