@@ -27,8 +27,6 @@ export const FinalistSection: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log(filter);
-    console.log(publications?.length);
     if (filter.id && !publications?.length) {
       setIsFilteredEmpty(true);
     } else if (filter.id && isFilteredEmpty) {

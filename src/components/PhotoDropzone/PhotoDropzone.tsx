@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import {
   StyledAccepted,
@@ -19,7 +19,7 @@ export interface IPhotoDropzoneProps {
 export const PhotoDropzone: React.FC<IPhotoDropzoneProps> = (props) => {
   const acceptedFormats = ['.jpeg' ,'.png']
   const maxFileSize = 2097152; // 2mb in bytes
-
+  const [dropError, setDropError] = useState(false);
   const {name, files, setFiles} = props
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -29,14 +29,21 @@ export const PhotoDropzone: React.FC<IPhotoDropzoneProps> = (props) => {
         setFiles(acceptedFiles)
       }
     },
-    accept: '.jpeg, .png',
+    accept: '.jpeg, .png, .jpg',
     maxSize: maxFileSize,
+    onDropRejected:()=>{
+      setDropError(true)
+      setTimeout(() => {
+        setDropError(false)
+
+      }, 200);
+    }
   });
 
   const dropzoneRootProps = getRootProps();
   const dropzoneInputProps = getInputProps();
   return (
-    <StyledPhotoDropZone isDragActive={isDragActive} {...dropzoneRootProps}>
+    <StyledPhotoDropZone error={dropError} isDragActive={isDragActive} {...dropzoneRootProps}>
       <StyledButton>
         <Button
           background={theme.color.blue}

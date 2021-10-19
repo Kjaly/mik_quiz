@@ -32,6 +32,7 @@ export const PhotoModal: React.FC<TModalProps> = (props) => {
               prevEl: '.prev-gallery',
               nextEl: '.next-gallery',
             }}
+            loop
           >
             {photos.map((item:IPhoto) => {
               return (
