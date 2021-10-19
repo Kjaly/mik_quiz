@@ -33,7 +33,7 @@ export const Gallery: React.FC<IGalleryProps> = (props) => {
 
 
   useEffect(() => {
-    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id: filter?.id}));
+    dispatch(fetchPublicationsRequest({size: publicationsCount, category_id: filter?.id, is_accepted:true}));
   }, [publicationsCount, filter]);
 
   return (
