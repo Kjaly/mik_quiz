@@ -5,6 +5,7 @@ import quizSaga from './quiz/sagas';
 import expertSaga from './experts/sagas';
 import partnerSaga from './partners/sagas';
 import publicationsSaga from './publications/sagas';
+import pagesSaga from './pages/sagas';
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
@@ -14,4 +15,5 @@ export function* rootSaga(): any {
   yield all([fork(expertSaga)]);
   yield all([fork(partnerSaga)]);
   yield all([fork(publicationsSaga)]);
+  yield all([fork(pagesSaga)]);
 }

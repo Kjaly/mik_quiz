@@ -26,6 +26,8 @@ import mainImage from '../../assets/images/banner/mainImage.png';
 import mainImage2 from '../../assets/images/banner/mainImage2.jpg';
 import mainImage3 from '../../assets/images/banner/mainImage3.jpg';
 import { SliderDescription } from './SliderDescription';
+import { useSelector } from 'react-redux';
+import { getContentSelector } from '../../store/pages/selectors';
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -69,6 +71,7 @@ export const MainSlider: React.FC = () => {
 
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
+  const content = useSelector(getContentSelector)
 
   return (
     <StyledMainWrapper>
@@ -129,19 +132,24 @@ export const MainSlider: React.FC = () => {
 
       </StyledMainSlider>
       <ContentWrapper>
-        <StyledInfo>
-          <Title size={30} color={theme.color.darkgray}>Славные дороги прошлого – маршрут в будущее России</Title>
-          <StyledDescription>Проект «Славные дороги прошлого – маршрут в будущее России» посвящён памятным{' '}
-            {/* eslint-disable-next-line no-irregular-whitespace */}
-            историческим датам - 800-летию великого князя Александра Невского и 75-летию самой молодой в России
-            Калининградской области.
-            Участие в проекте даёт возможность старшеклассникам двух приграничных областей нашей страны -
-            Калининградской и Псковской, погрузиться в изучение истории родного края не по учебникам, а вживую. Приняв
-            участие в онлайн-викторине и став полуфиналистами проекта, отправиться на военно-исторические экскурсии,
-            пройти маршрутами знаменитых земляков, больше узнать о великих экспедициях и ратных подвигах. Участвуя в
-            создании видеолетописи западных форпостов России, победить в конкурсе видеороликов и отправиться в
-            путешествие по родной стране!</StyledDescription>
-        </StyledInfo>
+        {content ? (
+            <StyledInfo dangerouslySetInnerHTML={{__html: content}}/>
+        ) : (
+          <StyledInfo>
+            <Title size={30} color={theme.color.darkgray}>Славные дороги прошлого – маршрут в будущее России</Title>
+            <StyledDescription>Проект «Славные дороги прошлого – маршрут в будущее России» посвящён памятным{' '}
+              {/* eslint-disable-next-line no-irregular-whitespace */}
+              историческим датам - 800-летию великого князя Александра Невского и 75-летию самой молодой в России
+              Калининградской области.
+              Участие в проекте даёт возможность старшеклассникам двух приграничных областей нашей страны -
+              Калининградской и Псковской, погрузиться в изучение истории родного края не по учебникам, а вживую. Приняв
+              участие в онлайн-викторине и став полуфиналистами проекта, отправиться на военно-исторические экскурсии,
+              пройти маршрутами знаменитых земляков, больше узнать о великих экспедициях и ратных подвигах. Участвуя в
+              создании видеолетописи западных форпостов России, победить в конкурсе видеороликов и отправиться в
+              путешествие по родной стране!</StyledDescription>
+          </StyledInfo>
+        )}
+
       </ContentWrapper>
       <StyledDecorativeWrapper>
         <DecorativeLines color={theme.color.yellow}/>

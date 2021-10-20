@@ -10,6 +10,38 @@ export const StyledTextSection = styled.div`
   ${device.tabletL} {
     flex-direction: row;
   }
+  
+  > p {
+    font-size: 15px;
+    :last-child {
+      margin-bottom: 0;
+    }
+    
+    > img {
+      width: 100%;
+      height: 200px;
+      background-color: ${({theme}) => theme.color.blue};
+      position: relative;
+      margin-bottom: 20px;
+      float: left;
+
+      ::after {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+        background-color: ${({theme}) => theme.color.yellow};
+      }
+      ${device.tabletL} {
+        max-width: 415px;
+        margin: 0 30px 0 0;
+      }
+    }
+  }
+  
+ \`
 `
 export const StyledImg = styled.div`
   width: 100%;

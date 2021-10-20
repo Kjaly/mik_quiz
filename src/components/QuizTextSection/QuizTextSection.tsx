@@ -11,6 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { routerSelectors } from '../../store/route';
 import { Link } from 'react-router-dom';
+import { getContentSelector } from '../../store/pages/selectors';
 
 interface IQuizTextProps {
   isQuizStarted?: boolean;
@@ -21,6 +22,7 @@ export const QuizTextSection: React.FC<IQuizTextProps> = (props) => {
   const {isQuizStarted} = props;
   const currentPathname = useSelector(routerSelectors.getLocationPathName);
 
+  const content = useSelector(getContentSelector)
 
   const isEssay = currentPathname.includes('essay');
   if (isQuizStarted && !isEssay) return null;
@@ -64,40 +66,47 @@ export const QuizTextSection: React.FC<IQuizTextProps> = (props) => {
         </>
       ) : (
         <StyledTextItem>
-          <StyledQuizTextDescription>
-            <p>Дорогой участник!</p>
-            <p>Поздравляем тебя, ты прошел в следующий этап проекта «Славные дороги прошлого - маршрут в будущее
-              России».
-              Приглашаем тебя принять участие в межрегиональном слете в г. Калининграде (30 октября) / Пскове (23
-              октября
-              2021 года). В ходе слета будет проведена конференция, а также организованы бесплатные экскурсии в
-              сопровождении экспертов проекта, ты сможешь выбрать или предложить тему видеоролика, посвященного
-              военно-историческим туристским маршрутам региона или исторической личности. Ты сможешь получить
-              консультацию
-              специалистов и наставников по созданию контента.
-            </p>
-            <p>По результатам этих поездок участники получат задание на
-              создание видероликов об исторической личности или месте своего родного края. </p>
-            <p>Авторы 10 лучших работ от каждой области получат возможность бесплатно посетить другой регион.</p>
-          </StyledQuizTextDescription>
+          {content ? (
+            <StyledQuizTextDescription dangerouslySetInnerHTML={{__html: content}}/>
+          ) : (
+            <>
+              <StyledQuizTextDescription>
+                <p>Дорогой участник!</p>
+                <p>Поздравляем тебя, ты прошел в следующий этап проекта «Славные дороги прошлого - маршрут в будущее
+                  России».
+                  Приглашаем тебя принять участие в межрегиональном слете в г. Калининграде (30 октября) / Пскове (23
+                  октября
+                  2021 года). В ходе слета будет проведена конференция, а также организованы бесплатные экскурсии в
+                  сопровождении экспертов проекта, ты сможешь выбрать или предложить тему видеоролика, посвященного
+                  военно-историческим туристским маршрутам региона или исторической личности. Ты сможешь получить
+                  консультацию
+                  специалистов и наставников по созданию контента.
+                </p>
+                <p>По результатам этих поездок участники получат задание на
+                  создание видероликов об исторической личности или месте своего родного края. </p>
+                <p>Авторы 10 лучших работ от каждой области получат возможность бесплатно посетить другой регион.</p>
+              </StyledQuizTextDescription>
+              <StyledLinksWrapper>
+                <StyledLinkList>
+                  <StyledListItem>
+                    Скачать список{' '}
+                    <Link to="/files/finalistsKld.docx" target="_blank" download>полуфиналистов
+                      Калининграда
+                    </Link>
+                  </StyledListItem>
+                  <StyledListItem>
+                    Скачать список{' '}
+                    <Link to="/files/finalistsPskov.docx" target="_blank" download>полуфиналистов
+                      Пскова
+                    </Link>
+                  </StyledListItem>
 
-          <StyledLinksWrapper>
-            <StyledLinkList>
-              <StyledListItem>
-                Скачать список{' '}
-                <Link to="/files/finalistsKld.docx" target="_blank" download>полуфиналистов
-                  Калининграда
-                </Link>
-              </StyledListItem>
-              <StyledListItem>
-                Скачать список{' '}
-                <Link to="/files/finalistsPskov.docx" target="_blank" download>полуфиналистов
-                  Пскова
-                </Link>
-              </StyledListItem>
+                </StyledLinkList>
+              </StyledLinksWrapper>
+            </>
+          )}
 
-            </StyledLinkList>
-          </StyledLinksWrapper>
+
         </StyledTextItem>
       )
       }

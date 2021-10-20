@@ -6,6 +6,7 @@ import { AlertState } from './alerts/types';
 import { QuizState } from "./quiz/types";
 import { ExpertsState } from "./experts/types";
 import { PartnersState } from "./partners/types";
+import { IPagesState } from './pages/types';
 
 export interface AppState<R = IRouterState> {
   user: UserState,
@@ -15,5 +16,6 @@ export interface AppState<R = IRouterState> {
   modal: ModalState,
   alert: AlertState,
   publications: IPublicationsState,
+  pages: IPagesState,
   router: R;
 }

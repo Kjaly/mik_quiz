@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from "../../theme/devices";
+import { device } from '../../theme/devices';
 
 
 export const StyledContacts = styled.div`
@@ -15,7 +15,7 @@ export const StyledContacts = styled.div`
 
 
 export const StyledContactList = styled.div`
-
+  height: 100%;
   padding: 50px 0;
 
   ${device.tablet} {
@@ -27,6 +27,14 @@ export const StyledContactList = styled.div`
     padding: 100px 0;
 
   }
+  > p {
+    font-size: 22px;
+    margin-bottom: 20px;
+
+    > a {
+      color: ${({theme}) => theme.color.blue}
+    }
+  } 
 `
 export const StyledContactItem = styled.p`
   font-size: 22px;

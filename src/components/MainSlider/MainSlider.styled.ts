@@ -189,6 +189,14 @@ export const StyledInfo = styled.div`
   width: 100%;
   height: 100%;
   padding: 100px 0;
+  
+  >p {
+    width: 100%;
+    line-height: 1.5;
+    font-size: 20px;
+    text-align: justify;
+    white-space: pre-line;
+  }
 `
 export const StyledDescription = styled.p`
   width: 100%;

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuizRequest } from '../../store/quiz/actions';
 import { getQuizSelector } from '../../store/quiz/selectors';
 import { getUserIdSelector } from '../../store/user/selectors';
+import { MetaWrapper } from '../../components/MetaWrapper';
 
 
 export const Quiz: React.FC = () => {
@@ -53,21 +54,20 @@ export const Quiz: React.FC = () => {
   }, [quiz]);
 
 
-
-
-
   return (
-    <StyledQuiz>
-      <TitleBanner img={titleBackground}>Викторина
-        <StyledTitleDescription>
-          {/*Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет*/}
-          {/*за*/}
-          {/*собой процесс внедрения и модернизации новых предложений.*/}
-        </StyledTitleDescription>
-      </TitleBanner>
-      <ContentWrapper>
-        <QuizTextSection isQuizStarted={isQuizStarted}/>
-      </ContentWrapper>
-    </StyledQuiz>
+    <MetaWrapper>
+      <StyledQuiz>
+        <TitleBanner img={titleBackground}>Викторина
+          <StyledTitleDescription>
+            {/*Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции влечет*/}
+            {/*за*/}
+            {/*собой процесс внедрения и модернизации новых предложений.*/}
+          </StyledTitleDescription>
+        </TitleBanner>
+        <ContentWrapper>
+          <QuizTextSection isQuizStarted={isQuizStarted}/>
+        </ContentWrapper>
+      </StyledQuiz>
+    </MetaWrapper>
   );
 };
