@@ -23,7 +23,6 @@ function* fetchPagesSaga(action: Action<FetchPagesRequestPayload>) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const response = yield call(fetchPages, action.payload);
-    console.log(response)
     yield put(
       fetchPagesSuccess({
         pagesList: response.data.data,

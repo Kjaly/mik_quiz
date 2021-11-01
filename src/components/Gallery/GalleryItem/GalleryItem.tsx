@@ -62,7 +62,7 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
       {handleRemove && <StyledItemCross onClick={handleRemovePublication}><IconCross/></StyledItemCross>}
       {edit
         ? <StyledItemEdit onClick={handleEdit}><IconPen/></StyledItemEdit>
-        : <StyledItemUser><img src={publication?.user?.photo?.url} alt={publication?.user?.first_name}/></StyledItemUser>}
+        : <StyledItemUser>{publication?.user?.photo?.url ? ( <img src={publication?.user?.photo?.url} alt={publication?.user?.first_name}/>) : publication?.user?.first_name?.[0]}</StyledItemUser>}
     </StyledGalleryItem>
   );
 };
