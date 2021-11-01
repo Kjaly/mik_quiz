@@ -24,7 +24,9 @@ export const GalleryItem: React.FC<IGalleryItemProps> = (props) => {
   const {type, publication, edit, handleRemove} = props;
 
   const dispatch = useDispatch();
-  const videoId = publication?.youtube_url?.split('v=')[1]?.split('&')[0];
+
+  const videoId = publication?.youtube_url?.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)?.[1];
+
   const handleClick = () => {
     let modalProps;
     if (type === 1) {
