@@ -42,8 +42,9 @@ interface ISliderItem {
 const sliders: Array<ISliderItem> = [
   {
     id: 1,
-    title: `Подведены итоги конкурса видеороликов.`,
-    buttonText: 'Список победителей г. Псков.',
+    title: `Подведены итоги конкурса видеороликов.
+   Список победителей г. Псков.`,
+    buttonText: 'Смотреть список',
     img: mainImage,
   },
   {
