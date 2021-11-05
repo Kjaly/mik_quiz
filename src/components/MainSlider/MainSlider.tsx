@@ -42,9 +42,8 @@ interface ISliderItem {
 const sliders: Array<ISliderItem> = [
   {
     id: 1,
-    title: `Результаты онлайн-викторины
-   Список участников следующего этапа`,
-    buttonText: 'Смотреть список',
+    title: `Подведены итоги конкурса видеороликов.`,
+    buttonText: 'Список победителей г. Псков.',
     img: mainImage,
   },
   {

@@ -17,6 +17,10 @@ export const StyledSliderItemTitle = styled.div`
 `
 export const StyledButton = styled.div`
   width: fit-content;
+  > div {
+    min-height: 54px;
+    height: initial ;
+  }
 `
 export const StyledSliderText = styled.div`
   max-width: 100%;
