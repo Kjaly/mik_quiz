@@ -46,6 +46,7 @@ export const StyledButton = styled.div<Partial<IButtonProps>>`
   background: ${({background}) => background};
   border: ${({view, borderColor}) => view === 'bordered' && `1px solid ${borderColor || '#000'}`};
   opacity: ${({disabled}) => disabled ? 0.5 : 1};
+  text-decoration: none;
 
   :hover {
     background: ${({view, color}) => view === 'bordered' && color};

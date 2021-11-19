@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 
 
 const InfoBlockItem: React.FC<any> = (props) => {
-  const {text, description, img, onClick} = props
+  const {text, description, img, onClick, href, target} = props
   return (
     <StyledJoinCard>
       <StyledJoinCardLeftBlock>
@@ -36,6 +36,8 @@ const InfoBlockItem: React.FC<any> = (props) => {
             title={'Присоединиться'}
             color={'#fff'}
             reversed
+            href={href}
+            target={target}
             onClick={onClick}/>
         </StyledButtonWrapper>
       </StyledJoinCardLeftBlock>
@@ -64,6 +66,8 @@ export const InfoBlockSection: React.FC = () => {
           text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Калининград'}
           onClick={() => handleClick('Межрегиональный слет в г. Калининград состоится 20 ноября 2021 г.')}
           img={kld}
+          href={'https://www.youtube.com/watch?v=aHaFqWmric8'}
+          target={'_blank'}
         />
         <InfoBlockItem
           text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Псков'}
