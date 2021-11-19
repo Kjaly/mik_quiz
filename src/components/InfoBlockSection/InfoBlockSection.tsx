@@ -64,7 +64,6 @@ export const InfoBlockSection: React.FC = () => {
       <StyledInfoWrapper>
         <InfoBlockItem
           text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Калининград'}
-          onClick={() => handleClick('Межрегиональный слет в г. Калининград состоится 20 ноября 2021 г.')}
           img={kld}
           href={'https://www.youtube.com/watch?v=aHaFqWmric8'}
           target={'_blank'}
