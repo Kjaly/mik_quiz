@@ -25,6 +25,14 @@ export const Footer: React.FC<any> = () => {
               <Nav isFooter/>
             </StyledNavWrapper>
           </StyledFooterNav>
+          
+          <StyledFooterNav>
+            <StyledLogo>
+              <Logo name="nationalProjects" onClick={(e): void => {                
+                document.location.href = 'https://xn--80aapampemcchfmo7a3c9ehj.xn--p1ai/'
+              }}/>
+            </StyledLogo>
+          </StyledFooterNav>
 
           <StyledDescriptionWrapper>
             <StyledFooterDescription>

@@ -3,12 +3,12 @@ import { device } from '../../theme/devices';
 
 export const StyledFooterBackground = styled.div`
   width: 100%;
-  background: ${({theme}) => theme.color.blue};
-`
+  background: ${({ theme }) => theme.color.blue};
+`;
 export const StyledFooterWrapper = styled.div`
   width: 100%;
   padding: 70px 0;
-`
+`;
 export const StyledDescriptionWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -17,9 +17,8 @@ export const StyledDescriptionWrapper = styled.div`
 
   ${device.tablet} {
     flex-direction: row;
-
   }
-`
+`;
 export const StyledFooterNav = styled.div`
   padding-bottom: 40px;
   width: 100%;
@@ -31,15 +30,22 @@ export const StyledFooterNav = styled.div`
     padding-bottom: 50px;
     flex-direction: row;
   }
-`
+`;
+export const StyledFooterLogos = styled.div`
+  padding-bottom: 40px;
+
+  ${device.tablet} {
+    padding-bottom: 50px;
+  }
+`;
+
 export const StyledLogo = styled.div`
   flex-shrink: 0;
-`
+`;
 export const StyledNavWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex: 0 1 auto;
-
 
   ${device.tablet} {
     flex: 0 1 50%;
@@ -60,34 +66,31 @@ export const StyledNavWrapper = styled.div`
       width: 100%;
       height: 2px;
       opacity: 1;
-      background: #FFB801;
-      transition: all .2s ease-in;
+      background: #ffb801;
+      transition: all 0.2s ease-in;
     }
   }
-`
+`;
 
 export const StyledAuthListDesktop = styled.div`
-
   display: none;
 
   ${device.tabletL} {
     display: flex;
-    flex: .5;
+    flex: 0.5;
     justify-content: flex-end;
     align-items: center;
 
     > div:first-child {
       margin-right: 20px;
     }
-
   }
-`
+`;
 export const StyledAuthListMobile = styled(StyledAuthListDesktop)`
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
-
 
   ${device.tablet} {
     flex-basis: 50%;
@@ -103,7 +106,7 @@ export const StyledAuthListMobile = styled(StyledAuthListDesktop)`
   ${device.tabletL} {
     display: none;
   }
-`
+`;
 
 export const StyledFooterDescription = styled.div`
   color: #fff;
@@ -113,10 +116,10 @@ export const StyledFooterDescription = styled.div`
   flex-basis: 100%;
 
   p {
-    opacity: .4;
+    opacity: 0.4;
 
     &:first-child {
-      opacity: .8;
+      opacity: 0.8;
       margin-bottom: 10px;
     }
 
@@ -124,8 +127,5 @@ export const StyledFooterDescription = styled.div`
       text-decoration: underline;
       cursor: pointer;
     }
-
   }
-
-
-`
+`;
