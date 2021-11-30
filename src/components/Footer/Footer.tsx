@@ -24,19 +24,17 @@ export const Footer: React.FC<any> = () => {
             <StyledLogo>
               <Logo white />
             </StyledLogo>
-            <StyledNavWrapper>
-              <Nav isFooter />
-            </StyledNavWrapper>
-          </StyledFooterNav>
-          <StyledFooterNav>
             <StyledLogo>
               <Logo
                 logo="nationalProjects"
                 onClick={(e): void => {
-                  window.open('https://xn--80aapampemcchfmo7a3c9ehj.xn--p1ai/', '_blank');
+                  return;
                 }}
               />
             </StyledLogo>
+            <StyledNavWrapper>
+              <Nav isFooter />
+            </StyledNavWrapper>
           </StyledFooterNav>
           <StyledDescriptionWrapper>
             <StyledFooterDescription>

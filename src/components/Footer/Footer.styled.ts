@@ -30,6 +30,7 @@ export const StyledFooterNav = styled.div`
   ${device.tablet} {
     padding-bottom: 50px;
     flex-direction: row;
+    align-items: center;
   }
 `;
 export const StyledFooterLogos = styled.div`
@@ -42,6 +43,10 @@ export const StyledFooterLogos = styled.div`
 
 export const StyledLogo = styled.div`
   flex-shrink: 0;
+  margin-bottom: 20px;
+  ${device.tablet} {
+    margin-bottom: 0;
+  }
 `;
 export const StyledNavWrapper = styled.div`
   display: flex;
@@ -138,8 +143,8 @@ export const StyledFooterCopyrightWrapper = styled.div`
 `;
 
 export const StyledFooterCopyrightLogo = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 35px;
+  height: 35px;
   margin-right: 15px;
 `;
 

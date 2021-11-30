@@ -20,7 +20,7 @@ export const StyledLogo = styled.div<{ logo: string }>`
   max-width: ${({ logo }) => {
     return {
       default: 'auto',
-      nationalProjects: '210px',
+      nationalProjects: '140px',
     }[logo];
   }};
   cursor: pointer;
