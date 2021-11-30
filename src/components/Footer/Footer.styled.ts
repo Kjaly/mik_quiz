@@ -14,6 +14,7 @@ export const StyledDescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
+  margin-bottom: 30px;
 
   ${device.tablet} {
     flex-direction: row;
@@ -129,3 +130,17 @@ export const StyledFooterDescription = styled.div`
     }
   }
 `;
+
+export const StyledFooterCopyrightWrapper = styled.div`
+  display: flex;
+  color: #fff;
+  font-size: 12px;
+`;
+
+export const StyledFooterCopyrightLogo = styled.div`
+  width: 48px;
+  height: 48px;
+  margin-right: 15px;
+`;
+
+export const StyledFooterCopyrightrDescription = styled.div``;

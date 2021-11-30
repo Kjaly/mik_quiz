@@ -23,3 +23,4 @@ export { IconClock } from './IconClock';
 export { IconMail } from './IconMail';
 export { IconUser } from './IconUser';
 export { IconNationalProjectsBlue } from './IconNationalProjectsBlue';
+export { IconItspecial } from './IconItspecial';

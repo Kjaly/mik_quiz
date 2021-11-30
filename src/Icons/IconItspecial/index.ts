@@ -1,0 +1,1 @@
+export { IconItspecial } from './IconItspecial';

@@ -1,27 +1,27 @@
 import styled from 'styled-components';
 
-export const StyledLogo = styled.div<{ name: string }>`
+export const StyledLogo = styled.div<{ logo: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: ${({ name }) => {
+  width: ${({ logo }) => {
     return {
       default: '210px',
       nationalProjects: 'auto',
-    }[name];
+    }[logo];
   }};
-  height: ${({ name }) => {
+  height: ${({ logo }) => {
     return {
       default: '54px',
       nationalProjects: 'auto',
-    }[name];
+    }[logo];
   }};
-  max-width: ${({ name }) => {
+  max-width: ${({ logo }) => {
     return {
       default: 'auto',
       nationalProjects: '210px',
-    }[name];
+    }[logo];
   }};
   cursor: pointer;
   > img {

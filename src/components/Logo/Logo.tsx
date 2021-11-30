@@ -1,16 +1,16 @@
 import React from 'react';
-import { IconLogo, IconLogoWhite, IconNationalProjectsBlue } from "../../Icons";
+import { IconLogo, IconLogoWhite, IconNationalProjectsBlue, IconItspecial } from "../../Icons";
 import { history } from '../../store';
 import { StyledLogo } from './Logo.styled';
 
 interface ILogoProps {
   white?: boolean,
   onClick?: (e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => void,
-  name?: string,
+  logo?: string,
 }
 
 export const Logo: React.FC<ILogoProps> = (props) => {
-  const {white, onClick, name = 'default'} = props;
+  const {white, onClick, logo = 'default'} = props;
 
   const handleClick = (
       event: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>
@@ -23,12 +23,13 @@ export const Logo: React.FC<ILogoProps> = (props) => {
   }
 
   return (
-    <StyledLogo name={name} onClick={handleClick}>
+    <StyledLogo logo={logo} onClick={handleClick}>
       {
         {
           'nationalProjects': <IconNationalProjectsBlue/>,
+          'itspecial': <IconItspecial/>,
           'default': white ? <IconLogoWhite/> : <IconLogo/>
-        }[name]
+        }[logo]
       }
     </StyledLogo>
   );
