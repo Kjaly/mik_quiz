@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentWrapper } from "../ContentWrapper";
+import { ContentWrapper } from '../ContentWrapper';
 import {
   StyledButtonWrapper,
   StyledInfoWrapper,
@@ -9,13 +9,11 @@ import {
   StyledJoinCardLeftBlock,
   StyledJoinCardText
 } from './InfoBlockSection.styled';
-import { theme } from "../../theme";
-import { Button } from "../Button";
-import { IconArrowRight } from "../../Icons";
+import { theme } from '../../theme';
+import { Button } from '../Button';
+import { IconArrowRight } from '../../Icons';
 import kld from '../../assets/images/infoBlock/kld.png'
 import pskov from '../../assets/images/infoBlock/pskov.png'
-import { modalsActions } from "../../store/modals/actions";
-import { useDispatch } from "react-redux";
 
 
 const InfoBlockItem: React.FC<any> = (props) => {
@@ -51,14 +49,6 @@ const InfoBlockItem: React.FC<any> = (props) => {
 
 export const InfoBlockSection: React.FC = () => {
 
-  const dispatch = useDispatch()
-  const handleClick = (text: string) => {
-    dispatch(modalsActions.openModalAction({
-      name: 'quizAlertModal',
-      props: {text}
-    }))
-  }
-
   return (
     <ContentWrapper customMargin={'right'}>
       <StyledInfoWrapper>
@@ -70,7 +60,8 @@ export const InfoBlockSection: React.FC = () => {
         />
         <InfoBlockItem
           text={'Присоединяйтесь к межрегиональному слету полуфиналистов в г. Псков'}
-          onClick={() => handleClick(`Межрегиональный слет в г. Псков \nсостоится 04 декабря 2021 г.`)}
+          href={'https://youtu.be/CQyp9JVd5jM'}
+          target={'_blank'}
           img={pskov}/>
       </StyledInfoWrapper>
 
