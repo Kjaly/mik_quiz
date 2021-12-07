@@ -7,7 +7,10 @@ import {
   StyledFooterWrapper,
   StyledLogo,
   StyledNavWrapper,
-} from './Footer.styled'
+  StyledFooterCopyrightWrapper,
+  StyledFooterCopyrightLogo,
+  StyledFooterCopyrightrDescription,
+} from './Footer.styled';
 import { Nav } from '../Nav';
 import { Logo } from '../Logo';
 import { ContentWrapper } from '../ContentWrapper';
@@ -19,25 +22,54 @@ export const Footer: React.FC<any> = () => {
         <StyledFooterWrapper>
           <StyledFooterNav>
             <StyledLogo>
-              <Logo white/>
+              <Logo white />
+            </StyledLogo>
+            <StyledLogo>
+              <Logo
+                logo="nationalProjects"
+                onClick={(e): void => {
+                  return;
+                }}
+              />
             </StyledLogo>
             <StyledNavWrapper>
-              <Nav isFooter/>
+              <Nav isFooter />
             </StyledNavWrapper>
           </StyledFooterNav>
-
           <StyledDescriptionWrapper>
             <StyledFooterDescription>
-              <p>По всем техническим вопросам обращайтесь на <a href = "mailto: support@future-of-russia.ru">support@future-of-russia.ru</a></p>
-              <p>© 2021 Все материалы данного сайта являются объектами авторского права (в том числе дизайн).
-              Запрещается копирование, распространение (в том числе путем копирования на другие сайты и ресурсы в
-              Интернете) или любое иное использование информации и объектов без предварительного согласия
-              правообладателя.</p>
+              <p>
+                По всем техническим вопросам обращайтесь на{' '}
+                <a href="mailto: support@future-of-russia.ru">support@future-of-russia.ru</a>
+              </p>
+              <p>
+                © 2021 Все материалы данного сайта являются объектами авторского права (в том числе
+                дизайн). Запрещается копирование, распространение (в том числе путем копирования на
+                другие сайты и ресурсы в Интернете) или любое иное использование информации и
+                объектов без предварительного согласия правообладателя.
+              </p>
             </StyledFooterDescription>
-          </StyledDescriptionWrapper>
+          </StyledDescriptionWrapper>{' '}
+          <StyledFooterCopyrightWrapper>
+            <StyledFooterCopyrightLogo>
+              <StyledLogo>
+                <Logo
+                  logo="itspecial"
+                  onClick={(e): void => {
+                    window.open('https://itspecial.net/', '_blank');
+                  }}
+                />
+              </StyledLogo>
+            </StyledFooterCopyrightLogo>
+            <StyledFooterCopyrightrDescription>
+              <p>
+                © ITSpecial company, 2021
+                <br /> Создание и поддержка сайта
+              </p>
+            </StyledFooterCopyrightrDescription>
+          </StyledFooterCopyrightWrapper>
         </StyledFooterWrapper>
       </ContentWrapper>
     </StyledFooterBackground>
   );
 };
-
